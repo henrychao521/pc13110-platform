@@ -19,7 +19,11 @@
     background:var(--theme-light); }
   .mat-card .mt-head .mt-emoji { font-size:26px; }
   .mat-card .mt-head .mt-name { font-weight:800; font-size:14.5px; }
-  .mat-card .mt-body { padding:12px 14px; font-size:13px; color:var(--text-soft); }
+  .mat-card .mt-photo { width:100%; aspect-ratio:4/3; object-fit:cover; display:block;
+    background:var(--bg-soft); }
+  .mat-card .mt-credit { font-size:10.5px; color:var(--text-light); padding:5px 14px 0; }
+  .mat-card .mt-credit a { color:var(--text-muted); }
+  .mat-card .mt-body { padding:10px 14px 14px; font-size:13px; color:var(--text-soft); }
   .mat-card .mt-row { margin-bottom:4px; }
   .mat-card .mt-row b { color:var(--text); }
   @media(max-width:680px){ .mat-grid{grid-template-columns:1fr;} }

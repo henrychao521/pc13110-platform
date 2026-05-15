@@ -520,7 +520,21 @@ details.deep .deep-body p { font-size: 14px; color: var(--text-soft); }
 /* 名詞小卡 */
 .term { border-bottom: 2px dotted var(--theme); cursor: help; font-weight: 600; }
 
-@media (max-width: 680px) { .resource-grid { grid-template-columns: 1fr; } }
+/* 實物照片 figure */
+.figure { margin: 16px 0; border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; background: #fff; }
+.figure img { width: 100%; display: block; background: var(--bg-soft); }
+.figure figcaption { padding: 9px 13px; font-size: 12px; color: var(--text-muted); line-height: 1.65; }
+.figure figcaption .fc-t { font-weight: 700; color: var(--text); font-size: 13px; display: block; }
+.figure figcaption a { color: var(--theme); text-decoration: underline; }
+.fig-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 16px 0; }
+.fig-grid .figure { margin: 0; }
+.fig-grid .figure img { aspect-ratio: 4 / 3; object-fit: cover; }
+
+@media (max-width: 680px) {
+  .resource-grid { grid-template-columns: 1fr; }
+  .fig-grid { grid-template-columns: 1fr; }
+}
 
 /* 資料表 */
 table.data {

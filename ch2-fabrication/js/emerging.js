@@ -4,16 +4,19 @@
 
 const EQUIPMENT = [
   { emoji: '💧', name: '光固化樹脂 3D 列印', tag: '高精度列印',
+    img: 'resin-printer.jpg', credit: 'Tampere Hacklab・CC BY 2.0', file: 'Elegoo_mars.jpg',
     principle: '用 UV 紫外光（常透過 LCD 遮罩)逐層固化液態的光敏樹脂。',
     strength: '精度遠高於 FDM,表面光滑細緻,能印出極精細的結構。',
     use: '牙科模型與假牙、珠寶蠟模、公仔模型、精密零件。',
     brand: 'Formlabs（美)、Phrozen 普羅森（臺灣)、ELEGOO、Anycubic（中)。' },
   { emoji: '⚙️', name: '金屬 3D 列印', tag: '加工金屬',
+    img: 'metal-3dprint.jpg', credit: 'CSIRO・CC BY 3.0', file: 'CSIRO_ScienceImage_1761_3D_printed_titanium_horseshoes.jpg',
     principle: '用高功率雷射,逐層熔融金屬粉末（SLM／DMLS 技術)。',
     strength: '能做出傳統加工無法達成的內部複雜流道、輕量化鏤空結構。',
     use: '航太引擎零件、客製化醫療植入物（如人工關節)、賽車零件。',
     brand: 'EOS（德)、Markforged（美)、GE Additive。' },
   { emoji: '📷', name: '3D 掃描器', tag: '實體轉數位',
+    img: '3d-scanner.jpg', credit: 'Creative Tools・CC BY 2.0', file: 'VIUscan_handheld_3D_scanner_in_use.jpg',
     principle: '用結構光或雷射量測物體表面的形狀,轉成 3D 數位模型。',
     strength: '把「實體 → 數位」,方向與 3D 列印相反,是「逆向工程」的關鍵。',
     use: '逆向工程、文物與藝術品數位典藏、客製化（如量身訂製義肢)。',
@@ -50,6 +53,10 @@ const opened = new Set();
         <span class="eh-arrow">▸</span>
       </div>
       <div class="emg-body"><div class="emg-body-inner">
+        ${e.img ? `<figure class="figure" style="margin:0 0 12px">
+          <img src="../../assets/photos/${e.img}" alt="${e.name}" loading="lazy">
+          <figcaption>📷 實物照片　${e.credit}・<a href="https://commons.wikimedia.org/wiki/File:${e.file}" target="_blank" rel="noopener">Wikimedia Commons</a></figcaption>
+        </figure>` : ''}
         <div class="er"><b>原理：</b>${e.principle}</div>
         <div class="er"><b>新穎之處：</b>${e.strength}</div>
         <div class="er"><b>應用：</b>${e.use}</div>

@@ -29,7 +29,23 @@
   .app-card .ac-name { font-weight:800; font-size:14px; margin-top:6px; }
   .app-detail { font-size:13px; color:var(--text-soft); margin-top:10px;
     background:var(--theme-light); border-radius:10px; padding:12px 14px; display:none; }
-  @media(max-width:680px){ .app-grid{grid-template-columns:repeat(2,1fr);} }
+  /* 手繪 vs CAD 模擬動畫 */
+  .draw-sim { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
+  .draw-pane { border:1.5px solid var(--border); border-radius:12px; overflow:hidden; background:#fff; }
+  .dp-title { padding:8px 13px; font-weight:800; font-size:13px; }
+  .dp-title.hand { background:#FFF7ED; color:#9A3412; }
+  .dp-title.cad { background:var(--theme-light); color:var(--theme-dark); }
+  .draw-pane canvas { width:100%; height:180px; display:block; background:#fff; }
+  .dp-foot { padding:7px 13px; font-size:12px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center; }
+  .dp-foot .dp-time { font-family:var(--font-mono); font-weight:700; }
+  .task-chips { display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 10px; }
+  .task-chips button { padding:6px 11px; font-size:12px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:999px;
+    cursor:pointer; font-family:var(--font-sans); transition:all .15s; }
+  .task-chips button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .task-chips button.cleared { border-color:var(--success); color:var(--success); }
+  @media(max-width:680px){ .app-grid{grid-template-columns:repeat(2,1fr);} .draw-sim{grid-template-columns:1fr;} }
 </style>
 </head>
 <body class="ch2">
@@ -68,21 +84,43 @@
       <strong>創建、修改、分析或優化設計</strong>的技術。在 CAD 出現以前,設計師依賴鉛筆、尺規、
       圓規等傳統工具,把創意一筆一劃畫在圖紙上——過程耗時、容易出錯,稍有不慎甚至會讓整份稿件白費。
     </p>
+    <figure class="figure">
+      <img src="../../assets/photos/drafting-tools.jpg" alt="傳統製圖工具:製圖板、丁字尺、三角板與圓規" loading="lazy">
+      <figcaption>
+        <span class="fc-t">傳統製圖工具</span>
+        CAD 出現前,工程師靠製圖板、丁字尺、三角板、圓規等手工工具繪圖。
+        📷 Michael Holley・CC BY-SA 4.0・<a href="https://commons.wikimedia.org/wiki/File:Drafting_board_with_T_square_and_drawingtools.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
+      </figcaption>
+    </figure>
     <p>
       CAD 徹底改變了各行各業的設計與製造流程,並推動了現代科技與工業的快速發展。
       它帶來的價值,可歸納為下列四個面向。
     </p>
   </section>
 
-  <!-- 互動：改圖競速 -->
+  <!-- 互動：手繪 vs CAD 模擬動畫 -->
   <div class="activity-box">
-    <span class="ab-label">🧠 動動腦 動動手 ①</span>
-    <h3 style="margin-bottom:4px">改圖競速:傳統手繪 vs CAD</h3>
-    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
-      設計過程中,「修改」是家常便飯。點「開始這項任務」,看看同一個設計變更,兩種方式各要花多久。
+    <span class="ab-label">🎬 動手操作:手繪 vs CAD 改圖模擬</span>
+    <h3 style="margin-bottom:4px">同一個修改,兩種畫法的差別</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      設計過程中「修改」是家常便飯。點下方任務,看左右兩邊<strong>同步播放動畫</strong>——
+      左邊模擬傳統手繪(擦拭、重畫、留痕跡),右邊模擬 CAD(指令修改、乾淨快速)。
       完成 4 項任務即可解鎖本模組的後半段。
     </p>
-    <div id="raceArea"></div>
+    <div class="task-chips" id="taskChips"></div>
+    <div class="draw-sim">
+      <div class="draw-pane">
+        <div class="dp-title hand">✏️ 傳統手繪</div>
+        <canvas id="handCanvas"></canvas>
+        <div class="dp-foot"><span>狀態</span><span class="dp-time" id="handTime" style="color:#D97706">就緒</span></div>
+      </div>
+      <div class="draw-pane">
+        <div class="dp-title cad">🖥️ CAD（電腦輔助設計)</div>
+        <canvas id="cadCanvas"></canvas>
+        <div class="dp-foot"><span>狀態</span><span class="dp-time" id="cadTime" style="color:var(--theme)">就緒</span></div>
+      </div>
+    </div>
+    <div id="taskResult" style="font-size:13px;min-height:24px"></div>
   </div>
 
   <section class="content-section">
