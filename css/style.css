@@ -523,13 +523,18 @@ details.deep .deep-body p { font-size: 14px; color: var(--text-soft); }
 /* 實物照片 figure */
 .figure { margin: 16px 0; border: 1px solid var(--border); border-radius: var(--radius);
   overflow: hidden; background: #fff; }
-.figure img { width: 100%; display: block; background: var(--bg-soft); }
+.figure img {
+  width: 100%; display: block; background: var(--bg-soft);
+  aspect-ratio: 16 / 10;        /* 統一比例,避免直式圖片撐爆版面 */
+  max-height: 380px;
+  object-fit: cover;
+}
 .figure figcaption { padding: 9px 13px; font-size: 12px; color: var(--text-muted); line-height: 1.65; }
 .figure figcaption .fc-t { font-weight: 700; color: var(--text); font-size: 13px; display: block; }
 .figure figcaption a { color: var(--theme); text-decoration: underline; }
 .fig-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 16px 0; }
 .fig-grid .figure { margin: 0; }
-.fig-grid .figure img { aspect-ratio: 4 / 3; object-fit: cover; }
+.fig-grid .figure img { aspect-ratio: 4 / 3; max-height: 260px; }
 
 @media (max-width: 680px) {
   .resource-grid { grid-template-columns: 1fr; }
