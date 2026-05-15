@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科技趨勢儀表板 ｜ 第 1 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📈%3C/text%3E%3C/svg%3E">
+</head>
+<body class="ch1">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・1-1 科技加速發展的時代</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 1 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 1 章</a><span class="sep">›</span>
+    <span>科技趨勢儀表板</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 1-1・科技加速發展的時代</div>
+    <h1>科技趨勢儀表板</h1>
+    <p>20 世紀末以來,科技與工程的發展進入高速成長階段,幾乎以指數級的速度推進。切換下方四大趨勢,動手探索改變世界的科技力量。</p>
+  </div>
+
+  <section class="content-section">
+    <p>
+      根據《世界經濟論壇（World Economic Forum, WEF）》2023 年報告,2020 至 2023 年間,
+      全球科技研發支出年均成長超過 <strong>7%</strong>,總額突破 <strong>2.4 兆美元</strong>,
+      其中超過三分之一投入於人工智慧、半導體與生醫科技等新興領域。資源高度集中,
+      讓過去可能需數十年的技術,如今能在短短幾年內實現商業化。
+    </p>
+  </section>
+
+  <!-- 四大趨勢分頁 -->
+  <div class="tabs" id="trendTabs">
+    <button class="tab active" data-tab="ai">🤖 人工智慧</button>
+    <button class="tab" data-tab="quantum">⚛️ 量子與半導體</button>
+    <button class="tab" data-tab="bio">🧬 生醫科技</button>
+    <button class="tab" data-tab="energy">♻️ 再生能源</button>
+  </div>
+
+  <!-- AI -->
+  <div class="tab-panel active" id="tab-ai">
+    <div class="content-section">
+      <h2>人工智慧：智慧革新的引擎</h2>
+      <p>
+        根據麥肯錫 2024 年全球調查報告（McKinsey &amp; Company, 2024）,全球已有 <strong>72%</strong> 的企業
+        導入至少一種 AI 技術,且生成式 AI 的採用率在一年內呈現翻倍成長。全球在 AI 領域的總投資額
+        於 2025 年已達突破 <strong>2000 億美元</strong>的規模,並有望在 2030 年前為全球經濟貢獻高達
+        <strong>13 兆美元</strong>的產值。
+      </p>
+      <p>
+        以 ChatGPT（Chat Generative Pre-trained Transformer）為例,自 2022 年底推出以來,
+        使用者數量迅速攀升,創下科技應用普及速度的新紀錄。把滑鼠移到曲線上,觀察用戶數的爆發成長。
+      </p>
+      <div class="panel" style="margin-top:8px">
+        <div style="font-size:13px;font-weight:800;color:var(--theme-dark);margin-bottom:4px">📊 ChatGPT 每週活躍用戶數（2023–2025，依課本圖 1-2 趨勢示意）</div>
+        <canvas id="chartChatGPT" height="260"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px">資料來源：課本圖 1-2（OpenAI 公開數據趨勢整理）。圖為示意,確切數值以官方公告為準。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 量子與半導體 -->
+  <div class="tab-panel" id="tab-quantum">
+    <div class="content-section">
+      <h2>量子運算與半導體：開啟次世代運算革命</h2>
+      <p>
+        隨著 AI 運算需求提升,量子運算被視為硬體領域下一波運算革新的核心。自 2019 年 Google
+        宣布實現量子霸權以來,量子晶片研發加速。2023 年 IBM 發布擁有 <strong>127 量子位元</strong>的
+        Eagle 處理器,並於 2025 年推進至擁有 <strong>1121 量子位元</strong>的 Condor 處理器。
+      </p>
+      <p>
+        與此同時,半導體產業持續進步。台積電於 2023 年成功量產 <strong>3 奈米</strong>製程晶片,
+        使 AI 晶片效能提升至少 15%,並呈現高達 30% 的節能效果。台灣 IC 產業產值更是逐年攀升——
+        把滑鼠移到下方曲線,看看它如何從 1 兆元一路突破 4 兆元。
+      </p>
+      <div class="panel" style="margin-top:8px">
+        <div style="font-size:13px;font-weight:800;color:var(--theme-dark);margin-bottom:4px">📊 2004–2022 台灣 IC 產業產值趨勢（兆新臺幣）</div>
+        <canvas id="chartIC" height="280"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px">資料來源：工研院產科國際所（課本圖 1-1）。2021、2022 為估計值/預測值。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 生醫 -->
+  <div class="tab-panel" id="tab-bio">
+    <div class="content-section">
+      <h2>生醫科技：技術驅動健康革命</h2>
+      <p>
+        新冠疫情後,生醫科技的創新步伐加速。mRNA 疫苗的成功開發便是其中一個案例——
+        Moderna 與 BioNTech 僅用不到一年的時間,便完成了從研發到上市的過程。
+      </p>
+      <p>
+        根據 Statista 的統計,全球數位健康市場在 2022 年達到 <strong>3340 億美元</strong>,
+        並在 2025 年達到突破 <strong>6500 億美元</strong>的市場規模。隨著 AI 運算發展,個人化醫療、
+        基因編輯（如 CRISPR 技術）、遠距醫療等領域將加速普及。
+      </p>
+      <div class="panel" style="margin-top:8px">
+        <div style="font-size:13px;font-weight:800;color:var(--theme-dark);margin-bottom:4px">📊 全球數位健康市場規模（億美元）</div>
+        <canvas id="chartBio" height="240"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px">資料來源：Statista（課本 1-1-3 節）。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 再生能源 -->
+  <div class="tab-panel" id="tab-energy">
+    <div class="content-section">
+      <h2>再生能源與氣候科技：走向永續未來</h2>
+      <p>
+        面對全球暖化挑戰,研發再生能源與推動永續發展成為關鍵。根據國際能源署（IEA）2023 年資料,
+        全球太陽能裝置容量年增 <strong>22%</strong>,再生能源占全球總發電量達 <strong>29%</strong>,
+        較 2010 年增加近兩倍。
+      </p>
+      <p>
+        臺灣也訂定了 2025 年再生能源發電占比達 <strong>20%</strong>、裝置量 2700 萬瓩（<strong>27GW</strong>）的目標,
+        期望太陽能與風能逐步取代化石燃料。觀察下方臺灣發電來源的變化趨勢。
+      </p>
+      <div class="panel" style="margin-top:8px">
+        <div style="font-size:13px;font-weight:800;color:var(--theme-dark);margin-bottom:4px">📊 臺灣發電來源變化（發電占比 %，依課本圖 1-4 趨勢示意）</div>
+        <canvas id="chartEnergy" height="280"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px">資料來源：經濟部（課本圖 1-4）。2025 年為政策目標值。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>為什麼說科技在「加速」發展?</h4>
+    <p>
+      過去一項技術從研發到商業化可能需要數十年,但資源高度集中於 AI、半導體、生醫等領域後,
+      技術突破變得更頻繁。ChatGPT 在 2 個月內突破 1 億用戶,是史上普及最快的消費應用之一——
+      這種「指數級」而非「線性」的成長,正是科技加速的具體寫照。
+    </p>
+  </div>
+
+  <!-- 動動腦：趨勢配對 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手</span>
+    <h3 style="margin-bottom:6px">趨勢檢核：你掌握了科技脈動嗎?</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">完成下方 4 題,即可完成本模組。</p>
+    <div id="quizArea"></div>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="../index.html">← 回第 1 章</a>
+    <a class="btn btn-primary" href="process.html" id="nextBtn">下一個：工程設計流程 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/trends.js"></script>
+</body>
+</html>

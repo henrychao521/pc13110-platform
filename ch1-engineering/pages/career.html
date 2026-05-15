@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>競賽與職涯倫理 ｜ 第 1 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏆%3C/text%3E%3C/svg%3E">
+<style>
+  .comp-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .comp-filter { padding:7px 14px; border-radius:999px; font-size:13px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; cursor:pointer;
+    font-family:var(--font-sans); transition:all .2s var(--easing); }
+  .comp-filter:hover { border-color:var(--theme); }
+  .comp-filter.active { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .comp-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  .comp-card { border:1px solid var(--border); border-radius:var(--radius); padding:18px;
+    background:#fff; cursor:pointer; transition:all .22s var(--easing); }
+  .comp-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--theme); }
+  .comp-card .cc-type { font-size:11px; font-weight:700; color:var(--theme);
+    background:var(--theme-light); padding:3px 9px; border-radius:999px; }
+  .comp-card h4 { font-size:16px; font-weight:800; margin:8px 0 4px; }
+  .comp-card .cc-detail { font-size:13px; color:var(--text-soft); line-height:1.65;
+    max-height:0; overflow:hidden; transition:max-height .3s var(--easing); }
+  .comp-card.open .cc-detail { max-height:200px; margin-top:8px; }
+  .comp-card .cc-hint { font-size:11px; color:var(--text-light); margin-top:6px; }
+  @media(max-width:680px){ .comp-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch1">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・1-3 / 1-4 競賽與職涯</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 1 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 1 章</a><span class="sep">›</span>
+    <span>競賽與職涯倫理</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 1-5・專題、競賽與職涯</div>
+    <h1>競賽與職涯倫理</h1>
+    <p>科技競賽是工程實作能力的試煉場;而工程師的每個決定,都牽涉倫理與責任。本模組帶你認識競賽舞台,並省思科技與社會的關係。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>科技競賽圖鑑</h2>
+    <p>參加競賽,是把工程設計流程「實戰」一次的最好機會。點擊卡片看詳細介紹,或用上方分類篩選。</p>
+    <div class="comp-filters" id="compFilters"></div>
+    <div class="comp-grid" id="compGrid"></div>
+  </section>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>FRC 為何被稱為「機器人界的奧運」?</h4>
+    <p>
+      FRC（FIRST Robotics Competition）每年公布新賽題,參賽隊伍必須在約 6 週的有限時間內,
+      從零打造一台工業等級的機器人。它考驗的不只是技術,更包含<strong>工程管理、時程控制與團隊合作</strong>——
+      這正是真實工程專案的縮影。
+    </p>
+  </div>
+
+  <section class="content-section">
+    <h2>工程倫理與職涯</h2>
+    <p>
+      科技不僅推動技術革新,也引發倫理與社會的挑戰。工程師的決策會影響大眾的安全、隱私與環境,
+      因此必須在創新、成本、安全與永續之間取得平衡。
+    </p>
+    <div class="knowledge-box" style="background:linear-gradient(135deg,#FEE2E2,#fff);border-left-color:#DC2626">
+      <span class="kb-label" style="color:#B91C1C">⚠️ 工程倫理案例：阿波羅 1 號事件</span>
+      <p>
+        1967 年,阿波羅 1 號（Apollo 1）在一次地面測試中,因艙內失火造成三名太空人罹難。
+        這場悲劇促使 NASA <strong>全面檢討並改革其工程設計與安全流程</strong>,大幅提升對安全的重視。
+        這個案例提醒每一位工程師:當安全與進度衝突時,<strong>安全永遠優先</strong>。
+      </p>
+    </div>
+    <p>
+      在職涯方面,科技與工程領域提供多元的發展方向——機構工程師、產品設計師、韌體工程師、
+      結構技師、CAD/CAE 工程師、機器人工程師等。本課程的工程設計流程訓練,正是這些職涯的共同基礎。
+    </p>
+  </section>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手</span>
+    <h3 style="margin-bottom:4px">工程倫理情境抉擇</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
+      工程師常面臨兩難。完成下方 3 題情境抉擇,即可完成本模組與第 1 章。
+    </p>
+    <div id="ethicsQuiz"></div>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="planner.html">← 專題規劃器</a>
+    <a class="btn btn-primary" href="../index.html" id="nextBtn">完成第 1 章 ✓</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/career.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工程設計流程互動 ｜ 第 1 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔄%3C/text%3E%3C/svg%3E">
+<style>
+  /* STEM 齒輪 */
+  .gear-stage { display:flex; justify-content:center; align-items:center; gap:0; flex-wrap:wrap;
+    background:linear-gradient(135deg,#1E3A8A,#1D4ED8); border-radius:var(--radius-lg);
+    padding:30px 20px; position:relative; }
+  .gear-unit { display:flex; flex-direction:column; align-items:center; }
+  .gear-svg { transition:none; }
+  .gear-spinning .gear-svg.cw  { animation:spinCW 6s linear infinite; }
+  .gear-spinning .gear-svg.ccw { animation:spinCCW 6s linear infinite; }
+  @keyframes spinCW  { to { transform:rotate(360deg); } }
+  @keyframes spinCCW { to { transform:rotate(-360deg); } }
+  .gear-label { color:#fff; font-weight:800; font-size:14px; margin-top:4px; text-align:center; }
+  .gear-label small { display:block; font-weight:500; font-size:10px; opacity:.7; font-family:var(--font-mono); }
+
+  /* 流程環 */
+  .edp-ring { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .edp-node { background:#fff; border:2px solid var(--border); border-radius:var(--radius);
+    padding:16px 12px; text-align:center; cursor:pointer; transition:all .22s var(--easing); position:relative; }
+  .edp-node:hover { border-color:var(--theme); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .edp-node.active { border-color:var(--theme); background:var(--theme-light); }
+  .edp-node .en-num { font-family:var(--font-mono); font-size:11px; font-weight:700; color:#fff;
+    background:var(--theme); width:24px; height:24px; border-radius:50%; display:flex;
+    align-items:center; justify-content:center; margin:0 auto 6px; }
+  .edp-node .en-icon { font-size:26px; }
+  .edp-node .en-name { font-size:13px; font-weight:800; margin-top:4px; }
+  .stem-cards { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:16px; }
+  @media(max-width:680px){ .edp-ring{grid-template-columns:repeat(2,1fr);} .stem-cards{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch1">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・1-2 工程設計流程</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 1 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 1 章</a><span class="sep">›</span>
+    <span>工程設計流程互動</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 1-2・工程設計流程</div>
+    <h1>工程設計流程互動</h1>
+    <p>解決真實世界的問題,單一學科的知識往往不夠用。本模組帶你理解 STEM 跨域整合,並親手操作貫穿全書的「工程設計流程」。</p>
+  </div>
+
+  <!-- STEM -->
+  <section class="content-section">
+    <h2>STEM：以工程為核心的跨領域整合</h2>
+    <p>
+      工程設計（E）就像一個中心大齒輪,帶動科學探究（S）與數學分析（M）兩個小齒輪,
+      最後產出科技產品（T）。點下方按鈕,讓齒輪轉起來,觀察它們如何彼此咬合連動。
+    </p>
+    <div class="gear-stage" id="gearStage"></div>
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn btn-primary" id="gearBtn">▶ 啟動 STEM 齒輪</button>
+    </div>
+    <div class="stem-cards">
+      <div class="panel"><strong style="color:#F59E0B">⚙️ 工程 Engineering</strong>
+        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">解決問題的「歷程」與「整合平台」。透過工程設計流程把各領域知識串聯起來。</p></div>
+      <div class="panel"><strong style="color:#16A34A">🔬 科學 Science</strong>
+        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">工程設計的「理論基礎」。運用科學原理探究「為什麼」,確保設計符合自然法則。</p></div>
+      <div class="panel"><strong style="color:#2563EB">📐 數學 Mathematics</strong>
+        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">工程分析的「精準工具」。用數學進行預測、分析與計算,確保設計安全有效率。</p></div>
+      <div class="panel"><strong style="color:#C026D3">🛠️ 科技 Technology</strong>
+        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">工程實作的「工具」或「產出」。包含 CAD 繪圖、程式設計,以及最終產出的產品。</p></div>
+    </div>
+  </section>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>CDIO：工程設計流程的四個核心</h4>
+    <p>
+      工程是解決問題的「歷程」,常以 CDIO 四階段概括:
+      <strong>C</strong>onceive 構思、<strong>D</strong>esign 設計、<strong>I</strong>mplement 執行、<strong>O</strong>perate 運作。
+      工程師透過這個循環,將科學、數學、科技各領域的知識串聯起來,創造出能解決問題的方案。
+    </p>
+  </div>
+
+  <!-- 工程設計流程環 -->
+  <section class="content-section">
+    <h2>工程設計流程：七個階段</h2>
+    <p>工程設計流程<strong>不是線性、不可逆的</strong>——它強調迭代與持續優化,可依實際情況調整步驟順序。點擊任一階段,看看它在做什麼。</p>
+    <div class="edp-ring" id="edpRing"></div>
+    <div id="edpDetail" style="margin-top:14px"></div>
+  </section>
+
+  <!-- 動動腦 1：界定問題 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手 ①</span>
+    <h3 style="margin-bottom:4px">界定問題（Identify the Problem）</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
+      界定問題是流程的<strong>第一步,也是最關鍵的一步</strong>。一個好的問題敘述要具體、可衡量,並指出限制。
+      下列哪一個才是「界定良好」的工程問題?
+    </p>
+    <div id="defineQuiz"></div>
+  </div>
+
+  <!-- 動動腦 2：流程排序 -->
+  <div class="activity-box">
+    <span class="ab-label">🧩 動動腦 動動手 ②</span>
+    <h3 style="margin-bottom:4px">把工程設計流程排回正確順序</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">雖然流程可迭代,但「第一輪」仍有典型的先後順序。拖曳排序後檢查答案。</p>
+    <div id="seqPuzzle"></div>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="trends.html">← 科技趨勢儀表板</a>
+    <a class="btn btn-primary" href="thinking.html" id="nextBtn">下一個：創意思考工具箱 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/process.js"></script>
+</body>
+</html>

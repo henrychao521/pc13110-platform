@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>創意思考工具箱 ｜ 第 1 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💡%3C/text%3E%3C/svg%3E">
+<style>
+  .topic-bar { background:linear-gradient(135deg,var(--theme-light),#fff); border:1px solid var(--border);
+    border-radius:var(--radius); padding:16px 18px; margin-bottom:20px; display:flex;
+    align-items:center; gap:12px; flex-wrap:wrap; }
+  .topic-bar input { flex:1; min-width:200px; font-family:var(--font-sans); font-size:15px;
+    padding:10px 14px; border:1.5px solid var(--border-strong); border-radius:10px; }
+  .topic-bar input:focus { outline:none; border-color:var(--theme); }
+  .think-cell textarea { width:100%; border:none; background:transparent; resize:vertical;
+    font-family:var(--font-sans); font-size:13.5px; line-height:1.6; min-height:54px; color:var(--text); }
+  .think-cell textarea:focus { outline:none; }
+  /* 六頂思考帽 */
+  .hats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .hat-card { border:2px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+  .hat-head { padding:10px 14px; color:#fff; display:flex; align-items:center; gap:8px; }
+  .hat-head .hat-q { font-size:11px; opacity:.9; font-weight:500; }
+  .hat-body { padding:10px 14px; background:#fff; }
+  /* SCAMPER */
+  .scamper-row { display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border);
+    border-radius:var(--radius); padding:12px 14px; margin-bottom:10px; background:#fff; }
+  .scamper-letter { width:38px; height:38px; flex-shrink:0; border-radius:10px; color:#fff;
+    font-weight:900; font-size:18px; display:flex; align-items:center; justify-content:center; }
+  /* 曼陀羅 */
+  .mandala { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  .mandala-cell { border:1.5px solid var(--border); border-radius:12px; padding:10px;
+    background:#fff; min-height:96px; display:flex; flex-direction:column; }
+  .mandala-cell .mc-n { font-size:10px; font-family:var(--font-mono); color:var(--text-light); }
+  .mandala-center { background:linear-gradient(135deg,var(--theme),var(--theme-dark)); color:#fff;
+    border:none; align-items:center; justify-content:center; text-align:center; font-weight:800; }
+  .mandala-center textarea { color:#fff; text-align:center; font-weight:700; }
+  .mandala-center textarea::placeholder { color:rgba(255,255,255,.7); }
+  @media(max-width:680px){ .hats-grid{grid-template-columns:1fr;} }
+  @media print { .topbar,.crumb,.module-nav,.tabs,.sound-toggle,footer,.no-print{display:none!important;}
+    .tab-panel{display:block!important;} }
+</style>
+</head>
+<body class="ch1">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・1-2 構思解決方案</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 1 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 1 章</a><span class="sep">›</span>
+    <span>創意思考工具箱</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 1-3・構思解決方案</div>
+    <h1>創意思考工具箱</h1>
+    <p>在「構思解決方案」階段,為了打破固有思維,工程師會借助創意思考法。動手操作下方三大工具,把腦中的點子系統化展開。</p>
+  </div>
+
+  <div class="topic-bar no-print">
+    <span style="font-size:22px">🎯</span>
+    <div style="font-weight:800;font-size:14px">我的專題主題</div>
+    <input id="topicInput" placeholder="例如：設計一個會自動澆水的盆栽裝置">
+  </div>
+  <div id="topicEcho" style="font-size:13px;color:var(--text-muted);margin-bottom:16px"></div>
+
+  <div class="tabs" id="thinkTabs">
+    <button class="tab active" data-tab="hats">🎩 六頂思考帽</button>
+    <button class="tab" data-tab="scamper">🔤 SCAMPER</button>
+    <button class="tab" data-tab="mandala">⊞ 曼陀羅九宮格</button>
+  </div>
+
+  <!-- 六頂思考帽 -->
+  <div class="tab-panel active" id="tab-hats">
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px">
+      由 Edward de Bono 提出。每頂帽子代表一種思考角度——戴上不同的帽子,就從不同立場思考同一個問題,避免思緒打架。
+    </p>
+    <div class="hats-grid" id="hatsGrid"></div>
+  </div>
+
+  <!-- SCAMPER -->
+  <div class="tab-panel" id="tab-scamper">
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px">
+      SCAMPER 是七種「改造既有事物」的提問策略,最常用於激發更多元的解決方案。對你的主題,逐一回答下列七個問題。
+    </p>
+    <div id="scamperList"></div>
+  </div>
+
+  <!-- 曼陀羅 -->
+  <div class="tab-panel" id="tab-mandala">
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:14px">
+      曼陀羅九宮格法（又稱曼陀羅思考法）：把核心主題放在正中央,再從周圍 8 格系統性地向外展開思考,確保不漏掉任何面向。
+    </p>
+    <div class="mandala" id="mandalaGrid"></div>
+  </div>
+
+  <div class="knowledge-box" style="margin-top:24px">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>創意思考法,不是隨便亂想</h4>
+    <p>
+      創意思考法的價值在於<strong>「結構化的發散」</strong>——它用固定的提問框架,逼你從平常不會想到的角度切入。
+      六頂思考帽幫你「換位思考」、SCAMPER 幫你「改造既有方案」、曼陀羅幫你「不漏掉面向」。
+      工程師通常會先大量發想（發散）,再回到「選擇最佳方案」階段收斂。
+    </p>
+  </div>
+
+  <div class="activity-box no-print">
+    <span class="ab-label">✅ 完成本模組</span>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
+      輸入專題主題,並在任一工具中填寫至少 <strong id="needCount">6</strong> 個格子,即可完成本模組。
+      你的內容會自動儲存在這台電腦的瀏覽器中。
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px">
+      <div style="font-size:13px;font-weight:700">已填寫：<span id="filledCount" style="color:var(--theme)">0</span> 格</div>
+      <button class="btn btn-ghost btn-sm" id="printBtn">🖨️ 列印 / 匯出 PDF</button>
+      <button class="btn btn-primary btn-sm" id="doneBtn" disabled>完成創意發想</button>
+    </div>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="process.html">← 工程設計流程</a>
+    <a class="btn btn-primary" href="planner.html" id="nextBtn">下一個：專題規劃器 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../js/thinking.js"></script>
+</body>
+</html>

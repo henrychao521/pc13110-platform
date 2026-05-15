@@ -1,0 +1,112 @@
+/* livingtech-tools 全站共用 SVG 視覺效果 */
+/* Phase 1: 全平台一致的視覺語言 */
+
+/* 預設陰影濾鏡（深度感）*/
+.svg-shadow-soft { filter: drop-shadow(0 4px 8px rgba(0,0,0,.12)); }
+.svg-shadow-med { filter: drop-shadow(0 6px 14px rgba(0,0,0,.18)); }
+.svg-shadow-deep { filter: drop-shadow(0 10px 24px rgba(0,0,0,.25)); }
+
+/* 高亮光暈（強調某個元素）*/
+.svg-glow-orange { filter: drop-shadow(0 0 8px rgba(255,122,0,.6)); }
+.svg-glow-green { filter: drop-shadow(0 0 8px rgba(22,163,74,.6)); }
+.svg-glow-red { filter: drop-shadow(0 0 8px rgba(220,38,38,.6)); }
+.svg-glow-blue { filter: drop-shadow(0 0 8px rgba(59,130,246,.6)); }
+
+/* 浮動動畫（增加生氣感）*/
+@keyframes svg-float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.svg-float { animation: svg-float-y 4s ease-in-out infinite; }
+
+/* 緩慢旋轉 */
+@keyframes svg-spin-slow {
+  from { transform: rotate(0); }
+  to { transform: rotate(360deg); }
+}
+.svg-spin-slow { animation: svg-spin-slow 12s linear infinite; transform-origin: center; }
+
+/* 脈動光暈 */
+@keyframes svg-pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .6; transform: scale(1.08); }
+}
+.svg-pulse { animation: svg-pulse-glow 2s ease-in-out infinite; transform-origin: center; }
+
+/* 統一的 hover 微互動 */
+.svg-hover-lift { transition: transform .25s ease, filter .25s ease; }
+.svg-hover-lift:hover { transform: translateY(-2px) scale(1.02); filter: drop-shadow(0 8px 20px rgba(0,0,0,.2)); }
+
+/* 通用色碼變數（依工具主題會被覆寫）*/
+.svg-base {
+  --svg-stroke: #1a1a1a;
+  --svg-stroke-soft: rgba(0,0,0,.15);
+  --svg-highlight: rgba(255,255,255,.4);
+  --svg-shadow: rgba(0,0,0,.25);
+}
+
+/* ====================================================
+   自動視覺增強：套用到常見的關鍵元素，無需個別改 SVG
+   ==================================================== */
+
+/* 1. Hero 視覺：浮動 + 深陰影 */
+.hero-visual svg {
+  filter: drop-shadow(0 16px 32px rgba(0,0,0,.18));
+  animation: svg-float-y 6s ease-in-out infinite;
+}
+
+/* 2. 模組卡片 SVG：hover 時微浮起 */
+.card svg, .module-grid .card svg,
+.os-step svg, .ws-step svg, .ws-method svg, .error-card svg, .err-visual svg {
+  transition: transform .3s ease, filter .3s ease;
+}
+.card:hover svg, .os-step:hover svg, .ws-method:hover svg, .error-card:hover svg {
+  transform: translateY(-2px) scale(1.04);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.18));
+}
+
+/* 3. M5 故障圖鑑 SVG：加上深陰影避免「飄在背景」 */
+.err-visual svg, .joint-card svg, .bb-error-card svg {
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
+}
+
+/* 4. M3 步驟卡 SVG：略帶彩色光暈讓步驟更生動 */
+.os-step svg, .ws-step svg {
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,.1));
+}
+
+/* 5. 平台主視覺：tool emoji 浮動 */
+.hub-tool:hover .tool-emoji {
+  filter: drop-shadow(0 8px 16px rgba(255,122,0,.3));
+}
+
+/* 6. 平台 hero hover 微互動 */
+.hub-tool:hover {
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+/* 7. 互動 SVG（saw-stage 等大型展示）：精緻陰影 */
+.saw-stage svg, .saw-svg {
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,.15));
+}
+
+/* 8. 進度條 / 安全圖鑑可選漸層 */
+.scenario-stage svg {
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,.1));
+}
+
+/* 9. 限制：互動 SVG 內部點擊熱點不應有 transform */
+.hotspot, .saw-svg .hotspot, .frc-svg .hotspot,
+.bb-svg .hotspot, .iron-svg .hotspot {
+  transform: none !important;
+  filter: none !important;
+}
+
+/* 10. 防止 anime.js 動畫被覆寫 */
+[data-anim] {
+  transform: none !important;
+}
+[data-anim]:hover {
+  transform: none !important;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,.12));
+}

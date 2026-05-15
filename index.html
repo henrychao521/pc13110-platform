@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC13110 工程設計學習平台</title>
+<meta name="description" content="對應普通型高中生活科技教科書（PC13110）的互動學習平台：工程設計流程、數位建模、結構模擬、電路與 ESP32 實作。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+</head>
+<body class="hub">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・普通型高中生活科技</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="#chapters">五大主題</a>
+    <a href="#process">工程設計流程</a>
+    <a href="ch1-engineering/index.html">開始學習</a>
+  </nav>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hub-hero">
+  <span class="badge">對應 108 課綱・科技領域生活科技</span>
+  <h2>把課本變成<br><span class="grad">可以動手操作的工程實驗室</span></h2>
+  <p>
+    這不只是電子書。從 AI 趨勢、CAD 建模、結構模擬，到電路設計與 ESP32 程式燒錄——
+    每一章都讓你在瀏覽器內，用真實的開源工具完整走過一次工程設計流程。
+  </p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+    <a class="btn btn-primary" href="ch1-engineering/index.html">▶ 從第 1 章開始</a>
+    <a class="btn btn-ghost" href="#process">了解工程設計流程</a>
+  </div>
+</section>
+
+<!-- ===== 工程設計流程環 ===== -->
+<section class="process-ring" id="process">
+  <h3>工程設計流程（ENGINEERING DESIGN PROCESS）— 貫穿全書的學習主軸</h3>
+  <p style="text-align:center;font-size:13px;color:var(--text-muted);max-width:620px;margin:6px auto 0">
+    點擊任一階段，看看它對應到課本哪一章、平台用什麼工具讓你練習。
+  </p>
+  <div class="ring-track" id="ringTrack"></div>
+  <div id="ringDetail" style="max-width:760px;margin:18px auto 0"></div>
+</section>
+
+<!-- ===== 整體進度 ===== -->
+<section class="hub-progress" style="margin-top:34px">
+  <div class="hub-progress-inner">
+    <div style="font-size:30px">🚀</div>
+    <div>
+      <div style="font-size:12.5px;color:var(--text-muted);font-weight:700">我的學習進度</div>
+      <div id="overallText" style="font-size:17px;font-weight:800;color:var(--brand-dark)">尚未開始</div>
+    </div>
+    <div style="flex:1;min-width:160px;max-width:340px">
+      <div style="height:9px;background:var(--bg-soft);border-radius:999px;overflow:hidden;border:1px solid var(--border)">
+        <div id="overallBar" style="height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-cyan));transition:width .6s"></div>
+      </div>
+    </div>
+    <button class="btn btn-ghost btn-sm" id="resetBtn">重設進度</button>
+  </div>
+</section>
+
+<!-- ===== 五大主題章節 ===== -->
+<section class="hub-chapters" id="chapters">
+  <div class="section-title">五大主題</div>
+  <div class="section-sub">依課本五章編排，循序從觀念走到實作。第 2–5 章將陸續上線。</div>
+  <div class="chapter-grid" id="chapterGrid"></div>
+</section>
+
+<script src="js/main.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/hub.js"></script>
+</body>
+</html>

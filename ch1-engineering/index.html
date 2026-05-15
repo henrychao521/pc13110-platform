@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 1 章 加速發展的科技與工程 ｜ PC13110</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+</head>
+<body class="ch1">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・第 1 章</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../index.html">← 回首頁</a>
+    <a href="index.html" class="active">第 1 章</a>
+  </nav>
+</header>
+
+<!-- ===== 章節 Hero ===== -->
+<section class="chapter-hero">
+  <div class="chapter-hero-inner">
+    <div class="ch-eyebrow">CHAPTER 1</div>
+    <h2>加速發展的科技與工程</h2>
+    <p>
+      當代科技以指數級速度推進。本章帶你認識新興科技趨勢、理解貫穿全書的「工程設計流程」,
+      並學會用創意思考法與專題規劃工具,為自己的工程專題奠定基礎。
+    </p>
+    <div class="ch-goals">
+      <span class="ch-goal">✦ 認識新興科技的發展趨勢</span>
+      <span class="ch-goal">✦ 理解工程設計流程</span>
+      <span class="ch-goal">✦ 探討科技與社會的倫理議題</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 模組卡片 ===== -->
+<section class="module-grid" id="moduleGrid"></section>
+
+<script src="../js/main.js"></script>
+<script src="../js/audio.js"></script>
+<script>
+const CH1_MODULES = [
+  { id: 'ch1-trends', tag: '1-1', icon: '📈', title: '科技趨勢儀表板',
+    desc: '互動探索 AI、量子半導體、生醫科技、再生能源四大趨勢,並用可重繪的數據圖表掌握全球科技脈動。',
+    feats: ['互動圖表', '台灣 IC 產值', 'ChatGPT 用戶曲線'], link: 'pages/trends.html' },
+  { id: 'ch1-process', tag: '1-2', icon: '🔄', title: '工程設計流程互動',
+    desc: 'STEM 跨域整合、CDIO 與工程設計流程七階段。點擊每個階段,理解工程師如何把問題變成解決方案。',
+    feats: ['流程環互動', 'STEM 齒輪', '界定問題'], link: 'pages/process.html' },
+  { id: 'ch1-thinking', tag: '1-2', icon: '💡', title: '創意思考工具箱',
+    desc: '動手操作六頂思考帽、SCAMPER、曼陀羅九宮格三大創意思考法,把腦中的點子系統化展開。',
+    feats: ['六頂思考帽', 'SCAMPER', '曼陀羅九宮格'], link: 'pages/thinking.html' },
+  { id: 'ch1-planner', tag: '1-3', icon: '🗂️', title: '專題規劃器',
+    desc: '用心智圖梳理專題架構,用甘特圖排定時程。整合開源的 jsMind 與 Frappe Gantt,規劃可匯出。',
+    feats: ['心智圖 jsMind', '甘特圖', '可存檔'], link: 'pages/planner.html' },
+  { id: 'ch1-career', tag: '1-3 / 1-4', icon: '🏆', title: '競賽與職涯倫理',
+    desc: '認識 FRC、智慧鐵人、MakeX 等科技競賽,並透過工程倫理情境題,省思科技與社會的互動關係。',
+    feats: ['競賽圖鑑', '工程倫理情境題', '職涯探索'], link: 'pages/career.html' },
+];
+
+const grid = document.getElementById('moduleGrid');
+CH1_MODULES.forEach(m => {
+  const done = Progress.isDone(m.id);
+  const card = document.createElement('a');
+  card.className = 'module-card';
+  card.href = m.link;
+  card.innerHTML = `
+    <div class="mc-top">
+      <div class="mc-icon">${m.icon}</div>
+      <div>
+        <div class="mc-tag">課本 ${m.tag}</div>
+        <h3>${m.title}</h3>
+      </div>
+    </div>
+    <div class="mc-desc">${m.desc}</div>
+    <div class="mc-features">${m.feats.map(f => `<span class="mc-feat">${f}</span>`).join('')}</div>
+    <div class="mc-foot">
+      <span>進入模組 →</span>
+      ${done ? '<span class="mc-done">✓ 已完成</span>' : ''}
+    </div>`;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

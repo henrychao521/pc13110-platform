@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>專題規劃器 ｜ 第 1 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="stylesheet" href="../../vendor/jsmind/jsmind.css">
+<link rel="stylesheet" href="../../vendor/frappe-gantt/frappe-gantt.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🗂️%3C/text%3E%3C/svg%3E">
+<style>
+  #jsmindBox { width:100%; height:440px; border:1px solid var(--border);
+    border-radius:var(--radius); background:#fff; overflow:hidden; }
+  #ganttBox { width:100%; overflow-x:auto; border:1px solid var(--border);
+    border-radius:var(--radius); background:#fff; padding:4px; }
+  .mind-toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .gantt-container .bar-progress { fill:var(--theme); }
+  .gantt-container .bar-wrapper:hover .bar-progress { fill:var(--theme-dark); }
+</style>
+</head>
+<body class="ch1">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・1-3 專題規劃</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 1 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 1 章</a><span class="sep">›</span>
+    <span>專題規劃器</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 1-4・專題規劃</div>
+    <h1>專題規劃器</h1>
+    <p>一個成功的工程專題,需要先想清楚「做什麼」與「何時做」。用心智圖梳理專題架構,用甘特圖排定時程。</p>
+  </div>
+
+  <div class="tabs" id="planTabs">
+    <button class="tab active" data-tab="mind">🧠 心智圖（架構）</button>
+    <button class="tab" data-tab="gantt">📅 甘特圖（時程）</button>
+  </div>
+
+  <!-- 心智圖 -->
+  <div class="tab-panel active" id="tab-mind">
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:12px">
+      心智圖幫你把專題的各個面向「展開」。<strong>雙擊節點</strong>可編輯文字,選取節點後用下方按鈕新增或刪除。
+    </p>
+    <div class="mind-toolbar">
+      <button class="btn btn-primary btn-sm" id="mAddChild">＋ 新增子項目</button>
+      <button class="btn btn-ghost btn-sm" id="mAddSib">＋ 新增同層</button>
+      <button class="btn btn-ghost btn-sm" id="mEdit">✎ 編輯選取</button>
+      <button class="btn btn-ghost btn-sm" id="mDel">🗑 刪除選取</button>
+      <button class="btn btn-ghost btn-sm" id="mReset">↻ 重設範例</button>
+    </div>
+    <div id="jsmindBox"></div>
+    <div class="oss-credit">
+      <span class="oss-icon">🧩</span>
+      <span>心智圖功能整合自開源專案
+        <a href="https://github.com/hizzgdev/jsmind" target="_blank" rel="noopener">jsMind</a>
+        （BSD-3-Clause 授權）。</span>
+    </div>
+  </div>
+
+  <!-- 甘特圖 -->
+  <div class="tab-panel" id="tab-gantt">
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:12px">
+      甘特圖把專題任務排成時間軸。<strong>拖曳長條</strong>可調整起訖日,<strong>拖曳長條右側</strong>可改變長度,
+      切換下方檢視可看週/日/月。
+    </p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <button class="btn btn-ghost btn-sm gv active" data-view="Day">日</button>
+      <button class="btn btn-ghost btn-sm gv" data-view="Week">週</button>
+      <button class="btn btn-ghost btn-sm gv" data-view="Month">月</button>
+      <button class="btn btn-ghost btn-sm" id="gReset" style="margin-left:auto">↻ 重設範例</button>
+    </div>
+    <div id="ganttBox"></div>
+    <div class="oss-credit">
+      <span class="oss-icon">📊</span>
+      <span>甘特圖功能整合自開源專案
+        <a href="https://github.com/frappe/gantt" target="_blank" rel="noopener">Frappe Gantt</a>
+        （MIT 授權）。</span>
+    </div>
+  </div>
+
+  <div class="knowledge-box" style="margin-top:22px">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>甘特圖（Gantt Chart）</h4>
+    <p>
+      甘特圖由 Henry Gantt 於 1910 年代提出,用水平長條表示每項任務的起訖時間,
+      是專案管理最常用的時程工具。它能讓你一眼看出:哪些任務正在進行、哪些任務必須等前一項完成
+      （稱為「相依關係」),以及整個專題會不會延誤。
+    </p>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">✅ 完成本模組</span>
+    <p style="font-size:13.5px;color:var(--text-soft)">
+      編輯心智圖（新增或修改節點）或調整甘特圖任務時程,即可完成本模組。內容會自動儲存於本機瀏覽器。
+    </p>
+    <button class="btn btn-primary btn-sm" id="doneBtn" disabled style="margin-top:10px">完成專題規劃</button>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="thinking.html">← 創意思考工具箱</a>
+    <a class="btn btn-primary" href="career.html" id="nextBtn">下一個：競賽與職涯倫理 →</a>
+  </div>
+</main>
+
+<script src="../../vendor/jsmind/jsmind.js"></script>
+<script src="../../vendor/frappe-gantt/frappe-gantt.umd.js"></script>
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../js/planner.js"></script>
+</body>
+</html>
