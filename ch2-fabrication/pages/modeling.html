@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>程式化 CAD 建模器 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📐%3C/text%3E%3C/svg%3E">
+<style>
+  .modeler { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .code-pane { display:flex; flex-direction:column; }
+  #codeEditor { width:100%; height:240px; font-family:var(--font-mono); font-size:13px;
+    line-height:1.6; padding:12px; border:1.5px solid var(--border-strong);
+    border-radius:10px; resize:vertical; background:#0F172A; color:#E2E8F0; }
+  #codeEditor:focus { outline:none; border-color:var(--theme); }
+  #viewport { width:100%; height:330px; border:1px solid var(--border);
+    border-radius:10px; background:#F1F5F9; cursor:grab; }
+  #viewport:active { cursor:grabbing; }
+  .ex-btns { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+  .model-msg { font-size:12.5px; min-height:20px; margin-top:6px; }
+  @media(max-width:680px){ .modeler{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-3 電腦建模工具</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>程式化 CAD 建模器</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-3・從平面草圖到立體模型</div>
+    <h1>程式化 CAD 建模器</h1>
+    <p>3D 模型不一定要用滑鼠慢慢拉。有一種建模方式是「寫程式」——用文字指令精準描述物體,電腦就幫你建出立體模型。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>3D 建模軟體的四種類型</h2>
+    <p>課本將 3D 建模軟體分為四大類,各有擅長的場景:</p>
+    <table class="data">
+      <thead><tr><th>類型</th><th>特色</th><th>代表軟體</th></tr></thead>
+      <tbody>
+        <tr><td><strong>CAD</strong><br>電腦輔助設計</td><td>最基本的 3D 繪圖,擅長精準的機械零件。通常先畫平面草圖,再轉成 3D。</td><td>Onshape、SolidWorks、Creo、Inventor、AutoCAD 3D</td></tr>
+        <tr><td><strong>CAID</strong><br>電腦輔助工業設計</td><td>CAD 的進化,自由度更高,能繪製特殊曲面、用參數做出特殊造型。</td><td>Rhino、Alias</td></tr>
+        <tr><td><strong>Polygon</strong><br>多邊形建模</td><td>把物體切成許多三角形,愈細愈平滑,適合有機物體（人體、動物)。</td><td>Blender、3ds Max、Maya</td></tr>
+        <tr><td><strong>其他</strong></td><td>教學入門用的 Tinkercad;以及用<strong>數學方程式／程式碼</strong>繪製物體的 OpenSCAD。</td><td>Tinkercad、OpenSCAD</td></tr>
+      </tbody>
+    </table>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>什麼是「程式化建模」?</h4>
+      <p>
+        像 <strong>OpenSCAD</strong> 這類軟體,不用滑鼠拖拉,而是<strong>寫程式碼</strong>來描述物體——
+        例如「在原點放一個邊長 40 的方塊」。它的好處是<strong>精準、可重複、容易修改</strong>:
+        想改尺寸,只要改一個數字。下方的建模器就是這種概念的簡化版,動手試試看!
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動：程式化建模器 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手</span>
+    <h3 style="margin-bottom:4px">程式化建模器</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
+      每一行寫一個零件:先寫零件類型,再用「<code>參數=值</code>」設定。改完按「執行建模」,
+      在右側拖曳可旋轉檢視。<strong>挑戰:做出一個含 3 個以上零件的作品</strong>。
+    </p>
+    <div class="panel-soft" style="font-size:12px;margin-bottom:10px">
+      <strong>可用零件:</strong>
+      <code>box w= d= h=</code>（方塊)、
+      <code>cylinder r= h=</code>（圓柱)、
+      <code>sphere r=</code>（球)、
+      <code>cone r= h=</code>（圓錐)<br>
+      <strong>共用參數:</strong><code>x= y= z=</code>（位置)、<code>color=</code>（顏色:red/blue/green/orange/silver/gray/yellow/purple)
+    </div>
+    <div class="ex-btns" id="exBtns"></div>
+    <div class="modeler">
+      <div class="code-pane">
+        <textarea id="codeEditor" spellcheck="false"></textarea>
+        <button class="btn btn-primary btn-sm" id="runBtn" style="margin-top:8px">▶ 執行建模</button>
+        <div class="model-msg" id="modelMsg"></div>
+      </div>
+      <div>
+        <canvas id="viewport"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">🖱️ 在畫面上拖曳可旋轉視角・滾輪縮放</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2>Onshape 的工作流程</h2>
+    <p>課本實作採用的雲端 CAD 軟體 Onshape,把設計流程整合成四個核心環節:</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">① 草圖繪製</div>
+        <div class="tl-text">Sketching — 在平面上畫出零件的輪廓線條,並標註尺寸。</div></div>
+      <div class="tl-item"><div class="tl-year">② 零件設計</div>
+        <div class="tl-text">Part Studio — 把平面草圖「擠出」「迴轉」成立體零件。</div></div>
+      <div class="tl-item"><div class="tl-year">③ 組立件</div>
+        <div class="tl-text">Assembly — 把多個零件組裝起來,設定它們之間的配合關係。</div></div>
+      <div class="tl-item"><div class="tl-year">④ 工程圖</div>
+        <div class="tl-text">Drawing — 產生標註尺寸的 2D 工程圖,供製造與溝通使用。</div></div>
+    </div>
+    <div class="oss-credit">
+      <span class="oss-icon">🧩</span>
+      <span>本建模器的 3D 顯示由開源 3D 函式庫
+        <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>（MIT 授權)驅動。</span>
+    </div>
+  </section>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://openscad.org" target="_blank" rel="noopener">
+      <span class="rc-icon">📜</span>
+      <span><span class="rc-title">OpenSCAD</span>
+      <span class="rc-src">openscad.org</span>
+      <span class="rc-desc">免費開源的程式化 CAD 軟體,用程式碼描述 3D 模型。</span></span>
+    </a>
+    <a class="resource-card" href="https://learn.onshape.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🎓</span>
+      <span><span class="rc-title">Onshape Learning Center</span>
+      <span class="rc-src">learn.onshape.com</span>
+      <span class="rc-desc">Onshape 官方的免費教學課程。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.blender.org" target="_blank" rel="noopener">
+      <span class="rc-icon">🟧</span>
+      <span><span class="rc-title">Blender</span>
+      <span class="rc-src">blender.org</span>
+      <span class="rc-desc">免費開源的 Polygon 建模與動畫軟體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.jscad.app" target="_blank" rel="noopener">
+      <span class="rc-icon">⌨️</span>
+      <span><span class="rc-title">JSCAD</span>
+      <span class="rc-src">jscad.app</span>
+      <span class="rc-desc">在瀏覽器中用 JavaScript 程式化建模的開源專案。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="prototype.html">← 實體建模與原型</a>
+    <a class="btn btn-primary" href="orthographic.html" id="nextBtn">下一個：三視圖與立體模型 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script type="module" src="../js/modeling.js"></script>
+</body>
+</html>

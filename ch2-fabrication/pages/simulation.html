@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虛擬模擬與分析入門 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔬%3C/text%3E%3C/svg%3E">
+<style>
+  #beamCanvas { width:100%; height:260px; border:1px solid var(--border);
+    border-radius:10px; background:#F8FAFC; }
+  .beam-ctrl { display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin-top:10px; }
+  .beam-ctrl input[type=range] { flex:1; min-width:140px; accent-color:var(--theme); }
+  .seg { display:flex; gap:4px; }
+  .seg button { padding:7px 12px; font-size:12px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-3 虛擬模擬</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>虛擬模擬與分析入門</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-3・從平面草圖到立體模型</div>
+    <h1>虛擬模擬與分析入門</h1>
+    <p>在花時間與材料把東西做出來之前,能不能先在電腦裡「預演」一次,看看它會不會壞掉?這就是虛擬模擬。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>為什麼要先模擬?</h2>
+    <p>
+      上一節學到的數位加工,能把設計快速變成實物。但<strong>萬一設計本身有問題呢?</strong>
+      做出來才發現橋會塌、零件會斷,不僅浪費材料與時間,更可能造成危險。
+    </p>
+    <p>
+      因此工程師會在製造前,先用電腦軟體進行<strong>虛擬模擬與分析</strong>:把設計的物件放進電腦,
+      用數學公式計算它在真實世界可能發生的狀況——受力會不會變形、結構夠不夠強、
+      空氣流過會不會產生阻力。這能在投入製造前,<strong>預先找出問題</strong>。
+    </p>
+    <div class="verify-box">
+      <span class="vb-label">🔍 觀念釐清:CAD 與 CAE</span>
+      <ul>
+        <li><strong>CAD</strong> 確認設計「長什麼樣子」——幾何外型對不對、零件組起來會不會干涉。</li>
+        <li><strong>CAE</strong> 確認設計「撐不撐得住」——受力、變形、散熱、流體等物理表現。</li>
+        <li>一個成熟的設計,不能只看外觀,更要通過 CAE 的「預測分析」。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 互動：懸臂梁受力小實驗 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:懸臂梁受力小實驗</span>
+    <h3 style="margin-bottom:4px">先模擬一次:這根梁撐得住嗎?</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      下方是一根固定在牆上的「懸臂梁」。拖動滑桿施加載重,觀察它如何變形;
+      顏色越紅代表該處<strong>應力越大</strong>。再切換梁的粗細,看看差別。
+    </p>
+    <canvas id="beamCanvas"></canvas>
+    <div class="beam-ctrl">
+      <div style="font-size:12.5px;font-weight:700">載重</div>
+      <input type="range" id="loadSlider" min="0" max="100" value="30">
+      <div class="seg" id="thickSeg"></div>
+    </div>
+    <div id="beamStat" style="font-size:13px;margin-top:8px"></div>
+  </div>
+
+  <section class="content-section">
+    <h2>可以模擬什麼?</h2>
+    <table class="data">
+      <thead><tr><th>分析類型</th><th>回答的問題</th><th>常見工具</th></tr></thead>
+      <tbody>
+        <tr><td><strong>結構分析</strong></td><td>受力後會變形多少?哪裡最脆弱?會不會斷?</td><td>Bridge Designer、Onshape CAEplex、Fusion</td></tr>
+        <tr><td><strong>流體模擬（CFD)</strong></td><td>空氣／水流過物體,阻力與流場如何?</td><td>Autodesk CFD</td></tr>
+        <tr><td><strong>運動模擬</strong></td><td>機構運轉時會不會卡死?運動軌跡對不對?</td><td>Onshape Assembly、Fusion</td></tr>
+        <tr><td><strong>程式化模擬</strong></td><td>自訂的物理或數值問題。</td><td>Python、Matlab</td></tr>
+      </tbody>
+    </table>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>課本牛刀小試:Onshape 橋梁 CAE 分析</h4>
+      <p>
+        課本的實作以 Onshape 搭配 <strong>CAEplex</strong> 外掛,對橋梁桁架進行結構模擬:
+        比較華倫式（Warren)與普拉特式（Pratt)桁架在相同負載下的<strong>應力分布與變形量</strong>,
+        並據此「改進設計」,追求材料最少、強度足夠的<strong>最佳化（Optimization)</strong>。
+        這套「模擬 → 分析 → 改進」的循環,正是第 3 章的核心。
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>銜接第 3 章</h2>
+    <p>
+      本模組只是「虛擬模擬」的入門體驗。真正的深入——自由體圖、桁架受力解算、
+      有限元素分析（FEA)的應力雲圖、機構運動模擬——將在
+      <strong>第 3 章「機構與結構的深化探究」</strong>完整展開。
+      本章你已學會「怎麼把東西做出來」,第 3 章將學會「怎麼確保它做出來不會壞」。
+    </p>
+  </section>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.simscale.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🌊</span>
+      <span><span class="rc-title">SimScale</span>
+      <span class="rc-src">simscale.com</span>
+      <span class="rc-desc">雲端工程模擬平台,提供結構與流體模擬,有教育方案。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.ansys.com/zh-tw" target="_blank" rel="noopener">
+      <span class="rc-icon">📐</span>
+      <span><span class="rc-title">ANSYS</span>
+      <span class="rc-src">ansys.com</span>
+      <span class="rc-desc">工程模擬（CAE)領域的代表性軟體品牌。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="emerging.html">← 新興數位加工設備</a>
+    <a class="btn btn-primary" href="../index.html" id="nextBtn">完成第 2 章 ✓</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/simulation.js"></script>
+</body>
+</html>

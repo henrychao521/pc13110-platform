@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D 列印操作 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🖨️%3C/text%3E%3C/svg%3E">
+<style>
+  .printer-sim { display:grid; grid-template-columns:1.1fr 1fr; gap:14px; }
+  #printCanvas { width:100%; height:340px; border:1px solid var(--border);
+    border-radius:10px; background:#1E293B; }
+  .ctrl-row { margin-bottom:12px; }
+  .ctrl-row label { font-size:12.5px; font-weight:700; display:block; margin-bottom:4px; }
+  .seg { display:flex; gap:4px; flex-wrap:wrap; }
+  .seg button { flex:1; min-width:46px; padding:7px 4px; font-size:12px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); transition:all .15s; }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .stat-box { background:var(--bg-soft); border-radius:10px; padding:10px 12px; font-size:13px; }
+  .stat-box .sb-row { display:flex; justify-content:space-between; margin:3px 0; }
+  .stat-box .sb-row b { font-family:var(--font-mono); }
+  @media(max-width:680px){ .printer-sim{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-3 數位加工</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>3D 列印操作</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-3・數位加工機具操作</div>
+    <h1>3D 列印操作</h1>
+    <p>3D 列印是「加法製造」——把材料一層一層堆疊起來,形成立體物件。本模組帶你完整操作一次:從切片設定到逐層列印。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>3D 列印的原理</h2>
+    <p>
+      校園與家庭最常見的 3D 列印技術是 <strong>FDM（Fused Deposition Modeling,熔融沉積成型)</strong>。
+      它把塑膠線材（常見如 PLA）加熱熔化,透過噴頭擠出,在平台上<strong>逐層堆疊</strong>,
+      層層相黏,最後形成立體物件。
+    </p>
+    <p>
+      因為是「逐層往上疊」,3D 列印能做出 CNC 難以加工的<strong>內部中空、複雜結構</strong>;
+      但也因此有一個先天限制——<strong>懸空的部分需要「支撐」</strong>,否則材料會憑空掉落。
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>3D 列印的操作流程</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">① 建模</div>
+        <div class="tl-text">用 CAD 軟體設計 3D 模型,匯出成 <code>.stl</code> 等格式。</div></div>
+      <div class="tl-item"><div class="tl-year">② 切片</div>
+        <div class="tl-text">用切片軟體（Slicer)把模型「切」成一層層,設定層高、填充、支撐,產生機器看得懂的 <code>G-code</code>。</div></div>
+      <div class="tl-item"><div class="tl-year">③ 列印</div>
+        <div class="tl-text">印表機讀取 G-code,控制噴頭與平台,逐層擠出材料堆疊成形。</div></div>
+      <div class="tl-item"><div class="tl-year">④ 後處理</div>
+        <div class="tl-text">取下成品,移除支撐、毛邊,必要時打磨、上色。</div></div>
+    </div>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>G-code:機器的語言</h4>
+      <p>
+        <strong>G-code</strong> 是數位加工機具（3D 印表機、CNC)共通的控制指令碼。它由一行行指令組成,
+        例如「移動到座標 (X,Y,Z)」「擠出多少材料」「噴頭加熱到幾度」。切片軟體的工作,
+        就是把立體模型翻譯成這一長串 G-code。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動：切片與列印模擬器 -->
+  <div class="activity-box">
+    <span class="ab-label">🛠️ 動手操作:切片與列印模擬器</span>
+    <h3 style="margin-bottom:4px">操作一台 3D 印表機</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px">
+      選擇模型、調整切片參數,然後按「開始列印」,觀察它如何<strong>逐層堆疊</strong>成形。
+      <strong>挑戰:成功印出「拱橋」模型(它有懸空,想想需不需要支撐)。</strong>
+    </p>
+    <div class="printer-sim">
+      <div>
+        <canvas id="printCanvas"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">藍色=外殼・淺藍=填充・橘色=支撐・紅色=列印失敗</div>
+      </div>
+      <div>
+        <div class="ctrl-row">
+          <label>① 選擇模型</label>
+          <div class="seg" id="segModel"></div>
+        </div>
+        <div class="ctrl-row">
+          <label>② 層高（mm)——越小越精細、但越慢</label>
+          <div class="seg" id="segLayer"></div>
+        </div>
+        <div class="ctrl-row">
+          <label>③ 填充密度——越高越堅固、但越費料</label>
+          <div class="seg" id="segInfill"></div>
+        </div>
+        <div class="ctrl-row">
+          <label>④ 支撐結構</label>
+          <div class="seg" id="segSupport"></div>
+        </div>
+        <div class="stat-box" id="statBox"></div>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn btn-primary btn-sm" id="printBtn" style="flex:1">▶ 開始列印</button>
+          <button class="btn btn-ghost btn-sm" id="resetBtn">重設</button>
+        </div>
+        <div id="printResult" style="font-size:13px;margin-top:8px;min-height:20px"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2>關鍵切片參數</h2>
+    <table class="data">
+      <thead><tr><th>參數</th><th>說明</th><th>取捨</th></tr></thead>
+      <tbody>
+        <tr><td><strong>層高</strong> Layer Height</td><td>每一層的厚度,常見 0.1～0.3 mm。</td><td>越小→表面越細緻,但層數變多、時間變長。</td></tr>
+        <tr><td><strong>填充密度</strong> Infill</td><td>物件內部的填充比例,常見 10～25%。</td><td>越高→越堅固,但越費材料、越花時間。</td></tr>
+        <tr><td><strong>支撐</strong> Support</td><td>替懸空部位搭的臨時支架,列印後拆除。</td><td>有懸空才需要;會增加耗材與後處理。</td></tr>
+        <tr><td><strong>底層附著</strong> Adhesion</td><td>Brim／Raft 等,加強模型與平台的附著。</td><td>防止列印中翹邊脫落。</td></tr>
+      </tbody>
+    </table>
+    <div class="verify-box">
+      <span class="vb-label">🔍 設計時就要想到的列印限制</span>
+      <ul>
+        <li><strong>懸空（Overhang)</strong>:角度過大的懸空面需要支撐,否則材料會下垂。設計時盡量讓結構「自我支撐」。</li>
+        <li><strong>壁厚</strong>:太薄的牆面印不出來或一碰就破,一般至少 2～3 條線寬。</li>
+        <li><strong>底座附著力</strong>:與平台接觸面太小,列印中容易翹起失敗。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>安全操作規範</h2>
+    <div class="knowledge-box" style="background:linear-gradient(135deg,#FEF3C7,#fff);border-left-color:#D97706">
+      <span class="kb-label" style="color:#B45309">⚠️ 3D 列印安全須知</span>
+      <p>
+        ・<strong>高溫</strong>:噴頭可達 200℃ 以上、熱床約 60℃,列印中與剛結束時切勿徒手觸碰。<br>
+        ・<strong>通風</strong>:列印（尤其 ABS、樹脂)會逸散揮發性有機物與超細微粒,須在通風處操作。<br>
+        ・<strong>移動部件</strong>:噴頭與平台會快速移動,列印中勿將手伸入。<br>
+        ・<strong>留意火源</strong>:長時間列印建議有人留意,避免無人看管過夜。
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>台灣常見的 3D 印表機</h2>
+    <table class="data">
+      <thead><tr><th>機型</th><th>品牌／產地</th><th>特點</th></tr></thead>
+      <tbody>
+        <tr><td>da Vinci 系列</td><td>XYZprinting（臺灣)</td><td>臺灣本土品牌,封閉式機型對學生較安全,學校採用率高。</td></tr>
+        <tr><td>A1／P1S 系列</td><td>Bambu Lab（深圳)</td><td>自動校準、高速列印,近年自造圈的人氣機種。</td></tr>
+        <tr><td>Ender-3 系列</td><td>Creality（深圳)</td><td>入門價格最親民、社群資源最豐富。</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12.5px;color:var(--text-muted)">
+      操作不同機型前,務必查閱該機的官方使用手冊。各廠牌手冊可於官網「支援／下載」專區取得。
+    </p>
+  </section>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.xyzprinting.com/zh-TW" target="_blank" rel="noopener">
+      <span class="rc-icon">🇹🇼</span>
+      <span><span class="rc-title">XYZprinting（三緯國際)</span>
+      <span class="rc-src">xyzprinting.com</span>
+      <span class="rc-desc">臺灣 3D 列印品牌官網,含機型手冊與教育資源。</span></span>
+    </a>
+    <a class="resource-card" href="https://bambulab.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🎋</span>
+      <span><span class="rc-title">Bambu Lab</span>
+      <span class="rc-src">bambulab.com</span>
+      <span class="rc-desc">高速 3D 列印機與 Bambu Studio 切片軟體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.creality.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🟥</span>
+      <span><span class="rc-title">Creality（創想三維)</span>
+      <span class="rc-src">creality.com</span>
+      <span class="rc-desc">Ender 系列入門機種與手冊下載。</span></span>
+    </a>
+    <a class="resource-card" href="https://help.prusa3d.com" target="_blank" rel="noopener">
+      <span class="rc-icon">📚</span>
+      <span><span class="rc-title">Prusa Knowledge Base</span>
+      <span class="rc-src">help.prusa3d.com</span>
+      <span class="rc-desc">業界公認最完整的 3D 列印知識庫(含切片觀念)。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="orthographic.html">← 三視圖與立體模型</a>
+    <a class="btn btn-primary" href="laser.html" id="nextBtn">下一個：雷射切割與割字 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../js/print3d.js"></script>
+</body>
+</html>

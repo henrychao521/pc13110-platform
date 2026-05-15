@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>為什麼需要 CAD? ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🖥️%3C/text%3E%3C/svg%3E">
+<style>
+  .race-task { background:var(--bg-soft); border-radius:var(--radius); padding:16px 18px; }
+  .race-bar-row { display:flex; align-items:center; gap:10px; margin:10px 0; }
+  .race-bar-row .rb-label { width:90px; font-weight:700; font-size:13px; flex-shrink:0; }
+  .race-track { flex:1; height:26px; background:#fff; border:1px solid var(--border);
+    border-radius:999px; overflow:hidden; position:relative; }
+  .race-fill { height:100%; width:0; border-radius:999px; transition:width .1s linear;
+    display:flex; align-items:center; justify-content:flex-end; padding-right:8px;
+    color:#fff; font-size:11px; font-weight:700; }
+  .race-fill.hand { background:linear-gradient(90deg,#F59E0B,#D97706); }
+  .race-fill.cad { background:linear-gradient(90deg,#2563EB,#1E3A8A); }
+  .app-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .app-card { border:1px solid var(--border); border-radius:var(--radius); padding:16px;
+    background:#fff; cursor:pointer; transition:all .2s var(--easing); text-align:center; }
+  .app-card:hover { border-color:var(--theme); transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .app-card .ac-icon { font-size:32px; }
+  .app-card .ac-name { font-weight:800; font-size:14px; margin-top:6px; }
+  .app-detail { font-size:13px; color:var(--text-soft); margin-top:10px;
+    background:var(--theme-light); border-radius:10px; padding:12px 14px; display:none; }
+  @media(max-width:680px){ .app-grid{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-1 電腦輔助設計</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>為什麼需要 CAD?</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-1・電腦輔助設計</div>
+    <h1>為什麼需要 CAD?</h1>
+    <p>試著想像:在沒有電腦的時代,工程師如何繪製摩天大樓的藍圖、設計汽車引擎的每一個零件?電腦輔助設計如何徹底改變了這一切?</p>
+  </div>
+
+  <section class="content-section">
+    <h2>什麼是 CAD?</h2>
+    <p>
+      <strong>電腦輔助設計（Computer-Aided Design,簡稱 CAD)</strong>是一種利用電腦軟體來
+      <strong>創建、修改、分析或優化設計</strong>的技術。在 CAD 出現以前,設計師依賴鉛筆、尺規、
+      圓規等傳統工具,把創意一筆一劃畫在圖紙上——過程耗時、容易出錯,稍有不慎甚至會讓整份稿件白費。
+    </p>
+    <p>
+      CAD 徹底改變了各行各業的設計與製造流程,並推動了現代科技與工業的快速發展。
+      它帶來的價值,可歸納為下列四個面向。
+    </p>
+  </section>
+
+  <!-- 互動：改圖競速 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手 ①</span>
+    <h3 style="margin-bottom:4px">改圖競速:傳統手繪 vs CAD</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
+      設計過程中,「修改」是家常便飯。點「開始這項任務」,看看同一個設計變更,兩種方式各要花多久。
+      完成 4 項任務即可解鎖本模組的後半段。
+    </p>
+    <div id="raceArea"></div>
+  </div>
+
+  <section class="content-section">
+    <h2>CAD 的四大價值</h2>
+    <table class="data">
+      <thead><tr><th>價值</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td><strong>① 提升效率與精度</strong></td><td>修改只需點選幾下;電腦運算確保尺寸精準,減少人為誤差。</td></tr>
+        <tr><td><strong>② 強化模擬與分析</strong></td><td>能在製造前進行結構應力、流體力學（CFD)等工程分析,預先找出問題。</td></tr>
+        <tr><td><strong>③ 促進協同與溝通</strong></td><td>雲端 CAD 讓不同地點的設計師即時共用、討論同一份檔案。</td></tr>
+        <tr><td><strong>④ 實現複雜設計</strong></td><td>能輕鬆處理跑車流線車身、客製化人工關節等傳統手繪幾乎無法呈現的造型。</td></tr>
+      </tbody>
+    </table>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>實現複雜設計的代表作:淡江大橋</h4>
+      <p>
+        臺灣興建的淡江大橋,出自已故知名建築師<strong>札哈·哈蒂（Zaha Hadid)</strong>之手。
+        她的作品以流動性、未來感的曲線著稱,如果沒有 CAD 技術輔助,這些充滿想像力的複雜形態
+        幾乎不可能精確地轉化為實際建築。CAD 讓設計師的創意不再受限於繪圖工具。
+      </p>
+    </div>
+  </section>
+
+  <details class="deep">
+    <summary>深入探究：CAD、CAM、CAE 有什麼不同?</summary>
+    <div class="deep-body">
+      <p>這三個詞常一起出現,但分工不同,合稱「電腦輔助 3C」:</p>
+      <p style="margin-top:8px">
+        <strong>・CAD(Computer-Aided Design,電腦輔助設計)</strong>——畫出「形狀」,建立 3D 模型與工程圖。<br>
+        <strong>・CAE(Computer-Aided Engineering,電腦輔助工程)</strong>——「分析」這個設計,模擬它受力、散熱、流體的表現（第 3 章會深入)。<br>
+        <strong>・CAM(Computer-Aided Manufacturing,電腦輔助製造)</strong>——把設計轉成機器看得懂的「加工指令」,例如 3D 列印的 G-code、CNC 的刀具路徑。
+      </p>
+      <p style="margin-top:8px">
+        一個完整的數位製造流程,通常是:<strong>CAD 設計 → CAE 分析驗證 → CAM 產生加工碼 → 機器製造</strong>。
+        本章後半的 3D 列印、雷射切割、CNC,都屬於 CAM 與實際製造的範疇。
+      </p>
+    </div>
+  </details>
+
+  <!-- 互動：應用領域圖鑑 -->
+  <section class="content-section">
+    <h2>CAD 的應用領域</h2>
+    <p>CAD 幾乎遍及所有需要「設計」的領域。點擊卡片,看看它在各行各業扮演的角色。</p>
+    <div class="app-grid" id="appGrid"></div>
+    <div class="app-detail" id="appDetail"></div>
+  </section>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 多方查證</span>
+    <div class="vb-claim">「雲端 CAD 讓團隊能即時協作」——這不只是廣告詞</div>
+    <ul>
+      <li>課本以 Onshape 為例:它完全在瀏覽器執行,團隊成員無論身處何地都能同步編輯同一份設計。</li>
+      <li>主流專業 CAD（如 Autodesk Fusion、SolidWorks）近年也都加入了雲端協作與版本控制功能。</li>
+      <li>這與軟體工程「多人協作版本控制」的概念相通——顯示「協作」已是現代設計工具的標準配備。</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源（外部權威來源）</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.onshape.com" target="_blank" rel="noopener">
+      <span class="rc-icon">☁️</span>
+      <span><span class="rc-title">Onshape</span>
+      <span class="rc-src">onshape.com</span>
+      <span class="rc-desc">完全雲端的專業 CAD,提供免費教育版,課本實作範例採用之軟體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.autodesk.com/products/fusion-360/overview" target="_blank" rel="noopener">
+      <span class="rc-icon">🧩</span>
+      <span><span class="rc-title">Autodesk Fusion</span>
+      <span class="rc-src">autodesk.com</span>
+      <span class="rc-desc">整合 CAD／CAM／CAE 的軟體,教育版對師生免費。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.tinkercad.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🟦</span>
+      <span><span class="rc-title">Tinkercad</span>
+      <span class="rc-src">tinkercad.com</span>
+      <span class="rc-desc">Autodesk 推出、適合入門的線上 3D 設計工具。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.freecad.org" target="_blank" rel="noopener">
+      <span class="rc-icon">🆓</span>
+      <span><span class="rc-title">FreeCAD</span>
+      <span class="rc-src">freecad.org</span>
+      <span class="rc-desc">免費、開源的參數化 3D CAD 軟體,可自由下載使用。</span></span>
+    </a>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手 ②</span>
+    <h3 style="margin-bottom:6px">觀念檢核</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px" id="quizGate">
+      請先完成上方「改圖競速」的 4 項任務,才能作答。
+    </p>
+    <div id="quizArea"></div>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="../index.html">← 回第 2 章</a>
+    <a class="btn btn-primary" href="prototype.html" id="nextBtn">下一個：實體建模與原型 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/cad-intro.js"></script>
+</body>
+</html>

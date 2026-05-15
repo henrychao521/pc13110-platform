@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNC 雕銑操作 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛠️%3C/text%3E%3C/svg%3E">
+<style>
+  .cnc-sim { display:grid; grid-template-columns:1.15fr 1fr; gap:14px; }
+  #cncCanvas { width:100%; height:320px; border:1px solid var(--border);
+    border-radius:10px; background:#0F172A; }
+  .ctrl-row { margin-bottom:11px; }
+  .ctrl-row label { font-size:12.5px; font-weight:700; display:block; margin-bottom:4px; }
+  .seg { display:flex; gap:4px; flex-wrap:wrap; }
+  .seg button { flex:1; min-width:42px; padding:7px 4px; font-size:12px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); transition:all .15s; }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  @media(max-width:680px){ .cnc-sim{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-3 數位加工</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>CNC 雕銑操作</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-3・數位加工機具操作</div>
+    <h1>CNC 雕銑操作</h1>
+    <p>CNC 雕銑機用高速旋轉的刀具,從一整塊固體材料上「切削掉多餘的部分」,雕出想要的形狀——這是「減法製造」。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>CNC 是什麼?</h2>
+    <p>
+      <strong>CNC（Computer Numerical Control,電腦數值控制)</strong>是用電腦程式精確控制刀具移動的加工方式。
+      桌上型 3 軸 CNC 雕銑機,使用<strong>高速旋轉的刀具</strong>,從一塊固體材料
+      （如木材、塑膠、軟金屬)上,把多餘的部分一點一點<strong>切削</strong>掉,留下所需的形狀。
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>加法製造 vs 減法製造</h4>
+      <p>
+        <strong>加法製造（Additive)</strong>:像 3D 列印,把材料一層層「加」上去。<br>
+        <strong>減法製造（Subtractive)</strong>:像 CNC、雷射切割,把多餘的材料「拿掉」。<br>
+        雕刻一塊木頭、削一個蘋果,都是減法的概念——你不能把削掉的部分黏回去,所以
+        <strong>減法製造一旦切錯就無法復原</strong>,事前的路徑規劃格外重要。
+      </p>
+    </div>
+    <table class="data">
+      <thead><tr><th></th><th>3D 列印</th><th>雷射切割</th><th>CNC 雕銑</th></tr></thead>
+      <tbody>
+        <tr><td><b>製造方式</b></td><td>加法(堆疊)</td><td>減法(汽化)</td><td>減法(切削)</td></tr>
+        <tr><td><b>維度</b></td><td>3D 立體</td><td>2D 平面</td><td>2.5D～3D</td></tr>
+        <tr><td><b>常用材料</b></td><td>塑膠線材</td><td>木板、壓克力、皮革(薄片)</td><td>木材、塑膠、軟金屬(塊狀)</td></tr>
+        <tr><td><b>強項</b></td><td>複雜中空結構</td><td>快速做 2D 輪廓</td><td>高強度、高精度、可加工金屬</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="content-section">
+    <h2>CNC 的操作流程</h2>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">① 建模</div>
+        <div class="tl-text">用 CAD 設計要加工的形狀。</div></div>
+      <div class="tl-item"><div class="tl-year">② CAM 規劃刀具路徑</div>
+        <div class="tl-text">用 CAM 軟體規劃刀具該怎麼走、走幾刀、每刀切多深,產生 G-code。</div></div>
+      <div class="tl-item"><div class="tl-year">③ 裝夾與對刀</div>
+        <div class="tl-text">把材料牢牢固定在工作檯上,並設定刀具的起始原點。</div></div>
+      <div class="tl-item"><div class="tl-year">④ 加工</div>
+        <div class="tl-text">機器依 G-code 控制主軸與三軸移動,逐刀切削成形。</div></div>
+    </div>
+  </section>
+
+  <!-- 互動：CNC 刀具路徑模擬器 -->
+  <div class="activity-box">
+    <span class="ab-label">🛠️ 動手操作:CNC 刀具路徑模擬器</span>
+    <h3 style="margin-bottom:4px">操作一台 CNC 雕銑機</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px">
+      選擇加工任務,調整刀具直徑與切削參數,讓刀具沿路徑切削材料。
+      <strong>挑戰:順利完成加工而不「斷刀」。</strong>
+    </p>
+    <div class="cnc-sim">
+      <div>
+        <canvas id="cncCanvas"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">俯視圖・黃點=刀具・灰色=已切削區域</div>
+      </div>
+      <div>
+        <div class="ctrl-row"><label>① 加工任務</label><div class="seg" id="segTask"></div></div>
+        <div class="ctrl-row"><label>② 刀具直徑——大刀快、小刀細</label><div class="seg" id="segTool"></div></div>
+        <div class="ctrl-row"><label>③ 進給速度——刀具移動快慢</label><div class="seg" id="segFeed"></div></div>
+        <div class="ctrl-row"><label>④ 切削深度——每一刀切多深</label><div class="seg" id="segDepth"></div></div>
+        <div class="stat-box" id="cncStat" style="background:var(--bg-soft);border-radius:10px;padding:10px 12px;font-size:13px"></div>
+        <button class="btn btn-primary btn-sm" id="cncGo" style="width:100%;margin-top:10px">▶ 開始加工</button>
+        <div id="cncResult" style="font-size:13px;margin-top:8px;min-height:20px"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2>關鍵切削參數</h2>
+    <table class="data">
+      <thead><tr><th>參數</th><th>說明</th><th>取捨</th></tr></thead>
+      <tbody>
+        <tr><td><strong>主軸轉速</strong><br>Spindle Speed</td><td>刀具旋轉的快慢(RPM)。</td><td>須配合材料與刀具,過慢易崩邊、過快易燒焦。</td></tr>
+        <tr><td><strong>進給速度</strong><br>Feed Rate</td><td>刀具在材料中前進的速度。</td><td>太快→負荷過大、易斷刀;太慢→效率低、易摩擦生熱。</td></tr>
+        <tr><td><strong>切削深度</strong><br>Depth of Cut</td><td>每一刀往下切的深度。</td><td>太深→負荷過大、易斷刀;故深孔常分多刀切削。</td></tr>
+        <tr><td><strong>刀具直徑</strong></td><td>銑刀的粗細。</td><td>大刀→加工快,但刻不出細節;小刀→能做細節,但較脆弱。</td></tr>
+      </tbody>
+    </table>
+    <div class="verify-box">
+      <span class="vb-label">🔍 為什麼會「斷刀」?</span>
+      <ul>
+        <li>斷刀的根本原因是<strong>刀具承受的負荷超過它能負擔的極限</strong>。</li>
+        <li><strong>進給太快 × 切削太深</strong>:刀具一次要削掉太多材料,負荷暴增。</li>
+        <li><strong>刀具太細</strong>:本身強度低,更禁不起大負荷。</li>
+        <li>解法:深孔「分多刀、每刀切淺一點」;細刀就放慢進給。這是 CAM 路徑規劃的重點。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>安全操作規範</h2>
+    <div class="knowledge-box" style="background:linear-gradient(135deg,#FEE2E2,#fff);border-left-color:#DC2626">
+      <span class="kb-label" style="color:#B91C1C">⚠️ CNC 安全須知(高度危險!)</span>
+      <p>
+        ・<strong>高速旋轉刀具</strong>:加工中絕對不可將手伸入工作區。<br>
+        ・<strong>勿戴手套</strong>:手套可能被旋轉刀具捲入,反而更危險;應束起長髮、收好衣物。<br>
+        ・<strong>戴護目鏡</strong>:切削會產生碎屑、木屑飛濺。<br>
+        ・<strong>確實固定工件</strong>:材料若沒夾緊,加工中飛出極度危險。<br>
+        ・加工中不可離開,並熟悉緊急停止按鈕的位置。
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>常見的桌上型 CNC</h2>
+    <table class="data">
+      <thead><tr><th>機型</th><th>品牌／產地</th><th>特點</th></tr></thead>
+      <tbody>
+        <tr><td>Genmitsu 3018 系列</td><td>SainSmart（美／中)</td><td>華語圈入門 3 軸 CNC 最普及,文件齊全。</td></tr>
+        <tr><td>Snapmaker（三合一)</td><td>Snapmaker（深圳)</td><td>3D 列印＋雷雕＋CNC 一機,不少學校採用。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.sainsmart.com/pages/genmitsu-cnc-support" target="_blank" rel="noopener">
+      <span class="rc-icon">🛠️</span>
+      <span><span class="rc-title">Genmitsu CNC 支援中心</span>
+      <span class="rc-src">sainsmart.com</span>
+      <span class="rc-desc">入門 CNC 的官方手冊、軟體與教學。</span></span>
+    </a>
+    <a class="resource-card" href="https://snapmaker.com/support" target="_blank" rel="noopener">
+      <span class="rc-icon">🧰</span>
+      <span><span class="rc-title">Snapmaker 支援</span>
+      <span class="rc-src">snapmaker.com</span>
+      <span class="rc-desc">三合一機（含 CNC)的官方文件與 Luban 軟體。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="laser.html">← 雷射切割與割字</a>
+    <a class="btn btn-primary" href="emerging.html" id="nextBtn">下一個：新興數位加工設備 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../js/cnc.js"></script>
+</body>
+</html>

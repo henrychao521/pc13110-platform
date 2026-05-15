@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新興數位加工設備 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚀%3C/text%3E%3C/svg%3E">
+<style>
+  .emg-card { border:1.5px solid var(--border); border-radius:var(--radius); overflow:hidden;
+    background:#fff; margin-bottom:12px; }
+  .emg-head { display:flex; align-items:center; gap:12px; padding:14px 16px; cursor:pointer;
+    transition:background .15s; }
+  .emg-head:hover { background:var(--bg-soft); }
+  .emg-head .eh-emoji { font-size:30px; }
+  .emg-head .eh-name { font-weight:800; font-size:15.5px; }
+  .emg-head .eh-tag { font-size:11px; color:var(--theme); background:var(--theme-light);
+    padding:2px 8px; border-radius:999px; font-weight:700; }
+  .emg-head .eh-arrow { margin-left:auto; color:var(--text-light); transition:transform .2s; }
+  .emg-card.open .eh-arrow { transform:rotate(90deg); }
+  .emg-body { max-height:0; overflow:hidden; transition:max-height .3s var(--easing); }
+  .emg-card.open .emg-body { max-height:420px; }
+  .emg-body-inner { padding:0 16px 16px; font-size:13.5px; color:var(--text-soft); }
+  .emg-body-inner .er { margin-bottom:6px; }
+  .emg-body-inner .er b { color:var(--text); }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・延伸主題</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>新興數位加工設備</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE・延伸視野</div>
+    <h1>新興數位加工設備</h1>
+    <p>3D 列印、雷射切割、CNC 之外,數位製造仍在快速演進。本模組帶你認識正在改變製造業的新設備與新技術。</p>
+  </div>
+
+  <section class="content-section">
+    <p>
+      前面學到的三種機具,是目前校園與自造空間最普及的數位加工設備。但在產業界,
+      還有許多更專業、更新穎的技術正在崛起——它們有的精度更高、有的能加工金屬、
+      有的甚至能把實體世界「掃描」回電腦。點開下方卡片,認識它們。
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>新興設備圖鑑</h2>
+    <div id="emgList"></div>
+  </section>
+
+  <!-- 互動：技術配對 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手</span>
+    <h3 style="margin-bottom:4px">技術配對挑戰</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
+      先點開上方至少 4 張卡片認識這些技術,再完成下方 4 題配對。
+    </p>
+    <div id="matchGate" style="font-size:13px;color:var(--text-muted)">（請先展開 4 張以上的設備卡片)</div>
+    <div id="matchQuiz"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>從「製造」到「智慧製造」</h4>
+    <p>
+      這些新設備有一個共同方向:<strong>更自動、更整合、更聰明</strong>。當數位加工設備串連感測器、
+      雲端與 AI,就形成所謂的「<strong>智慧製造</strong>」或「<strong>工業 4.0</strong>」——
+      機器能自我監控、預測故障、最佳化生產。第 3 章的「AI 輔助分析」與生成式設計,
+      正是這股趨勢在「設計端」的體現。
+    </p>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 觀念釐清</span>
+    <div class="vb-claim">這些技術各自的定位</div>
+    <ul>
+      <li><strong>3D 掃描</strong>是把「實體 → 數位」,方向和 3D 列印相反,兩者常搭配做「逆向工程」。</li>
+      <li><strong>光固化樹脂列印</strong>與 FDM 同為 3D 列印,但用 UV 光固化液態樹脂,精度高得多。</li>
+      <li><strong>生成式設計</strong>嚴格說是「軟體／演算法」,不是機器,但它正深刻改變設計的方式。</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://phrozen3d.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🇹🇼</span>
+      <span><span class="rc-title">Phrozen 普羅森</span>
+      <span class="rc-src">phrozen3d.com</span>
+      <span class="rc-desc">臺灣的光固化樹脂 3D 列印品牌。</span></span>
+    </a>
+    <a class="resource-card" href="https://formlabs.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🧪</span>
+      <span><span class="rc-title">Formlabs</span>
+      <span class="rc-src">formlabs.com</span>
+      <span class="rc-desc">美國專業樹脂 3D 列印品牌,官網有豐富技術文章。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.shining3d.com" target="_blank" rel="noopener">
+      <span class="rc-icon">📷</span>
+      <span><span class="rc-title">SHINING 3D</span>
+      <span class="rc-src">shining3d.com</span>
+      <span class="rc-desc">EinScan 系列 3D 掃描器的品牌。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.autodesk.com/solutions/generative-design" target="_blank" rel="noopener">
+      <span class="rc-icon">🧬</span>
+      <span><span class="rc-title">Autodesk 生成式設計</span>
+      <span class="rc-src">autodesk.com</span>
+      <span class="rc-desc">生成式設計（Generative Design)的介紹與案例。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="cnc.html">← CNC 雕銑操作</a>
+    <a class="btn btn-primary" href="simulation.html" id="nextBtn">下一個：虛擬模擬入門 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/emerging.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三視圖與立體模型 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E">
+<style>
+  .ortho-stage { display:grid; grid-template-columns:1.3fr 1fr; gap:14px; }
+  #orthoView { width:100%; height:300px; border:1px solid var(--border);
+    border-radius:10px; background:#F1F5F9; cursor:grab; }
+  #orthoView:active { cursor:grabbing; }
+  .views-col { display:flex; flex-direction:column; gap:8px; }
+  .view-box { background:#fff; border:1px solid var(--border); border-radius:10px; padding:8px; }
+  .view-box .vb-t { font-size:12px; font-weight:800; color:var(--theme-dark); margin-bottom:4px; }
+  .view-box canvas { display:block; background:#F8FAFC; border-radius:6px; }
+  .model-picker { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0; }
+  .opt-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
+  .opt-grid canvas { width:100%; background:#F8FAFC; border:2px solid var(--border);
+    border-radius:8px; cursor:pointer; transition:all .15s; }
+  .opt-grid canvas:hover { border-color:var(--theme); }
+  @media(max-width:680px){ .ortho-stage{grid-template-columns:1fr;} .opt-grid{grid-template-columns:repeat(2,1fr);} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-3 從平面到立體</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>三視圖與立體模型</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-3・工程圖的語言</div>
+    <h1>三視圖與立體模型</h1>
+    <p>立體的物體,要怎麼用「平面的圖」精確表達?答案是三視圖——這是全世界工程師共通的圖學語言。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>三視圖是什麼?</h2>
+    <p>
+      把一個立體物件,分別從<strong>正前方、正上方、正側方</strong>看過去,所得到的三張平面投影圖,
+      就是<strong>三視圖</strong>——前視圖、上視圖、側視圖。
+    </p>
+    <p>
+      雷射切割機只看得懂平面的 2D 線條;3D 列印前也要先確認各個面的形狀。
+      因此,把腦中的立體構想「攤平」成三視圖,是進入數位加工前的重要一步。
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>第三角投影法</h4>
+      <p>
+        臺灣與美、日等國的工程製圖,採用<strong>第三角投影法</strong>。它的特點是
+        「視圖放在觀察方向的同一側」——所以<strong>上視圖畫在前視圖的正上方、右側視圖畫在前視圖的右方</strong>。
+        歐洲、中國大陸則多用「第一角投影法」,擺放位置相反。看工程圖時,要先確認用的是哪一種。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動①：三視圖即時對照 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手 ①</span>
+    <h3 style="margin-bottom:4px">立體 ↔ 三視圖 即時對照</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
+      下方左側可拖曳旋轉立體模型,右側會即時顯示它的三視圖。切換不同模型,觀察視圖如何變化。
+    </p>
+    <div class="model-picker" id="modelPicker"></div>
+    <div class="ortho-stage">
+      <div>
+        <canvas id="orthoView"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">🖱️ 拖曳旋轉・滾輪縮放</div>
+      </div>
+      <div class="views-col">
+        <div class="view-box"><div class="vb-t">▣ 前視圖（從正前方看)</div><canvas id="viewFront"></canvas></div>
+        <div class="view-box"><div class="vb-t">▣ 上視圖（從正上方看)</div><canvas id="viewTop"></canvas></div>
+        <div class="view-box"><div class="vb-t">▣ 側視圖（從右側方看)</div><canvas id="viewSide"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 互動②：判讀挑戰 -->
+  <div class="activity-box">
+    <span class="ab-label">🧩 動動腦 動動手 ②</span>
+    <h3 style="margin-bottom:4px">判讀挑戰：找出正確的視圖</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px" id="challengePrompt">
+      觀察上方的立體模型,從下列四個選項中,選出它正確的「上視圖」。
+    </p>
+    <div id="challengeArea"></div>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 觀念釐清</span>
+    <div class="vb-claim">三視圖、2D 圖檔與數位加工的關係</div>
+    <ul>
+      <li><strong>雷射切割／割字機</strong>只在 X-Y 平面移動,讀取的是 <code>.svg</code>、<code>.dxf</code> 等 2D 向量線條。</li>
+      <li>若用 3D 軟體設計,需把立體模型的「特定面」投影或匯出成 2D 線條,雷切機才能辨識。</li>
+      <li>三視圖的觀念,正是「3D ↔ 2D 互相轉換」的基礎。</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.tinkercad.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🟦</span>
+      <span><span class="rc-title">Tinkercad</span>
+      <span class="rc-src">tinkercad.com</span>
+      <span class="rc-desc">線上 3D 設計工具,適合練習立體與平面的轉換。</span></span>
+    </a>
+    <a class="resource-card" href="https://learn.onshape.com" target="_blank" rel="noopener">
+      <span class="rc-icon">📐</span>
+      <span><span class="rc-title">Onshape Learning Center</span>
+      <span class="rc-src">learn.onshape.com</span>
+      <span class="rc-desc">含工程圖（Drawing)的官方教學,學習如何由 3D 產生三視圖。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="modeling.html">← 程式化 CAD 建模器</a>
+    <a class="btn btn-primary" href="print3d.html" id="nextBtn">下一個：3D 列印操作 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script type="module" src="../js/orthographic.js"></script>
+</body>
+</html>

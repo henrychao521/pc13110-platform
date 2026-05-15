@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雷射切割與割字操作 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔦%3C/text%3E%3C/svg%3E">
+<style>
+  .laser-sim { display:grid; grid-template-columns:1.15fr 1fr; gap:14px; }
+  #laserCanvas { width:100%; height:320px; border:1px solid var(--border);
+    border-radius:10px; background:#1E293B; }
+  .ctrl-row { margin-bottom:11px; }
+  .ctrl-row label { font-size:12.5px; font-weight:700; display:block; margin-bottom:4px; }
+  .seg { display:flex; gap:4px; flex-wrap:wrap; }
+  .seg button { flex:1; min-width:42px; padding:7px 4px; font-size:12px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); transition:all .15s; }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .seg button.danger-opt.on { background:var(--danger); border-color:var(--danger); }
+  @media(max-width:680px){ .laser-sim{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-3 數位加工</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>雷射切割與割字操作</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-3・數位加工機具操作</div>
+    <h1>雷射切割與割字操作</h1>
+    <p>3D 列印是「加法」,雷射切割則是「減法」的 2D 加工——用高能量的雷射光束,在平面材料上精準地切割與雕刻。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>雷射切割的原理</h2>
+    <p>
+      雷射切割機利用<strong>高能量的雷射光束</strong>,將能量集中於一個極小的點,
+      使材料瞬間<strong>汽化或熔化</strong>,從而切穿或在表面留下痕跡。雷射頭依
+      <strong>X、Y 軸座標</strong>在平面上移動,所以它讀取的是
+      <strong><code>.svg</code>、<code>.dxf</code> 這類 2D 向量線條檔</strong>。
+    </p>
+    <p>
+      如果你的設計是用 3D 軟體做的,必須先把立體模型的<strong>特定面投影或匯出成 2D 平面線條</strong>,
+      雷射切割機才能辨識——這正是上一個模組「三視圖」觀念的實際應用。
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>切割 vs 雕刻:同一台機器,兩種任務</h4>
+      <p>
+        <strong>切割（Cut)</strong>:雷射能量足以「切穿」整片材料,把形狀分離出來——用於做出輪廓。<br>
+        <strong>雕刻（Engrave)</strong>:雷射只在<strong>表面</strong>留下淺淺的痕跡,不切穿——用於刻上圖案或文字。<br>
+        兩者的差別,主要靠調整「<strong>功率</strong>」與「<strong>速度</strong>」來控制。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動：雷射切割模擬器 -->
+  <div class="activity-box">
+    <span class="ab-label">🛠️ 動手操作:雷射切割模擬器</span>
+    <h3 style="margin-bottom:4px">操作一台雷射切割機</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:12px">
+      操作介面參考臺灣品牌 FLUX 的 Beam Studio。選圖案、選材料,調整功率與速度,讓雷射頭跑完路徑。
+      <strong>挑戰:成功「切割」一次,並成功「雕刻」一次。</strong>
+    </p>
+    <div class="laser-sim">
+      <div>
+        <canvas id="laserCanvas"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">紅點=雷射頭・綠線=完美・黃虛線=切不斷・褐線=燒焦</div>
+      </div>
+      <div>
+        <div class="ctrl-row"><label>① 選擇圖案</label><div class="seg" id="segDesign"></div></div>
+        <div class="ctrl-row"><label>② 加工模式</label><div class="seg" id="segMode"></div></div>
+        <div class="ctrl-row"><label>③ 材料</label><div class="seg" id="segMat"></div></div>
+        <div class="ctrl-row"><label>④ 雷射功率</label><div class="seg" id="segPower"></div></div>
+        <div class="ctrl-row"><label>⑤ 移動速度</label><div class="seg" id="segSpeed"></div></div>
+        <button class="btn btn-primary btn-sm" id="goBtn" style="width:100%;margin-top:4px">▶ 開始加工</button>
+        <div id="laserResult" style="font-size:13px;margin-top:8px;min-height:20px"></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2>材料與參數對照</h2>
+    <p>不同材料、不同厚度,需要的功率與速度都不同。原則是:<strong>切得穿、又不燒焦</strong>。</p>
+    <table class="data">
+      <thead><tr><th>材料</th><th>切割</th><th>雕刻</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr><td>紙板</td><td>低功率即可</td><td>很低功率</td><td>易燃,功率過高、速度過慢會燒焦起火。</td></tr>
+        <tr><td>皮革</td><td>中功率</td><td>低功率</td><td>會產生氣味,需排煙。</td></tr>
+        <tr><td>椴木合板</td><td>高功率、慢速</td><td>中功率</td><td>maker 最常用的雷切材料。</td></tr>
+        <tr><td>壓克力</td><td>高功率、慢速</td><td>中功率</td><td>切割面平整,但易積熱。</td></tr>
+        <tr><td style="color:var(--danger);font-weight:700">PVC（聚氯乙烯)</td><td colspan="2" style="color:var(--danger);font-weight:700">嚴禁雷切!</td><td style="color:var(--danger)">雷切會產生<strong>氯氣</strong>,劇毒且腐蝕機器。</td></tr>
+      </tbody>
+    </table>
+    <div class="verify-box" style="background:#FEF2F2;border-color:#FECACA;border-left-color:#DC2626">
+      <span class="vb-label" style="color:#B91C1C">⚠️ 安全紅線:絕對不能雷切的材料</span>
+      <ul>
+        <li><strong>PVC、含氯塑膠</strong>:雷切產生氯化氫／氯氣,對人體與機器都有害。</li>
+        <li><strong>不明塑膠、ABS</strong>:成分不明者勿雷切,可能釋出有毒煙霧。</li>
+        <li>務必確認材料安全後再加工——這是雷射切割的第一守則。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>割字機:另一種 2D 加工</h2>
+    <p>
+      <strong>割字機（Vinyl Cutter)</strong>與雷射切割機很像——同樣讀取 2D 向量圖、同樣在 X-Y 平面移動——
+      但它<strong>不是用雷射,而是用一把小刀片</strong>來切割。它常用來切割卡點貼紙、卡典西德、
+      轉印膜等較薄的材料,做出貼紙、招牌字、燙印圖案。
+    </p>
+    <p>常見機種如 Silhouette Cameo、Cricut,搭配 Silhouette Studio 等軟體操作。</p>
+  </section>
+
+  <section class="content-section">
+    <h2>安全操作規範</h2>
+    <div class="knowledge-box" style="background:linear-gradient(135deg,#FEF3C7,#fff);border-left-color:#D97706">
+      <span class="kb-label" style="color:#B45309">⚠️ 雷射切割安全須知</span>
+      <p>
+        ・<strong>護眼</strong>:雷射光會傷害眼睛,須配戴對應波長的護目鏡,切勿直視光束或反光。<br>
+        ・<strong>排煙</strong>:切割產生煙塵與氣味,務必開啟抽風／排煙系統。<br>
+        ・<strong>防火</strong>:雷切是高溫加工,旁邊應備滅火設備,加工中不可離開。<br>
+        ・<strong>確認材料</strong>:加工前確認材料成分,嚴禁切割 PVC 等含氯材料。
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>台灣常見的雷射切割機</h2>
+    <table class="data">
+      <thead><tr><th>機型</th><th>品牌／產地</th><th>雷射類型</th><th>特點</th></tr></thead>
+      <tbody>
+        <tr><td>Beambox／Beamo</td><td>FLUX（臺灣)</td><td>CO₂ 雷射</td><td>臺灣品牌,內建攝影機定位,學校 maker 教室常見。</td></tr>
+        <tr><td>D1／S1 系列</td><td>xTool（深圳)</td><td>二極體雷射</td><td>價格親民、模組化,近年銷量高。</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12.5px;color:var(--text-muted)">
+      FLUX 雷射機搭配 Beam Studio 軟體;操作前請查閱官方使用手冊,並完成安全講習。
+    </p>
+  </section>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://flux3dp.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🇹🇼</span>
+      <span><span class="rc-title">FLUX</span>
+      <span class="rc-src">flux3dp.com</span>
+      <span class="rc-desc">臺灣雷射切割機品牌,Beambox 系列與 Beam Studio 軟體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.xtool.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🔧</span>
+      <span><span class="rc-title">xTool</span>
+      <span class="rc-src">xtool.com</span>
+      <span class="rc-desc">二極體雷射機與 xTool Creative Space 軟體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.silhouetteamerica.com" target="_blank" rel="noopener">
+      <span class="rc-icon">✂️</span>
+      <span><span class="rc-title">Silhouette America</span>
+      <span class="rc-src">silhouetteamerica.com</span>
+      <span class="rc-desc">Cameo 割字機與 Silhouette Studio 軟體。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="print3d.html">← 3D 列印操作</a>
+    <a class="btn btn-primary" href="cnc.html" id="nextBtn">下一個：CNC 雕銑操作 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../js/laser.js"></script>
+</body>
+</html>

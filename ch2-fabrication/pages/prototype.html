@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>實體建模與原型製作 ｜ 第 2 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧱%3C/text%3E%3C/svg%3E">
+<style>
+  .mat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .mat-card { border:1.5px solid var(--border); border-radius:var(--radius); overflow:hidden;
+    background:#fff; cursor:pointer; transition:all .2s var(--easing); }
+  .mat-card:hover { border-color:var(--theme); transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .mat-card .mt-head { display:flex; align-items:center; gap:10px; padding:12px 14px;
+    background:var(--theme-light); }
+  .mat-card .mt-head .mt-emoji { font-size:26px; }
+  .mat-card .mt-head .mt-name { font-weight:800; font-size:14.5px; }
+  .mat-card .mt-body { padding:12px 14px; font-size:13px; color:var(--text-soft); }
+  .mat-card .mt-row { margin-bottom:4px; }
+  .mat-card .mt-row b { color:var(--text); }
+  @media(max-width:680px){ .mat-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・2-2 實體模型的製作</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 2 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 2 章</a><span class="sep">›</span>
+    <span>實體建模與原型製作</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 2-2・從構想到原型的實踐</div>
+    <h1>實體建模與原型製作</h1>
+    <p>在了解電腦輔助設計之後,如何把腦中的精美設計,轉化為手中可觸摸的實物?答案常常是——先做一個「原型」。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>為什麼要先做原型?</h2>
+    <p>
+      雖然現代有許多先進的數位加工設備,但在工程設計流程中,為了<strong>快速驗證構想的可行性</strong>,
+      通常會先製作「<strong>原型（Prototype)</strong>」:利用木材、金屬或積木等
+      <strong>容易取得且加工快速</strong>的材料進行實體建模。
+    </p>
+    <p>
+      這麼做的好處是:能在投入<strong>高成本的數位製造之前</strong>,先直接測試機構能不能順利運作、
+      結構夠不夠堅固。原型就像工程設計流程裡的「草稿」——做壞了不心疼,改起來也快。
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 觀念連結</span>
+      <h4>呼應第 1 章:戴森的 5127 個原型</h4>
+      <p>
+        還記得戴森做了 5127 個原型才成功嗎?那些原型不會每個都用昂貴材料精製——
+        而是用快速、便宜的材料反覆嘗試。<strong>原型的價值不在精美,而在「快速驗證、快速失敗、快速改進」</strong>。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動①：原型材料圖鑑 -->
+  <section class="content-section">
+    <h2>原型材料圖鑑</h2>
+    <p>不同的設計需求,要選用不同的材料。點擊卡片,認識每種材料的特性與適用時機。</p>
+    <div class="mat-grid" id="matGrid"></div>
+  </section>
+
+  <details class="deep">
+    <summary>深入探究：建築模型常用的板材</summary>
+    <div class="deep-body">
+      <p>
+        <strong>風扣板</strong>:由「Fome Board」音譯而來,指的是「發泡板」。具有防潮、質地輕、
+        好切割等特性,是建築與室內設計做模型的常用材料。
+      </p>
+      <p style="margin-top:8px">
+        <strong>白奶紙板（牛奶板)</strong>與<strong>灰紙板（馬糞紙)</strong>:都是好用的模型材料,
+        可直接做出牆面或直立型物件;也能用美工刀做「部分切割」,使材料能彎折,形成曲面外觀。
+      </p>
+      <p style="margin-top:8px">
+        若要製作較大型的建築物,則會改用<strong>松木板、松木條</strong>等材料,快速完成外觀與結構。
+      </p>
+    </div>
+  </details>
+
+  <!-- 互動②：材料選擇 -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦 動動手 ①</span>
+    <h3 style="margin-bottom:4px">原型材料選擇</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
+      工程師要依「設計目的」選對材料。完成下方 3 題情境選擇。
+    </p>
+    <div id="matQuiz"></div>
+  </div>
+
+  <section class="content-section">
+    <h2>外觀與材質的模擬</h2>
+    <p>
+      除了結構與機構,產品的「手感」與「外觀」也需要先做模型確認。傳統設計科系常用較軟的
+      <strong>PU 泡綿</strong>製作模型,透過切割、砂磨反覆操作做出心中的外型;再用
+      <strong>補土（Filler)</strong>填補表面孔洞、增加強度;最後以不同的砂磨方式、水泥漆等
+      表面處理,讓物件達成想要的質感。
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>PU 泡綿與補土</h4>
+      <p>
+        <strong>PU 泡綿（Polyurethane,聚氨酯發泡塑料)</strong>:市面上最普及的海綿製品,
+        可用手工鋸裁切,也能用砂紙磨出期望的外表;但表面會有孔洞,所以需要塗補土來填孔。
+      </p>
+      <p>
+        <strong>補土</strong>:主要用在模型加工過程中,為了消除模型表面的裂痕、縫隙等瑕疵,
+        或為了表現某種效果而進行的操作。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動③：外觀製作流程排序 -->
+  <div class="activity-box">
+    <span class="ab-label">🧩 動動腦 動動手 ②</span>
+    <h3 style="margin-bottom:4px">外觀模型製作流程排序</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">
+      以汽車外觀模型為例,把下列製作步驟拖曳排回正確順序。
+    </p>
+    <div id="seqArea"></div>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 觀念釐清</span>
+    <div class="vb-claim">為什麼金屬原型「物理分析較準確」?</div>
+    <ul>
+      <li>金屬材料的性質<strong>均勻而固定</strong>——同一種材質中,每個部位的密度、強度都相同。</li>
+      <li>因此用金屬做的原型,實測得到的受力數據,會很接近電腦模擬時算出的數值。</li>
+      <li>木材則有紋理、節點,各部位性質不一,較適合「快速驗證造型與機構」,而非精密的物理分析。</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.instructables.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🔧</span>
+      <span><span class="rc-title">Instructables</span>
+      <span class="rc-src">instructables.com</span>
+      <span class="rc-desc">全球最大的自造（DIY）教學社群,大量原型製作與材料運用教學。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.core77.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🎨</span>
+      <span><span class="rc-title">Core77</span>
+      <span class="rc-src">core77.com</span>
+      <span class="rc-desc">工業設計專業媒體,可看到真實產品的原型與設計開發過程。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="cad-intro.html">← 為什麼需要 CAD</a>
+    <a class="btn btn-primary" href="modeling.html" id="nextBtn">下一個：程式化 CAD 建模器 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/prototype.js"></script>
+</body>
+</html>

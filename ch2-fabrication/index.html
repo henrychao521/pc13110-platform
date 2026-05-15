@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 2 章 數位加工到機構實作 ｜ PC13110</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+</head>
+<body class="ch2">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・第 2 章</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../index.html">← 回首頁</a>
+    <a href="index.html" class="active">第 2 章</a>
+  </nav>
+</header>
+
+<section class="chapter-hero">
+  <div class="chapter-hero-inner">
+    <div class="ch-eyebrow">CHAPTER 2</div>
+    <h2>數位加工到機構實作</h2>
+    <p>
+      傳統需要長時間學習的手工技藝,如今能藉由電腦輔助快速、精準地實現。本章帶你從 CAD 設計、
+      實體原型,一路操作 3D 列印、雷射切割、CNC 雕銑等數位加工機具,完整走過「從構想到成品」的歷程。
+    </p>
+    <div class="ch-goals">
+      <span class="ch-goal">✦ 理解電腦輔助設計的價值</span>
+      <span class="ch-goal">✦ 學會數位加工機具的操作流程</span>
+      <span class="ch-goal">✦ 認識實體建模與虛擬模擬</span>
+    </div>
+  </div>
+</section>
+
+<section class="module-grid" id="moduleGrid"></section>
+
+<script src="../js/main.js"></script>
+<script src="../js/audio.js"></script>
+<script>
+const CH2_MODULES = [
+  { id: 'ch2-cad', tag: '2-1', icon: '🖥️', title: '為什麼需要 CAD?',
+    desc: '電腦輔助設計如何取代傳統手繪、塑造現代世界。理解 CAD／CAM／CAE 的差異與四大價值。',
+    feats: ['手繪 vs CAD 對比', 'CAD 應用領域', '雲端協作'], link: 'pages/cad-intro.html' },
+  { id: 'ch2-prototype', tag: '2-2', icon: '🧱', title: '實體建模與原型製作',
+    desc: '在投入昂貴的數位製造前,先用木材、金屬、積木、泡綿快速做出原型驗證構想。',
+    feats: ['材料選擇器', '加工流程', '外觀處理'], link: 'pages/prototype.html' },
+  { id: 'ch2-modeling', tag: '2-3', icon: '📐', title: '程式化 CAD 建模器',
+    desc: '用程式碼產生 3D 模型——對應課本 OpenSCAD。從方塊到組合,即時看見立體成果。',
+    feats: ['程式化建模', '3D 即時預覽', '參數化設計'], link: 'pages/modeling.html' },
+  { id: 'ch2-ortho', tag: '2-3', icon: '📊', title: '三視圖與立體模型',
+    desc: '工程圖的共同語言。拖曳旋轉 3D 模型,即時對照前視、上視、側視三個視圖。',
+    feats: ['3D ↔ 三視圖', '第三角投影', '判讀挑戰'], link: 'pages/orthographic.html' },
+  { id: 'ch2-print3d', tag: '2-3', icon: '🖨️', title: '3D 列印操作',
+    desc: '從建模、切片到列印——動手調整層高、填充率、支撐,模擬一台 3D 印表機逐層列印的過程。',
+    feats: ['切片參數模擬', '逐層列印動畫', '安全與後處理'], link: 'pages/print3d.html' },
+  { id: 'ch2-laser', tag: '2-3', icon: '🔦', title: '雷射切割與割字操作',
+    desc: '2D 數位加工。以台灣品牌 FLUX 為範例,設定雷射功率與速度,模擬切割與雕刻的路徑。',
+    feats: ['向量路徑', '功率/速度設定', '材料對照表'], link: 'pages/laser.html' },
+  { id: 'ch2-cnc', tag: '2-3', icon: '🛠️', title: 'CNC 雕銑操作',
+    desc: '用旋轉刀具從固體材料切削出形狀。認識刀具路徑、進給與轉速,並掌握 CNC 的安全規範。',
+    feats: ['刀具路徑視覺化', '切削參數', '安全規範'], link: 'pages/cnc.html' },
+  { id: 'ch2-emerging', tag: '延伸', icon: '🚀', title: '新興數位加工設備',
+    desc: '光固化樹脂列印、金屬列印、3D 掃描、UV 印刷、混合加工——認識正在改變製造業的新設備。',
+    feats: ['樹脂列印', '金屬列印', '3D 掃描'], link: 'pages/emerging.html' },
+  { id: 'ch2-sim', tag: '2-3', icon: '🔬', title: '虛擬模擬與分析入門',
+    desc: '為什麼要先在電腦裡模擬?認識結構分析、流體模擬與程式化模擬,為第 3 章的深入分析鋪路。',
+    feats: ['模擬概念', '軟體地圖', '銜接第 3 章'], link: 'pages/simulation.html' },
+];
+
+const grid = document.getElementById('moduleGrid');
+CH2_MODULES.forEach(m => {
+  const done = Progress.isDone(m.id);
+  const card = document.createElement('a');
+  card.className = 'module-card';
+  card.href = m.link;
+  card.innerHTML = `
+    <div class="mc-top">
+      <div class="mc-icon">${m.icon}</div>
+      <div>
+        <div class="mc-tag">課本 ${m.tag}</div>
+        <h3>${m.title}</h3>
+      </div>
+    </div>
+    <div class="mc-desc">${m.desc}</div>
+    <div class="mc-features">${m.feats.map(f => `<span class="mc-feat">${f}</span>`).join('')}</div>
+    <div class="mc-foot">
+      <span>進入模組 →</span>
+      ${done ? '<span class="mc-done">✓ 已完成</span>' : ''}
+    </div>`;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

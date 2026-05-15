@@ -8,7 +8,8 @@ const PROGRESS_KEY = 'pc13110_progress_v1';
 /* 平台地圖：每章的模組 ID 清單(供進度百分比計算用) */
 const CHAPTER_MAP = {
   ch1: ['ch1-trends', 'ch1-process', 'ch1-thinking', 'ch1-planner', 'ch1-career'],
-  ch2: [],
+  ch2: ['ch2-cad', 'ch2-prototype', 'ch2-modeling', 'ch2-ortho', 'ch2-print3d',
+        'ch2-laser', 'ch2-cnc', 'ch2-emerging', 'ch2-sim'],
   ch3: [],
   ch4: [],
   ch5: [],
