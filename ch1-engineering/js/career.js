@@ -4,9 +4,11 @@
 
 const COMPETITIONS = [
   { name: 'FRC（FIRST Robotics Competition）', cat: 'robot',
-    detail: '被譽為「機器人界的奧運」。參賽隊伍須在約 6 週的有限時間內,打造一台工業等級的機器人,強調工程管理與團隊合作。' },
+    detail: '被譽為「機器人界的奧運」。參賽隊伍須在約 6 週的有限時間內,打造一台工業等級的機器人,強調工程管理與團隊合作。',
+    url: 'https://www.firstinspires.org/robotics/frc' },
   { name: 'MakeX 世界機器人挑戰賽', cat: 'robot',
-    detail: '由中國深圳科技公司 Makeblock 創辦的國際性機器人競賽平台,旨在推廣 STEAM 教育,鼓勵青少年透過機器人競賽培養創新與跨學科整合能力。' },
+    detail: '由中國深圳科技公司 Makeblock 創辦的國際性機器人競賽平台,旨在推廣 STEAM 教育,鼓勵青少年透過機器人競賽培養創新與跨學科整合能力。',
+    url: 'https://www.makex.cc' },
   { name: '智慧鐵人創意競賽（IICC）', cat: 'creative',
     detail: '由教育部主辦,結合科學、人文、藝術與生活常識的創意競賽,考驗團隊臨場解決問題與跨域整合的能力。' },
   { name: '全國高級中學生活科技學藝競賽', cat: 'maker',
@@ -14,7 +16,8 @@ const COMPETITIONS = [
   { name: '旺宏科學獎', cat: 'science',
     detail: '由旺宏教育基金會主辦,鼓勵高中職學生進行科學專題研究,培養探究與獨立研究的能力。' },
   { name: 'Intel ISEF 國際科技展覽會', cat: 'science',
-    detail: '國際性的中學生科學與工程研究展覽會,匯聚世界各地的青少年研究者,是科展類的最高殿堂之一。' },
+    detail: '國際性的中學生科學與工程研究展覽會,匯聚世界各地的青少年研究者,是科展類的最高殿堂之一。',
+    url: 'https://www.societyforscience.org/isef/' },
   { name: 'IEYI 世界青少年發明展', cat: 'invent',
     detail: '鼓勵青少年發明創作的國際展覽,著重於創意發想與發明的實用性。' },
 ];
@@ -54,12 +57,16 @@ function renderComps() {
   COMPETITIONS.filter(c => activeCat === 'all' || c.cat === activeCat).forEach(c => {
     const card = document.createElement('div');
     card.className = 'comp-card';
+    const linkHTML = c.url
+      ? `<a href="${c.url}" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--theme)">🔗 前往官方網站 ↗</a>`
+      : '';
     card.innerHTML = `
       <span class="cc-type">${CAT_LABEL[c.cat]}</span>
       <h4>${c.name}</h4>
-      <div class="cc-detail">${c.detail}</div>
+      <div class="cc-detail">${c.detail}${linkHTML}</div>
       <div class="cc-hint">▾ 點擊展開介紹</div>`;
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') return;
       card.classList.toggle('open');
       card.querySelector('.cc-hint').textContent = card.classList.contains('open') ? '▴ 點擊收合' : '▾ 點擊展開介紹';
       SoundFX && SoundFX.click();
