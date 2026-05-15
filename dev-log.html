@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>開發紀錄與發展脈絡 ｜ PC13110 工程設計學習平台</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📒%3C/text%3E%3C/svg%3E">
+<style>
+  body.devlog { background:
+    radial-gradient(ellipse 60% 50% at 85% -5%, rgba(29,78,216,.08), transparent),
+    var(--bg); }
+  .dl-wrap { max-width: 880px; margin: 0 auto; padding: 0 28px 90px; }
+  .dl-hero { padding: 56px 0 24px; }
+  .dl-hero h1 { font-size: 38px; font-weight: 900; letter-spacing: -.025em; }
+  .dl-hero h1 .grad {
+    background: linear-gradient(120deg, var(--brand), var(--brand-cyan));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .dl-hero p { font-size: 16px; color: var(--text-soft); margin-top: 10px; }
+
+  .rule-box { background: linear-gradient(135deg, #FEF9C3, #fff);
+    border: 1px solid #FDE68A; border-left: 4px solid #D97706;
+    border-radius: var(--radius); padding: 18px 22px; margin: 22px 0 32px; }
+  .rule-box h3 { font-size: 16px; font-weight: 800; color: #92400E; margin-bottom: 8px; }
+  .rule-box ol { margin: 6px 0 0 20px; }
+  .rule-box li { font-size: 14px; color: var(--text-soft); margin-bottom: 5px; }
+
+  .dl-meta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 30px; }
+  .dl-stat { background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; text-align: center; }
+  .dl-stat .ds-n { font-size: 26px; font-weight: 900; color: var(--brand); font-family: var(--font-mono); }
+  .dl-stat .ds-l { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+  .timeline-h { font-size: 22px; font-weight: 900; margin: 8px 0 18px; }
+
+  .log-phase { position: relative; padding-left: 36px; padding-bottom: 8px; }
+  .log-phase::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: -8px;
+    width: 2px; background: var(--border-strong); }
+  .log-phase:last-child::before { display: none; }
+  .log-phase::after { content: ''; position: absolute; left: 4px; top: 8px;
+    width: 16px; height: 16px; border-radius: 50%; background: var(--brand);
+    border: 3px solid #fff; box-shadow: 0 0 0 1.5px var(--brand); }
+
+  .lp-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 22px 24px; margin-bottom: 22px; box-shadow: var(--shadow-sm); }
+  .lp-tag { font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    color: var(--brand); }
+  .lp-date { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); float: right; }
+  .lp-card h3 { font-size: 19px; font-weight: 800; margin: 2px 0 14px; }
+  .lp-sec { margin-bottom: 14px; }
+  .lp-sec h4 { font-size: 13.5px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .lp-sec p { font-size: 14px; color: var(--text-soft); }
+  .lp-sec ul { margin: 4px 0 0 20px; }
+  .lp-sec li { font-size: 13.5px; color: var(--text-soft); margin-bottom: 3px; }
+  blockquote.verbatim { background: var(--bg-soft); border-left: 3px solid var(--brand);
+    border-radius: 0 8px 8px 0; padding: 11px 15px; margin: 0;
+    font-size: 13.5px; color: var(--text-soft); line-height: 1.75; }
+  blockquote.verbatim .vq-mark { color: var(--brand); font-weight: 800; }
+  .lp-decisions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .lp-decisions span { font-size: 12px; font-weight: 600; background: var(--brand-light);
+    color: var(--brand-dark); padding: 3px 10px; border-radius: 999px; }
+  .commit-tag { font-family: var(--font-mono); font-size: 11px; background: var(--bg-soft);
+    color: var(--text-muted); padding: 2px 8px; border-radius: 6px; }
+  @media (max-width: 680px) { .dl-meta { grid-template-columns: repeat(2, 1fr); } .lp-date { float: none; display: block; } }
+</style>
+</head>
+<body class="devlog">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">📒</div>
+    <div class="brand-text">
+      <h1>開發紀錄</h1>
+      <div class="subtitle">PC13110 工程設計學習平台</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="index.html">← 回平台首頁</a>
+  </nav>
+</header>
+
+<main class="dl-wrap">
+  <section class="dl-hero">
+    <h1>開發紀錄與<span class="grad">發展脈絡</span></h1>
+    <p>本頁逐段記錄「PC13110 工程設計學習平台」的開發歷程——保留每個階段的使用者需求逐字稿、決策脈絡與執行產出,作為專案的完整發展軌跡。</p>
+  </section>
+
+  <div class="rule-box">
+    <h3>📌 紀錄維護規則</h3>
+    <ol>
+      <li><strong>逐段紀錄</strong>:專案每完成一個開發段落（一個明確的需求或里程碑),即在本頁「開發歷程」新增一張階段卡片。</li>
+      <li><strong>三段式結構</strong>:每張卡片須含「💬 使用者需求(逐字稿)」「🧭 決策與脈絡」「✅ 執行產出」三部分。</li>
+      <li><strong>逐字稿忠實保留</strong>:使用者需求以原文引用,不改寫,以保存真實的溝通脈絡。</li>
+      <li><strong>同步版控</strong>:每次更新本頁後,連同該段落的程式碼一起 commit 並 push。</li>
+    </ol>
+  </div>
+
+  <div class="dl-meta">
+    <div class="dl-stat"><div class="ds-n" id="mPhase">6</div><div class="ds-l">開發段落</div></div>
+    <div class="dl-stat"><div class="ds-n">2</div><div class="ds-l">完成章節</div></div>
+    <div class="dl-stat"><div class="ds-n">14</div><div class="ds-l">學習模組</div></div>
+    <div class="dl-stat"><div class="ds-n" id="mDays">2</div><div class="ds-l">開發天數</div></div>
+  </div>
+
+  <h2 class="timeline-h">📅 開發歷程</h2>
+  <div id="timeline"></div>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/devlog.js"></script>
+</body>
+</html>
