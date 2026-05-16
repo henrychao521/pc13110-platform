@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教師後台 ｜ PC13110 工程設計學習平台</title>
+<meta name="description" content="PC13110 工程設計學習平台教師後台:課程總覽與授課規劃、作業指派產生器、學生進度彙整檢視、各模組備課資源與評量重點。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+</head>
+<body class="hub teacher">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・教師後台</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="index.html">← 回首頁</a>
+    <a href="teacher.html" class="active">教師後台</a>
+    <a href="dev-log.html">開發紀錄</a>
+  </nav>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="teacher-hero">
+  <span class="badge">教師專區・備課與班級管理</span>
+  <h2>把整套平台變成<span class="grad">隨手可用的備課工具</span></h2>
+  <p>
+    這裡彙整 PC13110 五章 27 個模組的授課規劃。你可以一鍵產生作業連結與 QR Code 給學生，
+    收回學生的學習紀錄代碼後檢視全班完成度，並查閱每個模組的教學目標、常見迷思與評量重點。
+  </p>
+</section>
+
+<!-- ===== Tab 導覽 ===== -->
+<div class="tb-tabs" id="tbTabs">
+  <button class="tb-tab active" data-tab="overview">📚 課程總覽</button>
+  <button class="tb-tab" data-tab="assign">📋 作業指派</button>
+  <button class="tb-tab" data-tab="progress">📊 學生進度</button>
+  <button class="tb-tab" data-tab="notes">🧭 備課資源</button>
+</div>
+
+<main class="tb-main">
+  <section class="tb-panel active" id="panel-overview"></section>
+  <section class="tb-panel" id="panel-assign"></section>
+  <section class="tb-panel" id="panel-progress"></section>
+  <section class="tb-panel" id="panel-notes"></section>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/audio.js"></script>
+<script src="vendor/qrcode/qrcode.js"></script>
+<script src="js/teacher.js"></script>
+</body>
+</html>

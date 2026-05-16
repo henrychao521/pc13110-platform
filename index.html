@@ -26,6 +26,7 @@
     <a href="#chapters">五大主題</a>
     <a href="#process">工程設計流程</a>
     <a href="ch1-engineering/index.html">開始學習</a>
+    <a href="teacher.html">教師後台</a>
   </nav>
 </header>
 
@@ -66,9 +67,13 @@
         <div id="overallBar" style="height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-cyan));transition:width .6s"></div>
       </div>
     </div>
+    <button class="btn btn-ghost btn-sm" id="exportBtn">📤 匯出學習紀錄</button>
     <button class="btn btn-ghost btn-sm" id="resetBtn">重設進度</button>
   </div>
 </section>
+
+<!-- ===== 老師指派的作業（?a= 參數時顯示） ===== -->
+<div id="assignBanner"></div>
 
 <!-- ===== 五大主題章節 ===== -->
 <section class="hub-chapters" id="chapters">

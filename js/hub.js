@@ -130,3 +130,89 @@ document.getElementById('resetBtn').addEventListener('click', () => {
     location.reload();
   }
 });
+
+/* ---- 簡易彈窗 ---- */
+function openModal(title, bodyHTML) {
+  const old = document.querySelector('.modal-overlay');
+  if (old) old.remove();
+  const ov = document.createElement('div');
+  ov.className = 'modal-overlay';
+  ov.innerHTML = `
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>${title}</h3>
+        <button class="modal-close" aria-label="關閉">✕</button>
+      </div>
+      <div class="modal-body">${bodyHTML}</div>
+    </div>`;
+  document.body.appendChild(ov);
+  const close = () => ov.remove();
+  ov.querySelector('.modal-close').addEventListener('click', close);
+  ov.addEventListener('click', e => { if (e.target === ov) close(); });
+  return ov;
+}
+
+/* ---- 匯出學習紀錄 ---- */
+document.getElementById('exportBtn').addEventListener('click', () => {
+  if (typeof SoundFX !== 'undefined') SoundFX.click();
+  const pct = Progress.overallPercent();
+  if (pct === 0 && !confirm('目前進度為 0%，仍要匯出紀錄嗎?')) return;
+  const raw = prompt('請輸入你的姓名或座號（會附在紀錄上交給老師）:', '');
+  if (raw === null) return;
+  const code = exportProgressCode(raw.trim());
+  openModal('📤 匯出學習紀錄', `
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      下方是你的學習紀錄代碼。<strong>複製</strong>後貼給老師，老師即可在「教師後台」看到你的完成進度。
+    </p>
+    <textarea class="modal-code" readonly rows="4">${code}</textarea>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn btn-primary btn-sm" id="mCopyBtn">📋 複製代碼</button>
+      <a class="btn btn-ghost btn-sm" href="teacher.html" target="_blank">前往教師後台</a>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:10px">
+      ※ 代碼僅記錄「哪些模組已完成」與測驗分數，不含個資。
+    </p>`);
+  const ta = document.querySelector('.modal-code');
+  ta.addEventListener('focus', () => ta.select());
+  document.getElementById('mCopyBtn').addEventListener('click', () => {
+    ta.select();
+    navigator.clipboard.writeText(code).then(
+      () => showToast('已複製學習紀錄代碼', 'success'),
+      () => { document.execCommand('copy'); showToast('已複製學習紀錄代碼', 'success'); }
+    );
+  });
+});
+
+/* ---- 老師指派的作業橫幅(?a= 參數) ---- */
+(function renderAssignment() {
+  const code = new URLSearchParams(location.search).get('a');
+  const ids = decodeAssign(code);
+  const banner = document.getElementById('assignBanner');
+  if (!banner || !ids.length) return;
+  const doneCount = ids.filter(id => Progress.isDone(id)).length;
+  banner.innerHTML = `
+    <section class="assign-banner">
+      <div class="ab-head">
+        <span class="ab-icon">📋</span>
+        <div>
+          <div class="ab-title">老師指派的作業</div>
+          <div class="ab-sub">完成下列 ${ids.length} 個模組　·　目前已完成 <strong id="abDone">${doneCount}</strong> / ${ids.length}</div>
+        </div>
+        <div class="ab-bar"><span id="abBar" style="width:${Math.round(doneCount / ids.length * 100)}%"></span></div>
+      </div>
+      <div class="ab-list">
+        ${ids.map(id => {
+          const m = moduleById(id);
+          if (!m) return '';
+          const done = Progress.isDone(id);
+          return `<a class="ab-item${done ? ' done' : ''}" href="${m.link}">
+            <span class="ab-num">${m.icon}</span>
+            <span class="ab-name">${m.title}</span>
+            <span class="ab-tag">課本 ${m.tag}</span>
+            <span class="ab-stat">${done ? '✓ 已完成' : '前往 →'}</span>
+          </a>`;
+        }).join('')}
+      </div>
+    </section>`;
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+})();
