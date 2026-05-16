@@ -36,7 +36,31 @@
 | `3d-scanner.jpg` | 3D 掃描器 | CC BY 2.0 | Creative Tools | File:VIUscan handheld 3D scanner in use.jpg |
 | `robot-arm.jpg` | 工業機械手臂 | CC0 | Lexington Medical, Inc. | File:Lexington Medical, Inc. Manufacturing Robot Arm.jpg |
 
+### 第 4、5 章:電子元件、工具與機電周邊（2026-05-17 新增）
+
+| 檔案 | 用途 | 授權 | 作者 | 來源（Wikimedia Commons) |
+|---|---|---|---|---|
+| `comp-resistor.jpg` | 電阻器 | Public Domain | Evan-Amos | File:Electronic-Axial-Lead-Resistors-Array.jpg |
+| `comp-capacitor.jpg` | 電容器 | CC0 | Elcap | File:Electrolytic capacitors-P1090328.JPG |
+| `comp-inductor.jpg` | 電感器 | CC0 | Retired electrician | File:10mH Murata through-hole mini choke 01.jpg |
+| `comp-diode.jpg` | 二極體 | CC0 | Zxelt | File:Diode 1N4007.jpg |
+| `comp-transistor.jpg` | 電晶體 | Public Domain | Mumin 123 | File:Transistors-three types.jpg |
+| `comp-ic.jpg` | 積體電路 IC | CC BY-SA 4.0 | Mister rf | File:DIP packages.jpg |
+| `tool-pliers.jpg` | 尖嘴鉗 | CC BY-SA 2.0 | oomlout | File:Basic NeedleNose Pliers.jpg |
+| `tool-cutter.jpg` | 斜口鉗 | CC BY 2.0 | A Yee | File:Diagonal Pliers (12822800605).jpg |
+| `tool-stripper.jpg` | 剝線鉗 | CC BY-SA 3.0 | Dmitry G | File:Wire stripper amtech B4285.JPG |
+| `tool-multimeter.jpg` | 三用電表 | CC BY-SA 4.0 | Jacek Halicki | File:2017 Cyfrowy miernik uniwersalny.jpg |
+| `tool-breadboard.jpg` | 麵包板 | CC BY-SA 2.0 | oomlout | File:400 points breadboard.jpg |
+| `board-arduino.jpg` | Arduino Uno 控制板 | CC0 | JrawX | File:Arduino Uno board.jpg |
+| `board-microbit.jpg` | BBC micro:bit 控制板 | CC BY 4.0 | SimonWaldherr | File:BBC micro bit v2.jpg |
+| `board-esp32.jpg` | ESP32 開發板 | CC BY-SA 4.0 | Edwiyanto | File:ESP32 Dev Board.jpg |
+| `board-raspberrypi.jpg` | Raspberry Pi 4 單板電腦 | CC BY-SA 4.0 | Laserlicht | File:Raspberry Pi 4 Model B - Top.jpg |
+| `sensor-servo.jpg` | SG90 伺服馬達 | CC BY-SA 4.0 | Suyash Dwivedi | File:Tower Pro SG90 micro servo motor.jpg |
+| `sensor-ldr.jpg` | 光敏電阻 LDR | CC BY-SA 4.0 | Suyash Dwivedi | File:25mm light-dependent resistor (LDR) (4).jpg |
+| `sensor-dht.jpg` | 溫濕度感測器 DHT22 | CC BY-SA 4.0 | Suyash Dwivedi | File:AM2302 (DHT22) digital temperature and humidity sensor module.jpg |
+| `sensor-ultrasonic.jpg` | 超音波感測器 HC-SR04 | CC BY-SA 4.0 | Suyash Dwivedi | File:HC SR04 Ultrasonic Module.jpg |
+
 > 每張圖片的 Wikimedia Commons 檔案頁網址格式為:
 > `https://commons.wikimedia.org/wiki/<上表「來源」欄位,空格改為底線>`
 
-整理日期:2026-05-16
+整理日期:2026-05-16(第 2 章 19 張)、2026-05-17(第 4、5 章 19 張)
