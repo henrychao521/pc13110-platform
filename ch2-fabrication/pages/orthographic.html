@@ -21,9 +21,15 @@
   .view-box canvas { display:block; background:#F8FAFC; border-radius:6px; }
   .model-picker { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0; }
   .opt-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
-  .opt-grid canvas { width:100%; background:#F8FAFC; border:2px solid var(--border);
-    border-radius:8px; cursor:pointer; transition:all .15s; }
-  .opt-grid canvas:hover { border-color:var(--theme); }
+  .opt-grid .opt { background:#F8FAFC; border:2px solid var(--border);
+    border-radius:8px; cursor:pointer; transition:all .15s; padding:6px;
+    display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .opt-grid .opt:hover { border-color:var(--theme); }
+  .opt-grid .opt canvas { display:block; }
+  .opt-grid .opt .opt-label { font-size:11px; font-weight:700; color:var(--text-muted); }
+  #chView { width:100%; height:230px; border:1px solid var(--border);
+    border-radius:10px; background:#F1F5F9; cursor:grab; }
+  #chView:active { cursor:grabbing; }
   @media(max-width:680px){ .ortho-stage{grid-template-columns:1fr;} .opt-grid{grid-template-columns:repeat(2,1fr);} }
 </style>
 </head>
@@ -102,8 +108,9 @@
   <div class="activity-box">
     <span class="ab-label">🧩 動動腦 動動手 ②</span>
     <h3 style="margin-bottom:4px">判讀挑戰：找出正確的視圖</h3>
-    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px" id="challengePrompt">
-      觀察上方的立體模型,從下列四個選項中,選出它正確的「上視圖」。
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
+      觀察題目中的立體模型(可拖曳旋轉),從四個選項中選出它正確的「上視圖」——
+      也就是「從正上方往下看」會看到的形狀。共 3 題。
     </p>
     <div id="challengeArea"></div>
   </div>
