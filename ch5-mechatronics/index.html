@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 5 章 機電整合的工程設計 ｜ PC13110</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🤖%3C/text%3E%3C/svg%3E">
+</head>
+<body class="ch5">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・第 5 章</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../index.html">← 回首頁</a>
+    <a href="index.html" class="active">第 5 章</a>
+  </nav>
+</header>
+
+<section class="chapter-hero">
+  <div class="chapter-hero-inner">
+    <div class="ch-eyebrow">CHAPTER 5</div>
+    <h2>機電整合的工程設計</h2>
+    <p>
+      把「機構」「結構」「電」「程式」整合起來,就能打造會感知、會思考、會動作的智慧裝置。
+      本章帶你認識控制板與感測器,並用 ESP32 完成屬於自己的機電整合作品。
+    </p>
+    <div class="ch-goals">
+      <span class="ch-goal">✦ 認識各類控制板與電子周邊</span>
+      <span class="ch-goal">✦ 學會 ESP32 的開發與燒錄</span>
+      <span class="ch-goal">✦ 完成機電整合的統整專題</span>
+    </div>
+  </div>
+</section>
+
+<section class="module-grid" id="moduleGrid"></section>
+
+<script src="../js/main.js"></script>
+<script src="../js/audio.js"></script>
+<script>
+const CH5_MODULES = [
+  { id: 'ch5-boards', tag: '5-1', icon: '🎛️', title: '常見控制板',
+    desc: 'Arduino、micro:bit、ESP32——比較市面上常見的控制板,學會依專案需求挑選合適的「大腦」。',
+    feats: ['控制板比較', '規格判讀', '選板挑戰'], link: 'pages/boards.html' },
+  { id: 'ch5-peripherals', tag: '5-2', icon: '⚙️', title: '機電整合的電子周邊',
+    desc: '伺服馬達、感測器與序列埠通訊。動手控制伺服馬達的角度,理解輸入、處理、輸出的機電整合架構。',
+    feats: ['伺服馬達控制', '感測器', '序列埠通訊'], link: 'pages/peripherals.html' },
+  { id: 'ch5-esp32', tag: '5-3', icon: '🔷', title: '認識 ESP32 與實作',
+    desc: '內建 WiFi 與藍牙的 ESP32 控制板。認識腳位圖、Arduino IDE 開發流程與燒錄,並用 Wokwi 線上模擬。',
+    feats: ['ESP32 腳位圖', '燒錄流程', 'Wokwi 模擬'], link: 'pages/esp32.html' },
+  { id: 'ch5-project', tag: '統整', icon: '🏆', title: '機電整合統整專題',
+    desc: '把全書所學整合起來——規劃一個「感知 → 處理 → 動作」的機電整合作品,完成你的工程設計流程。',
+    feats: ['系統規劃', '感知-處理-動作', '專題提案'], link: 'pages/project.html' },
+];
+const grid = document.getElementById('moduleGrid');
+CH5_MODULES.forEach(m => {
+  const done = Progress.isDone(m.id);
+  const card = document.createElement('a');
+  card.className = 'module-card';
+  card.href = m.link;
+  card.innerHTML = `
+    <div class="mc-top">
+      <div class="mc-icon">${m.icon}</div>
+      <div><div class="mc-tag">課本 ${m.tag}</div><h3>${m.title}</h3></div>
+    </div>
+    <div class="mc-desc">${m.desc}</div>
+    <div class="mc-features">${m.feats.map(f => `<span class="mc-feat">${f}</span>`).join('')}</div>
+    <div class="mc-foot"><span>進入模組 →</span>${done ? '<span class="mc-done">✓ 已完成</span>' : ''}</div>`;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

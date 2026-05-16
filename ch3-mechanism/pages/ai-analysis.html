@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 輔助的機構結構分析 ｜ 第 3 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🤖%3C/text%3E%3C/svg%3E">
+<style>
+  #genCanvas { width:100%; height:240px; border:1px solid var(--border);
+    border-radius:10px; background:#0F172A; }
+  .gen-stat { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
+  .gen-stat div { background:var(--theme-light); border-radius:8px; padding:8px; text-align:center; }
+  .gen-stat b { font-family:var(--font-mono); font-size:17px; color:var(--theme-dark); display:block; }
+  .gen-stat span { font-size:11px; color:var(--text-muted); }
+</style>
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・3-3 AI 輔助分析</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 3 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 3 章</a><span class="sep">›</span>
+    <span>AI 輔助的機構結構分析</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 3-3・AI 輔助的機構結構分析</div>
+    <h1>AI 輔助的機構結構分析</h1>
+    <p>身處 AI 時代,周圍許多工程工具都已融入 AI 運算。它們能加速設計與分析,但也有不能忽視的限制。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>內建智慧功能的 CAD / CAE 軟體</h2>
+    <p>主流的 CAD／CAE 軟體雖不完全是「AI 軟體」,但正持續整合越來越多智慧化、自動化功能:</p>
+    <div class="knowledge-box">
+      <span class="kb-label">🧬 生成式設計(Generative Design)</span>
+      <p>
+        以 <strong>Autodesk Fusion 360</strong> 為代表。使用者只要設定<strong>設計目標</strong>
+        (材料、要承受的載荷、固定位置、製造方式),軟體就會用演算法<strong>自動探索並生成多種</strong>
+        符合要求的方案,常呈現出輕量、仿生的造型。
+      </p>
+    </div>
+    <div class="knowledge-box">
+      <span class="kb-label">⚡ 即時模擬</span>
+      <p>
+        以 <strong>ANSYS Discovery</strong> 為代表,強調「即時模擬」——設計師一邊修改模型,
+        幾乎立刻就能看到應力、流體的模擬結果如何變化,大幅縮短「修改 → 看結果」的等待時間。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動:生成式設計探索器 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:生成式設計探索器</span>
+    <h3 style="margin-bottom:4px">看 AI 如何把零件「越做越輕」</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      同一個支架(左側固定、右端受力),按「讓 AI 生成下一個方案」,觀察生成式設計如何在
+      <strong>維持足夠強度</strong>的前提下,一步步減少材料、減輕重量。
+    </p>
+    <canvas id="genCanvas"></canvas>
+    <div class="gen-stat" id="genStat"></div>
+    <div style="text-align:center;margin-top:10px">
+      <button class="btn btn-primary btn-sm" id="genBtn">🧬 讓 AI 生成下一個方案</button>
+    </div>
+    <div id="genNote" style="font-size:13px;color:var(--text-soft);margin-top:8px"></div>
+  </div>
+
+  <section class="content-section">
+    <h2>以機器學習為基礎的模擬平台</h2>
+    <p>
+      這是更前沿的方向:像 <strong>Siml.ai</strong> 這類平台,利用<strong>機器學習模型</strong>
+      來取代或增強傳統的物理求解器。它們用大量傳統模擬數據訓練 AI,訓練完成後,
+      AI 預測物理結果的速度可能<strong>遠超過傳統求解器</strong>,有機會做到「即時」回饋。
+    </p>
+    <div class="verify-box">
+      <span class="vb-label">🔍 對高中學習的現實考量</span>
+      <ul>
+        <li>這類平台多數仍在發展初期,或主要針對專業研發市場。</li>
+        <li>訓練有效的 AI 模型需要大量高品質模擬數據,對學生而言不易取得。</li>
+        <li>但它代表了一個趨勢:AI 正逐步成為工程模擬的加速器。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>大型語言模型(LLM)作為學習助手</h2>
+    <p>
+      ChatGPT、Gemini、Copilot 這類<strong>大型語言模型(LLM)</strong>,可以協助:
+      解釋複雜的機構結構原理、根據描述生成範例、腦力激盪解決方案,甚至為簡單的物理計算
+      提供程式碼片段。但使用時必須清楚它們的優勢與限制。
+    </p>
+    <table class="data">
+      <thead><tr><th>優勢</th><th>限制</th></tr></thead>
+      <tbody>
+        <tr><td>易於取得,許多有免費版本</td><td><strong>準確性問題</strong>:可能「一本正經地說錯話」(幻覺)</td></tr>
+        <tr><td>互動性強,可對話式學習與探索</td><td><strong>過度依賴</strong>:可能削弱獨立思考與解決問題的能力</td></tr>
+        <tr><td>跨領域知識,協助連結不同領域</td><td><strong>缺乏真實模擬能力</strong>:無法取代專業 CAE 軟體做精確物理模擬</td></tr>
+      </tbody>
+    </table>
+    <div class="knowledge-box" style="background:linear-gradient(135deg,#FEF3C7,#fff);border-left-color:#D97706">
+      <span class="kb-label" style="color:#B45309">⚠️ 關鍵心法</span>
+      <h4>AI 是強大的「助手」,不是「答案」</h4>
+      <p>
+        AI 生成的內容可能有錯,專業領域尤其如此。使用 AI 工具時,務必保持
+        <strong>批判性思維</strong>:把 AI 的回答當成「待查證的草稿」,自己再驗證、再判斷。
+        真正的工程能力,是「會用 AI」加上「看得懂 AI 對不對」。
+      </p>
+    </div>
+  </section>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組與第 3 章</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.autodesk.com/solutions/generative-design" target="_blank" rel="noopener">
+      <span class="rc-icon">🧬</span>
+      <span><span class="rc-title">Autodesk 生成式設計</span>
+      <span class="rc-src">autodesk.com</span>
+      <span class="rc-desc">生成式設計的官方介紹與工程案例。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.ansys.com/zh-tw" target="_blank" rel="noopener">
+      <span class="rc-icon">⚡</span>
+      <span><span class="rc-title">ANSYS</span>
+      <span class="rc-src">ansys.com</span>
+      <span class="rc-desc">即時模擬與工程模擬(CAE)的代表性軟體。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="mechanism.html">← 機構類型與運動</a>
+    <a class="btn btn-primary" href="../index.html" id="nextBtn">完成第 3 章 ✓</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/ai-analysis.js"></script>
+</body>
+</html>

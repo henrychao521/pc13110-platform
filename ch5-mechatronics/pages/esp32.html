@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>認識 ESP32 與實作 ｜ 第 5 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔷%3C/text%3E%3C/svg%3E">
+<style>
+  .esp-board { display:flex; gap:6px; justify-content:center; align-items:stretch;
+    background:#0F172A; border-radius:14px; padding:16px 10px; }
+  .pin-col { display:flex; flex-direction:column; gap:5px; }
+  .esp-chip { width:96px; background:#1E293B; border-radius:10px; display:flex;
+    align-items:center; justify-content:center; color:#A78BFA; font-weight:800;
+    text-align:center; font-size:13px; }
+  .pin { font-family:var(--font-mono); font-size:11px; font-weight:700; padding:5px 7px;
+    border-radius:6px; cursor:pointer; color:#fff; white-space:nowrap; transition:transform .1s; }
+  .pin:hover { transform:scale(1.06); }
+  .pin.sel { outline:2px solid #fff; }
+  .pin-r { text-align:right; }
+  .pin-info { background:var(--theme-light); border-radius:10px; padding:12px 14px;
+    margin-top:10px; font-size:13px; min-height:48px; }
+  .seqbox { margin-top:8px; }
+</style>
+</head>
+<body class="ch5">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・5-3 認識 ESP32</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 5 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 5 章</a><span class="sep">›</span>
+    <span>認識 ESP32 與實作</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 5-3・認識 ESP32 控制板與實作</div>
+    <h1>認識 ESP32 與實作</h1>
+    <p>ESP32 內建 WiFi 與藍牙、雙核心、腳位多又便宜——是物聯網與創意實作最熱門的控制板之一。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>ESP32 的特色</h2>
+    <p>
+      ESP32 內建 <strong>WiFi 與低功耗藍牙(BLE)</strong>,可用腳位約 34 支,大部分腳位同時支援
+      類比與數位,核心採用時脈高達 240 MHz 的<strong>雙核心 CPU</strong>,內建觸控感測器,
+      並支援 SPI、I2C、UART 等通訊介面,價格也具競爭力。
+    </p>
+    <p>
+      市面上有不少款 ESP32 開發板,如 <strong>NodeMCU-32s</strong>、附 OLED 的 ESP32-TTGO、
+      附相機的 ESP32-CAM、縮小版的 ESP32 D1 Mini 等。本章以最常見的 NodeMCU-32s 為例。
+    </p>
+  </section>
+
+  <!-- 互動①:ESP32 腳位圖 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:ESP32 腳位互動圖</span>
+    <h3 style="margin-bottom:4px">點腳位,認識它的功能</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      ESP32 雖有 38 個腳位,但不是每個都能隨意使用——規劃時必須先查好功能。點下方任一腳位看說明。
+    </p>
+    <div class="esp-board" id="espBoard"></div>
+    <div class="pin-info" id="pinInfo">👆 點任一個腳位,看看它的功能與使用建議。</div>
+  </div>
+
+  <section class="content-section">
+    <h2>在 Arduino IDE 開發 ESP32</h2>
+    <p>
+      ESP32 可在開源的 <strong>Arduino IDE</strong> 上開發。除了安裝 IDE 本身,
+      還需要安裝 USB 晶片驅動程式與 ESP32 相容性套件。完整流程如下:
+    </p>
+    <div class="activity-box" style="border-style:solid;border-color:var(--border)">
+      <span class="ab-label">🧩 動手做:把開發流程排回正確順序</span>
+      <div class="seqbox" id="seqArea"></div>
+    </div>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>程式燒錄與下載模式</h4>
+      <p>
+        把程式從電腦傳進 ESP32 的動作稱為「<strong>燒錄</strong>」。燒錄時要在工具選單選對
+        開發板(如 Node32s)與序列埠。若出現「Connecting……」遲遲無法燒錄,可在編譯完成、
+        出現連線訊息時,按住 ESP32 上的 <strong>BOOT(IO0)</strong>鍵,讓它進入下載模式。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動②:Wokwi 模擬 -->
+  <div class="activity-box">
+    <span class="ab-label">🚀 線上實作:Wokwi ESP32 模擬器</span>
+    <h3 style="margin-bottom:4px">沒有硬體?用 Wokwi 線上模擬</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      <strong>Wokwi</strong> 是一個開源的線上電子模擬平台,不需要實體硬體,就能在瀏覽器中
+      接線、寫程式、模擬 ESP32 的運作——非常適合在家練習。課本的「序列埠控制 LED 閃滅」
+      「藍牙音樂盒」等實作,都能在 Wokwi 上模擬。
+    </p>
+    <div style="text-align:center">
+      <a class="btn btn-primary" href="https://wokwi.com/projects/new/esp32" target="_blank" rel="noopener">
+        🔗 開啟 Wokwi ESP32 模擬器</a>
+    </div>
+    <div class="oss-credit" style="margin-top:12px">
+      <span class="oss-icon">🔗</span>
+      <span>Wokwi(<a href="https://wokwi.com" target="_blank" rel="noopener">wokwi.com</a>)
+        是線上電子模擬平台,其 AVR 模擬核心 avr8js 為開源專案(MIT 授權)。</span>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2>隨堂實作:序列埠控制 LED</h2>
+    <p>
+      課本的第一個 ESP32 實作,是用<strong>序列埠</strong>下指令控制一顆 LED:
+      從序列埠送出「0」讓 LED 熄滅、送「1」讓 LED 恆亮、送「2」讓 LED 持續閃爍。
+    </p>
+    <p>
+      程式的關鍵是用 <code>Serial.available()</code> 判斷有沒有收到訊息、
+      用 <code>Serial.readStringUntil('\n')</code> 讀取指令,再依指令用 <code>digitalWrite()</code>
+      改變 LED 狀態。這展示了「<strong>用通訊指令即時控制硬體</strong>」的機電整合概念。
+    </p>
+    <div class="verify-box">
+      <span class="vb-label">🔍 程式中的「狀態控制」概念</span>
+      <ul>
+        <li>「恆亮」「恆滅」是一次性設定,放在「有收到指令」時判斷一次即可。</li>
+        <li>「閃爍」需要持續改變狀態,所以要放在每次都會執行的迴圈裡,不斷切換。</li>
+        <li>這就是「狀態控制」——程式記住目前的模式,持續依模式做出對應行為。</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://wokwi.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🛠️</span>
+      <span><span class="rc-title">Wokwi</span>
+      <span class="rc-src">wokwi.com</span>
+      <span class="rc-desc">線上電子模擬平台,可模擬 ESP32、Arduino 而無需硬體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.arduino.cc/en/software" target="_blank" rel="noopener">
+      <span class="rc-icon">💻</span>
+      <span><span class="rc-title">Arduino IDE</span>
+      <span class="rc-src">arduino.cc</span>
+      <span class="rc-desc">開發 ESP32 的整合式開發環境,免費下載。</span></span>
+    </a>
+    <a class="resource-card" href="https://randomnerdtutorials.com" target="_blank" rel="noopener">
+      <span class="rc-icon">📗</span>
+      <span><span class="rc-title">Random Nerd Tutorials</span>
+      <span class="rc-src">randomnerdtutorials.com</span>
+      <span class="rc-desc">廣受好評的 ESP32／Arduino 專案教學網站。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="peripherals.html">← 機電整合的電子周邊</a>
+    <a class="btn btn-primary" href="project.html" id="nextBtn">下一個:機電整合統整專題 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/esp32.js"></script>
+</body>
+</html>

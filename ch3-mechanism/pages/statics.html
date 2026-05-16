@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靜力學與自由體圖 ｜ 第 3 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚖️%3C/text%3E%3C/svg%3E">
+<style>
+  #beamCanvas { width:100%; height:280px; border:1px solid var(--border);
+    border-radius:10px; background:#F8FAFC; }
+  .ctrl { margin:10px 0; }
+  .ctrl label { font-size:13px; font-weight:700; display:flex; justify-content:space-between; }
+  .ctrl input[type=range] { width:100%; accent-color:var(--theme); margin-top:4px; }
+  .rxn { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .rxn div { background:var(--theme-light); border-radius:10px; padding:10px 14px; text-align:center; }
+  .rxn b { font-family:var(--font-mono); font-size:20px; color:var(--theme-dark); }
+</style>
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・3-1 結構的深化分析</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 3 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 3 章</a><span class="sep">›</span>
+    <span>靜力學與自由體圖</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 3-1・解鎖看不見的力</div>
+    <h1>靜力學與自由體圖</h1>
+    <p>第 2 章我們確認設計「做得出來」;本章要確認它「撐得住」。一切結構分析,都從一張「自由體圖」開始。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>自由體圖（Free Body Diagram, FBD)</h2>
+    <p>
+      繪製自由體圖是結構分析中<strong>第一步、也是最重要的一步</strong>。它的目的,是把要分析的物體
+      （或其中一部分)從周圍環境中「<strong>分離</strong>」出來,並畫出施加在物體上的<strong>所有外力</strong>:
+    </p>
+    <p>
+      ・<strong>主動力</strong>:像負載、重力等主動施加的力。<br>
+      ・<strong>反作用力</strong>:支撐點與連接處對物體產生的支撐力。
+    </p>
+    <p>把所有力清楚標示出來後,才能進一步用數學求解。</p>
+  </section>
+
+  <section class="content-section">
+    <h2>平衡方程式(Equilibrium Equations)</h2>
+    <div class="knowledge-box">
+      <span class="kb-label">📐 核心原理</span>
+      <h4>若物體處於靜止平衡狀態,則其所受淨力與淨力矩均為零。</h4>
+      <p>
+        把 3D 模型轉換為平面 2D 來分析時,可使用以下三條平衡方程式:<br>
+        ・水平方向淨力為零:<strong>ΣF<sub>x</sub> = 0</strong><br>
+        ・垂直方向淨力為零:<strong>ΣF<sub>y</sub> = 0</strong><br>
+        ・對任一點的淨力矩為零:<strong>ΣM = 0</strong><br>
+        透過這些方程式,就能求出未知的支撐反力或內力。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動:反力計算器 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:簡支梁反力計算器</span>
+    <h3 style="margin-bottom:4px">拖動載重,看反力如何變化</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      下方是一支兩端簡支的梁,左端 A 為鉸支承、右端 B 為滾支承。調整載重的大小與位置,
+      觀察平台用平衡方程式即時算出的兩端反力 R<sub>A</sub>、R<sub>B</sub>。
+    </p>
+    <canvas id="beamCanvas"></canvas>
+    <div class="ctrl">
+      <label>載重大小 P<span id="pVal">100 N</span></label>
+      <input type="range" id="pSlider" min="20" max="200" value="100" step="10">
+    </div>
+    <div class="ctrl">
+      <label>載重位置(距 A 端)<span id="aVal">50%</span></label>
+      <input type="range" id="aSlider" min="5" max="95" value="50" step="5">
+    </div>
+    <div class="rxn">
+      <div>左端反力 R<sub>A</sub><br><b id="raVal">—</b></div>
+      <div>右端反力 R<sub>B</sub><br><b id="rbVal">—</b></div>
+    </div>
+    <div id="beamNote" style="font-size:12.5px;color:var(--text-muted);margin-top:8px"></div>
+  </div>
+
+  <details class="deep">
+    <summary>深入探究:為什麼載重越靠近 A,R<sub>A</sub> 就越大?</summary>
+    <div class="deep-body">
+      <p>
+        對 A 點取力矩平衡:<strong>R<sub>B</sub> × L = P × a</strong>(a 是載重距 A 的距離,L 是梁長)。
+        所以 <strong>R<sub>B</sub> = P·a / L</strong>,載重越靠近 A(a 越小),R<sub>B</sub> 就越小;
+        再由 ΣF<sub>y</sub>=0 得 <strong>R<sub>A</sub> = P − R<sub>B</sub></strong>,所以 R<sub>A</sub> 就越大。
+      </p>
+      <p style="margin-top:8px">
+        這就是「翹翹板原理」——力矩 = 力 × 力臂。離支點越遠的力,造成的轉動效果越強。
+      </p>
+    </div>
+  </details>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>靜不定結構</h4>
+    <p>
+      一個系統的<strong>靜不定度</strong>,表示系統中「未知量」比「靜力方程式」還多的數量。
+      以桁架(Truss)結構來說,計算公式為 <strong>n = b + r − 2j</strong>:
+      b 為桿件數、r 為反力數、j 為節點數。
+    </p>
+    <p>
+      若 <strong>n = 0</strong> 為靜定結構;<strong>n &gt; 0</strong> 為靜不定結構,超過的數量即靜不定度。
+      靜不定度越大,系統的「穩定性」通常越強——下一個模組會深入練習。
+    </p>
+  </div>
+
+  <section class="content-section">
+    <h2>手算分析的局限</h2>
+    <p>
+      上述方法適用於<strong>靜止、固定且形狀簡單</strong>的結構。但對於更複雜的結構
+      (如不規則的桁架、連續梁)或<strong>超靜定結構</strong>,手動計算會變得非常繁瑣,甚至無法完成。
+      這時,<strong>電腦模擬分析</strong>就顯得格外重要——這正是後面 FEA 模組的主題。
+    </p>
+  </section>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.youtube.com/c/engineer4free" target="_blank" rel="noopener">
+      <span class="rc-icon">🎬</span>
+      <span><span class="rc-title">Engineer4Free</span>
+      <span class="rc-src">youtube.com</span>
+      <span class="rc-desc">靜力學、結構分析的免費教學影片。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.khanacademy.org" target="_blank" rel="noopener">
+      <span class="rc-icon">📚</span>
+      <span><span class="rc-title">Khan Academy</span>
+      <span class="rc-src">khanacademy.org</span>
+      <span class="rc-desc">力矩、力平衡等物理基礎的互動課程。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="../index.html">← 回第 3 章</a>
+    <a class="btn btn-primary" href="truss.html" id="nextBtn">下一個:桁架結構解算 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/statics.js"></script>
+</body>
+</html>

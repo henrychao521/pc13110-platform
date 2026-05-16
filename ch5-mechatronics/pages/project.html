@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機電整合統整專題 ｜ 第 5 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏆%3C/text%3E%3C/svg%3E">
+<style>
+  .topic-bar { background:linear-gradient(135deg,var(--theme-light),#fff); border:1px solid var(--border);
+    border-radius:var(--radius); padding:14px 16px; margin-bottom:16px; }
+  .topic-bar input { width:100%; font-family:var(--font-sans); font-size:15px;
+    padding:9px 12px; border:1.5px solid var(--border-strong); border-radius:9px; margin-top:6px; }
+  .topic-bar input:focus { outline:none; border-color:var(--theme); }
+  .pick-cols { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .pick-col h4 { font-size:13px; font-weight:800; text-align:center; margin-bottom:6px; }
+  .pick-col .opt { display:block; width:100%; font-size:12.5px; padding:8px; margin-bottom:5px;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px; cursor:pointer;
+    font-family:var(--font-sans); text-align:center; }
+  .pick-col .opt.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .blockdiag { display:flex; align-items:center; justify-content:center; gap:8px;
+    flex-wrap:wrap; margin:14px 0; }
+  .blk { background:#fff; border:2px solid var(--theme); border-radius:10px; padding:12px 14px;
+    text-align:center; min-width:96px; font-size:13px; font-weight:700; }
+  .blk small { display:block; font-size:10px; color:var(--text-muted); font-weight:500; }
+  .blk-arrow { color:var(--theme); font-size:22px; font-weight:900; }
+  .proj-desc { width:100%; min-height:80px; font-family:var(--font-sans); font-size:14px;
+    padding:10px 12px; border:1.5px solid var(--border-strong); border-radius:9px; }
+  @media(max-width:680px){ .pick-cols{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch5">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・統整專題</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 5 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 5 章</a><span class="sep">›</span>
+    <span>機電整合統整專題</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE・統整專題</div>
+    <h1>機電整合統整專題</h1>
+    <p>這是全書的終點,也是真正的起點。把五章所學整合起來,規劃一件屬於你自己的機電整合作品。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>機電整合作品的核心架構</h2>
+    <p>
+      一件完整的機電整合作品,通常包含「<strong>感知 → 處理 → 動作</strong>」三個環節。
+      規劃時,先想清楚這三個問題:作品要<strong>感知什麼</strong>?要做出<strong>什麼判斷</strong>?
+      最後要<strong>執行什麼動作</strong>?
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 回顧:工程設計流程</span>
+      <p>
+        還記得第 1 章的工程設計流程嗎?界定問題 → 研究 → 構思 → 選擇 → 建構原型 → 測試 → 改進。
+        這個專題,正是讓你完整走過一次這個循環:用第 1 章的<strong>創意思考</strong>發想、
+        第 2 章的<strong>數位加工</strong>做外殼、第 3 章的<strong>結構機構</strong>讓它能動、
+        第 4、5 章的<strong>電與控制</strong>讓它有智慧。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動:系統規劃器 -->
+  <div class="activity-box">
+    <span class="ab-label">🛠️ 動手規劃:機電整合系統規劃器</span>
+    <h3 style="margin-bottom:4px">設計你的作品系統</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:4px">
+      填入專題主題,並為「感知 / 處理 / 動作」各選一個元件,平台會幫你組出系統方塊圖。
+    </p>
+    <div class="topic-bar">
+      <div style="font-weight:800;font-size:13.5px">🎯 我的專題主題</div>
+      <input id="topicIn" placeholder="例如:會跟著人走的避障小車、天黑自動開的創意公仔燈">
+    </div>
+    <div class="pick-cols">
+      <div class="pick-col">
+        <h4>① 感知(輸入)</h4>
+        <div id="colSensor"></div>
+      </div>
+      <div class="pick-col">
+        <h4>② 處理(控制板)</h4>
+        <div id="colBoard"></div>
+      </div>
+      <div class="pick-col">
+        <h4>③ 動作(輸出)</h4>
+        <div id="colActuator"></div>
+      </div>
+    </div>
+    <div class="blockdiag" id="blockDiag"></div>
+    <div style="font-weight:800;font-size:13.5px;margin-top:8px">📝 運作方式描述</div>
+    <p style="font-size:12px;color:var(--text-muted);margin:2px 0 4px">
+      用一兩句話說明:當感測器偵測到什麼,控制板會怎麼判斷,然後讓輸出做什麼動作?</p>
+    <textarea class="proj-desc" id="descIn" placeholder="例如:當距離感測器偵測到前方 20 公分內有障礙物,ESP32 就讓伺服馬達轉向,使小車避開障礙。"></textarea>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px">
+      <button class="btn btn-ghost btn-sm" id="printBtn">🖨️ 列印專題提案</button>
+      <button class="btn btn-primary btn-sm" id="doneBtn" disabled>完成專題規劃</button>
+    </div>
+    <div id="projHint" style="font-size:12.5px;color:var(--text-muted);margin-top:8px"></div>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 好的機電整合專題,具備什麼?</span>
+    <ul>
+      <li><strong>解決真實問題</strong>:從生活中的不便出發,而不是為做而做。</li>
+      <li><strong>三環節完整</strong>:感知、處理、動作都清楚,資料流說得通。</li>
+      <li><strong>可分階段測試</strong>:先讓感測器會讀值、再讓控制板會判斷、最後接上輸出——逐步驗證。</li>
+      <li><strong>有迭代空間</strong>:第一版能動就好,留意測試後可以怎麼改進。</li>
+    </ul>
+  </div>
+
+  <section class="content-section">
+    <h2>結語:從學習者到創造者</h2>
+    <p>
+      恭喜你走到這裡。從第 1 章的科技趨勢與工程設計流程,到第 5 章的 ESP32 實作——
+      你已經具備了「界定問題、設計、建模、模擬、製作、控制」的完整工程能力。
+    </p>
+    <p>
+      工程設計沒有標準答案,只有「在限制下不斷變得更好」的過程。
+      帶著這套思維與工具,去動手解決你身邊真實的問題吧!
+    </p>
+  </section>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="esp32.html">← 認識 ESP32 與實作</a>
+    <a class="btn btn-primary" href="../../index.html" id="nextBtn">完成第 5 章 ✓ 回到首頁</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../js/project.js"></script>
+</body>
+</html>

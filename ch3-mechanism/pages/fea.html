@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電腦輔助結構分析 FEA ｜ 第 3 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔥%3C/text%3E%3C/svg%3E">
+<style>
+  #feaCanvas { width:100%; height:300px; border:1px solid var(--border);
+    border-radius:10px; background:#0F172A; }
+  .seg { display:flex; gap:6px; flex-wrap:wrap; }
+  .seg button { flex:1; min-width:70px; padding:7px 4px; font-size:12px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .ctrl { margin:9px 0; }
+  .ctrl label { font-size:12.5px; font-weight:700; display:flex; justify-content:space-between; }
+  .ctrl input[type=range] { width:100%; accent-color:var(--theme); margin-top:3px; }
+  .fea-stat { background:var(--bg-soft); border-radius:10px; padding:10px 12px; font-size:13px; margin-top:8px; }
+  .fea-stat .fs-row { display:flex; justify-content:space-between; margin:3px 0; }
+  .fea-stat b { font-family:var(--font-mono); }
+</style>
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・3-1 電腦輔助結構分析</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 3 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 3 章</a><span class="sep">›</span>
+    <span>電腦輔助結構分析 FEA</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 3-1・從手算到電腦模擬</div>
+    <h1>電腦輔助結構分析 FEA</h1>
+    <p>複雜的結構,手算幾乎不可能。工程師改用電腦把物體切成成千上萬個小元素,逐一計算——這就是有限元素分析。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>什麼是有限元素分析(FEA)?</h2>
+    <p>
+      <strong>有限元素分析(Finite Element Analysis,FEA)</strong>是電腦輔助工程(CAE)的核心技術。
+      它把一個複雜的物體,在電腦裡切割成許多微小、形狀規則的「<strong>元素(element)</strong>」——
+      這個過程稱為「<strong>網格劃分(meshing)</strong>」。
+    </p>
+    <p>
+      接著,電腦對每一個小元素套用力學方程式,再把成千上萬個元素的結果組合起來,
+      就能算出整個結構在受力下的<strong>應力分布、變形量</strong>。手算辦不到的複雜結構,
+      電腦能在幾分鐘內完成。
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>FEA 模擬的操作步驟</h2>
+    <p>以一個 L 型支架為例,用 Fusion 360、Onshape 等軟體進行結構分析,流程如下:</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">① 模型準備</div>
+        <div class="tl-text">繪製 3D 模型,並進行「模型淨化(Defeaturing)」——移除不影響結構分析的微小特徵(如裝飾性圓角、文字雕刻),簡化計算。</div></div>
+      <div class="tl-item"><div class="tl-year">② 進入模擬環境</div>
+        <div class="tl-text">切換到模擬工作空間,選擇分析類型(如「靜態應力」)。</div></div>
+      <div class="tl-item"><div class="tl-year">③ 材料定義</div>
+        <div class="tl-text">為模型指定材料,軟體會載入該材料的楊氏模數、蒲松比、降伏強度等性質。</div></div>
+      <div class="tl-item"><div class="tl-year">④ 施加約束</div>
+        <div class="tl-text">模擬安裝方式,把固定的面設為「固定(Fixed)」約束。</div></div>
+      <div class="tl-item"><div class="tl-year">⑤ 施加負載</div>
+        <div class="tl-text">加上結構實際會承受的力。</div></div>
+      <div class="tl-item"><div class="tl-year">⑥ 求解與判讀</div>
+        <div class="tl-text">執行運算,觀察應力雲圖、位移分布與安全係數。</div></div>
+    </div>
+  </section>
+
+  <!-- 互動:L 型支架應力模擬 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:L 型支架應力模擬器</span>
+    <h3 style="margin-bottom:4px">找出結構最脆弱的地方</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      L 型支架的垂直面用螺絲固定在牆上,水平端承受向下載重。調整材料、厚度與載重,
+      觀察<strong>應力雲圖</strong>——顏色越紅代表應力越大、越接近破壞。
+    </p>
+    <div class="ctrl"><label>材料</label><div class="seg" id="matSeg" style="margin-top:4px"></div></div>
+    <canvas id="feaCanvas"></canvas>
+    <div class="ctrl">
+      <label>支架厚度<span id="tVal">5 mm</span></label>
+      <input type="range" id="tSlider" min="3" max="10" value="5" step="1">
+    </div>
+    <div class="ctrl">
+      <label>水平端載重<span id="loadVal">150 N</span></label>
+      <input type="range" id="loadSlider" min="50" max="400" value="150" step="10">
+    </div>
+    <div class="fea-stat" id="feaStat"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>馮·米塞斯應力與安全係數</h4>
+    <p>
+      <strong>馮·米塞斯應力(Von Mises stress)</strong>:把複雜的多方向應力,換算成一個能直接
+      與材料強度比較的「等效應力」。FEA 結果的彩色雲圖,通常就是它——紅色代表應力最高、最易破壞之處。
+    </p>
+    <p>
+      <strong>安全係數(Safety Factor)= 材料降伏強度 ÷ 最大應力</strong>。
+      安全係數大於 1 才不會破壞;工程上通常要求 2 以上,預留安全餘裕。L 型支架的應力會
+      集中在「<strong>內側轉角</strong>」——這正是設計時要特別補強的地方。
+    </p>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧩 動手做:把 FEA 步驟排回正確順序</span>
+    <div id="seqArea"></div>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 觀念釐清:為什麼要「模型淨化」?</span>
+    <ul>
+      <li>真實 3D 模型常有圓角、刻字、小孔等細節,對整體結構強度幾乎沒影響。</li>
+      <li>但這些細節會讓網格切得非常細、元素暴增,拖慢甚至卡住運算。</li>
+      <li>「模型淨化」先移除這些不重要的特徵,讓分析又快又穩——這是 FEA 的第一個重要技巧。</li>
+    </ul>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.simscale.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🌊</span>
+      <span><span class="rc-title">SimScale</span>
+      <span class="rc-src">simscale.com</span>
+      <span class="rc-desc">雲端 FEA／CFD 模擬平台,有教育方案可實作。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.autodesk.com/products/fusion-360/overview" target="_blank" rel="noopener">
+      <span class="rc-icon">🧩</span>
+      <span><span class="rc-title">Autodesk Fusion</span>
+      <span class="rc-src">autodesk.com</span>
+      <span class="rc-desc">課本範例採用的軟體,內建 FEA 模擬,教育版免費。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="truss.html">← 桁架結構解算</a>
+    <a class="btn btn-primary" href="mechanism.html" id="nextBtn">下一個:機構類型與運動 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/fea.js"></script>
+</body>
+</html>

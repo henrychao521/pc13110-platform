@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 3 章 機構與結構的深化探究 ｜ PC13110</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・第 3 章</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../index.html">← 回首頁</a>
+    <a href="index.html" class="active">第 3 章</a>
+  </nav>
+</header>
+
+<section class="chapter-hero">
+  <div class="chapter-hero-inner">
+    <div class="ch-eyebrow">CHAPTER 3</div>
+    <h2>機構與結構的深化探究</h2>
+    <p>
+      第 2 章學會「把東西做出來」,本章要學會「確保它做出來不會壞」。從手算靜力學、桁架解算,
+      到電腦 FEA 應力分析與機構運動模擬——解鎖那些肉眼看不見的力。
+    </p>
+    <div class="ch-goals">
+      <span class="ch-goal">✦ 用自由體圖與平衡方程分析受力</span>
+      <span class="ch-goal">✦ 以電腦模擬預測結構強度</span>
+      <span class="ch-goal">✦ 認識各類機構與其運動</span>
+    </div>
+  </div>
+</section>
+
+<section class="module-grid" id="moduleGrid"></section>
+
+<script src="../js/main.js"></script>
+<script src="../js/audio.js"></script>
+<script>
+const CH3_MODULES = [
+  { id: 'ch3-statics', tag: '3-1', icon: '⚖️', title: '靜力學與自由體圖',
+    desc: '結構分析的第一步——畫出自由體圖,用平衡方程式 ΣF=0、ΣM=0 求出支撐反力。',
+    feats: ['自由體圖', '平衡方程式', '反力計算器'], link: 'pages/statics.html' },
+  { id: 'ch3-truss', tag: '3-1', icon: '🌉', title: '桁架結構解算',
+    desc: 'Pratt、Warren、Howe 三種桁架;用公式 n=b+r−2j 判斷靜定,並解算每根桿件的張力與壓力。',
+    feats: ['桁架類型', '靜不定判斷', '桿力解算器'], link: 'pages/truss.html' },
+  { id: 'ch3-fea', tag: '3-1', icon: '🔥', title: '電腦輔助結構分析 FEA',
+    desc: '從手算進入電腦模擬。操作 FEA 五步驟,觀察馮·米塞斯應力雲圖,找出結構最脆弱處。',
+    feats: ['FEA 五步驟', '應力雲圖', '最佳化'], link: 'pages/fea.html' },
+  { id: 'ch3-mechanism', tag: '3-2', icon: '🎡', title: '機構類型與運動',
+    desc: '駕馭運動的藝術。觀察曲柄滑塊、凸輪、齒輪、日內瓦機構如何把一種運動轉換成另一種。',
+    feats: ['機構動畫', '運動轉換', '死點分析'], link: 'pages/mechanism.html' },
+  { id: 'ch3-ai', tag: '3-3', icon: '🤖', title: 'AI 輔助的機構結構分析',
+    desc: '認識內建智慧功能的 CAE 軟體、生成式設計與 LLM,以及它們在工程分析中的優勢與限制。',
+    feats: ['生成式設計', '即時模擬', 'AI 的限制'], link: 'pages/ai-analysis.html' },
+];
+const grid = document.getElementById('moduleGrid');
+CH3_MODULES.forEach(m => {
+  const done = Progress.isDone(m.id);
+  const card = document.createElement('a');
+  card.className = 'module-card';
+  card.href = m.link;
+  card.innerHTML = `
+    <div class="mc-top">
+      <div class="mc-icon">${m.icon}</div>
+      <div><div class="mc-tag">課本 ${m.tag}</div><h3>${m.title}</h3></div>
+    </div>
+    <div class="mc-desc">${m.desc}</div>
+    <div class="mc-features">${m.feats.map(f => `<span class="mc-feat">${f}</span>`).join('')}</div>
+    <div class="mc-foot"><span>進入模組 →</span>${done ? '<span class="mc-done">✓ 已完成</span>' : ''}</div>`;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

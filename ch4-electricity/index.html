@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第 4 章 日常生活中的電 ｜ PC13110</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚡%3C/text%3E%3C/svg%3E">
+</head>
+<body class="ch4">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・第 4 章</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../index.html">← 回首頁</a>
+    <a href="index.html" class="active">第 4 章</a>
+  </nav>
+</header>
+
+<section class="chapter-hero">
+  <div class="chapter-hero-inner">
+    <div class="ch-eyebrow">CHAPTER 4</div>
+    <h2>日常生活中的電</h2>
+    <p>
+      按下開關房間瞬間明亮、滑動手機螢幕世界展開——這些平常的瞬間,都離不開「電」的默默運作。
+      本章從最貼近生活的例子出發,探索看不見卻無處不在的電子電路。
+    </p>
+    <div class="ch-goals">
+      <span class="ch-goal">✦ 認識基本電子元件與符號</span>
+      <span class="ch-goal">✦ 學會使用量測與製作工具</span>
+      <span class="ch-goal">✦ 用模擬軟體設計電路</span>
+    </div>
+  </div>
+</section>
+
+<section class="module-grid" id="moduleGrid"></section>
+
+<script src="../js/main.js"></script>
+<script src="../js/audio.js"></script>
+<script>
+const CH4_MODULES = [
+  { id: 'ch4-components', tag: '4-1', icon: '🔌', title: '基本電子元件',
+    desc: '電阻、電容、電感、二極體、電晶體、IC——認識電路的基本零件,並動手用色碼判讀電阻值。',
+    feats: ['元件圖鑑', '電阻色碼計算器', '電路符號'], link: 'pages/components.html' },
+  { id: 'ch4-tools', tag: '4-2', icon: '🛠️', title: '常用工具與量測',
+    desc: '尖嘴鉗、斜口鉗、剝線鉗等手工具,三用電表的量測,以及麵包板的孔位連通原理。',
+    feats: ['手工具', '三用電表', '麵包板連通'], link: 'pages/tools.html' },
+  { id: 'ch4-circuit', tag: '4-3', icon: '💡', title: '電路設計與模擬',
+    desc: '為何要先模擬?認識 Fritzing、Tinkercad 等電路軟體,並用開源模擬器 CircuitJS 動手設計電路。',
+    feats: ['CircuitJS 模擬', 'SPICE', '電路設計軟體'], link: 'pages/circuit.html' },
+  { id: 'ch4-logic', tag: '4-3', icon: '🚦', title: '邏輯與感應電路',
+    desc: '用開關練習 AND、OR 邏輯,並設計一個會「天黑自動開燈」的光感應路燈電路。',
+    feats: ['邏輯閘真值表', '分壓電路', '光感應路燈'], link: 'pages/logic.html' },
+];
+const grid = document.getElementById('moduleGrid');
+CH4_MODULES.forEach(m => {
+  const done = Progress.isDone(m.id);
+  const card = document.createElement('a');
+  card.className = 'module-card';
+  card.href = m.link;
+  card.innerHTML = `
+    <div class="mc-top">
+      <div class="mc-icon">${m.icon}</div>
+      <div><div class="mc-tag">課本 ${m.tag}</div><h3>${m.title}</h3></div>
+    </div>
+    <div class="mc-desc">${m.desc}</div>
+    <div class="mc-features">${m.feats.map(f => `<span class="mc-feat">${f}</span>`).join('')}</div>
+    <div class="mc-foot"><span>進入模組 →</span>${done ? '<span class="mc-done">✓ 已完成</span>' : ''}</div>`;
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

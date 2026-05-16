@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機構類型與運動 ｜ 第 3 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎡%3C/text%3E%3C/svg%3E">
+<style>
+  #mechCanvas { width:100%; height:300px; border:1px solid var(--border);
+    border-radius:10px; background:#0F172A; }
+  .seg { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0; }
+  .seg button { flex:1; min-width:84px; padding:8px 4px; font-size:12.5px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+</style>
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・3-2 機構的類型與運動</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 3 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 3 章</a><span class="sep">›</span>
+    <span>機構類型與運動</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 3-2・駕馭運動的藝術</div>
+    <h1>機構類型與運動</h1>
+    <p>馬達只會「轉」,但機器需要「推、拉、升降、間歇前進」。把一種運動轉換成另一種——這就是機構的工作。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>機構:運動的轉換器</h2>
+    <p>
+      <strong>機構(Mechanism)</strong>是由多個零件組成、用來<strong>傳遞與轉換運動</strong>的裝置。
+      動力來源(如馬達)通常只提供「旋轉運動」,機構的任務,就是把它轉換成設計所需要的運動形式。
+    </p>
+    <table class="data">
+      <thead><tr><th>運動轉換</th><th>代表機構</th></tr></thead>
+      <tbody>
+        <tr><td><strong>旋轉 → 直線</strong></td><td>曲柄滑塊機構、凸輪機構、齒輪齒條機構、螺旋機構</td></tr>
+        <tr><td><strong>旋轉 → 旋轉</strong></td><td>齒輪系、鏈條／皮帶傳動、曲柄搖桿機構</td></tr>
+        <tr><td><strong>特殊運動</strong></td><td>日內瓦機構(連續旋轉 → 間歇旋轉)、瓦特連桿、切比雪夫連桿</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 互動:機構運動模擬器 -->
+  <div class="activity-box">
+    <span class="ab-label">🎬 動手操作:機構運動模擬器</span>
+    <h3 style="margin-bottom:4px">看四種機構如何轉換運動</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      切換四種經典機構,觀察輸入的「旋轉」如何被轉換成不同的輸出運動。
+    </p>
+    <div class="seg" id="mechSeg"></div>
+    <canvas id="mechCanvas"></canvas>
+    <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" id="playBtn">⏸ 暫停</button>
+      <span style="font-size:12.5px;font-weight:700">轉速</span>
+      <input type="range" id="speedSlider" min="0.3" max="2.5" value="1" step="0.1"
+        style="flex:1;min-width:120px;accent-color:var(--theme)">
+    </div>
+    <div id="mechNote" class="panel-soft" style="font-size:13px;margin-top:10px"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>死點(Dead Point)與 Grashof 定則</h4>
+    <p>
+      <strong>死點</strong>:機構運轉到某個位置時,輸入的力剛好無法推動輸出——機構「卡住」了。
+      設計連桿機構時,必須避開死點,或加裝飛輪幫助通過。
+    </p>
+    <p>
+      <strong>Grashof 定則</strong>:判斷四連桿機構能不能「整圈旋轉」的法則。若<strong>最短桿 + 最長桿
+      ≤ 另外兩桿之和</strong>,則最短桿可以連續整圈旋轉(成為曲柄);否則只能來回擺動(成為搖桿)。
+      課本牛刀小試的凸輪與連桿實作,模擬時若出現卡頓,通常就是連桿長度不符 Grashof 定則。
+    </p>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 為什麼要先在電腦模擬機構?</span>
+    <ul>
+      <li>機構卡死(死點)、零件互相干涉,做出實體才發現就太慢、太貴了。</li>
+      <li>在 CAD 軟體裡先做「運動模擬」,可檢視輸出端的位移、速度、加速度曲線。</li>
+      <li>發現卡頓就回到草圖修改尺寸——這就是「先模擬、再製作」的工程習慣。</li>
+    </ul>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://507movements.com" target="_blank" rel="noopener">
+      <span class="rc-icon">⚙️</span>
+      <span><span class="rc-title">507 Mechanical Movements</span>
+      <span class="rc-src">507movements.com</span>
+      <span class="rc-desc">經典機械機構動畫大全,507 種機構運動演示。</span></span>
+    </a>
+    <a class="resource-card" href="https://learn.onshape.com" target="_blank" rel="noopener">
+      <span class="rc-icon">📐</span>
+      <span><span class="rc-title">Onshape Learning Center</span>
+      <span class="rc-src">learn.onshape.com</span>
+      <span class="rc-desc">含組立件與運動模擬的官方教學。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="fea.html">← 電腦輔助結構分析</a>
+    <a class="btn btn-primary" href="ai-analysis.html" id="nextBtn">下一個:AI 輔助的機構結構分析 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/mechanism.js"></script>
+</body>
+</html>

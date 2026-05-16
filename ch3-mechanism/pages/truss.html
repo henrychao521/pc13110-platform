@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>桁架結構解算 ｜ 第 3 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌉%3C/text%3E%3C/svg%3E">
+<style>
+  #trussCanvas { width:100%; height:300px; border:1px solid var(--border);
+    border-radius:10px; background:#0F172A; }
+  .seg { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0; }
+  .seg button { flex:1; min-width:80px; padding:8px; font-size:13px; font-weight:700;
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px;
+    cursor:pointer; font-family:var(--font-sans); }
+  .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .calc-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:8px 0; }
+  .calc-row input { width:64px; padding:6px 8px; border:1.5px solid var(--border-strong);
+    border-radius:8px; font-family:var(--font-mono); font-size:14px; text-align:center; }
+</style>
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・3-1 桁架結構</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 3 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 3 章</a><span class="sep">›</span>
+    <span>桁架結構解算</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 3-1・桁架結構</div>
+    <h1>桁架結構解算</h1>
+    <p>橋梁、屋架、起重機骨架,背後幾乎都是「桁架」。它用最少的材料,撐起最大的負載——關鍵就在三角形。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>桁架是什麼?</h2>
+    <p>
+      <strong>桁架(Truss)</strong>是由一根根<strong>桿件(member)</strong>,在端點以
+      <strong>節點(joint)</strong>連接而成的結構。它的核心是<strong>三角形</strong>——三角形是
+      唯一無法被「壓變形」的多邊形,所以桁架特別穩固。
+    </p>
+    <p>
+      桁架受力時,每根桿件只承受<strong>沿桿件方向</strong>的力,不是被「拉長」(張力)、
+      就是被「壓短」(壓力)。分析桁架,就是要算出每根桿件到底承受多大的張力或壓力。
+    </p>
+  </section>
+
+  <!-- 互動:桁架受力 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:桁架受力視覺化</span>
+    <h3 style="margin-bottom:4px">三種桁架,受力大不同</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      切換三種經典桁架,調整中央載重,觀察每根桿件的受力狀態——
+      <span style="color:#EF4444;font-weight:700">紅色=張力(被拉)</span>、
+      <span style="color:#3B82F6;font-weight:700">藍色=壓力(被壓)</span>,線條越粗代表受力越大。
+    </p>
+    <div class="seg" id="trussSeg"></div>
+    <canvas id="trussCanvas"></canvas>
+    <div style="margin:10px 0">
+      <label style="font-size:13px;font-weight:700;display:flex;justify-content:space-between">
+        中央載重<span id="loadVal">100 kN</span></label>
+      <input type="range" id="loadSlider" min="20" max="200" value="100" step="10"
+        style="width:100%;accent-color:var(--theme);margin-top:4px">
+    </div>
+    <div id="trussNote" class="panel-soft" style="font-size:13px"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>三種經典桁架的差異</h4>
+    <p>
+      <strong>Pratt(普拉特式)</strong>:斜桿朝中央向下傾斜。受力時<strong>斜桿為張力、直桿為壓力</strong>。
+      因為較長的斜桿承受張力(鋼材抗拉性佳),最省鋼材,是鋼橋最常見的形式。<br>
+      <strong>Howe(豪威式)</strong>:斜桿方向與 Pratt 相反。受力時<strong>斜桿為壓力、直桿為張力</strong>,
+      較適合木造桁架(木材抗壓性佳)。<br>
+      <strong>Warren(華倫式)</strong>:斜桿呈 W 形交錯,沒有直桿(或只有少數)。斜桿
+      <strong>張力、壓力交替出現</strong>,結構簡潔、桿件數少。
+    </p>
+  </div>
+
+  <!-- 互動:靜定判斷 -->
+  <div class="activity-box">
+    <span class="ab-label">🧮 動手算:靜定判斷計算器</span>
+    <h3 style="margin-bottom:4px">這個桁架是靜定還是靜不定?</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      用公式 <strong>n = b + r − 2j</strong> 判斷:b 桿件數、r 反力數、j 節點數。
+      輸入數值,看計算結果。
+    </p>
+    <div class="calc-row">
+      <span>b 桿件數</span><input type="number" id="bIn" value="13" min="0">
+      <span>r 反力數</span><input type="number" id="rIn" value="3" min="0">
+      <span>j 節點數</span><input type="number" id="jIn" value="8" min="1">
+      <button class="btn btn-primary btn-sm" id="calcBtn">計算</button>
+    </div>
+    <div id="calcResult" style="font-size:13.5px;min-height:24px"></div>
+  </div>
+
+  <details class="deep">
+    <summary>深入探究:n &lt; 0、n = 0、n &gt; 0 各代表什麼?</summary>
+    <div class="deep-body">
+      <p>
+        <strong>n &lt; 0(不穩定)</strong>:桿件不夠,結構會垮掉——這不是合格的結構。<br>
+        <strong>n = 0(靜定)</strong>:桿件剛剛好,可用基礎平衡方程式完全解出每根桿件的力。<br>
+        <strong>n &gt; 0(靜不定)</strong>:桿件「多」了,光靠平衡方程式解不出來,需要再考慮材料變形
+        ——這時就要靠電腦的 FEA 分析。多出來的桿件雖然增加分析難度,卻也讓結構更穩固、更安全。
+      </p>
+    </div>
+  </details>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.bridgedesigncontest.org" target="_blank" rel="noopener">
+      <span class="rc-icon">🌉</span>
+      <span><span class="rc-title">Bridge Designer</span>
+      <span class="rc-src">bridgedesigncontest.org</span>
+      <span class="rc-desc">免費的橋梁桁架設計與測試軟體,可實際解算桿力。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.engineeringtoolbox.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🧰</span>
+      <span><span class="rc-title">Engineering ToolBox</span>
+      <span class="rc-src">engineeringtoolbox.com</span>
+      <span class="rc-desc">桁架、樑、材料力學的工程參考資料。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="statics.html">← 靜力學與自由體圖</a>
+    <a class="btn btn-primary" href="fea.html" id="nextBtn">下一個:電腦輔助結構分析 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/truss.js"></script>
+</body>
+</html>

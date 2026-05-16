@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>基本電子元件 ｜ 第 4 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔌%3C/text%3E%3C/svg%3E">
+<style>
+  .comp-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .comp-card { border:1.5px solid var(--border); border-radius:var(--radius); background:#fff; overflow:hidden; }
+  .comp-card .cc-h { display:flex; align-items:center; gap:10px; padding:12px 14px;
+    background:var(--theme-light); cursor:pointer; }
+  .comp-card .cc-h .cc-em { font-size:26px; }
+  .comp-card .cc-h .cc-n { font-weight:800; font-size:14.5px; }
+  .comp-card .cc-h .cc-sym { margin-left:auto; font-family:var(--font-mono); font-size:13px;
+    color:var(--theme-dark); font-weight:700; }
+  .comp-card .cc-b { padding:0 14px; max-height:0; overflow:hidden; transition:max-height .3s,padding .3s; }
+  .comp-card.open .cc-b { max-height:240px; padding:12px 14px; }
+  .comp-card .cc-b div { font-size:13px; color:var(--text-soft); margin-bottom:4px; }
+  /* 電阻色碼計算器 */
+  .resistor { background:#E8D9B5; border-radius:40px; height:62px; margin:14px auto;
+    max-width:420px; display:flex; align-items:center; justify-content:center;
+    gap:8px; position:relative; }
+  .resistor::before, .resistor::after { content:''; position:absolute; top:50%;
+    width:60px; height:3px; background:#9CA3AF; }
+  .resistor::before { left:-58px; } .resistor::after { right:-58px; }
+  .rband { width:13px; height:62px; cursor:pointer; border-radius:2px; }
+  .band-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:10px 0; }
+  .band-pick { text-align:center; }
+  .band-pick .bp-label { font-size:11px; color:var(--text-muted); font-weight:700; margin-bottom:3px; }
+  .band-pick select { font-family:var(--font-sans); font-size:12px; padding:5px;
+    border:1.5px solid var(--border-strong); border-radius:7px; }
+  .res-out { text-align:center; font-family:var(--font-mono); font-size:26px; font-weight:700;
+    color:var(--theme-dark); margin-top:10px; }
+  @media(max-width:680px){ .comp-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch4">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・4-1 基本電子元件</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 4 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 4 章</a><span class="sep">›</span>
+    <span>基本電子元件</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 4-1・常用的基本電子元件</div>
+    <h1>基本電子元件</h1>
+    <p>電子電路是把各式各樣的電子元件,連成一個可使電流流通的迴路。設計電路前,要先認識這些基本零件。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>主動元件 vs 被動元件</h2>
+    <p>
+      電子元件大致可分兩類:<br>
+      ・<strong>主動元件</strong>:能對訊號產生「放大」或「控制」作用,如電晶體、IC、訊號源。<br>
+      ・<strong>被動元件</strong>:不能放大訊號,只能消耗、儲存或調節能量,如電阻器、電容器、電感器。<br>
+      <strong>電路圖</strong>是電子設計中的「圖語」,就像機械工程中的工程圖一樣,是設計與製作的溝通工具。
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>電子元件圖鑑</h2>
+    <p>點擊卡片,認識六種最基本的電子元件。</p>
+    <div class="comp-grid" id="compGrid"></div>
+  </section>
+
+  <!-- 互動:電阻色碼計算器 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:電阻色碼計算器</span>
+    <h3 style="margin-bottom:4px">用色環判讀電阻值</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
+      電阻器用「色碼」標示阻值。選擇四環或五環,再用下方選單調整每一環的顏色,
+      看平台即時算出電阻值。<strong>挑戰:湊出一個 4.7 kΩ 的電阻。</strong>
+    </p>
+    <div style="text-align:center;margin-bottom:4px">
+      <button class="btn btn-ghost btn-sm bandmode on" data-mode="4">四色環</button>
+      <button class="btn btn-ghost btn-sm bandmode" data-mode="5">五色環</button>
+    </div>
+    <div class="resistor" id="resistor"></div>
+    <div class="band-row" id="bandRow"></div>
+    <div class="res-out" id="resOut">—</div>
+    <div id="resNote" style="font-size:13px;color:var(--text-soft);text-align:center;margin-top:4px"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>電阻色碼怎麼讀?</h4>
+    <p>
+      電阻色碼依美國電子工業協會(EIA)標準制定。<strong>四色環</strong>:前兩環是「有效數字」、
+      第三環是「乘冪(10 的次方)」、第四環是「誤差」。<strong>五色環</strong>則前三環為有效數字,
+      多一位、更精準。例如黃(4)、紫(7)、紅(×10²)、金(±5%)= 47×10² = 4700 Ω = 4.7 kΩ ±5%。
+    </p>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.allaboutcircuits.com" target="_blank" rel="noopener">
+      <span class="rc-icon">📘</span>
+      <span><span class="rc-title">All About Circuits</span>
+      <span class="rc-src">allaboutcircuits.com</span>
+      <span class="rc-desc">電子電路的完整教學與元件百科。</span></span>
+    </a>
+    <a class="resource-card" href="https://learn.sparkfun.com" target="_blank" rel="noopener">
+      <span class="rc-icon">⚡</span>
+      <span><span class="rc-title">SparkFun Learn</span>
+      <span class="rc-src">learn.sparkfun.com</span>
+      <span class="rc-desc">入門電子學的互動教學資源。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="../index.html">← 回第 4 章</a>
+    <a class="btn btn-primary" href="tools.html" id="nextBtn">下一個:常用工具與量測 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/components.js"></script>
+</body>
+</html>

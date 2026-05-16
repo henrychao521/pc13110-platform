@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電路設計與模擬 ｜ 第 4 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💡%3C/text%3E%3C/svg%3E">
+<style>
+  .sim-frame { width:100%; height:520px; border:1px solid var(--border);
+    border-radius:10px; background:#fff; }
+  @media(max-width:680px){ .sim-frame{height:420px;} }
+</style>
+</head>
+<body class="ch4">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・4-3 電路設計軟體</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 4 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 4 章</a><span class="sep">›</span>
+    <span>電路設計與模擬</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 4-3・電路設計軟體介紹與練習</div>
+    <h1>電路設計與模擬</h1>
+    <p>為了避免電子零件因電路設計不當而損壞,使用電路設計軟體先進行「模擬」,是一種安全又有效的方法。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>為什麼要先模擬電路?</h2>
+    <p>
+      電路模擬常被稱為 <strong>SPICE(Simulation Program with Integrated Circuit Emphasis)</strong>,
+      是一種專門用來模擬電路運作的電腦程式。就像 3D 建模能在電腦中預覽立體物件,
+      SPICE 模擬能分析電路原理,確認電子元件是否能正常工作、各部分電路是否達成預期的數值表現。
+    </p>
+    <p>這些分析都能在電腦中預先完成,<strong>大幅減少實作時燒壞零件、出錯的風險</strong>。</p>
+  </section>
+
+  <section class="content-section">
+    <h2>常見的電路設計軟體</h2>
+    <table class="data">
+      <thead><tr><th>軟體</th><th>特色</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Fritzing</strong></td><td>可在麵包板、電路圖、PCB 三種檢視間切換,適合初學者把麵包板電路轉成 PCB。</td></tr>
+        <tr><td><strong>Tinkercad Circuits</strong></td><td>線上免費,有 LED、電阻、Arduino 等元件,能模擬電路並用儀表觀測。</td></tr>
+        <tr><td><strong>Eagle PCB</strong></td><td>專業的 PCB 印刷電路板設計軟體,可編輯電路、進行 3D 視圖確認。</td></tr>
+        <tr><td><strong>CircuitLab / MultiSim</strong></td><td>線上／專業的電路模擬軟體,能快速確認電路設計是否正確。</td></tr>
+      </tbody>
+    </table>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>PCB(Printed Circuit Board,印刷電路板)</h4>
+      <p>
+        PCB 是電子元件的支撐體,板上有金屬導體作為連接元件的線路。
+        把電子元件銲接上去,就能完成需要的電路動作。麵包板用來「快速驗證」,
+        待確認可行後,才依設計轉為更穩固的 PCB 形式。
+      </p>
+    </div>
+  </section>
+
+  <!-- 互動:CircuitJS 電路模擬器 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:電路模擬器</span>
+    <h3 style="margin-bottom:4px">在瀏覽器裡設計並模擬電路</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      下方嵌入開源電路模擬器 <strong>CircuitJS</strong>。在電路上拖曳即可連線,
+      右鍵或長按可加入元件;黃色小點代表電流的流動。試著放一顆電池、一個電阻、一個燈泡,觀察電流。
+    </p>
+    <iframe class="sim-frame" src="https://www.falstad.com/circuit/circuitjs.html"
+      title="CircuitJS 電路模擬器" loading="lazy"
+      sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    <div class="oss-credit">
+      <span class="oss-icon">🔗</span>
+      <span>電路模擬器為開源專案
+        <a href="https://github.com/pfalstad/circuitjs1" target="_blank" rel="noopener">CircuitJS</a>
+        (作者 Paul Falstad)。若上方無法載入,可
+        <a href="https://www.falstad.com/circuit/" target="_blank" rel="noopener">前往官方網站</a>使用。</span>
+    </div>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 模擬 → 實作的流程</span>
+    <ul>
+      <li>先在軟體裡<strong>畫電路圖、跑模擬</strong>,確認電壓、電流數值正常。</li>
+      <li>再用<strong>麵包板</strong>免銲接地實際接線測試。</li>
+      <li>最後確認無誤,才轉成<strong>PCB</strong>銲接成正式成品。</li>
+      <li>這個「模擬 → 麵包板 → PCB」的流程,能把出錯與損壞的風險降到最低。</li>
+    </ul>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.tinkercad.com/circuits" target="_blank" rel="noopener">
+      <span class="rc-icon">🔵</span>
+      <span><span class="rc-title">Tinkercad Circuits</span>
+      <span class="rc-src">tinkercad.com</span>
+      <span class="rc-desc">線上電路模擬,可模擬 Arduino,課本實作採用之工具。</span></span>
+    </a>
+    <a class="resource-card" href="https://fritzing.org" target="_blank" rel="noopener">
+      <span class="rc-icon">🧩</span>
+      <span><span class="rc-title">Fritzing</span>
+      <span class="rc-src">fritzing.org</span>
+      <span class="rc-desc">麵包板、電路圖、PCB 三合一的電路設計軟體。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.falstad.com/circuit/" target="_blank" rel="noopener">
+      <span class="rc-icon">⚡</span>
+      <span><span class="rc-title">CircuitJS 官方網站</span>
+      <span class="rc-src">falstad.com</span>
+      <span class="rc-desc">本模組嵌入的開源電路模擬器,有大量範例電路。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="tools.html">← 常用工具與量測</a>
+    <a class="btn btn-primary" href="logic.html" id="nextBtn">下一個:邏輯與感應電路 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/circuit.js"></script>
+</body>
+</html>

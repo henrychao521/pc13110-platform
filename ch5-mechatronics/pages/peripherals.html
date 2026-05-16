@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>機電整合的電子周邊 ｜ 第 5 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+<style>
+  #servoCanvas { width:100%; height:240px; border:1px solid var(--border);
+    border-radius:10px; background:#0F172A; }
+  .serial-mon { background:#0F172A; color:#4ADE80; font-family:var(--font-mono);
+    font-size:13px; border-radius:8px; padding:10px 12px; height:96px; overflow-y:auto; margin-top:8px; }
+  .sensor-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+  .sensor-card { border:1px solid var(--border); border-radius:10px; padding:12px; background:#fff; }
+  .sensor-card b { font-size:13.5px; }
+  .sensor-card p { font-size:12px; color:var(--text-soft); margin-top:3px; }
+  @media(max-width:680px){ .sensor-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch5">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・5-2 機電整合電子周邊</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 5 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 5 章</a><span class="sep">›</span>
+    <span>機電整合的電子周邊</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 5-2・機電整合的電子周邊元件</div>
+    <h1>機電整合的電子周邊</h1>
+    <p>控制板是大腦,但它需要「感官」來感知世界、需要「手腳」來執行動作。這些周邊元件,讓機電系統真正活起來。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>機電整合的基本架構</h2>
+    <p>機電整合(Mechatronics)的系統,可以拆解成三個環節:</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">① 感知(輸入)</div>
+        <div class="tl-text">由各種<strong>感測器</strong>偵測環境——光線、溫度、距離、觸碰等,轉成電訊號。</div></div>
+      <div class="tl-item"><div class="tl-year">② 處理(運算)</div>
+        <div class="tl-text">由<strong>控制板</strong>執行程式,根據感測到的資料做出判斷與決策。</div></div>
+      <div class="tl-item"><div class="tl-year">③ 動作(輸出)</div>
+        <div class="tl-text">由<strong>致動器</strong>(伺服馬達、燈、蜂鳴器)執行實際的動作。</div></div>
+    </div>
+  </section>
+
+  <!-- 互動:伺服馬達角度控制 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:伺服馬達角度控制</span>
+    <h3 style="margin-bottom:4px">用程式精準控制旋轉角度</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      <strong>伺服馬達(Servo)</strong>和一般馬達不同——它能<strong>精準轉到指定角度</strong>(常見 0°～180°)。
+      拖動滑桿,看伺服臂轉到對應角度,下方的「序列埠監控視窗」也會即時印出角度值。
+    </p>
+    <canvas id="servoCanvas"></canvas>
+    <div style="margin:10px 0">
+      <label style="font-size:13px;font-weight:700;display:flex;justify-content:space-between">
+        伺服角度 SG90.write(angle)<span id="angVal">90°</span></label>
+      <input type="range" id="angSlider" min="0" max="180" value="90"
+        style="width:100%;accent-color:var(--theme);margin-top:4px">
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted)">📟 序列埠監控視窗(Serial Monitor)</div>
+    <div class="serial-mon" id="serialMon"></div>
+  </div>
+
+  <section class="content-section">
+    <h2>常見的感測器</h2>
+    <p>感測器是系統的「感官」,把物理世界的變化轉成電訊號。常見的有:</p>
+    <div class="sensor-grid">
+      <div class="sensor-card"><b>💡 光感測器</b><p>光敏電阻、光電二極體——偵測環境亮度,如自動感應燈。</p></div>
+      <div class="sensor-card"><b>🌡️ 溫濕度感測器</b><p>如 DHT11/DHT22——偵測溫度與濕度,用於環境監測。</p></div>
+      <div class="sensor-card"><b>📏 距離感測器</b><p>超音波(HC-SR04)、紅外線——偵測物體距離,用於避障、停車。</p></div>
+      <div class="sensor-card"><b>👆 觸控／按鈕</b><p>按鈕、電容觸控——偵測使用者的操作輸入。</p></div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>序列埠通訊(Serial)</h2>
+    <p>
+      <strong>序列埠(Serial)</strong>是控制板與電腦之間傳遞訊息的管道。透過它,我們可以:
+      把感測值傳回電腦觀察、為程式除錯(Debug),或與其他裝置互傳資料。
+    </p>
+    <p>
+      程式中用 <code>Serial.begin(鮑率)</code> 啟用、用 <code>Serial.println()</code> 印出訊息。
+      電腦端的<strong>序列埠監控視窗</strong>就能看到這些訊息——上方的互動就示範了這個概念。
+    </p>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>開關彈跳(Bounce)</h4>
+      <p>
+        機械開關的接點在切換的瞬間,會快速地「閉合→打開→閉合……」彈跳數次才穩定下來,
+        這稱為<strong>彈跳現象</strong>(約 20～50 ms)。微處理器速度極快,會把這些彈跳誤判成多次按壓。
+        解決方法稱為<strong>「去彈跳」(Debounce)</strong>:在程式中加一點延遲、或等待接點穩定後再讀取。
+      </p>
+    </div>
+  </section>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://docs.arduino.cc/learn/electronics/servo-motors" target="_blank" rel="noopener">
+      <span class="rc-icon">⚙️</span>
+      <span><span class="rc-title">Arduino:伺服馬達</span>
+      <span class="rc-src">docs.arduino.cc</span>
+      <span class="rc-desc">伺服馬達的原理與程式控制官方教學。</span></span>
+    </a>
+    <a class="resource-card" href="https://learn.adafruit.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🔧</span>
+      <span><span class="rc-title">Adafruit Learn</span>
+      <span class="rc-src">learn.adafruit.com</span>
+      <span class="rc-desc">各式感測器與電子周邊的詳細教學。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="boards.html">← 常見控制板</a>
+    <a class="btn btn-primary" href="esp32.html" id="nextBtn">下一個:認識 ESP32 與實作 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/peripherals.js"></script>
+</body>
+</html>

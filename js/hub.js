@@ -31,17 +31,17 @@ const CHAPTERS = [
     tags: ['程式化 CAD', '3D 列印操作', '雷射切割', 'CNC 雕銑', '新興設備'],
     link: 'ch2-fabrication/index.html', ready: true },
   { id: 'ch3', n: 'CHAPTER 3', cls: 'cc-c3', title: '機構與結構的深化探究',
-    desc: '從手算靜力學 FBD 到電腦 FEA 模擬,解算桁架受力,並用物理引擎觀察曲柄、凸輪、齒輪等機構運動。',
+    desc: '從手算靜力學 FBD 到電腦 FEA 模擬,解算桁架受力,並觀察曲柄、凸輪、齒輪等機構的運動。',
     tags: ['自由體圖', '桁架解算', 'FEA 應力雲圖', '機構運動模擬'],
-    link: '#', ready: false },
+    link: 'ch3-mechanism/index.html', ready: true },
   { id: 'ch4', n: 'CHAPTER 4', cls: 'cc-c4', title: '日常生活中的電',
-    desc: '認識電阻、電容、電晶體等元件與量測工具,並用開源電路模擬器設計分壓、邏輯閘與光感應路燈電路。',
+    desc: '認識電阻、電容、電晶體等元件與量測工具,並用開源電路模擬器設計分壓、邏輯閘與感應電路。',
     tags: ['電子元件', '電阻色碼', 'CircuitJS 模擬', '邏輯閘'],
-    link: '#', ready: false },
+    link: 'ch4-electricity/index.html', ready: true },
   { id: 'ch5', n: 'CHAPTER 5', cls: 'cc-c5', title: '機電整合的工程設計',
     desc: '比較常見控制板,認識感測器與伺服馬達,並用 Wokwi 線上模擬器體驗 ESP32 程式撰寫、燒錄與序列埠控制。',
     tags: ['ESP32', 'Arduino IDE', 'Wokwi 模擬', '藍牙控制'],
-    link: '#', ready: false },
+    link: 'ch5-mechatronics/index.html', ready: true },
 ];
 
 /* ---- 渲染流程環 ---- */

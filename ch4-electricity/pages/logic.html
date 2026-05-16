@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邏輯與感應電路 ｜ 第 4 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚦%3C/text%3E%3C/svg%3E">
+<style>
+  .logic-lab { background:var(--bg-soft); border-radius:var(--radius); padding:16px; }
+  .sw-row { display:flex; gap:14px; align-items:center; justify-content:center; flex-wrap:wrap; margin:12px 0; }
+  .sw { width:78px; height:42px; border-radius:999px; border:2px solid var(--border-strong);
+    background:#fff; cursor:pointer; position:relative; transition:all .2s; }
+  .sw.on { background:var(--success); border-color:var(--success); }
+  .sw::after { content:''; position:absolute; top:3px; left:3px; width:32px; height:32px;
+    border-radius:50%; background:#cbd5e1; transition:all .2s; }
+  .sw.on::after { left:39px; background:#fff; }
+  .led { width:54px; height:54px; border-radius:50%; background:#3a1010;
+    border:3px solid #555; transition:all .15s; }
+  .led.lit { background:#FCD34D; box-shadow:0 0 26px 8px rgba(252,211,77,.8); border-color:#F59E0B; }
+  .truth { width:100%; border-collapse:collapse; margin-top:10px; font-size:13px; }
+  .truth th,.truth td { border:1px solid var(--border); padding:6px; text-align:center; }
+  .truth th { background:var(--theme); color:#fff; }
+  .truth tr.cur td { background:var(--theme-light); font-weight:700; }
+  #skyCanvas { width:100%; height:240px; border:1px solid var(--border); border-radius:10px; }
+</style>
+</head>
+<body class="ch4">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・4-3 隨堂實作</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 4 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 4 章</a><span class="sep">›</span>
+    <span>邏輯與感應電路</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 4-3・電路隨堂實作</div>
+    <h1>邏輯與感應電路</h1>
+    <p>簡單的開關,組合起來就能表達「邏輯」;再加上感測元件,電路就能「感知環境」自動反應。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>AND 與 OR:電路中的邏輯</h2>
+    <p>
+      <strong>AND(及/且)</strong>:需要「同時成立」輸出才成立。例如登入網站要帳號「且」密碼都正確,
+      任一項不對就無法登入。在電路中,把兩個開關<strong>串聯</strong>,就形成 AND 邏輯。
+    </p>
+    <p>
+      <strong>OR(或)</strong>:只要有「一條成立」輸出就成立。例如建築物的警報,偵測到煙霧「或」高溫
+      任一條件,警報都會響。在電路中,把兩個開關<strong>並聯</strong>,就形成 OR 邏輯。
+    </p>
+  </section>
+
+  <!-- 互動①:邏輯閘實驗 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:AND / OR 邏輯實驗</span>
+    <h3 style="margin-bottom:4px">切換開關,觀察 LED 與真值表</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      切換接線模式(串聯=AND、並聯=OR),撥動兩個開關 S₁、S₂,看 LED 是否亮、真值表如何填入。
+    </p>
+    <div class="logic-lab">
+      <div style="text-align:center">
+        <button class="btn btn-ghost btn-sm logicmode on" data-mode="and">串聯(AND)</button>
+        <button class="btn btn-ghost btn-sm logicmode" data-mode="or">並聯(OR)</button>
+      </div>
+      <div class="sw-row">
+        <div style="text-align:center"><div class="sw" id="sw1"></div><div style="font-size:12px;margin-top:4px">開關 S₁</div></div>
+        <div style="text-align:center"><div class="sw" id="sw2"></div><div style="font-size:12px;margin-top:4px">開關 S₂</div></div>
+        <div style="text-align:center"><div class="led" id="led"></div><div style="font-size:12px;margin-top:4px">LED</div></div>
+      </div>
+      <table class="truth" id="truthTable"></table>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2>光感應自動開關電路</h2>
+    <p>
+      路燈需要「天黑自動開、天亮自動關」。要做到這件事,電路必須能<strong>偵測環境亮度</strong>。
+      關鍵元件是<strong>光敏電阻(CdS)</strong>——它的阻值會隨光線變化:光線亮時阻值低、光線暗時阻值高。
+    </p>
+    <p>
+      但光敏電阻只會「改變阻值」,本身不會輸出電壓訊號。所以要搭配一顆固定電阻,組成
+      <strong>分壓電路</strong>,藉由量測分壓點的電壓來反映環境的明暗。當電壓達到設定值,
+      就透過<strong>電晶體</strong>當開關、驅動<strong>繼電器</strong>,點亮路燈。
+    </p>
+  </section>
+
+  <!-- 互動②:光感應路燈 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:光感應路燈模擬</span>
+    <h3 style="margin-bottom:4px">拖動環境亮度,看路燈自動反應</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      拖動「環境亮度」滑桿模擬白天到夜晚。觀察光敏電阻的阻值、分壓點電壓,
+      以及路燈如何在天黑時<strong>自動點亮</strong>。
+    </p>
+    <canvas id="skyCanvas"></canvas>
+    <div style="margin:10px 0">
+      <label style="font-size:13px;font-weight:700;display:flex;justify-content:space-between">
+        環境亮度<span id="brightVal">白天</span></label>
+      <input type="range" id="brightSlider" min="0" max="100" value="80"
+        style="width:100%;accent-color:var(--theme);margin-top:4px">
+    </div>
+    <div class="panel-soft" id="lightStat" style="font-size:13px"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>分壓電路與感測</h4>
+    <p>
+      許多感測器(光敏電阻、熱敏電阻等)都只會「改變阻值」。要把阻值變化轉成電路看得懂的
+      <strong>電壓變化</strong>,最常用的方法就是「分壓電路」:讓感測元件與一顆固定電阻串聯,
+      量測它們之間那一點的電壓。這是電子感測的基本技巧——第 5 章的感測器也會用到。
+    </p>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組與第 4 章</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://learn.sparkfun.com/tutorials/voltage-dividers" target="_blank" rel="noopener">
+      <span class="rc-icon">📐</span>
+      <span><span class="rc-title">SparkFun:分壓電路</span>
+      <span class="rc-src">learn.sparkfun.com</span>
+      <span class="rc-desc">分壓電路與感測元件的應用教學。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.tinkercad.com/circuits" target="_blank" rel="noopener">
+      <span class="rc-icon">🔵</span>
+      <span><span class="rc-title">Tinkercad Circuits</span>
+      <span class="rc-src">tinkercad.com</span>
+      <span class="rc-desc">可實作光敏電阻、邏輯開關電路並模擬。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="circuit.html">← 電路設計與模擬</a>
+    <a class="btn btn-primary" href="../index.html" id="nextBtn">完成第 4 章 ✓</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/logic.js"></script>
+</body>
+</html>

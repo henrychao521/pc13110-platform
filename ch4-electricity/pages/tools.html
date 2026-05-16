@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>常用工具與量測 ｜ 第 4 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛠️%3C/text%3E%3C/svg%3E">
+<style>
+  .tool-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .tool-card { border:1px solid var(--border); border-radius:var(--radius); padding:14px;
+    background:#fff; text-align:center; }
+  .tool-card .tc-em { font-size:30px; }
+  .tool-card h4 { font-size:14px; font-weight:800; margin:6px 0 4px; }
+  .tool-card p { font-size:12.5px; color:var(--text-soft); }
+  /* 麵包板 */
+  .breadboard { background:#F1EFE6; border-radius:12px; padding:14px; margin:12px 0;
+    overflow-x:auto; }
+  .bb-rail, .bb-main { display:flex; gap:3px; }
+  .bb-main { flex-direction:column; gap:3px; }
+  .bb-col { display:flex; flex-direction:column; gap:3px; }
+  .bb-hole { width:15px; height:15px; border-radius:3px; background:#cfcabb;
+    cursor:pointer; transition:background .1s; }
+  .bb-hole:hover { background:#b3ad9c; }
+  .bb-hole.hl { background:var(--theme); box-shadow:0 0 0 2px var(--theme-light); }
+  .bb-groove { height:14px; }
+  @media(max-width:680px){ .tool-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch4">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・4-2 常用工具介紹</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 4 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 4 章</a><span class="sep">›</span>
+    <span>常用工具與量測</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 4-2・常用工具介紹</div>
+    <h1>常用工具與量測</h1>
+    <p>工欲善其事,必先利其器。要完成一項電子製作,掌握正確的工具與使用方法,是成功的第一步。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>常見手工具</h2>
+    <div class="tool-grid">
+      <div class="tool-card"><div class="tc-em">🗜️</div><h4>尖嘴鉗</h4>
+        <p>夾持細小零件、彎折元件引腳。銲接時導線會導熱,善用尖嘴鉗夾持可避免燙傷。</p></div>
+      <div class="tool-card"><div class="tc-em">✂️</div><h4>斜口鉗</h4>
+        <p>剪斷導線或零件接腳。刀口斜面設計可貼近電路板,方便銲接後修剪,成品更美觀。</p></div>
+      <div class="tool-card"><div class="tc-em">🔧</div><h4>剝線鉗</h4>
+        <p>剝除電線的絕緣外皮,露出內部導體。使用時應依「線徑」選擇正確孔位,以免剪斷銅線。</p></div>
+    </div>
+    <div class="knowledge-box">
+      <span class="kb-label">⚠️ 銲接安全</span>
+      <p>
+        使用電烙鐵與銲錫進行銲接時,務必<strong>戴護目鏡與防燙手套</strong>,保持通風避免吸入銲錫煙霧;
+        操作後務必將電烙鐵<strong>放回烙鐵架</strong>上,避免燙傷。確實執行安全操作,是負責任的製作者基本素養。
+      </p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>量測工具:三用電表</h2>
+    <p>
+      <strong>三用電表(簡稱 VOM,又稱萬用電表)</strong>是電子技術人員必備的基本儀表,
+      分為指針型與數位型兩類。它的主要功能是測量:<strong>交流／直流電壓(ACV／DCV)</strong>、
+      <strong>電阻值(Ω)</strong>,以及<strong>直流電流(DCmA)</strong>。
+    </p>
+    <div class="verify-box">
+      <span class="vb-label">🔍 量測原則:從大範圍逐步往小</span>
+      <ul>
+        <li>若不知道待測物理量的大小,應先把檔位切到<strong>大範圍</strong>,再逐項往小範圍檢測。</li>
+        <li>這樣能避免量測值超過範圍而<strong>損壞電表</strong>。</li>
+        <li>測電壓用 V 檔、測電阻用 Ω 檔、測電流用 A 檔——選錯檔位可能燒毀電表。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 互動:麵包板連通 -->
+  <div class="activity-box">
+    <span class="ab-label">🧪 動手操作:麵包板孔位連通探索</span>
+    <h3 style="margin-bottom:4px">點一個孔,看看哪些孔跟它「相通」</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
+      麵包板不需銲接就能插上元件。但要會用它,得先搞懂「哪些孔在電路上是相通的」。
+      點擊任何一個孔,平台會把與它<strong>電氣相通</strong>的所有孔一起標亮。
+    </p>
+    <div class="breadboard" id="breadboard"></div>
+    <div id="bbNote" style="font-size:13px;color:var(--text-soft)"></div>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>麵包板的連通規則</h4>
+    <p>
+      ・<strong>中間區域</strong>:每一直行的 5 個孔「<strong>縱向相通</strong>」;左右兩半被中央溝槽隔開,<strong>互不相通</strong>。<br>
+      ・<strong>上下的電源軌</strong>:整條「<strong>橫向相通</strong>」,通常一條接正電源(紅)、一條接地(黑)。<br>
+      搞懂連通規則,才能正確地把元件接成電路——這對理解電路與配線非常重要。
+    </p>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard" target="_blank" rel="noopener">
+      <span class="rc-icon">🍞</span>
+      <span><span class="rc-title">SparkFun:麵包板教學</span>
+      <span class="rc-src">learn.sparkfun.com</span>
+      <span class="rc-desc">圖解麵包板的連通原理與使用方法。</span></span>
+    </a>
+    <a class="resource-card" href="https://learn.sparkfun.com/tutorials/how-to-use-a-multimeter" target="_blank" rel="noopener">
+      <span class="rc-icon">🔢</span>
+      <span><span class="rc-title">SparkFun:三用電表教學</span>
+      <span class="rc-src">learn.sparkfun.com</span>
+      <span class="rc-desc">如何正確使用萬用電表量測電壓、電流與電阻。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="components.html">← 基本電子元件</a>
+    <a class="btn btn-primary" href="circuit.html" id="nextBtn">下一個:電路設計與模擬 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/tools.js"></script>
+</body>
+</html>

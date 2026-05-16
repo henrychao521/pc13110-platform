@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>常見控制板 ｜ 第 5 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎛️%3C/text%3E%3C/svg%3E">
+<style>
+  .board-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  .board-card { border:1.5px solid var(--border); border-radius:var(--radius); padding:16px; background:#fff; }
+  .board-card h4 { font-size:15px; font-weight:800; }
+  .board-card .bc-tag { font-size:11px; font-weight:700; color:var(--theme);
+    background:var(--theme-light); padding:2px 8px; border-radius:999px; }
+  .board-card p { font-size:12.5px; color:var(--text-soft); margin-top:8px; }
+  @media(max-width:680px){ .board-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body class="ch5">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・5-1 市面上常見控制板</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 5 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 5 章</a><span class="sep">›</span>
+    <span>常見控制板</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 5-1・市面上常見控制板</div>
+    <h1>常見控制板</h1>
+    <p>控制板是機電整合作品的「大腦」。它讀取感測器、執行程式、再驅動馬達與燈光。選對大腦,專案就成功了一半。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>控制板在做什麼?</h2>
+    <p>
+      一個機電整合系統,通常遵循「<strong>感知 → 處理 → 動作</strong>」的架構:
+      感測器負責「感知」環境、控制板負責「處理」(執行程式做判斷)、致動器(馬達、燈)負責「動作」。
+    </p>
+    <p>
+      控制板的核心是一顆<strong>微控制器(Microcontroller)</strong>晶片。不同的控制板,
+      在運算能力、通訊功能(WiFi／藍牙)、腳位數量、價格上各有取捨。
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>常見控制板圖鑑</h2>
+    <div class="board-grid">
+      <div class="board-card"><span class="bc-tag">入門經典</span>
+        <h4>Arduino Uno</h4>
+        <p>最經典的入門控制板,生態系與教學資源最豐富。沒有內建 WiFi／藍牙,適合學習程式邏輯與基礎電子控制。</p></div>
+      <div class="board-card"><span class="bc-tag">教育首選</span>
+        <h4>BBC micro:bit</h4>
+        <p>專為教育設計,板上就內建 LED 點陣、按鈕、加速度計與藍牙。可用積木式或 Python 程式,門檻最低。</p></div>
+      <div class="board-card"><span class="bc-tag">IoT 物聯網</span>
+        <h4>ESP32</h4>
+        <p>內建 WiFi 與低功耗藍牙、雙核心 CPU、腳位多,且價格具競爭力。最適合需要連網的物聯網(IoT)專案。</p></div>
+      <div class="board-card"><span class="bc-tag">單板電腦</span>
+        <h4>Raspberry Pi</h4>
+        <p>嚴格說是一台會跑作業系統的「單板電腦」,運算力強,適合需要影像辨識、AI 等較重運算的專案。</p></div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>控制板比較</h2>
+    <table class="data">
+      <thead><tr><th>項目</th><th>Arduino Uno</th><th>micro:bit</th><th>ESP32</th></tr></thead>
+      <tbody>
+        <tr><td>WiFi／藍牙</td><td>無(需外接)</td><td>藍牙</td><td>WiFi + 藍牙</td></tr>
+        <tr><td>內建感測器</td><td>無</td><td>多(按鈕/加速度計等)</td><td>觸控感測等</td></tr>
+        <tr><td>運算核心</td><td>單核心</td><td>單核心</td><td>雙核心、時脈高</td></tr>
+        <tr><td>最適合</td><td>基礎控制教學</td><td>初學者、課堂入門</td><td>物聯網、需連網專案</td></tr>
+      </tbody>
+    </table>
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>為什麼 ESP32 適合做物聯網?</h4>
+      <p>
+        物聯網(IoT)的精神,是讓裝置能「<strong>連上網路、互相溝通</strong>」。
+        ESP32 把 WiFi 與藍牙直接做進晶片裡,可用腳位約 34 個、雙核心 CPU,
+        內建溫度、觸控等感測器,價格又有競爭力——所以成為 IoT 與創意實作的熱門選擇。
+        本章後面就會用 ESP32 來實作。
+      </p>
+    </div>
+  </section>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 動動腦:選板挑戰</span>
+    <h3 style="margin-bottom:4px">幫專案挑選合適的控制板</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:14px">完成下方 3 題情境選擇,即可完成本模組。</p>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://www.arduino.cc" target="_blank" rel="noopener">
+      <span class="rc-icon">🔵</span>
+      <span><span class="rc-title">Arduino</span>
+      <span class="rc-src">arduino.cc</span>
+      <span class="rc-desc">Arduino 官方網站,含開發環境與大量教學。</span></span>
+    </a>
+    <a class="resource-card" href="https://microbit.org" target="_blank" rel="noopener">
+      <span class="rc-icon">🟡</span>
+      <span><span class="rc-title">micro:bit</span>
+      <span class="rc-src">microbit.org</span>
+      <span class="rc-desc">BBC micro:bit 官方網站與線上程式編輯器。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.espressif.com" target="_blank" rel="noopener">
+      <span class="rc-icon">🔷</span>
+      <span><span class="rc-title">Espressif(ESP32)</span>
+      <span class="rc-src">espressif.com</span>
+      <span class="rc-desc">ESP32 晶片原廠,提供官方技術文件。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="../index.html">← 回第 5 章</a>
+    <a class="btn btn-primary" href="peripherals.html" id="nextBtn">下一個:機電整合的電子周邊 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/boards.js"></script>
+</body>
+</html>

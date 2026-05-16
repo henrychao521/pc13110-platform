@@ -10,9 +10,9 @@ const CHAPTER_MAP = {
   ch1: ['ch1-trends', 'ch1-process', 'ch1-thinking', 'ch1-planner', 'ch1-career'],
   ch2: ['ch2-cad', 'ch2-prototype', 'ch2-modeling', 'ch2-ortho', 'ch2-print3d',
         'ch2-laser', 'ch2-cnc', 'ch2-emerging', 'ch2-sim'],
-  ch3: [],
-  ch4: [],
-  ch5: [],
+  ch3: ['ch3-statics', 'ch3-truss', 'ch3-fea', 'ch3-mechanism', 'ch3-ai'],
+  ch4: ['ch4-components', 'ch4-tools', 'ch4-circuit', 'ch4-logic'],
+  ch5: ['ch5-boards', 'ch5-peripherals', 'ch5-esp32', 'ch5-project'],
 };
 
 const Progress = (() => {
