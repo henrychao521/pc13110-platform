@@ -185,6 +185,68 @@ const PORTALS = [
   { id: 'ch5', col: 12, row: 9 },
 ].map(p => ({ ...p, x: (p.col + 0.5) * TILE, y: (p.row + 0.5) * TILE }));
 
+/* ---- 互動實體:NPC 導師與布告欄 ---- */
+const ENTITIES = [
+  { id: 'npc-chief', kind: 'npc', col: 6, row: 6,
+    look: { skin: 1, hair: 0, shirt: 0, hairStyle: 0, acc: 3 },
+    name: '實驗室主任', lines: [
+      '歡迎來到工程設計實驗室!我是這裡的主任。',
+      '這裡有五道傳送門,每一道通往課本的一章。走到門口按 E 就能進入那一關。',
+      '完成模組會累積你的「總進度」,也會解鎖成就徽章 —— 點右上角的「🏅 成就」看看吧!',
+    ] },
+  { id: 'npc-senior', kind: 'npc', col: 13, row: 6,
+    look: { skin: 2, hair: 2, shirt: 2, hairStyle: 2, acc: 2 },
+    name: '工程師學長', lines: [
+      '嗨,學弟妹!不知道從哪開始?我建議照順序從第 1 章走起。',
+      '第 1 章會教你「工程設計流程」—— 這是貫穿全部五章的主軸。',
+      '記得:工程不是一次到位,測試、修正、再測試,才是真功夫。',
+    ] },
+  { id: 'npc-maker', kind: 'npc', col: 9, row: 10,
+    look: { skin: 0, hair: 4, shirt: 4, hairStyle: 1, acc: 1 },
+    name: '創客社同學', lines: [
+      '我最愛第 2 章的數位加工!3D 列印、雷射切割超好玩。',
+      '想動手做專題的話,第 5 章的機電整合可以讓你的作品「動起來」喔。',
+    ] },
+  { id: 'board-notice', kind: 'board', col: 2, row: 2,
+    name: '實驗室布告欄', lines: [
+      '【怎麼移動】方向鍵 / WASD;手機用左下角的虛擬搖桿。',
+      '【進入關卡】走到傳送門,按 E 或點「進入」。',
+      '【成就徽章】完成模組、走訪傳送門、和 NPC 對話都會解鎖徽章。',
+      '【切換介面】右上角可切回經典首頁。',
+    ] },
+].map(e => ({ ...e, x: (e.col + 0.5) * TILE, y: (e.row + 0.5) * TILE }));
+
+/* ---- 成就徽章(條件依進度與探索狀態判定) ---- */
+const BADGES = [
+  { id: 'arrive',  icon: '🎒', name: '新生報到', desc: '建立角色並進入實驗室',
+    check: () => true },
+  { id: 'first',   icon: '🚪', name: '初次出發', desc: '完成任一個學習模組',
+    check: () => Progress.overallPercent() > 0 },
+  { id: 'chat',    icon: '💬', name: '不恥下問', desc: '和實驗室裡的 NPC 對話',
+    check: (lab) => Object.keys(lab.talked || {}).length >= 1 },
+  { id: 'explore', icon: '🗺️', name: '實驗室探險家', desc: '走訪全部 5 個傳送門',
+    check: (lab) => Object.keys(lab.visited || {}).length >= 5 },
+  { id: 'chapter', icon: '⭐', name: '章節達人', desc: '完成任一整章的所有模組',
+    check: () => ['ch1','ch2','ch3','ch4','ch5'].some(c => Progress.chapterPercent(c) === 100) },
+  { id: 'social',  icon: '🌟', name: '萬人迷', desc: '和全部 3 位 NPC 都對話過',
+    check: (lab) => ['npc-chief','npc-senior','npc-maker'].every(n => (lab.talked || {})[n]) },
+  { id: 'half',    icon: '🔥', name: '勢如破竹', desc: '總進度達到 50%',
+    check: () => Progress.overallPercent() >= 50 },
+  { id: 'master',  icon: '🏆', name: '工程大師', desc: '完成全部 27 個學習模組',
+    check: () => Progress.overallPercent() >= 100 },
+];
+
+/* ---- 實驗室探索狀態(localStorage) ---- */
+const LAB_KEY = 'pc13110_lab_v1';
+function loadLab() {
+  try {
+    const l = JSON.parse(localStorage.getItem(LAB_KEY)) || {};
+    l.visited = l.visited || {}; l.talked = l.talked || {}; l.badges = l.badges || {};
+    return l;
+  } catch (e) { return { visited: {}, talked: {}, badges: {} }; }
+}
+function saveLab(l) { localStorage.setItem(LAB_KEY, JSON.stringify(l)); }
+
 let worldStarted = false;
 function startWorld() {
   if (worldStarted) return;
@@ -208,7 +270,8 @@ function startWorld() {
     const k = e.key.toLowerCase();
     if (['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)) e.preventDefault();
     keys[k] = true;
-    if (k === 'e' || k === ' ' || k === 'enter') tryEnter();
+    if (k === 'e' || k === ' ' || k === 'enter') { if (dialog) advanceDialog(); else tryEnter(); }
+    else if (k === 'escape') { if (dialog) closeDialog(); else closeBadgePanel(); }
   });
   window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
 
@@ -264,14 +327,95 @@ function startWorld() {
            isWall(nx - PB, ny - 16) || isWall(nx + PB, ny - 16);
   }
 
-  /* ---- 傳送門偵測 ---- */
-  let activePortal = null;
+  /* ---- 實驗室狀態、傳送門與互動實體 ---- */
+  const lab = loadLab();
+  let activePortal = null, activeEntity = null, overlayOpen = false;
+
   function tryEnter() {
+    if (overlayOpen) return;
+    if (activeEntity) { openDialog(activeEntity); return; }
     if (activePortal) {
       if (typeof SoundFX !== 'undefined') SoundFX.win();
       window.location.href = CHAPTER_INFO[activePortal.id].hub;
     }
   }
+
+  /* ---- NPC / 布告欄對話框 ---- */
+  let dialog = null;
+  function openDialog(ent) {
+    dialog = { entity: ent, line: 0 };
+    overlayOpen = true;
+    if (ent.kind === 'npc' && !lab.talked[ent.id]) { lab.talked[ent.id] = true; saveLab(lab); }
+    renderDialog();
+    if (typeof SoundFX !== 'undefined') SoundFX.click();
+  }
+  function advanceDialog() {
+    if (!dialog) return;
+    if (dialog.line < dialog.entity.lines.length - 1) { dialog.line++; renderDialog(); }
+    else closeDialog();
+  }
+  function closeDialog() {
+    dialog = null; overlayOpen = false;
+    document.getElementById('dlgOverlay').classList.add('hidden');
+    checkBadges();
+  }
+  function renderDialog() {
+    const ent = dialog.entity, last = dialog.line === ent.lines.length - 1;
+    const ov = document.getElementById('dlgOverlay');
+    ov.classList.remove('hidden');
+    ov.querySelector('.dlg-ic').textContent = ent.kind === 'npc' ? '🧑‍🔧' : '📋';
+    ov.querySelector('.dlg-name').textContent = ent.name;
+    ov.querySelector('.dlg-text').textContent = ent.lines[dialog.line];
+    ov.querySelector('.dlg-step').textContent = (dialog.line + 1) + ' / ' + ent.lines.length;
+    ov.querySelector('.dlg-next').textContent = last ? '✕ 結束' : '▸ 繼續';
+  }
+
+  /* ---- 成就徽章 ---- */
+  function checkBadges() {
+    let unlocked = null;
+    BADGES.forEach(b => {
+      if (!lab.badges[b.id] && b.check(lab)) {
+        lab.badges[b.id] = Date.now();
+        if (!unlocked) unlocked = b;
+      }
+    });
+    if (unlocked) { saveLab(lab); showBadgeToast(unlocked); if (typeof SoundFX !== 'undefined') SoundFX.win(); }
+    const earned = BADGES.filter(b => lab.badges[b.id]).length;
+    const bb = document.getElementById('badgeBtn');
+    if (bb) bb.textContent = '🏅 成就 ' + earned + '/' + BADGES.length;
+  }
+  function showBadgeToast(b) {
+    const t = document.getElementById('badgeToast');
+    t.innerHTML = `<span class="bt-ic">${b.icon}</span><span class="bt-tx"><b>解鎖成就</b><br>${b.name}</span>`;
+    t.classList.add('on');
+    clearTimeout(showBadgeToast._t);
+    showBadgeToast._t = setTimeout(() => t.classList.remove('on'), 3400);
+  }
+  function openBadgePanel() {
+    overlayOpen = true;
+    const ov = document.getElementById('badgeOverlay');
+    const earned = BADGES.filter(b => lab.badges[b.id]).length;
+    ov.querySelector('.bp-count').textContent = earned + ' / ' + BADGES.length;
+    ov.querySelector('.bp-grid').innerHTML = BADGES.map(b => {
+      const got = !!lab.badges[b.id];
+      return `<div class="bp-card${got ? ' got' : ''}">
+        <div class="bp-ic">${got ? b.icon : '🔒'}</div>
+        <div class="bp-name">${b.name}</div>
+        <div class="bp-desc">${b.desc}</div>
+      </div>`;
+    }).join('');
+    ov.classList.remove('hidden');
+  }
+  function closeBadgePanel() {
+    overlayOpen = false;
+    document.getElementById('badgeOverlay').classList.add('hidden');
+  }
+
+  document.getElementById('dlgOverlay').querySelector('.dlg-next').addEventListener('click', advanceDialog);
+  document.getElementById('dlgOverlay').addEventListener('click', e => { if (e.target.id === 'dlgOverlay') closeDialog(); });
+  document.getElementById('badgeBtn').addEventListener('click', openBadgePanel);
+  document.getElementById('badgeOverlay').querySelector('.bp-close').addEventListener('click', closeBadgePanel);
+  document.getElementById('badgeOverlay').addEventListener('click', e => { if (e.target.id === 'badgeOverlay') closeBadgePanel(); });
 
   /* ---- 多人連線(第二階段;連不到伺服器則維持單人) ---- */
   const net = { ws: null, id: null, others: new Map(), sendT: 0, lastX: 0, lastY: 0, lastF: -1 };
@@ -322,6 +466,7 @@ function startWorld() {
       if (keys['arrowright'] || keys['d']) dx += 1;
       if (dx && dy) { dx *= 0.7071; dy *= 0.7071; }
     }
+    if (overlayOpen) { dx = 0; dy = 0; }   /* 對話/成就面板開啟時暫停移動 */
     player.moving = !!(dx || dy);
     if (dx < 0) player.dir = -1; else if (dx > 0) player.dir = 1;
 
@@ -335,17 +480,30 @@ function startWorld() {
       if (player.walkT > 8) { player.walk ^= 1; player.walkT = 0; }
     } else player.walk = 0;
 
-    /* 最近的傳送門 */
-    activePortal = null;
+    /* 最近的可互動目標:傳送門 或 NPC/布告欄 */
+    activePortal = null; activeEntity = null;
     let best = 999;
     PORTALS.forEach(p => {
       const d = Math.hypot(p.x - player.x, p.y - (player.y - 8));
-      if (d < 48 && d < best) { best = d; activePortal = p; }
+      if (d < 50 && d < best) { best = d; activePortal = p; activeEntity = null; }
     });
+    ENTITIES.forEach(en => {
+      const d = Math.hypot(en.x - player.x, en.y - (player.y - 8));
+      if (d < 50 && d < best) { best = d; activeEntity = en; activePortal = null; }
+    });
+    if (activePortal && !lab.visited[activePortal.id]) {
+      lab.visited[activePortal.id] = true; saveLab(lab); checkBadges();
+    }
     const prompt = document.getElementById('prompt');
     if (activePortal) {
       const info = CHAPTER_INFO[activePortal.id];
       prompt.innerHTML = `<b>${STAGE_META[activePortal.id].icon} ${info.name}</b><span>按 E / 點「進入」開始這一關</span>`;
+      prompt.classList.add('on');
+      document.getElementById('actionBtn').classList.add('ready');
+    } else if (activeEntity) {
+      const verb = activeEntity.kind === 'npc' ? '對話' : '查看';
+      const ic = activeEntity.kind === 'npc' ? '💬' : '📋';
+      prompt.innerHTML = `<b>${ic} ${activeEntity.name}</b><span>按 E / 點「進入」${verb}</span>`;
       prompt.classList.add('on');
       document.getElementById('actionBtn').classList.add('ready');
     } else {
@@ -413,14 +571,32 @@ function startWorld() {
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
     ctx.fillText('第 ' + p.id.slice(2) + ' 章 ・ ' + pc + '%', p.x, p.y - 48);
   }
-  function drawName(x, y, name, mine) {
+  function drawName(x, y, name, kind) {
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const w = ctx.measureText(name).width + 12;
-    ctx.fillStyle = mine ? 'rgba(11,11,24,.85)' : 'rgba(11,11,24,.7)';
+    ctx.fillStyle = 'rgba(11,11,24,.8)';
     ctx.fillRect(x - w / 2, y - 8, w, 16);
-    ctx.fillStyle = mine ? '#ffd34e' : '#9fe8d0';
+    ctx.fillStyle = kind === 'me' ? '#ffd34e' : kind === 'npc' ? '#ffb86b' : '#9fe8d0';
     ctx.fillText(name, x, y);
+  }
+  function drawBoard(en, t) {
+    const x = en.x, y = en.y, near = activeEntity === en;
+    ctx.fillStyle = 'rgba(0,0,0,.28)';
+    ctx.beginPath(); ctx.ellipse(x, y + 2, 27, 7, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#5b3a1c';
+    ctx.fillRect(x - 18, y - 8, 5, 12); ctx.fillRect(x + 13, y - 8, 5, 12);
+    ctx.fillStyle = '#0b0b18'; ctx.fillRect(x - 29, y - 46, 58, 40);
+    ctx.fillStyle = near ? '#ffd34e' : '#caa24a'; ctx.fillRect(x - 26, y - 43, 52, 34);
+    ctx.fillStyle = '#1c1b30';
+    ctx.font = '16px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('📋', x, y - 32);
+    ctx.font = '700 9px "Noto Sans TC",sans-serif';
+    ctx.fillText('布告欄', x, y - 16);
+    if (near) {
+      ctx.fillStyle = '#ffd34e'; ctx.font = '13px serif';
+      ctx.fillText('❗', x, y - 56 - Math.sin(t / 10) * 2);
+    }
   }
 
   let frame = 0;
@@ -429,17 +605,27 @@ function startWorld() {
     ctx.clearRect(0, 0, W, H);
     drawFloor();
     PORTALS.forEach(p => drawPortal(p, frame));
-    /* 玩家:自己 + 其他連線玩家,依 y 排序處理前後遮擋 */
+    ENTITIES.forEach(en => { if (en.kind === 'board') drawBoard(en, frame); });
+    /* 角色:自己 + 其他連線玩家 + NPC,依 y 排序處理前後遮擋 */
     const cast = [{ x: player.x, y: player.y, look: me, name: me.name,
-      f: player.moving ? player.walk + 1 : 0, mine: true }];
-    net.others.forEach(o => cast.push({ x: o.x, y: o.y, look: o.look, name: o.name, f: o.f, mine: false }));
+      f: player.moving ? player.walk + 1 : 0, kind: 'me' }];
+    net.others.forEach(o => cast.push({ x: o.x, y: o.y, look: o.look, name: o.name, f: o.f, kind: 'other' }));
+    ENTITIES.forEach(en => {
+      if (en.kind === 'npc') cast.push({ x: en.x, y: en.y, look: en.look, name: en.name, f: 0, kind: 'npc', ent: en });
+    });
     cast.sort((a, b) => a.y - b.y);
     cast.forEach(c => {
       drawChar(ctx, c.x, c.y, 2.6, c.look, c.f);
-      drawName(c.x, c.y - 16 * 2.6 - 12, c.name, c.mine);
+      drawName(c.x, c.y - 16 * 2.6 - 12, c.name, c.kind);
+      if (c.kind === 'npc' && activeEntity === c.ent) {
+        ctx.fillStyle = '#ffd34e'; ctx.font = '13px serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('❗', c.x, c.y - 16 * 2.6 - 26 - Math.sin(frame / 10) * 2);
+      }
     });
   }
 
+  checkBadges();
   connectMP();
   (function loop() { update(); render(); requestAnimationFrame(loop); })();
 }

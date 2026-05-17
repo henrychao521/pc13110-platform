@@ -42,6 +42,7 @@
   <div class="hud-chip"><span id="hudName">—</span>　<span id="hudPct">總進度 0%</span></div>
   <div class="hud-chip net-chip" id="netChip">單機模式</div>
   <nav class="px-topnav">
+    <button class="px-navbtn" id="badgeBtn">🏅 成就</button>
     <button class="px-navbtn" id="rebuildBtn">🎨 重建角色</button>
     <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
   </nav>
@@ -69,6 +70,34 @@
   <div class="mono">PIXEL LAB ・ SINGLE-PLAYER BUILD</div>
   <div>想用一般介面?<a href="index.html">回到經典首頁 →</a></div>
 </footer>
+
+<!-- NPC / 布告欄對話框 -->
+<div id="dlgOverlay" class="dlg-overlay hidden">
+  <div class="dlg-box">
+    <div class="dlg-head">
+      <span class="dlg-ic">🧑‍🔧</span>
+      <span class="dlg-name">—</span>
+      <span class="dlg-step mono">1 / 1</span>
+    </div>
+    <p class="dlg-text"></p>
+    <button class="dlg-next">▸ 繼續</button>
+  </div>
+</div>
+
+<!-- 成就徽章面板 -->
+<div id="badgeOverlay" class="bp-overlay hidden">
+  <div class="bp-box">
+    <div class="bp-head">
+      <span class="mono">🏅 ACHIEVEMENTS</span>
+      <span class="bp-count">0 / 8</span>
+      <button class="bp-close" aria-label="關閉">✕</button>
+    </div>
+    <div class="bp-grid"></div>
+  </div>
+</div>
+
+<!-- 成就解鎖提示 -->
+<div id="badgeToast"></div>
 
 <script src="js/main.js"></script>
 <script src="js/audio.js"></script>
