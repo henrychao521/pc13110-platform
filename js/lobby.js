@@ -270,6 +270,7 @@ function startWorld() {
     const k = e.key.toLowerCase();
     if (['arrowup','arrowdown','arrowleft','arrowright',' '].includes(k)) e.preventDefault();
     keys[k] = true;
+    if (e.repeat) return;                       /* 忽略長按重複,避免對話被重複觸發 */
     if (k === 'e' || k === ' ' || k === 'enter') { if (dialog) advanceDialog(); else tryEnter(); }
     else if (k === 'escape') { if (dialog) closeDialog(); else closeBadgePanel(); }
   });
@@ -329,7 +330,7 @@ function startWorld() {
 
   /* ---- 實驗室狀態、傳送門與互動實體 ---- */
   const lab = loadLab();
-  let activePortal = null, activeEntity = null, overlayOpen = false;
+  let activePortal = null, activeEntity = null, overlayOpen = false, lastClosedEntity = null;
 
   function tryEnter() {
     if (overlayOpen) return;
@@ -355,6 +356,7 @@ function startWorld() {
     else closeDialog();
   }
   function closeDialog() {
+    if (dialog) lastClosedEntity = dialog.entity;   /* 鎖住:離開後再回來才會再觸發 */
     dialog = null; overlayOpen = false;
     document.getElementById('dlgOverlay').classList.add('hidden');
     checkBadges();
@@ -412,6 +414,7 @@ function startWorld() {
   }
 
   document.getElementById('dlgOverlay').querySelector('.dlg-next').addEventListener('click', advanceDialog);
+  document.getElementById('dlgOverlay').querySelector('.dlg-close').addEventListener('click', closeDialog);
   document.getElementById('dlgOverlay').addEventListener('click', e => { if (e.target.id === 'dlgOverlay') closeDialog(); });
   document.getElementById('badgeBtn').addEventListener('click', openBadgePanel);
   document.getElementById('badgeOverlay').querySelector('.bp-close').addEventListener('click', closeBadgePanel);
@@ -491,6 +494,9 @@ function startWorld() {
       const d = Math.hypot(en.x - player.x, en.y - (player.y - 8));
       if (d < 50 && d < best) { best = d; activeEntity = en; activePortal = null; }
     });
+    /* 剛結束對話的實體:要走開再回來才會再次觸發(避免一直迴圈) */
+    if (activeEntity && activeEntity === lastClosedEntity) activeEntity = null;
+    else if (activeEntity !== lastClosedEntity) lastClosedEntity = null;
     if (activePortal && !lab.visited[activePortal.id]) {
       lab.visited[activePortal.id] = true; saveLab(lab); checkBadges();
     }

@@ -185,19 +185,25 @@ canvas { image-rendering: pixelated; }
 /* ---- NPC / 布告欄對話框 ---- */
 .dlg-overlay {
   position: fixed; inset: 0; z-index: 120;
-  background: rgba(8,8,20,.4);
-  display: flex; align-items: flex-end; justify-content: center; padding: 24px;
+  background: rgba(8,8,20,.32);
+  display: flex; align-items: center; justify-content: flex-end; padding: 24px;
 }
 .dlg-overlay.hidden { display: none; }
 .dlg-box {
-  width: 100%; max-width: 560px; padding: 16px 18px;
+  width: 320px; max-width: 100%; padding: 16px 18px;
   background: var(--px-panel); border: 4px solid var(--px-ink);
   box-shadow: 6px 6px 0 var(--px-ink);
 }
-.dlg-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.dlg-ic { font-size: 26px; }
+.dlg-head { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+.dlg-ic { font-size: 24px; }
 .dlg-name { font-size: 15px; font-weight: 900; color: var(--px-gold); }
 .dlg-step { margin-left: auto; font-size: 9px; color: var(--px-dim); }
+.dlg-close {
+  width: 26px; height: 26px; flex-shrink: 0; cursor: pointer;
+  font-size: 12px; color: var(--px-text);
+  background: var(--px-panel2); border: 3px solid var(--px-ink);
+}
+.dlg-close:hover { background: #ff6b6b; color: var(--px-ink); }
 .dlg-text { font-size: 15px; line-height: 1.85; color: var(--px-text); min-height: 56px; }
 .dlg-next {
   margin-top: 10px; width: 100%; font-family: "Noto Sans TC", sans-serif;
@@ -255,6 +261,9 @@ canvas { image-rendering: pixelated; }
   .world-wrap { padding-bottom: 20px; }
   .world-hint { display: none; }
   .px-footer { padding-bottom: 180px; }
+  /* 窄螢幕沒有側邊空間,對話框回到底部 */
+  .dlg-overlay { align-items: flex-end; justify-content: center; }
+  .dlg-box { width: 100%; max-width: 560px; }
 }
 @media (max-width: 540px) {
   .cr-main { justify-content: center; }
