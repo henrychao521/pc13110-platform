@@ -48,6 +48,8 @@ canvas { image-rendering: pixelated; }
   font-size: 12px; font-weight: 700; padding: 8px 13px;
   background: var(--px-ink); border: 3px solid var(--px-line); color: var(--px-gold);
 }
+.net-chip { color: var(--px-dim); }
+.net-chip.online { color: #38e0a8; border-color: #38e0a8; }
 .px-topnav { margin-left: auto; display: flex; gap: 9px; flex-wrap: wrap; }
 .px-navbtn {
   font-family: "Noto Sans TC", sans-serif; font-size: 12px; font-weight: 700;
@@ -146,18 +148,23 @@ canvas { image-rendering: pixelated; }
   pointer-events: none; z-index: 60;
 }
 .touch-ctl > * { pointer-events: auto; }
-.dpad {
-  display: grid; grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(3, 50px);
-  gap: 5px;
+/* 虛擬搖桿 */
+.joystick {
+  width: 130px; height: 130px; border-radius: 50%; position: relative;
+  background: rgba(20,19,43,.8); border: 4px solid var(--px-ink);
+  box-shadow: 4px 4px 0 var(--px-ink);
+  touch-action: none; user-select: none; -webkit-user-select: none;
 }
-.dpad-btn {
-  font-size: 16px; color: var(--px-text); background: rgba(44,42,90,.92);
-  border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink);
-  cursor: pointer; user-select: none; -webkit-user-select: none; touch-action: none;
+.joy-ring {
+  position: absolute; inset: 17px; border-radius: 50%;
+  border: 3px dashed var(--px-line);
 }
-.dpad-btn:active { transform: translate(3px,3px); box-shadow: 0 0 0 var(--px-ink); }
-.dpad-btn.up { grid-area: 1 / 2; } .dpad-btn.left { grid-area: 2 / 1; }
-.dpad-btn.right { grid-area: 2 / 3; } .dpad-btn.down { grid-area: 3 / 2; }
+.joy-knob {
+  position: absolute; left: 50%; top: 50%; width: 56px; height: 56px;
+  margin: -28px 0 0 -28px; border-radius: 50%;
+  background: var(--px-gold); border: 4px solid var(--px-ink);
+  box-shadow: 0 0 0 3px rgba(255,211,78,.25);
+}
 .action-btn {
   font-family: "Noto Sans TC", sans-serif; font-size: 14px; font-weight: 900;
   color: var(--px-dim); background: rgba(44,42,90,.92);

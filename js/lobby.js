@@ -212,16 +212,43 @@ function startWorld() {
   });
   window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
 
-  /* 虛擬方向鍵(觸控) */
-  document.querySelectorAll('.dpad-btn').forEach(btn => {
-    const dir = btn.dataset.dir;
-    const set = v => { keys[dir] = v; };
-    btn.addEventListener('touchstart', e => { e.preventDefault(); set(true); }, { passive: false });
-    btn.addEventListener('touchend',   e => { e.preventDefault(); set(false); }, { passive: false });
-    btn.addEventListener('mousedown', () => set(true));
-    btn.addEventListener('mouseup',   () => set(false));
-    btn.addEventListener('mouseleave',() => set(false));
-  });
+  /* 虛擬搖桿(觸控,類比方向 + 力度) */
+  const joy = { active: false, cx: 0, cy: 0, dx: 0, dy: 0 };
+  (function setupJoystick() {
+    const base = document.getElementById('joystick');
+    const knob = document.getElementById('joyKnob');
+    if (!base) return;
+    const RAD = 36;
+    const pt = e => (e.touches && e.touches[0]) ? e.touches[0] : e;
+    function start(e) {
+      const r = base.getBoundingClientRect();
+      joy.cx = r.left + r.width / 2; joy.cy = r.top + r.height / 2;
+      joy.active = true; move(e);
+    }
+    function move(e) {
+      if (!joy.active) return;
+      const p = pt(e);
+      let dx = p.clientX - joy.cx, dy = p.clientY - joy.cy;
+      const d = Math.hypot(dx, dy) || 1;
+      if (d > RAD) { dx = dx / d * RAD; dy = dy / d * RAD; }
+      joy.dx = dx / RAD; joy.dy = dy / RAD;
+      knob.style.transform = `translate(${dx}px,${dy}px)`;
+    }
+    function end() {
+      joy.active = false; joy.dx = 0; joy.dy = 0;
+      knob.style.transform = 'translate(0,0)';
+    }
+    base.addEventListener('touchstart', e => { e.preventDefault(); start(e); }, { passive: false });
+    window.addEventListener('touchmove', e => { if (joy.active) { e.preventDefault(); move(e); } }, { passive: false });
+    window.addEventListener('touchend', end);
+    window.addEventListener('touchcancel', end);
+    base.addEventListener('mousedown', e => {
+      start(e);
+      const mm = ev => move(ev);
+      const mu = () => { end(); window.removeEventListener('mousemove', mm); window.removeEventListener('mouseup', mu); };
+      window.addEventListener('mousemove', mm); window.addEventListener('mouseup', mu);
+    });
+  })();
   document.getElementById('actionBtn').addEventListener('click', tryEnter);
 
   /* ---- 碰撞 ---- */
@@ -246,16 +273,56 @@ function startWorld() {
     }
   }
 
+  /* ---- 多人連線(第二階段;連不到伺服器則維持單人) ---- */
+  const net = { ws: null, id: null, others: new Map(), sendT: 0, lastX: 0, lastY: 0, lastF: -1 };
+  function setNet(text, online) {
+    const el = document.getElementById('netChip');
+    if (el) { el.textContent = text; el.classList.toggle('online', !!online); }
+  }
+  function addOther(p) {
+    if (!p || p.id === net.id) return;
+    net.others.set(p.id, {
+      x: p.x, y: p.y, tx: p.x, ty: p.y, f: p.f || 0,
+      name: p.name || '訪客', look: p.look || defaultPlayer(),
+    });
+  }
+  function connectMP() {
+    if (location.protocol === 'https:') { setNet('單機模式(線上版)', false); return; }
+    let ws;
+    try { ws = new WebSocket('ws://' + location.hostname + ':8732'); }
+    catch (e) { setNet('單機模式', false); return; }
+    net.ws = ws;
+    setNet('連線中…', false);
+    ws.addEventListener('open', () => {
+      ws.send(JSON.stringify({ t: 'join', name: me.name, look: me,
+        x: Math.round(player.x), y: Math.round(player.y) }));
+    });
+    ws.addEventListener('message', ev => {
+      let m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+      if (m.t === 'welcome') { net.id = m.id; net.others.clear(); (m.players || []).forEach(addOther); }
+      else if (m.t === 'join') addOther(m);
+      else if (m.t === 'state') { const o = net.others.get(m.id); if (o) { o.tx = m.x; o.ty = m.y; o.f = m.f; } }
+      else if (m.t === 'leave') net.others.delete(m.id);
+      setNet('多人連線 ・ ' + (net.others.size + 1) + ' 人', true);
+    });
+    ws.addEventListener('close', () => { net.ws = null; net.others.clear(); setNet('單機模式(已斷線)', false); });
+    ws.addEventListener('error', () => { /* close 事件會接著處理 */ });
+  }
+
   /* ---- 更新 ---- */
   const SPEED = 2.5;
   function update() {
     let dx = 0, dy = 0;
-    if (keys['arrowup'] || keys['w'] || keys['up']) dy -= 1;
-    if (keys['arrowdown'] || keys['s'] || keys['down']) dy += 1;
-    if (keys['arrowleft'] || keys['a'] || keys['left']) dx -= 1;
-    if (keys['arrowright'] || keys['d'] || keys['right']) dx += 1;
+    if (joy.active && Math.hypot(joy.dx, joy.dy) > 0.2) {
+      dx = joy.dx; dy = joy.dy;                       /* 類比搖桿:方向 + 力度 */
+    } else {
+      if (keys['arrowup'] || keys['w']) dy -= 1;
+      if (keys['arrowdown'] || keys['s']) dy += 1;
+      if (keys['arrowleft'] || keys['a']) dx -= 1;
+      if (keys['arrowright'] || keys['d']) dx += 1;
+      if (dx && dy) { dx *= 0.7071; dy *= 0.7071; }
+    }
     player.moving = !!(dx || dy);
-    if (dx && dy) { dx *= 0.7071; dy *= 0.7071; }
     if (dx < 0) player.dir = -1; else if (dx > 0) player.dir = 1;
 
     let nx = player.x + dx * SPEED;
@@ -285,6 +352,19 @@ function startWorld() {
       prompt.classList.remove('on');
       document.getElementById('actionBtn').classList.remove('ready');
     }
+
+    /* 多人:送出自己的位置、內插其他玩家 */
+    if (net.ws && net.ws.readyState === 1) {
+      const fNow = player.moving ? player.walk + 1 : 0;
+      const moved = Math.abs(player.x - net.lastX) > 0.5 ||
+                    Math.abs(player.y - net.lastY) > 0.5 || fNow !== net.lastF;
+      const now = performance.now();
+      if (moved && now - net.sendT > 70) {
+        net.ws.send(JSON.stringify({ t: 'move', x: Math.round(player.x), y: Math.round(player.y), f: fNow }));
+        net.sendT = now; net.lastX = player.x; net.lastY = player.y; net.lastF = fNow;
+      }
+    }
+    net.others.forEach(o => { o.x += (o.tx - o.x) * 0.25; o.y += (o.ty - o.y) * 0.25; });
   }
 
   /* ---- 繪製 ---- */
@@ -333,13 +413,13 @@ function startWorld() {
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
     ctx.fillText('第 ' + p.id.slice(2) + ' 章 ・ ' + pc + '%', p.x, p.y - 48);
   }
-  function drawName(x, y, name) {
+  function drawName(x, y, name, mine) {
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     const w = ctx.measureText(name).width + 12;
-    ctx.fillStyle = 'rgba(11,11,24,.82)';
+    ctx.fillStyle = mine ? 'rgba(11,11,24,.85)' : 'rgba(11,11,24,.7)';
     ctx.fillRect(x - w / 2, y - 8, w, 16);
-    ctx.fillStyle = '#ffd34e';
+    ctx.fillStyle = mine ? '#ffd34e' : '#9fe8d0';
     ctx.fillText(name, x, y);
   }
 
@@ -349,11 +429,18 @@ function startWorld() {
     ctx.clearRect(0, 0, W, H);
     drawFloor();
     PORTALS.forEach(p => drawPortal(p, frame));
-    /* 玩家(多人版:迴圈繪製所有 players) */
-    drawChar(ctx, player.x, player.y, 2.6, me, player.moving ? player.walk + 1 : 0);
-    drawName(player.x, player.y - 16 * 2.6 - 12, me.name);
+    /* 玩家:自己 + 其他連線玩家,依 y 排序處理前後遮擋 */
+    const cast = [{ x: player.x, y: player.y, look: me, name: me.name,
+      f: player.moving ? player.walk + 1 : 0, mine: true }];
+    net.others.forEach(o => cast.push({ x: o.x, y: o.y, look: o.look, name: o.name, f: o.f, mine: false }));
+    cast.sort((a, b) => a.y - b.y);
+    cast.forEach(c => {
+      drawChar(ctx, c.x, c.y, 2.6, c.look, c.f);
+      drawName(c.x, c.y - 16 * 2.6 - 12, c.name, c.mine);
+    });
   }
 
+  connectMP();
   (function loop() { update(); render(); requestAnimationFrame(loop); })();
 }
 

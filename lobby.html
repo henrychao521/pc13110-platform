@@ -40,6 +40,7 @@
     <div class="t2">工程實驗室</div>
   </div>
   <div class="hud-chip"><span id="hudName">—</span>　<span id="hudPct">總進度 0%</span></div>
+  <div class="hud-chip net-chip" id="netChip">單機模式</div>
   <nav class="px-topnav">
     <button class="px-navbtn" id="rebuildBtn">🎨 重建角色</button>
     <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
@@ -54,13 +55,11 @@
   <div class="world-hint mono">方向鍵 / WASD 移動　·　走到傳送門按 E 進入關卡</div>
 </main>
 
-<!-- 觸控控制 -->
+<!-- 觸控控制(手機:虛擬搖桿) -->
 <div class="touch-ctl">
-  <div class="dpad">
-    <button class="dpad-btn up" data-dir="up" aria-label="上">▲</button>
-    <button class="dpad-btn left" data-dir="left" aria-label="左">◀</button>
-    <button class="dpad-btn right" data-dir="right" aria-label="右">▶</button>
-    <button class="dpad-btn down" data-dir="down" aria-label="下">▼</button>
+  <div class="joystick" id="joystick" aria-label="移動搖桿">
+    <div class="joy-ring"></div>
+    <div class="joy-knob" id="joyKnob"></div>
   </div>
   <button id="actionBtn" class="action-btn">進入</button>
 </div>
