@@ -13,7 +13,11 @@ const OPT = {
   hairStyle: ['短髮', '包頭', '刺蝟', '長髮'],
   acc:   ['無配件', '鴨舌帽', '眼鏡', '工程安全帽'],
 };
-function defaultPlayer() { return { name: '', skin: 0, hair: 0, shirt: 0, hairStyle: 0, acc: 0 }; }
+function defaultPlayer() { return { name: '', skin: 0, hair: 0, shirt: 0, hairStyle: 0, acc: 0, room: '' }; }
+function urlRoom() {
+  return (new URLSearchParams(location.search).get('room') || '')
+    .toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+}
 function loadPlayer() {
   try { const p = JSON.parse(localStorage.getItem(PLAYER_KEY)); return (p && p.name) ? p : null; }
   catch (e) { return null; }
@@ -83,7 +87,9 @@ let me = loadPlayer() || defaultPlayer();
   const pctx = prev.getContext('2d');
   const controls = document.getElementById('crControls');
   const nameInput = document.getElementById('crName');
+  const roomInput = document.getElementById('crRoom');
   nameInput.value = me.name || '';
+  roomInput.value = urlRoom() || me.room || '';
 
   const CATS = [
     { key: 'skin', label: '膚色', type: 'color', opts: OPT.skin },
@@ -131,6 +137,7 @@ let me = loadPlayer() || defaultPlayer();
     const nm = nameInput.value.trim();
     if (!nm) { nameInput.classList.add('cr-err'); nameInput.focus(); return; }
     me.name = nm.slice(0, 12);
+    me.room = roomInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
     savePlayer(me);
     if (typeof SoundFX !== 'undefined') SoundFX.win();
     overlay.classList.add('hidden');
@@ -142,6 +149,7 @@ let me = loadPlayer() || defaultPlayer();
   document.getElementById('rebuildBtn').addEventListener('click', () => {
     me = loadPlayer() || defaultPlayer();
     nameInput.value = me.name || '';
+    roomInput.value = urlRoom() || me.room || '';
     renderControls();
     overlay.classList.remove('hidden');
   });
@@ -426,6 +434,14 @@ function startWorld() {
     const el = document.getElementById('netChip');
     if (el) { el.textContent = text; el.classList.toggle('online', !!online); }
   }
+  function showNotice(text) {
+    const el = document.getElementById('noticeBar');
+    if (!el) return;
+    el.textContent = text;
+    el.classList.add('on');
+    clearTimeout(showNotice._t);
+    showNotice._t = setTimeout(() => el.classList.remove('on'), 6000);
+  }
   function addOther(p) {
     if (!p || p.id === net.id) return;
     net.others.set(p.id, {
@@ -441,8 +457,8 @@ function startWorld() {
     net.ws = ws;
     setNet('連線中…', false);
     ws.addEventListener('open', () => {
-      ws.send(JSON.stringify({ t: 'join', name: me.name, look: me,
-        x: Math.round(player.x), y: Math.round(player.y) }));
+      ws.send(JSON.stringify({ t: 'join', role: 'student', room: me.room || '',
+        name: me.name, look: me, x: Math.round(player.x), y: Math.round(player.y) }));
     });
     ws.addEventListener('message', ev => {
       let m; try { m = JSON.parse(ev.data); } catch (e) { return; }
@@ -450,7 +466,14 @@ function startWorld() {
       else if (m.t === 'join') addOther(m);
       else if (m.t === 'state') { const o = net.others.get(m.id); if (o) { o.tx = m.x; o.ty = m.y; o.f = m.f; } }
       else if (m.t === 'leave') net.others.delete(m.id);
-      setNet('多人連線 ・ ' + (net.others.size + 1) + ' 人', true);
+      else if (m.t === 'notice') { showNotice('📢 ' + m.text); if (typeof SoundFX !== 'undefined') SoundFX.success(); }
+      else if (m.t === 'summon') {
+        player.x = m.x; player.y = m.y;
+        showNotice('📢 老師請大家集合,你已被帶到集合點!');
+        if (typeof SoundFX !== 'undefined') SoundFX.win();
+      }
+      const label = me.room ? '班級 ' + me.room : '公開實驗室';
+      setNet(label + ' ・ ' + (net.others.size + 1) + ' 人', true);
     });
     ws.addEventListener('close', () => { net.ws = null; net.others.clear(); setNet('單機模式(已斷線)', false); });
     ws.addEventListener('error', () => { /* close 事件會接著處理 */ });
@@ -639,6 +662,8 @@ function startWorld() {
 /* 已有角色 → 略過建立畫面,直接進入世界
  * (放在檔尾:確保 startWorld 用到的常數都已初始化) */
 if (loadPlayer()) {
+  const ur = urlRoom();
+  if (ur && ur !== me.room) { me.room = ur; savePlayer(me); }
   document.getElementById('creator').classList.add('hidden');
   startWorld();
 }

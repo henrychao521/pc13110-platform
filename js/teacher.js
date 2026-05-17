@@ -427,3 +427,157 @@ const CH_ORDER = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'];
     });
   });
 })();
+
+/* ============================================================
+ * Tab 5 — 班級實驗室(像素實驗室多人連線監看)
+ * ============================================================ */
+(function renderClassroom() {
+  const isHttps = location.protocol === 'https:';
+  $('#panel-classroom').innerHTML = `
+    <div class="tb-card">
+      <h3>① 建立班級代碼</h3>
+      <p class="tb-note" style="margin:0 0 10px">
+        班級代碼把同一班學生分到同一個像素實驗室。把代碼、連結或 QR Code 給學生即可。
+      </p>
+      <div class="tb-assign-fields">
+        <label>班級代碼<input type="text" id="clRoom" placeholder="例:901" maxlength="12"></label>
+        <button class="btn btn-ghost btn-sm" id="clGen" style="align-self:flex-end">🎲 隨機產生</button>
+      </div>
+      <div id="clJoin" class="tb-empty">輸入班級代碼後,這裡會出現給學生的連結與 QR Code。</div>
+    </div>
+    <div class="tb-card">
+      <h3>② 連線監看與控制</h3>
+      ${isHttps
+        ? `<p class="tb-note" style="color:var(--danger);margin:0">
+            這是線上版(GitHub Pages),無法連到本機伺服器。請改用老師電腦的本機網址開啟此頁
+            (例:<code>http://localhost:8731/teacher.html</code>),並先在終端機啟動
+            <code>node server/server.js</code>。</p>`
+        : `<div class="tb-out-btns" style="margin-bottom:12px">
+            <button class="btn btn-primary btn-sm" id="clConnect">▶ 連線監看</button>
+            <span id="clStatus" class="tb-out-label">尚未連線</span>
+          </div>
+          <div id="clRoster" class="tb-empty">連線後,這裡會即時顯示班上學生與所在位置。</div>
+          <div id="clControls" style="display:none;margin-top:12px">
+            <div class="tb-out-btns">
+              <input type="text" id="clMsg" placeholder="輸入要廣播給全班的訊息" maxlength="80"
+                style="flex:1;min-width:180px;font-family:var(--font-sans);font-size:13px;padding:8px 11px;border:1.5px solid var(--border);border-radius:9px">
+              <button class="btn btn-primary btn-sm" id="clSend">📢 廣播訊息</button>
+              <button class="btn btn-ghost btn-sm" id="clSummon">🧲 集合全班</button>
+            </div>
+          </div>`}
+    </div>`;
+
+  const roomInput = $('#clRoom');
+  const cleanRoom = () => roomInput.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12);
+
+  $('#clGen').addEventListener('click', () => {
+    roomInput.value = 'C' + Math.floor(1000 + Math.random() * 9000);
+    updateJoin();
+  });
+  roomInput.addEventListener('input', updateJoin);
+
+  function updateJoin() {
+    const code = cleanRoom();
+    const box = $('#clJoin');
+    if (!code) {
+      box.className = 'tb-empty';
+      box.textContent = '輸入班級代碼後,這裡會出現給學生的連結與 QR Code。';
+      return;
+    }
+    const url = new URL('lobby.html?room=' + code, location.href).href;
+    let qr = '';
+    try { const q = qrcode(0, 'M'); q.addData(url); q.make(); qr = q.createSvgTag(4, 8); } catch (e) {}
+    box.className = '';
+    box.innerHTML = `
+      <div class="tb-assign-out">
+        <div class="tb-qr">${qr}</div>
+        <div class="tb-assign-info">
+          <div class="tb-out-row"><span class="tb-out-label">班級代碼　${esc(code)}</span></div>
+          <textarea class="tb-url" readonly rows="2">${esc(url)}</textarea>
+          <div class="tb-out-btns"><button class="btn btn-ghost btn-sm" id="clCopy">📋 複製連結</button></div>
+        </div>
+      </div>
+      <p class="tb-tip">學生可掃 QR、開連結,或在實驗室入口自行輸入代碼「${esc(code)}」加入。</p>`;
+    $('#clCopy').addEventListener('click', () => {
+      const ta = box.querySelector('.tb-url'); ta.select();
+      navigator.clipboard.writeText(url).then(
+        () => showToast('已複製班級連結', 'success'),
+        () => { document.execCommand('copy'); showToast('已複製班級連結', 'success'); });
+    });
+  }
+
+  if (isHttps) return;   /* 線上版沒有伺服器,以下監看功能略過 */
+
+  /* ---- 老師端 WebSocket 連線 ---- */
+  let ws = null;
+  const PORTALS = [
+    { id: '1', x: 180, y: 140 }, { id: '2', x: 380, y: 140 }, { id: '3', x: 580, y: 140 },
+    { id: '4', x: 260, y: 380 }, { id: '5', x: 500, y: 380 },
+  ];
+  function areaOf(x, y) {
+    let best = 999, name = '';
+    PORTALS.forEach(p => { const d = Math.hypot(p.x - x, p.y - y); if (d < best) { best = d; name = p.id; } });
+    return best < 80 ? '第 ' + name + ' 章傳送門附近' : '實驗室中走動';
+  }
+  function setStatus(text, on) {
+    const el = $('#clStatus');
+    el.textContent = text;
+    el.style.background = on ? 'var(--success-light)' : 'var(--bg-soft)';
+    el.style.color = on ? '#15803d' : 'var(--text-soft)';
+  }
+  function renderRoster(players) {
+    const box = $('#clRoster');
+    if (!players.length) {
+      box.className = 'tb-empty';
+      box.textContent = '目前班上沒有學生在線。';
+      return;
+    }
+    box.className = '';
+    box.innerHTML = `
+      <div class="tb-cl-count">🟢 在線學生　${players.length} 人</div>
+      <div class="tb-cl-list">${players.map(p =>
+        `<div class="tb-cl-item"><b>${esc(p.name)}</b><span>${areaOf(p.x, p.y)}</span></div>`
+      ).join('')}</div>`;
+  }
+  $('#clConnect').addEventListener('click', () => {
+    if (ws) { ws.close(); return; }
+    const code = cleanRoom();
+    if (!code) { showToast('請先輸入班級代碼', 'warning'); return; }
+    setStatus('連線中…', false);
+    try { ws = new WebSocket('ws://' + location.hostname + ':8732'); }
+    catch (e) { setStatus('無法連線', false); ws = null; return; }
+    ws.addEventListener('open', () => {
+      ws.send(JSON.stringify({ t: 'join', role: 'teacher', room: code, name: '老師' }));
+      setStatus('已連線　班級 ' + code, true);
+      $('#clConnect').textContent = '■ 中斷連線';
+      $('#clControls').style.display = 'block';
+    });
+    ws.addEventListener('message', ev => {
+      let m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+      if (m.t === 'roster') renderRoster(m.players || []);
+    });
+    ws.addEventListener('close', () => {
+      ws = null;
+      setStatus('已中斷連線', false);
+      $('#clConnect').textContent = '▶ 連線監看';
+      $('#clControls').style.display = 'none';
+      const box = $('#clRoster');
+      box.className = 'tb-empty';
+      box.textContent = '連線後,這裡會即時顯示班上學生與所在位置。';
+    });
+    ws.addEventListener('error', () => { /* close 會接著觸發 */ });
+  });
+  $('#clSend').addEventListener('click', () => {
+    const msg = $('#clMsg').value.trim();
+    if (!ws || ws.readyState !== 1) { showToast('尚未連線', 'warning'); return; }
+    if (!msg) return;
+    ws.send(JSON.stringify({ t: 'notice', text: msg }));
+    $('#clMsg').value = '';
+    showToast('已廣播給全班', 'success');
+  });
+  $('#clSummon').addEventListener('click', () => {
+    if (!ws || ws.readyState !== 1) { showToast('尚未連線', 'warning'); return; }
+    ws.send(JSON.stringify({ t: 'summon', x: 380, y: 260 }));
+    showToast('已召集全班到實驗室中央', 'success');
+  });
+})();

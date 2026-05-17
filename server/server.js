@@ -56,34 +56,62 @@ function encodeFrame(data, opcode) {
 function send(socket, obj) {
   try { socket.write(encodeFrame(JSON.stringify(obj))); } catch (e) { /* ignore */ }
 }
-function broadcast(except, obj) {
-  for (const p of clients.values()) if (p.socket !== except) send(p.socket, obj);
-}
 function snap(p) { return { id: p.id, name: p.name, look: p.look, x: p.x, y: p.y, f: p.f }; }
+
+/* ---------- 房間(班級)輔助 ---------- */
+function studentsIn(room) {
+  return [...clients.values()].filter(p => p.room === room && p.role === 'student' && p.joined);
+}
+function teachersIn(room) {
+  return [...clients.values()].filter(p => p.room === room && p.role === 'teacher');
+}
+function broadcastRoom(room, exceptSocket, obj) {
+  for (const p of clients.values())
+    if (p.room === room && p.socket !== exceptSocket) send(p.socket, obj);
+}
+function sendRoster(room) {
+  const list = studentsIn(room).map(p => ({ id: p.id, name: p.name, x: p.x, y: p.y }));
+  for (const tch of teachersIn(room)) send(tch.socket, { t: 'roster', players: list });
+}
 
 /* ---------- 訊息處理 ---------- */
 function handleMessage(player, raw) {
   let msg;
   try { msg = JSON.parse(raw); } catch (e) { return; }
   if (msg.t === 'join') {
+    player.room = String(msg.room || 'PUBLIC').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12) || 'PUBLIC';
+    player.role = msg.role === 'teacher' ? 'teacher' : 'student';
     player.name = String(msg.name || '訪客').slice(0, 12);
     player.look = msg.look || null;
     player.x = +msg.x || player.x;
     player.y = +msg.y || player.y;
-    const others = [];
-    for (const p of clients.values()) if (p !== player) others.push(snap(p));
-    send(player.socket, { t: 'welcome', id: player.id, players: others });
-    broadcast(player.socket, { t: 'join', ...snap(player) });
-    log('+ ' + player.name + ' 加入(目前 ' + clients.size + ' 人)');
+    player.joined = true;
+    if (player.role === 'teacher') {
+      send(player.socket, { t: 'welcome', id: player.id, role: 'teacher', players: [] });
+      sendRoster(player.room);
+      log('教師進入 班級[' + player.room + ']');
+    } else {
+      const others = studentsIn(player.room).filter(p => p !== player).map(snap);
+      send(player.socket, { t: 'welcome', id: player.id, players: others });
+      broadcastRoom(player.room, player.socket, { t: 'join', ...snap(player) });
+      sendRoster(player.room);
+      log('+ ' + player.name + ' 加入 班級[' + player.room + '](學生 ' + studentsIn(player.room).length + ' 人)');
+    }
   } else if (msg.t === 'move') {
     player.x = +msg.x; player.y = +msg.y; player.f = msg.f | 0;
-    broadcast(player.socket, { t: 'state', id: player.id, x: player.x, y: player.y, f: player.f });
+    broadcastRoom(player.room, player.socket, { t: 'state', id: player.id, x: player.x, y: player.y, f: player.f });
+  } else if (msg.t === 'notice' && player.role === 'teacher') {
+    const text = String(msg.text || '').slice(0, 80);
+    if (text) broadcastRoom(player.room, player.socket, { t: 'notice', text });
+  } else if (msg.t === 'summon' && player.role === 'teacher') {
+    broadcastRoom(player.room, player.socket, { t: 'summon', x: +msg.x || 380, y: +msg.y || 260 });
   }
 }
 
 /* ---------- 連線生命週期 ---------- */
 function onConnect(socket) {
-  const player = { id: nextId++, name: '', look: null, x: 380, y: 260, f: 0, socket };
+  const player = { id: nextId++, room: 'PUBLIC', role: 'student', joined: false,
+    name: '', look: null, x: 380, y: 260, f: 0, socket };
   clients.set(socket, player);
   let buf = Buffer.alloc(0);
 
@@ -100,8 +128,9 @@ function onConnect(socket) {
   const drop = () => {
     if (!clients.has(socket)) return;
     clients.delete(socket);
-    broadcast(socket, { t: 'leave', id: player.id });
-    log('- ' + (player.name || '訪客') + ' 離開(目前 ' + clients.size + ' 人)');
+    broadcastRoom(player.room, socket, { t: 'leave', id: player.id });
+    sendRoster(player.room);
+    log('- ' + (player.name || '訪客') + ' 離開 班級[' + player.room + ']');
   };
   socket.on('close', drop);
   socket.on('error', drop);
@@ -132,6 +161,12 @@ setInterval(() => {
     try { p.socket.write(encodeFrame('', 0x9)); } catch (e) { /* ignore */ }
   }
 }, 25000);
+
+/* 每 1.5 秒把學生名單與位置推給各班級的教師端 */
+setInterval(() => {
+  const rooms = new Set([...clients.values()].map(p => p.room));
+  for (const room of rooms) if (teachersIn(room).length) sendRoster(room);
+}, 1500);
 
 function log(m) { console.log('[' + new Date().toLocaleTimeString() + '] ' + m); }
 function lanIPs() {

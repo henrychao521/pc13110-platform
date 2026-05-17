@@ -28,6 +28,10 @@
       <span>暱稱 / 座號</span>
       <input id="crName" type="text" maxlength="12" placeholder="例:01 小明" autocomplete="off">
     </label>
+    <label class="cr-namewrap">
+      <span>班級代碼<small>(老師會給;留空則進公開實驗室)</small></span>
+      <input id="crRoom" type="text" maxlength="12" placeholder="例:901" autocomplete="off">
+    </label>
     <button id="crStart" class="cr-start">▶ 進入實驗室</button>
   </div>
 </div>
@@ -99,6 +103,9 @@
 
 <!-- 成就解鎖提示 -->
 <div id="badgeToast"></div>
+
+<!-- 老師廣播訊息 -->
+<div id="noticeBar"></div>
 
 <script src="js/main.js"></script>
 <script src="js/audio.js"></script>
