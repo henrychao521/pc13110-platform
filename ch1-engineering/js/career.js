@@ -5,21 +5,25 @@
 const COMPETITIONS = [
   { name: 'FRC（FIRST Robotics Competition）', cat: 'robot',
     detail: '被譽為「機器人界的奧運」。參賽隊伍須在約 6 週的有限時間內,打造一台工業等級的機器人,強調工程管理與團隊合作。',
-    url: 'https://www.firstinspires.org/robotics/frc' },
+    url: 'https://www.firstinspires.org/robotics/frc', img: 'comp-site-frc.jpg' },
   { name: 'MakeX 世界機器人挑戰賽', cat: 'robot',
     detail: '由中國深圳科技公司 Makeblock 創辦的國際性機器人競賽平台,旨在推廣 STEAM 教育,鼓勵青少年透過機器人競賽培養創新與跨學科整合能力。',
     url: 'https://www.makex.cc' },
   { name: '智慧鐵人創意競賽（IICC）', cat: 'creative',
-    detail: '由教育部主辦,結合科學、人文、藝術與生活常識的創意競賽,考驗團隊臨場解決問題與跨域整合的能力。' },
+    detail: '由教育部主辦,結合科學、人文、藝術與生活常識的創意競賽,考驗團隊臨場解決問題與跨域整合的能力。',
+    url: 'https://ironman.creativity.edu.tw/', img: 'comp-site-iicc.jpg' },
   { name: '全國高級中學生活科技學藝競賽', cat: 'maker',
-    detail: '屬於高中實作類型的競賽,在限時與限定材料下完成作品,直接考驗學生的設計與實作能力。' },
+    detail: '屬於高中實作類型的競賽,在限時與限定材料下完成作品,直接考驗學生的設計與實作能力。',
+    url: 'https://ghresource.k12ea.gov.tw/nss/p/LivingTechnologyCompetition', img: 'comp-site-livtech.jpg' },
   { name: '旺宏科學獎', cat: 'science',
-    detail: '由旺宏教育基金會主辦,鼓勵高中職學生進行科學專題研究,培養探究與獨立研究的能力。' },
+    detail: '由旺宏教育基金會主辦,鼓勵高中職學生進行科學專題研究,培養探究與獨立研究的能力。',
+    url: 'https://www.mxeduc.org.tw/scienceaward/', img: 'comp-site-mxic.jpg' },
   { name: 'Intel ISEF 國際科技展覽會', cat: 'science',
     detail: '國際性的中學生科學與工程研究展覽會,匯聚世界各地的青少年研究者,是科展類的最高殿堂之一。',
-    url: 'https://www.societyforscience.org/isef/' },
+    url: 'https://www.societyforscience.org/isef/', img: 'comp-site-isef.jpg' },
   { name: 'IEYI 世界青少年發明展', cat: 'invent',
-    detail: '鼓勵青少年發明創作的國際展覽,著重於創意發想與發明的實用性。' },
+    detail: '鼓勵青少年發明創作的國際展覽,著重於創意發想與發明的實用性。臺灣為創始會員國,設有臺灣選拔賽。',
+    url: 'https://www.teyi.org/', img: 'comp-site-ieyi.jpg' },
 ];
 
 const CATS = [
@@ -31,6 +35,7 @@ const CATS = [
   { id: 'invent', name: '🏅 發明展' },
 ];
 const CAT_LABEL = { robot: '機器人競賽', creative: '創意競賽', maker: '高中實作', science: '科展研究', invent: '發明展' };
+const CAT_ICON = { robot: '🤖', creative: '💡', maker: '🛠️', science: '🔬', invent: '🏅' };
 
 let activeCat = 'all';
 
@@ -60,13 +65,27 @@ function renderComps() {
     const linkHTML = c.url
       ? `<a href="${c.url}" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--theme)">🔗 前往官方網站 ↗</a>`
       : '';
+    let shotHTML = '';
+    if (c.img && c.url) {
+      shotHTML = `<a class="cc-shot" href="${c.url}" target="_blank" rel="noopener" title="前往「${c.name}」官方網站">
+           <img src="../../assets/photos/${c.img}" alt="${c.name} 官方網站畫面" loading="lazy">
+           <span class="cc-shot-go">官方網站 ↗</span>
+         </a>`;
+    } else if (c.url) {
+      shotHTML = `<a class="cc-shot cc-ph" href="${c.url}" target="_blank" rel="noopener" title="前往「${c.name}」官方網站">
+           <span class="cc-ph-ic">${CAT_ICON[c.cat] || '🔗'}</span>
+           <span class="cc-ph-name">${c.name}</span>
+           <span class="cc-shot-go">官方網站 ↗</span>
+         </a>`;
+    }
     card.innerHTML = `
+      ${shotHTML}
       <span class="cc-type">${CAT_LABEL[c.cat]}</span>
       <h4>${c.name}</h4>
       <div class="cc-detail">${c.detail}${linkHTML}</div>
       <div class="cc-hint">▾ 點擊展開介紹</div>`;
     card.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') return;
+      if (e.target.closest('a')) return;
       card.classList.toggle('open');
       card.querySelector('.cc-hint').textContent = card.classList.contains('open') ? '▴ 點擊收合' : '▾ 點擊展開介紹';
       SoundFX && SoundFX.click();

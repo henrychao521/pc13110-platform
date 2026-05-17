@@ -28,6 +28,21 @@
     max-height:0; overflow:hidden; transition:max-height .3s var(--easing); }
   .comp-card.open .cc-detail { max-height:200px; margin-top:8px; }
   .comp-card .cc-hint { font-size:11px; color:var(--text-light); margin-top:6px; }
+  /* 官方網站截圖(連往賽事網站) */
+  .cc-shot { display:block; position:relative; margin:-18px -18px 12px; overflow:hidden;
+    border-radius:var(--radius) var(--radius) 0 0; line-height:0; background:var(--bg-soft);
+    border-bottom:1px solid var(--border); }
+  .cc-shot img { width:100%; aspect-ratio:16/9; object-fit:cover; object-position:top center;
+    transition:transform .35s var(--easing); }
+  .cc-shot:hover img { transform:scale(1.045); }
+  .cc-shot-go { position:absolute; right:8px; bottom:8px; background:rgba(15,23,42,.82);
+    color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:999px; line-height:1.5; }
+  /* 無法取得截圖時的替代版面(連往賽事網站) */
+  .cc-shot.cc-ph { aspect-ratio:16/9; display:flex; flex-direction:column; line-height:1.4;
+    align-items:center; justify-content:center; gap:7px;
+    background:linear-gradient(135deg,var(--theme),var(--theme-dark)); }
+  .cc-ph-ic { font-size:40px; }
+  .cc-ph-name { color:#fff; font-weight:800; font-size:14px; text-align:center; padding:0 18px; }
   @media(max-width:680px){ .comp-grid{grid-template-columns:1fr;} }
 </style>
 </head>
