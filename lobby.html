@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>像素大廳 ｜ PC13110 工程設計學習平台</title>
-<meta name="description" content="PC13110 工程設計學習平台的像素風遊戲大廳:從工程實驗室挑選關卡,進入五大主題章節。">
+<title>工程實驗室 ｜ PC13110 工程設計學習平台</title>
+<meta name="description" content="PC13110 工程設計學習平台的像素風工程實驗室:建立你的工程師角色,在實驗室中走動,走進傳送門進入五大主題關卡。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -13,37 +13,61 @@
 </head>
 <body class="lobby">
 
+<!-- ===== 角色建立 ===== -->
+<div id="creator" class="cr-overlay">
+  <div class="cr-box">
+    <div class="cr-title mono">CREATE YOUR ENGINEER</div>
+    <div class="cr-sub">打造你的工程師角色,走進實驗室開始闖關</div>
+    <div class="cr-main">
+      <div class="cr-stage">
+        <canvas id="prevCanvas" width="150" height="210"></canvas>
+      </div>
+      <div class="cr-controls" id="crControls"></div>
+    </div>
+    <label class="cr-namewrap">
+      <span>暱稱 / 座號</span>
+      <input id="crName" type="text" maxlength="12" placeholder="例:01 小明" autocomplete="off">
+    </label>
+    <button id="crStart" class="cr-start">▶ 進入實驗室</button>
+  </div>
+</div>
+
+<!-- ===== 世界 ===== -->
 <header class="px-topbar">
   <div class="px-logo">⚙</div>
   <div class="px-brand">
     <div class="t1 mono">PC13110</div>
-    <div class="t2">工程設計學習平台</div>
+    <div class="t2">工程實驗室</div>
   </div>
+  <div class="hud-chip"><span id="hudName">—</span>　<span id="hudPct">總進度 0%</span></div>
   <nav class="px-topnav">
+    <button class="px-navbtn" id="rebuildBtn">🎨 重建角色</button>
     <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
-    <a class="px-navbtn" href="teacher.html">🧑‍🏫 教師後台</a>
   </nav>
 </header>
 
-<section class="px-hero">
-  <span class="eyebrow mono">SELECT YOUR STAGE</span>
-  <h1>歡迎來到<span class="hi">工程實驗室</span></h1>
-  <p class="sub">挑一個房間走進去 —— 五大主題,關卡式闖關,把課本變成可以動手玩的工程世界。</p>
-</section>
-
-<section class="px-xp">
-  <div class="px-xp-head">
-    <span class="px-xp-rank mono" id="xpRank">RANK ─</span>
-    <span class="px-xp-pct mono" id="xpPct">0%</span>
+<main class="world-wrap">
+  <div class="world-stage">
+    <canvas id="world"></canvas>
+    <div id="prompt" class="world-prompt"></div>
   </div>
-  <div class="px-xp-track" id="xpTrack"></div>
-</section>
+  <div class="world-hint mono">方向鍵 / WASD 移動　·　走到傳送門按 E 進入關卡</div>
+</main>
 
-<main class="px-stages" id="stageGrid"></main>
+<!-- 觸控控制 -->
+<div class="touch-ctl">
+  <div class="dpad">
+    <button class="dpad-btn up" data-dir="up" aria-label="上">▲</button>
+    <button class="dpad-btn left" data-dir="left" aria-label="左">◀</button>
+    <button class="dpad-btn right" data-dir="right" aria-label="右">▶</button>
+    <button class="dpad-btn down" data-dir="down" aria-label="下">▼</button>
+  </div>
+  <button id="actionBtn" class="action-btn">進入</button>
+</div>
 
 <footer class="px-footer">
   <div>© 趙珩宇老師製作・PC13110 工程設計學習平台</div>
-  <div class="mono">PIXEL LOBBY v1 ・ PRESS START</div>
+  <div class="mono">PIXEL LAB ・ SINGLE-PLAYER BUILD</div>
   <div>想用一般介面?<a href="index.html">回到經典首頁 →</a></div>
 </footer>
 
