@@ -1,0 +1,156 @@
+/* ============================================================
+ * PC13110 像素大廳 — 復古遊戲風格入口
+ * 與 style.css 分離,lobby.html 專用。
+ * ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --px-bg:     #14132b;
+  --px-panel:  #232248;
+  --px-panel2: #2c2a5a;
+  --px-ink:    #0b0b18;
+  --px-line:   #3a3870;
+  --px-text:   #e8e8f5;
+  --px-dim:    #9a98c8;
+  --px-gold:   #ffd34e;
+  --c1: #4f8cff;  --c2: #2dd4a7;  --c3: #e879f9;  --c4: #ff6b6b;  --c5: #a98bff;
+}
+
+body.lobby {
+  font-family: "Noto Sans TC", -apple-system, "PingFang TC", sans-serif;
+  background-color: var(--px-bg);
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+  background-size: 30px 30px;
+  color: var(--px-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: none;
+}
+.mono { font-family: "Press Start 2P", "JetBrains Mono", monospace; }
+img { image-rendering: pixelated; }
+a { color: inherit; text-decoration: none; }
+
+/* ---- 頂列 ---- */
+.px-topbar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 22px; border-bottom: 4px solid var(--px-ink);
+  background: var(--px-panel);
+  box-shadow: inset 0 -4px 0 rgba(255,255,255,.05);
+  flex-wrap: wrap;
+}
+.px-logo {
+  width: 44px; height: 44px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; background: var(--px-gold); color: var(--px-ink);
+  border: 3px solid var(--px-ink);
+  box-shadow: 4px 4px 0 var(--px-ink);
+}
+.px-brand .t1 { font-size: 10px; color: var(--px-gold); line-height: 1.8; }
+.px-brand .t2 { font-size: 16px; font-weight: 900; letter-spacing: .04em; }
+.px-topnav { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+.px-navbtn {
+  font-size: 12px; font-weight: 700; padding: 9px 14px;
+  background: var(--px-panel2); border: 3px solid var(--px-ink);
+  box-shadow: 3px 3px 0 var(--px-ink); transition: transform .08s, box-shadow .08s;
+}
+.px-navbtn:hover { background: var(--px-line); }
+.px-navbtn:active { transform: translate(3px,3px); box-shadow: 0 0 0 var(--px-ink); }
+
+/* ---- Hero ---- */
+.px-hero { max-width: 1080px; margin: 0 auto; padding: 40px 22px 8px; text-align: center; }
+.px-hero .eyebrow {
+  display: inline-block; font-size: 9px; color: var(--px-ink); background: var(--px-gold);
+  padding: 6px 12px; border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink);
+  margin-bottom: 20px;
+}
+.px-hero h1 {
+  font-size: 26px; line-height: 1.7; letter-spacing: .02em;
+  text-shadow: 4px 4px 0 var(--px-ink), 0 0 18px rgba(79,140,255,.5);
+}
+.px-hero h1 .hi { color: var(--px-gold); }
+.px-hero .sub { font-size: 14px; color: var(--px-dim); margin-top: 14px; }
+
+/* ---- XP / 進度列 ---- */
+.px-xp {
+  max-width: 680px; margin: 26px auto 0; padding: 16px 18px;
+  background: var(--px-panel); border: 4px solid var(--px-ink);
+  box-shadow: 6px 6px 0 var(--px-ink);
+}
+.px-xp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.px-xp-rank { font-size: 11px; color: var(--px-gold); }
+.px-xp-pct  { font-size: 11px; color: var(--px-text); }
+.px-xp-track {
+  height: 22px; background: var(--px-ink); border: 3px solid var(--px-ink);
+  display: flex; padding: 3px; gap: 3px;
+}
+.px-xp-cell { flex: 1; background: #1c1b3a; }
+.px-xp-cell.on { background: linear-gradient(180deg, #ffe27a, var(--px-gold)); }
+
+/* ---- 關卡格 ---- */
+.px-stages {
+  max-width: 1200px; margin: 0 auto; padding: 34px 22px 20px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(196px, 1fr)); gap: 16px;
+}
+.px-stage {
+  background: var(--px-panel); border: 4px solid var(--px-ink);
+  box-shadow: 7px 7px 0 var(--px-ink);
+  display: flex; flex-direction: column; cursor: pointer;
+  transition: transform .1s, box-shadow .1s;
+}
+.px-stage:hover { transform: translate(-3px,-3px); box-shadow: 10px 10px 0 var(--px-ink); }
+.px-stage:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--px-ink); }
+
+.px-stage-top {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; border-bottom: 4px solid var(--px-ink);
+}
+.px-stage-no { font-size: 9px; color: var(--px-ink); }
+.px-stage-clear { font-size: 8px; color: var(--px-ink); background: var(--px-gold);
+  padding: 3px 6px; border: 2px solid var(--px-ink); }
+
+/* 螢幕區(像素圖示) */
+.px-screen {
+  height: 116px; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  background-color: var(--px-panel2);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0,0,0,.18) 0 6px, transparent 6px 12px);
+  border-bottom: 4px solid var(--px-ink);
+}
+.px-screen .ico {
+  font-size: 54px; filter: drop-shadow(4px 4px 0 rgba(0,0,0,.55));
+}
+.px-stage-body { padding: 12px 12px 14px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
+.px-stage-en { font-size: 7.5px; color: var(--px-dim); line-height: 1.7; }
+.px-stage-name { font-size: 15px; font-weight: 900; line-height: 1.4; }
+
+/* 進度小方塊 */
+.px-pips { display: flex; gap: 3px; flex-wrap: wrap; }
+.px-pip { width: 13px; height: 13px; background: #1c1b3a; border: 2px solid var(--px-ink); }
+.px-pip.on { background: var(--px-gold); }
+.px-stage-meta { font-size: 10px; color: var(--px-dim); }
+
+/* ENTER 按鈕 */
+.px-enter {
+  margin-top: auto; text-align: center; font-size: 11px; font-weight: 900; color: var(--px-ink);
+  padding: 10px; border: 3px solid var(--px-ink); box-shadow: 0 5px 0 var(--px-ink);
+  transition: transform .07s, box-shadow .07s;
+}
+.px-stage:hover .px-enter { filter: brightness(1.08); }
+
+/* ---- 頁尾 ---- */
+.px-footer {
+  text-align: center; padding: 30px 22px 40px; color: var(--px-dim); font-size: 11px;
+  line-height: 1.9; border-top: 4px solid var(--px-ink); margin-top: 18px;
+}
+.px-footer a { color: var(--px-gold); }
+.px-footer .mono { font-size: 8px; }
+
+@media (max-width: 560px) {
+  .px-hero h1 { font-size: 19px; }
+  .px-stages { grid-template-columns: 1fr 1fr; gap: 12px; padding: 24px 14px 16px; }
+  .px-screen .ico { font-size: 42px; }
+  .px-stage-name { font-size: 13px; }
+}

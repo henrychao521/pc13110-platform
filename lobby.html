@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素大廳 ｜ PC13110 工程設計學習平台</title>
+<meta name="description" content="PC13110 工程設計學習平台的像素風遊戲大廳:從工程實驗室挑選關卡,進入五大主題章節。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pixel.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎮%3C/text%3E%3C/svg%3E">
+</head>
+<body class="lobby">
+
+<header class="px-topbar">
+  <div class="px-logo">⚙</div>
+  <div class="px-brand">
+    <div class="t1 mono">PC13110</div>
+    <div class="t2">工程設計學習平台</div>
+  </div>
+  <nav class="px-topnav">
+    <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
+    <a class="px-navbtn" href="teacher.html">🧑‍🏫 教師後台</a>
+  </nav>
+</header>
+
+<section class="px-hero">
+  <span class="eyebrow mono">SELECT YOUR STAGE</span>
+  <h1>歡迎來到<span class="hi">工程實驗室</span></h1>
+  <p class="sub">挑一個房間走進去 —— 五大主題,關卡式闖關,把課本變成可以動手玩的工程世界。</p>
+</section>
+
+<section class="px-xp">
+  <div class="px-xp-head">
+    <span class="px-xp-rank mono" id="xpRank">RANK ─</span>
+    <span class="px-xp-pct mono" id="xpPct">0%</span>
+  </div>
+  <div class="px-xp-track" id="xpTrack"></div>
+</section>
+
+<main class="px-stages" id="stageGrid"></main>
+
+<footer class="px-footer">
+  <div>© 趙珩宇老師製作・PC13110 工程設計學習平台</div>
+  <div class="mono">PIXEL LOBBY v1 ・ PRESS START</div>
+  <div>想用一般介面?<a href="index.html">回到經典首頁 →</a></div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/lobby.js"></script>
+</body>
+</html>
