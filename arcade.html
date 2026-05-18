@@ -4,94 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>下課遊樂區 ｜ PC13110 工程設計學習平台</title>
-<meta name="description" content="PC13110 工程設計學習平台的下課遊樂區:像素小遊戲、占卜師、科技新聞與即時氣象。">
+<meta name="description" content="PC13110 工程設計學習平台的下課遊樂區:像素風小遊戲,動動腦、放鬆一下。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/pixel.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕹️%3C/text%3E%3C/svg%3E">
 <style>
-  .arc-wrap {
-    max-width: 1080px; margin: 22px auto 0; padding: 0 20px;
-    display: flex; gap: 16px; align-items: flex-start;
+  .ar-wrap {
+    max-width: 1180px; margin: 18px auto 0; padding: 0 18px;
+    display: grid; grid-template-columns: 188px 1fr 244px; gap: 14px;
+    align-items: start;
+  }
+  .ar-panel {
+    background: var(--px-panel); border: 4px solid var(--px-ink);
+    box-shadow: 5px 5px 0 var(--px-ink);
+  }
+  .ar-panel-h {
+    font-size: 9px; color: var(--px-ink); background: var(--px-gold);
+    padding: 7px 10px; border-bottom: 4px solid var(--px-ink);
   }
   /* 上下選單 */
-  .arc-menu {
-    width: 232px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;
+  .ar-menu-list { padding: 8px; display: flex; flex-direction: column; gap: 6px; }
+  .ar-game {
+    display: flex; align-items: center; gap: 8px; cursor: pointer;
+    padding: 8px 9px; background: var(--px-panel2); border: 3px solid var(--px-ink);
+    font-size: 12.5px; font-weight: 700; color: var(--px-text);
+    transition: transform .07s;
   }
-  .arc-item {
-    display: flex; align-items: center; gap: 10px; cursor: pointer;
-    padding: 10px 12px; background: var(--px-panel);
-    border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink);
-    transition: transform .07s, background .12s;
+  .ar-game:hover { background: var(--px-line); }
+  .ar-game.on { background: var(--px-gold); color: var(--px-ink); }
+  .ar-game .ar-ico { font-size: 19px; }
+  .ar-game .ar-nm { flex: 1; }
+  /* 遊戲舞台 */
+  .ar-stage { display: flex; flex-direction: column; min-width: 0; }
+  .ar-stage-bar {
+    display: flex; align-items: center; gap: 8px; padding: 8px 12px;
+    border-bottom: 4px solid var(--px-ink); background: var(--px-panel2);
   }
-  .arc-item:hover { background: var(--px-line); }
-  .arc-item.on { background: var(--px-panel2); border-color: var(--px-gold); box-shadow: 3px 3px 0 var(--px-gold); }
-  .arc-item .ai-ic { font-size: 22px; }
-  .arc-item .ai-name { font-size: 13.5px; font-weight: 800; }
-  .arc-item .ai-kind { font-size: 9px; color: var(--px-dim); }
-  .arc-menu-sep { font-size: 9px; color: var(--px-dim); margin: 6px 0 1px 2px; }
-  /* 旁邊面板 */
-  .arc-panel {
-    flex: 1; min-height: 420px; background: var(--px-panel);
-    border: 4px solid var(--px-ink); box-shadow: 7px 7px 0 var(--px-ink);
-    padding: 22px;
+  .ar-stage-bar .sb-name { font-size: 13px; font-weight: 900; color: var(--px-gold); }
+  .ar-stage-bar .sb-lic { font-size: 9px; color: var(--px-dim); margin-left: auto; }
+  #gameFrame {
+    width: 100%; height: 560px; border: 0; background: #14132b; display: block;
   }
-  .ap-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-  .ap-ic { font-size: 40px; }
-  .ap-title { font-size: 19px; font-weight: 900; }
-  .ap-tag { font-size: 10px; color: var(--px-ink); background: var(--px-gold);
-    padding: 3px 8px; border: 2px solid var(--px-ink); }
-  .ap-desc { font-size: 14px; color: var(--px-text); line-height: 1.85; margin: 12px 0; }
-  .ap-meta { font-size: 12px; color: var(--px-dim); line-height: 1.8; }
-  .ap-btn {
-    margin-top: 16px; font-family: "Noto Sans TC", sans-serif; font-size: 14px; font-weight: 900;
-    color: var(--px-ink); background: var(--px-gold);
-    border: 3px solid var(--px-ink); box-shadow: 0 5px 0 var(--px-ink);
-    padding: 12px 26px; cursor: pointer;
+  /* 說明 */
+  .ar-info-body { padding: 12px; }
+  .ar-info-body h4 { font-size: 13px; font-weight: 900; color: var(--px-gold); margin-bottom: 8px; }
+  .ar-how { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .ar-how li {
+    font-size: 12px; line-height: 1.55; color: var(--px-text);
+    padding-left: 16px; position: relative;
   }
-  .ap-btn:active { transform: translateY(5px); box-shadow: 0 0 0 var(--px-ink); }
-  .ap-btn.ghost { background: var(--px-panel2); color: var(--px-text); }
-  /* 占卜 / 新聞 / 氣象 共用卡片 */
-  .ap-card {
-    background: var(--px-bg); border: 3px solid var(--px-ink);
-    padding: 16px; margin-top: 14px; line-height: 1.9;
+  .ar-how li::before { content: '▸'; position: absolute; left: 0; color: var(--px-gold); }
+  .ar-info-lic {
+    margin-top: 12px; padding-top: 10px; border-top: 2px dashed var(--px-line);
+    font-size: 10.5px; color: var(--px-dim); line-height: 1.6;
   }
-  .ap-fortune-stars { font-size: 18px; color: var(--px-gold); letter-spacing: 3px; }
-  .ap-fortune-title { font-size: 17px; font-weight: 900; color: var(--px-gold); margin: 6px 0; }
-  .ap-fortune-line { font-size: 14px; color: var(--px-text); }
-  .ap-fortune-line b { color: #38e0a8; }
-  .ap-news-item { display: block; padding: 9px 0; border-bottom: 2px solid var(--px-line); }
-  .ap-news-item:last-child { border-bottom: 0; }
-  .ap-news-rank { color: var(--px-gold); font-weight: 900; }
-  .ap-news-title { font-size: 13.5px; font-weight: 700; }
-  .ap-news-meta { font-size: 11px; color: var(--px-dim); }
-  .ap-wx-big { font-size: 52px; }
-  .ap-wx-temp { font-size: 34px; font-weight: 900; color: var(--px-gold); font-family: "Press Start 2P", monospace; }
-  .ap-wx-row { display: flex; gap: 22px; flex-wrap: wrap; font-size: 13px; margin-top: 10px; }
-  .ap-wx-row b { color: #38e0a8; }
-  .ap-loading { font-size: 13px; color: var(--px-dim); }
-  /* 遊玩覆蓋層 */
-  .arc-play { position: fixed; inset: 0; z-index: 200; background: #0d0c1f;
-    display: flex; flex-direction: column; }
-  .arc-play.hidden { display: none; }
-  .arc-play-bar {
-    display: flex; align-items: center; gap: 12px; padding: 10px 16px;
-    background: var(--px-panel); border-bottom: 4px solid var(--px-ink);
+  .ar-note {
+    max-width: 1180px; margin: 14px auto 0; padding: 0 18px 8px;
+    font-size: 10.5px; color: var(--px-dim); line-height: 1.7;
   }
-  .arc-play-bar .pb-title { font-weight: 900; font-size: 14px; color: var(--px-gold); }
-  .arc-play-bar button {
-    margin-left: auto; font-family: "Noto Sans TC", sans-serif; font-size: 13px; font-weight: 800;
-    color: var(--px-text); background: var(--px-panel2);
-    border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink); padding: 8px 14px; cursor: pointer;
-  }
-  .arc-play-bar button:active { transform: translate(3px,3px); box-shadow: 0 0 0 var(--px-ink); }
-  #playFrame { flex: 1; width: 100%; border: 0; background: #0d0c1f; }
-
-  @media (max-width: 720px) {
-    .arc-wrap { flex-direction: column; }
-    .arc-menu { width: 100%; }
-    .arc-panel { width: 100%; min-height: 0; }
+  @media (max-width: 880px) {
+    .ar-wrap { grid-template-columns: 1fr; }
+    #gameFrame { height: 64vh; min-height: 420px; }
   }
 </style>
 </head>
@@ -104,31 +79,112 @@
     <div class="t2">下課遊樂區</div>
   </div>
   <nav class="px-topnav">
-    <a class="px-navbtn" href="lobby.html">🧪 像素大廳</a>
+    <a class="px-navbtn" href="lobby.html">🎮 像素大廳</a>
     <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
   </nav>
 </header>
 
-<main class="arc-wrap">
-  <nav class="arc-menu" id="arcMenu"></nav>
-  <section class="arc-panel" id="arcPanel"></section>
+<main class="ar-wrap">
+  <aside class="ar-panel">
+    <div class="ar-panel-h mono">SELECT GAME</div>
+    <div class="ar-menu-list" id="menuList"></div>
+  </aside>
+
+  <section class="ar-panel ar-stage">
+    <div class="ar-stage-bar">
+      <span class="sb-name" id="sbName">—</span>
+      <span class="sb-lic mono" id="sbLic"></span>
+    </div>
+    <iframe id="gameFrame" title="遊戲畫面"></iframe>
+  </section>
+
+  <aside class="ar-panel">
+    <div class="ar-panel-h mono">HOW TO PLAY</div>
+    <div class="ar-info-body">
+      <h4 id="infoName">—</h4>
+      <ul class="ar-how" id="infoHow"></ul>
+      <div class="ar-info-lic" id="infoLic"></div>
+    </div>
+  </aside>
 </main>
 
-<div id="playOverlay" class="arc-play hidden">
-  <div class="arc-play-bar">
-    <span class="pb-title" id="playTitle"></span>
-    <button id="playClose">✕ 關閉遊戲</button>
-  </div>
-  <iframe id="playFrame" title="遊戲畫面"></iframe>
-</div>
+<p class="ar-note">
+  本區收錄本平台原創的像素小遊戲,以及第三方開源授權作品(2048、Hextris);
+  開源作品著作權屬原作者,平台合法嵌入並保留各自授權聲明(見各遊戲資料夾的 LICENSE)。
+</p>
 
 <footer class="px-footer">
   <div>© 趙珩宇老師製作・PC13110 工程設計學習平台</div>
   <div class="mono">PIXEL ARCADE</div>
-  <div>用方向鍵 ▲▼ 選擇,或直接點選單。</div>
 </footer>
 
+<script src="js/main.js"></script>
 <script src="js/audio.js"></script>
-<script src="js/arcade.js"></script>
+<script>
+const GAMES = [
+  { id: 'snake', name: '像素貪食蛇', icon: '🐍', lic: '本平台原創', author: 'PC13110 平台',
+    url: 'arcade/games/snake/index.html',
+    how: ['用方向鍵 / WASD、滑動,或下方按鈕控制方向。', '吃到方塊就得分、身體變長。',
+          '撞到牆壁或咬到自己就結束。', '按空白鍵開始 / 重來。'] },
+  { id: 'breakout', name: '像素打磚塊', icon: '🧱', lic: '本平台原創', author: 'PC13110 平台',
+    url: 'arcade/games/breakout/index.html',
+    how: ['移動滑鼠 / 手指,或 ← → 鍵控制底板。', '把球接住、打掉上方所有磚塊。',
+          '球掉出底部會少一條命,共 3 條。', '點畫面 / 空白鍵發射球。'] },
+  { id: 'shooter', name: '像素太空射擊', icon: '🚀', lic: '本平台原創', author: 'PC13110 平台',
+    url: 'arcade/games/shooter/index.html',
+    how: ['← → / A D 鍵,或滑鼠 / 手指拖動太空船。', '太空船會自動發射,擊落外星方塊得分。',
+          '被外星方塊撞到、或讓它衝到底,會少一條命。', '點畫面 / 空白鍵開始。'] },
+  { id: 'memory', name: '工程記憶配對', icon: '🧠', lic: '本平台原創', author: 'PC13110 平台',
+    url: 'arcade/games/memory/index.html',
+    how: ['點兩張卡片把它們翻開。', '兩張圖示相同 → 配對成功並固定。',
+          '不同 → 自動蓋回,再試一次。', '用最少步數配對完 8 對工程圖示。'] },
+  { id: 'circuit', name: '接電路', icon: '🔌', lic: '本平台原創', author: 'PC13110 平台',
+    url: 'arcade/games/circuit/index.html',
+    how: ['點任一格子,讓電線旋轉 90°。', '把 🔋 電池接到 💡 燈泡形成通路。',
+          '接通的電線會亮起來,燈泡點亮即過關。', '呼應第 4 章「日常生活中的電」。'] },
+  { id: '2048', name: '2048', icon: '🔢', lic: 'MIT 授權', author: 'Gabriele Cirulli',
+    url: 'arcade/games/2048/index.html',
+    how: ['用方向鍵 / 滑動移動所有方塊。', '兩個相同數字相撞會合併成兩倍。',
+          '挑戰湊出 2048 方塊。', '格子填滿且無法移動就結束。'] },
+  { id: 'hextris', name: 'Hextris', icon: '⬡', lic: 'GPL 授權', author: 'Hextris 開源團隊',
+    url: 'arcade/games/hextris/index.html',
+    how: ['點畫面左右側 / 方向鍵旋轉中央六邊形。', '用同色的邊去接住掉落的方塊。',
+          '同色方塊連成 3 個以上會消除得分。', '方塊堆到中心就結束。'] },
+];
+
+const menuList = document.getElementById('menuList');
+const frame = document.getElementById('gameFrame');
+let current = null;
+
+function select(g) {
+  if (current === g.id) return;
+  current = g.id;
+  if (typeof SoundFX !== 'undefined') SoundFX.click();
+  frame.src = g.url;
+  document.getElementById('sbName').textContent = '🕹️ ' + g.name;
+  document.getElementById('sbLic').textContent = g.lic;
+  document.getElementById('infoName').textContent = g.name;
+  document.getElementById('infoHow').innerHTML = g.how.map(h => `<li>${h}</li>`).join('');
+  document.getElementById('infoLic').innerHTML =
+    `授權:${g.lic}<br>作者:${g.author}`;
+  document.querySelectorAll('.ar-game').forEach(el => {
+    el.classList.toggle('on', el.dataset.id === g.id);
+  });
+  setTimeout(() => { try { frame.focus(); } catch (e) {} }, 120);
+}
+
+GAMES.forEach((g, i) => {
+  const el = document.createElement('div');
+  el.className = 'ar-game';
+  el.dataset.id = g.id;
+  el.innerHTML = `<span class="ar-ico">${g.icon}</span><span class="ar-nm">${g.name}</span>`;
+  el.addEventListener('click', () => select(g));
+  menuList.appendChild(el);
+});
+
+/* 預設選第一款;若網址帶 ?game=id 則選該款 */
+const want = new URLSearchParams(location.search).get('game');
+select(GAMES.find(g => g.id === want) || GAMES[0]);
+</script>
 </body>
 </html>

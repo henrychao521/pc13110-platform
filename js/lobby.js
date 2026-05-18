@@ -223,6 +223,7 @@ const ENTITIES = [
       '【切換介面】右上角可切回經典首頁。',
     ] },
   { id: 'arcade', kind: 'arcade', col: 16, row: 10, name: '遊戲機台' },
+  { id: 'lounge', kind: 'lounge', col: 2, row: 10, name: '互動交誼廳' },
 ].map(e => ({ ...e, x: (e.col + 0.5) * TILE, y: (e.row + 0.5) * TILE }));
 
 /* ---- 成就徽章(條件依進度與探索狀態判定) ---- */
@@ -363,9 +364,10 @@ function startWorld() {
   function tryEnter() {
     if (overlayOpen) return;
     if (activeEntity) {
-      if (activeEntity.kind === 'arcade') {
+      const NAV = { arcade: 'arcade.html', lounge: 'lounge.html' };
+      if (NAV[activeEntity.kind]) {
         if (typeof SoundFX !== 'undefined') SoundFX.win();
-        window.location.href = 'arcade.html';
+        window.location.href = NAV[activeEntity.kind];
       } else {
         openDialog(activeEntity);
       }
@@ -563,8 +565,9 @@ function startWorld() {
       document.getElementById('actionBtn').classList.add('ready');
     } else if (activeEntity) {
       const k = activeEntity.kind;
-      const ic = k === 'npc' ? '💬' : k === 'arcade' ? '🕹️' : '📋';
-      const verb = k === 'npc' ? '對話' : k === 'arcade' ? '進入遊樂區' : '查看';
+      const ic = k === 'npc' ? '💬' : k === 'arcade' ? '🕹️' : k === 'lounge' ? '🛋️' : '📋';
+      const verb = k === 'npc' ? '對話' : k === 'arcade' ? '進入遊樂區'
+        : k === 'lounge' ? '進入交誼廳' : '查看';
       prompt.innerHTML = `<b>${ic} ${activeEntity.name}</b><span>按 E / 點「進入」${verb}</span>`;
       prompt.classList.add('on');
       document.getElementById('actionBtn').classList.add('ready');
@@ -682,6 +685,26 @@ function startWorld() {
       ctx.fillText('❗', x, y - 67 - Math.sin(t / 10) * 2);
     }
   }
+  function drawLounge(en, t) {
+    const x = en.x, y = en.y, near = activeEntity === en;
+    ctx.fillStyle = 'rgba(0,0,0,.3)';
+    ctx.beginPath(); ctx.ellipse(x, y + 2, 23, 6, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#6b4226'; ctx.fillRect(x - 22, y - 54, 44, 54);
+    ctx.fillStyle = near ? '#d99a5a' : '#b07a4a'; ctx.fillRect(x - 17, y - 49, 34, 49);
+    ctx.fillStyle = 'rgba(0,0,0,.18)';
+    ctx.fillRect(x - 12, y - 44, 24, 17); ctx.fillRect(x - 12, y - 23, 24, 17);
+    ctx.fillStyle = near ? '#ffd34e' : '#e8d9b5'; ctx.fillRect(x - 27, y - 63, 54, 12);
+    ctx.strokeStyle = '#0b0b18'; ctx.lineWidth = 2; ctx.strokeRect(x - 27, y - 63, 54, 12);
+    ctx.font = '700 10px "Noto Sans TC",sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#3a2a18'; ctx.fillText('互動交誼廳', x, y - 57);
+    ctx.fillStyle = '#ffd34e'; ctx.fillRect(x + 9, y - 27, 4, 4);
+    ctx.font = '17px serif'; ctx.fillText('🛋️', x, y - 33);
+    if (near) {
+      ctx.fillStyle = '#ffd34e'; ctx.font = '13px serif';
+      ctx.fillText('❗', x, y - 74 - Math.sin(t / 10) * 2);
+    }
+  }
   function drawBubble(cx, bottomY, text) {
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -714,6 +737,7 @@ function startWorld() {
     ENTITIES.forEach(en => {
       if (en.kind === 'board') drawBoard(en, frame);
       else if (en.kind === 'arcade') drawArcade(en, frame);
+      else if (en.kind === 'lounge') drawLounge(en, frame);
     });
     /* 角色:自己 + 其他連線玩家 + NPC,依 y 排序處理前後遮擋 */
     const now = performance.now();

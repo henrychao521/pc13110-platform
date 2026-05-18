@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>互動交誼廳 ｜ PC13110 工程設計學習平台</title>
+<meta name="description" content="PC13110 工程設計學習平台的互動交誼廳:遇見占卜師、科技新聞記者與氣象記者三位特別來賓。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pixel.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛋️%3C/text%3E%3C/svg%3E">
+<style>
+  .lo-hero { max-width: 920px; margin: 0 auto; padding: 44px 22px 6px; text-align: center; }
+  .lo-hero h1 {
+    font-size: 30px; font-weight: 900; letter-spacing: -.02em; margin: 14px 0 12px;
+  }
+  .lo-hero h1 .hi {
+    background: linear-gradient(120deg, var(--px-gold), #ff9ed8 70%, #a98bff);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lo-hero p { font-size: 14.5px; color: var(--px-dim); max-width: 600px; margin: 0 auto; }
+
+  .guests {
+    max-width: 980px; margin: 26px auto 0; padding: 0 22px 50px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .guest {
+    background: var(--px-panel); border: 4px solid var(--px-ink);
+    box-shadow: 7px 7px 0 var(--px-ink);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 18px 16px 16px; cursor: pointer;
+    transition: transform .1s, box-shadow .1s;
+  }
+  .guest:hover { transform: translate(-3px,-3px); box-shadow: 10px 10px 0 var(--px-ink); }
+  .guest:active { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--px-ink); }
+  .guest canvas {
+    image-rendering: pixelated; border: 3px solid var(--px-ink);
+  }
+  .guest .g-name { font-size: 16px; font-weight: 900; margin-top: 12px; }
+  .guest .g-role { font-size: 12px; color: var(--px-dim); margin-top: 5px; text-align: center; line-height: 1.6; }
+  .guest .g-go {
+    margin-top: 12px; font-size: 12px; font-weight: 900; color: var(--px-ink);
+    background: var(--px-gold); border: 3px solid var(--px-ink); box-shadow: 0 4px 0 var(--px-ink);
+    padding: 8px 16px;
+  }
+
+  /* 互動視窗 */
+  .lo-overlay {
+    position: fixed; inset: 0; z-index: 100; background: rgba(8,8,20,.78);
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  .lo-overlay.hidden { display: none; }
+  .lo-box {
+    background: var(--px-panel); border: 4px solid var(--px-ink);
+    box-shadow: 9px 9px 0 var(--px-ink);
+    width: 100%; max-width: 460px; max-height: 88vh; overflow: auto;
+  }
+  .lo-box-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border-bottom: 4px solid var(--px-ink);
+  }
+  .lo-box-head canvas { image-rendering: pixelated; border: 3px solid var(--px-ink); flex-shrink: 0; }
+  .lo-box-head .h-name { font-size: 16px; font-weight: 900; color: var(--px-gold); }
+  .lo-box-head .h-role { font-size: 11px; color: var(--px-dim); margin-top: 3px; }
+  .lo-box-head .h-close {
+    margin-left: auto; width: 28px; height: 28px; flex-shrink: 0; cursor: pointer;
+    font-size: 13px; color: var(--px-text);
+    background: var(--px-panel2); border: 3px solid var(--px-ink);
+  }
+  .lo-box-head .h-close:hover { background: #ff6b6b; color: var(--px-ink); }
+  .lo-box-body { padding: 16px; }
+  .lo-act {
+    width: 100%; font-family: "Noto Sans TC", sans-serif; font-size: 14px; font-weight: 900;
+    color: var(--px-ink); background: var(--px-gold);
+    border: 3px solid var(--px-ink); box-shadow: 0 5px 0 var(--px-ink);
+    padding: 12px; cursor: pointer; margin-bottom: 12px;
+  }
+  .lo-act:active { transform: translateY(5px); box-shadow: 0 0 0 var(--px-ink); }
+  .lo-act[disabled] { opacity: .55; cursor: default; box-shadow: 0 5px 0 var(--px-ink); }
+  .lo-result {
+    background: var(--px-bg); border: 3px solid var(--px-line);
+    padding: 14px; font-size: 13.5px; line-height: 1.85; color: var(--px-text);
+  }
+  .lo-result .big { font-size: 30px; display: block; text-align: center; margin-bottom: 6px; }
+  .lo-result a { color: var(--px-gold); }
+  .lo-news-item {
+    padding: 9px 0; border-bottom: 2px dashed var(--px-line); font-size: 13px; line-height: 1.6;
+  }
+  .lo-news-item:last-child { border-bottom: none; }
+  .lo-news-item .ni-meta { font-size: 11px; color: var(--px-dim); }
+  .lo-w-big { font-size: 40px; text-align: center; }
+  .lo-w-temp { font-size: 30px; font-weight: 900; color: var(--px-gold); text-align: center; }
+  .lo-w-row { display: flex; justify-content: space-between; font-size: 12.5px; margin-top: 6px; }
+  .lo-hint { font-size: 11px; color: var(--px-dim); margin-top: 10px; line-height: 1.6; }
+
+  @media (max-width: 720px) {
+    .guests { grid-template-columns: 1fr; max-width: 360px; }
+    .lo-hero h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body class="lobby">
+
+<header class="px-topbar">
+  <div class="px-logo">🛋️</div>
+  <div class="px-brand">
+    <div class="t1 mono">PC13110</div>
+    <div class="t2">互動交誼廳</div>
+  </div>
+  <nav class="px-topnav">
+    <a class="px-navbtn" href="lobby.html">🎮 像素大廳</a>
+    <a class="px-navbtn" href="arcade.html">🕹️ 遊樂區</a>
+    <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
+  </nav>
+</header>
+
+<section class="lo-hero">
+  <span class="badge" style="background:var(--px-gold);color:var(--px-ink);border:3px solid var(--px-ink);box-shadow:3px 3px 0 var(--px-ink)">特別來賓・休息一下</span>
+  <h1>歡迎來到<span class="hi">互動交誼廳</span></h1>
+  <p>這裡有三位特別來賓等著你 —— 點一張卡片走過去,跟他們聊聊吧!</p>
+</section>
+
+<div class="guests" id="guests"></div>
+
+<!-- 互動視窗 -->
+<div id="loOverlay" class="lo-overlay hidden">
+  <div class="lo-box">
+    <div class="lo-box-head">
+      <canvas id="hPortrait" width="64" height="64"></canvas>
+      <div>
+        <div class="h-name" id="hName">—</div>
+        <div class="h-role" id="hRole">—</div>
+      </div>
+      <button class="h-close" id="hClose" aria-label="關閉">✕</button>
+    </div>
+    <div class="lo-box-body" id="loBody"></div>
+  </div>
+</div>
+
+<footer class="px-footer">
+  <div>© 趙珩宇老師製作・PC13110 工程設計學習平台</div>
+  <div class="mono">INTERACTIVE LOUNGE</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/lounge.js"></script>
+</body>
+</html>
