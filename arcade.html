@@ -36,6 +36,14 @@
   .ar-game.on { background: var(--px-gold); color: var(--px-ink); }
   .ar-game .ar-ico { font-size: 19px; }
   .ar-game .ar-nm { flex: 1; }
+  /* 對應章節徽章 */
+  .ar-ch {
+    font-size: 8px; font-weight: 700; padding: 2px 5px; white-space: nowrap;
+    border: 2px solid var(--px-ink); background: var(--px-line); color: var(--px-dim);
+    vertical-align: middle;
+  }
+  .ar-ch.on { background: var(--px-gold); color: var(--px-ink); }
+  .ar-game.on .ar-ch { border-color: var(--px-ink); }
   /* 遊戲舞台 */
   .ar-stage { display: flex; flex-direction: column; min-width: 0; }
   .ar-stage-bar {
@@ -122,35 +130,39 @@
 <script src="js/audio.js"></script>
 <script>
 const GAMES = [
-  { id: 'snake', name: '像素貪食蛇', icon: '🐍', lic: '本平台原創', author: 'PC13110 平台',
+  { id: 'snake', name: '像素貪食蛇', ch: '休閒', icon: '🐍', lic: '本平台原創', author: 'PC13110 平台',
     url: 'arcade/games/snake/index.html',
     how: ['用方向鍵 / WASD、滑動,或下方按鈕控制方向。', '吃到方塊就得分、身體變長。',
           '撞到牆壁或咬到自己就結束。', '按空白鍵開始 / 重來。'] },
-  { id: 'breakout', name: '像素打磚塊', icon: '🧱', lic: '本平台原創', author: 'PC13110 平台',
+  { id: 'breakout', name: '像素打磚塊', ch: '休閒', icon: '🧱', lic: '本平台原創', author: 'PC13110 平台',
     url: 'arcade/games/breakout/index.html',
     how: ['移動滑鼠 / 手指,或 ← → 鍵控制底板。', '把球接住、打掉上方所有磚塊。',
           '球掉出底部會少一條命,共 3 條。', '點畫面 / 空白鍵發射球。'] },
-  { id: 'shooter', name: '像素太空射擊', icon: '🚀', lic: '本平台原創', author: 'PC13110 平台',
+  { id: 'shooter', name: '像素太空射擊', ch: '休閒', icon: '🚀', lic: '本平台原創', author: 'PC13110 平台',
     url: 'arcade/games/shooter/index.html',
     how: ['← → / A D 鍵,或滑鼠 / 手指拖動太空船。', '太空船會自動發射,擊落外星方塊得分。',
           '被外星方塊撞到、或讓它衝到底,會少一條命。', '點畫面 / 空白鍵開始。'] },
-  { id: 'memory', name: '工程記憶配對', icon: '🧠', lic: '本平台原創', author: 'PC13110 平台',
+  { id: 'memory', name: '工程記憶配對', ch: '綜合', icon: '🧠', lic: '本平台原創', author: 'PC13110 平台',
     url: 'arcade/games/memory/index.html',
     how: ['點兩張卡片把它們翻開。', '兩張圖示相同 → 配對成功並固定。',
-          '不同 → 自動蓋回,再試一次。', '用最少步數配對完 8 對工程圖示。'] },
-  { id: 'circuit', name: '接電路', icon: '🔌', lic: '本平台原創', author: 'PC13110 平台',
+          '不同 → 自動蓋回,再試一次。', '配對的是齒輪、燈泡、機器人等貫穿全書的工程圖示。'] },
+  { id: 'circuit', name: '接電路', ch: '第 4 章', icon: '🔌', lic: '本平台原創', author: 'PC13110 平台',
     url: 'arcade/games/circuit/index.html',
     how: ['點任一格子,讓電線旋轉 90°。', '把 🔋 電池接到 💡 燈泡形成通路。',
           '接通的電線會亮起來,燈泡點亮即過關。', '呼應第 4 章「日常生活中的電」。'] },
-  { id: '2048', name: '2048', icon: '🔢', lic: 'MIT 授權', author: 'Gabriele Cirulli',
+  { id: '2048', name: '2048', ch: '休閒', icon: '🔢', lic: 'MIT 授權', author: 'Gabriele Cirulli',
     url: 'arcade/games/2048/index.html',
     how: ['用方向鍵 / 滑動移動所有方塊。', '兩個相同數字相撞會合併成兩倍。',
           '挑戰湊出 2048 方塊。', '格子填滿且無法移動就結束。'] },
-  { id: 'hextris', name: 'Hextris', icon: '⬡', lic: 'GPL 授權', author: 'Hextris 開源團隊',
+  { id: 'hextris', name: 'Hextris', ch: '休閒', icon: '⬡', lic: 'GPL 授權', author: 'Hextris 開源團隊',
     url: 'arcade/games/hextris/index.html',
     how: ['點畫面左右側 / 方向鍵旋轉中央六邊形。', '用同色的邊去接住掉落的方塊。',
           '同色方塊連成 3 個以上會消除得分。', '方塊堆到中心就結束。'] },
 ];
+/* 標題後綴:對應章節徽章(含「章」者為對應課程,其餘為休閒) */
+function chTag(g) {
+  return ` <span class="ar-ch${g.ch.includes('章') ? ' on' : ''}">${g.ch}</span>`;
+}
 
 const menuList = document.getElementById('menuList');
 const frame = document.getElementById('gameFrame');
@@ -161,9 +173,9 @@ function select(g) {
   current = g.id;
   if (typeof SoundFX !== 'undefined') SoundFX.click();
   frame.src = g.url;
-  document.getElementById('sbName').textContent = '🕹️ ' + g.name;
+  document.getElementById('sbName').innerHTML = '🕹️ ' + g.name + chTag(g);
   document.getElementById('sbLic').textContent = g.lic;
-  document.getElementById('infoName').textContent = g.name;
+  document.getElementById('infoName').innerHTML = g.name + chTag(g);
   document.getElementById('infoHow').innerHTML = g.how.map(h => `<li>${h}</li>`).join('');
   document.getElementById('infoLic').innerHTML =
     `授權:${g.lic}<br>作者:${g.author}`;
@@ -177,7 +189,7 @@ GAMES.forEach((g, i) => {
   const el = document.createElement('div');
   el.className = 'ar-game';
   el.dataset.id = g.id;
-  el.innerHTML = `<span class="ar-ico">${g.icon}</span><span class="ar-nm">${g.name}</span>`;
+  el.innerHTML = `<span class="ar-ico">${g.icon}</span><span class="ar-nm">${g.name}</span>` + chTag(g);
   el.addEventListener('click', () => select(g));
   menuList.appendChild(el);
 });
