@@ -140,6 +140,22 @@ canvas { image-rendering: pixelated; }
 .world-prompt span { font-size: 11px; color: var(--px-dim); }
 .world-hint { font-size: 8.5px; color: var(--px-dim); margin-top: 16px; line-height: 1.8; }
 
+/* 鄰近聊天輸入列 */
+.chat-bar { display: flex; gap: 8px; max-width: 760px; margin: 14px auto 0; }
+.chat-bar input {
+  flex: 1; min-width: 0; font-family: "Noto Sans TC", sans-serif; font-size: 13px;
+  color: var(--px-text); background: var(--px-panel);
+  border: 3px solid var(--px-ink); padding: 10px 12px;
+}
+.chat-bar input:focus { outline: none; border-color: var(--px-gold); }
+.chat-bar button {
+  flex-shrink: 0; font-family: "Noto Sans TC", sans-serif; font-size: 13px; font-weight: 800;
+  color: var(--px-ink); background: var(--px-gold);
+  border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink);
+  padding: 10px 16px; cursor: pointer;
+}
+.chat-bar button:active { transform: translate(3px,3px); box-shadow: 0 0 0 var(--px-ink); }
+
 /* ---- 觸控控制 ---- */
 .touch-ctl {
   display: none; position: fixed; left: 0; right: 0; bottom: 0;

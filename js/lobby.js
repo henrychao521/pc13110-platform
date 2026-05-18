@@ -222,6 +222,7 @@ const ENTITIES = [
       '【成就徽章】完成模組、走訪傳送門、和 NPC 對話都會解鎖徽章。',
       '【切換介面】右上角可切回經典首頁。',
     ] },
+  { id: 'arcade', kind: 'arcade', col: 16, row: 10, name: '遊戲機台' },
 ].map(e => ({ ...e, x: (e.col + 0.5) * TILE, y: (e.row + 0.5) * TILE }));
 
 /* ---- 成就徽章(條件依進度與探索狀態判定) ---- */
@@ -270,7 +271,8 @@ function startWorld() {
   document.getElementById('hudPct').textContent = '總進度 ' + pct + '%';
 
   /* 玩家狀態(多人版:此處會擴成 players[]) */
-  const player = { x: 9.5 * TILE, y: 6.5 * TILE, dir: 1, moving: false, walk: 0, walkT: 0 };
+  const player = { x: 9.5 * TILE, y: 6.5 * TILE, dir: 1, moving: false, walk: 0, walkT: 0,
+    chat: '', chatUntil: 0 };
 
   /* ---- 輸入 ---- */
   const keys = {};
@@ -323,6 +325,24 @@ function startWorld() {
   })();
   document.getElementById('actionBtn').addEventListener('click', tryEnter);
 
+  /* ---- 鄰近聊天輸入 ---- */
+  const chatInput = document.getElementById('chatInput');
+  function sendChat() {
+    const text = chatInput.value.trim().slice(0, 60);
+    chatInput.value = '';
+    chatInput.blur();
+    if (!text) return;
+    player.chat = text; player.chatUntil = performance.now() + 5500;
+    if (net.ws && net.ws.readyState === 1) net.ws.send(JSON.stringify({ t: 'chat', text }));
+    if (typeof SoundFX !== 'undefined') SoundFX.click();
+  }
+  chatInput.addEventListener('keydown', e => {
+    e.stopPropagation();                       /* 打字時不觸發角色移動 */
+    if (e.key === 'Enter') sendChat();
+    else if (e.key === 'Escape') chatInput.blur();
+  });
+  document.getElementById('chatSend').addEventListener('click', sendChat);
+
   /* ---- 碰撞 ---- */
   function isWall(px, py) {
     const c = Math.floor(px / TILE), r = Math.floor(py / TILE);
@@ -342,7 +362,15 @@ function startWorld() {
 
   function tryEnter() {
     if (overlayOpen) return;
-    if (activeEntity) { openDialog(activeEntity); return; }
+    if (activeEntity) {
+      if (activeEntity.kind === 'arcade') {
+        if (typeof SoundFX !== 'undefined') SoundFX.win();
+        window.location.href = 'arcade.html';
+      } else {
+        openDialog(activeEntity);
+      }
+      return;
+    }
     if (activePortal) {
       if (typeof SoundFX !== 'undefined') SoundFX.win();
       window.location.href = CHAPTER_INFO[activePortal.id].hub;
@@ -472,6 +500,10 @@ function startWorld() {
         showNotice('📢 老師請大家集合,你已被帶到集合點!');
         if (typeof SoundFX !== 'undefined') SoundFX.win();
       }
+      else if (m.t === 'chat') {
+        const o = net.others.get(m.id);
+        if (o) { o.chat = m.text; o.chatUntil = performance.now() + 5500; }
+      }
       const label = me.room ? '班級 ' + me.room : '公開實驗室';
       setNet(label + ' ・ ' + (net.others.size + 1) + ' 人', true);
     });
@@ -530,8 +562,9 @@ function startWorld() {
       prompt.classList.add('on');
       document.getElementById('actionBtn').classList.add('ready');
     } else if (activeEntity) {
-      const verb = activeEntity.kind === 'npc' ? '對話' : '查看';
-      const ic = activeEntity.kind === 'npc' ? '💬' : '📋';
+      const k = activeEntity.kind;
+      const ic = k === 'npc' ? '💬' : k === 'arcade' ? '🕹️' : '📋';
+      const verb = k === 'npc' ? '對話' : k === 'arcade' ? '進入遊樂區' : '查看';
       prompt.innerHTML = `<b>${ic} ${activeEntity.name}</b><span>按 E / 點「進入」${verb}</span>`;
       prompt.classList.add('on');
       document.getElementById('actionBtn').classList.add('ready');
@@ -627,6 +660,50 @@ function startWorld() {
       ctx.fillText('❗', x, y - 56 - Math.sin(t / 10) * 2);
     }
   }
+  function drawArcade(en, t) {
+    const x = en.x, y = en.y, near = activeEntity === en;
+    const glow = 0.5 + 0.5 * Math.sin(t / 22);
+    ctx.fillStyle = 'rgba(0,0,0,.3)';
+    ctx.beginPath(); ctx.ellipse(x, y + 2, 24, 7, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#5a3aa8'; ctx.fillRect(x - 18, y - 52, 36, 52);
+    ctx.fillStyle = '#7a5cd0'; ctx.fillRect(x - 18, y - 52, 5, 52);
+    ctx.fillStyle = near ? '#ffd34e' : '#e879f9'; ctx.fillRect(x - 18, y - 57, 36, 7);
+    ctx.fillStyle = '#0b0b18'; ctx.fillRect(x - 13, y - 49, 26, 19);
+    ctx.fillStyle = `rgba(79,200,255,${0.45 + 0.4 * glow})`; ctx.fillRect(x - 11, y - 47, 22, 15);
+    ctx.fillStyle = '#3a2a78'; ctx.fillRect(x - 16, y - 28, 32, 9);
+    ctx.fillStyle = '#ff6b6b'; ctx.fillRect(x - 9, y - 27, 4, 4);
+    ctx.fillStyle = '#ffd34e'; ctx.fillRect(x + 4, y - 27, 4, 4);
+    ctx.font = '13px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('🕹️', x, y - 39);
+    ctx.fillStyle = '#fff'; ctx.font = '700 9px "Noto Sans TC",sans-serif';
+    ctx.fillText('遊樂區', x, y - 53);
+    if (near) {
+      ctx.fillStyle = '#ffd34e'; ctx.font = '13px serif';
+      ctx.fillText('❗', x, y - 67 - Math.sin(t / 10) * 2);
+    }
+  }
+  function drawBubble(cx, bottomY, text) {
+    ctx.font = '700 11px "Noto Sans TC",sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    let t = text;
+    if (ctx.measureText(t).width > 250) {
+      while (t.length > 1 && ctx.measureText(t + '…').width > 250) t = t.slice(0, -1);
+      t += '…';
+    }
+    const w = Math.ceil(ctx.measureText(t).width) + 16, h = 20;
+    let top = bottomY - 6 - h;
+    if (top < 3) top = 3;
+    const left = cx - w / 2;
+    ctx.fillStyle = '#fdfdff';
+    ctx.fillRect(left, top, w, h);
+    ctx.strokeStyle = '#0b0b18'; ctx.lineWidth = 2;
+    ctx.strokeRect(left, top, w, h);
+    ctx.fillStyle = '#fdfdff'; ctx.fillRect(cx - 4, top + h - 1, 8, 6);
+    ctx.fillStyle = '#0b0b18';
+    ctx.fillRect(cx - 5, top + h - 1, 2, 6); ctx.fillRect(cx + 3, top + h - 1, 2, 6);
+    ctx.fillStyle = '#14132b';
+    ctx.fillText(t, cx, top + h / 2);
+  }
 
   let frame = 0;
   function render() {
@@ -634,11 +711,16 @@ function startWorld() {
     ctx.clearRect(0, 0, W, H);
     drawFloor();
     PORTALS.forEach(p => drawPortal(p, frame));
-    ENTITIES.forEach(en => { if (en.kind === 'board') drawBoard(en, frame); });
+    ENTITIES.forEach(en => {
+      if (en.kind === 'board') drawBoard(en, frame);
+      else if (en.kind === 'arcade') drawArcade(en, frame);
+    });
     /* 角色:自己 + 其他連線玩家 + NPC,依 y 排序處理前後遮擋 */
+    const now = performance.now();
     const cast = [{ x: player.x, y: player.y, look: me, name: me.name,
-      f: player.moving ? player.walk + 1 : 0, kind: 'me' }];
-    net.others.forEach(o => cast.push({ x: o.x, y: o.y, look: o.look, name: o.name, f: o.f, kind: 'other' }));
+      f: player.moving ? player.walk + 1 : 0, kind: 'me', chat: player.chat, chatUntil: player.chatUntil }];
+    net.others.forEach(o => cast.push({ x: o.x, y: o.y, look: o.look, name: o.name, f: o.f,
+      kind: 'other', chat: o.chat, chatUntil: o.chatUntil }));
     ENTITIES.forEach(en => {
       if (en.kind === 'npc') cast.push({ x: en.x, y: en.y, look: en.look, name: en.name, f: 0, kind: 'npc', ent: en });
     });
@@ -650,6 +732,11 @@ function startWorld() {
         ctx.fillStyle = '#ffd34e'; ctx.font = '13px serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillText('❗', c.x, c.y - 16 * 2.6 - 26 - Math.sin(frame / 10) * 2);
+      }
+      /* 聊天泡泡:自己一定顯示,其他人需在一定範圍內 */
+      if (c.chat && now < c.chatUntil) {
+        const inRange = c.kind === 'me' || Math.hypot(c.x - player.x, c.y - player.y) < 175;
+        if (inRange) drawBubble(c.x, c.y - 16 * 2.6 - 26, c.chat);
       }
     });
   }

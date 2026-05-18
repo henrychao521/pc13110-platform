@@ -105,6 +105,9 @@ function handleMessage(player, raw) {
     if (text) broadcastRoom(player.room, player.socket, { t: 'notice', text });
   } else if (msg.t === 'summon' && player.role === 'teacher') {
     broadcastRoom(player.room, player.socket, { t: 'summon', x: +msg.x || 380, y: +msg.y || 260 });
+  } else if (msg.t === 'chat' && player.role === 'student') {
+    const text = String(msg.text || '').slice(0, 60);
+    if (text) broadcastRoom(player.room, player.socket, { t: 'chat', id: player.id, text });
   }
 }
 
