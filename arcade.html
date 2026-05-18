@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下課遊樂區 ｜ PC13110 工程設計學習平台</title>
+<meta name="description" content="PC13110 工程設計學習平台的下課遊樂區:收錄開源授權的網頁小遊戲,動動腦、放鬆一下。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕹️%3C/text%3E%3C/svg%3E">
+<style>
+  .game-grid {
+    max-width: 1080px; margin: 0 auto; padding: 8px 36px 50px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(248px, 1fr)); gap: 18px;
+  }
+  .game-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer;
+    transition: transform .18s var(--easing), box-shadow .18s var(--easing);
+    display: flex; flex-direction: column;
+  }
+  .game-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brand); }
+  .gc-art {
+    height: 116px; display: flex; align-items: center; justify-content: center;
+    font-size: 58px; color: #fff;
+  }
+  .gc-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+  .gc-name { font-size: 16px; font-weight: 800; }
+  .gc-desc { font-size: 13px; color: var(--text-soft); line-height: 1.6; flex: 1; }
+  .gc-meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+  .gc-lic { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);
+    background: var(--bg-soft); padding: 2px 8px; border-radius: 999px; }
+  .gc-play { margin-left: auto; font-size: 13px; font-weight: 800; color: var(--brand); }
+  /* 遊玩覆蓋層 */
+  .play-overlay {
+    position: fixed; inset: 0; z-index: 200; background: #0b1020;
+    display: flex; flex-direction: column;
+  }
+  .play-overlay.hidden { display: none; }
+  .play-bar {
+    display: flex; align-items: center; gap: 12px; padding: 10px 16px;
+    background: var(--brand-dark); color: #fff;
+  }
+  .play-bar .pb-title { font-weight: 800; font-size: 14px; }
+  .play-bar .pb-lic { font-size: 11px; opacity: .8; }
+  .play-bar button {
+    margin-left: auto; font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+    background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.4);
+    padding: 7px 14px; border-radius: 8px; cursor: pointer;
+  }
+  .play-bar button:hover { background: rgba(255,255,255,.28); }
+  #playFrame { flex: 1; width: 100%; border: 0; background: #0b1020; }
+  .arcade-note {
+    max-width: 1008px; margin: 0 auto 30px; padding: 0 36px;
+    font-size: 12.5px; color: var(--text-muted); line-height: 1.7;
+  }
+  @media (max-width: 680px) {
+    .game-grid { padding: 8px 18px 40px; }
+    .arcade-note { padding: 0 18px; }
+  }
+</style>
+</head>
+<body class="hub">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・下課遊樂區</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="index.html">← 回首頁</a>
+    <a href="lobby.html">像素大廳</a>
+  </nav>
+</header>
+
+<section class="hub-hero" style="padding:56px 36px 14px">
+  <span class="badge">開源授權・動動腦放鬆區</span>
+  <h2 style="font-size:38px;margin:14px 0 12px">下課<span class="grad">遊樂區</span></h2>
+  <p style="font-size:15.5px">
+    收錄採用開源授權(Open Source)的網頁小遊戲。下課動動腦、放鬆一下,
+    再回到實驗室繼續闖關!
+  </p>
+</section>
+
+<section class="game-grid" id="gameGrid"></section>
+
+<p class="arcade-note">
+  本區遊戲皆為第三方<strong>開源授權</strong>作品,著作權屬原作者;平台僅作合法嵌入並保留各自授權聲明
+  (見各遊戲資料夾的 LICENSE)。感謝開源社群的貢獻。
+</p>
+
+<!-- 遊玩覆蓋層 -->
+<div id="playOverlay" class="play-overlay hidden">
+  <div class="play-bar">
+    <span class="pb-title" id="playTitle"></span>
+    <span class="pb-lic" id="playLic"></span>
+    <button id="playClose">✕ 關閉遊戲</button>
+  </div>
+  <iframe id="playFrame" title="遊戲畫面"></iframe>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+const GAMES = [
+  { id: '2048', name: '2048', icon: '🔢',
+    grad: 'linear-gradient(135deg,#edc22e,#e8a317)',
+    desc: '滑動合成相同數字,挑戰湊出 2048!考驗規劃與邏輯的經典益智遊戲。',
+    lic: 'MIT 授權', author: 'Gabriele Cirulli',
+    url: 'arcade/games/2048/index.html' },
+  { id: 'hextris', name: 'Hextris', icon: '⬡',
+    grad: 'linear-gradient(135deg,#e74c3c,#c0392b)',
+    desc: '六邊形版的方塊消除遊戲,旋轉中央六邊形接住同色方塊,考驗反應與空間思考。',
+    lic: 'GPL 授權', author: 'Hextris 開源團隊',
+    url: 'arcade/games/hextris/index.html' },
+];
+
+const grid = document.getElementById('gameGrid');
+GAMES.forEach(g => {
+  const card = document.createElement('div');
+  card.className = 'game-card';
+  card.innerHTML = `
+    <div class="gc-art" style="background:${g.grad}">${g.icon}</div>
+    <div class="gc-body">
+      <div class="gc-name">${g.name}</div>
+      <div class="gc-desc">${g.desc}</div>
+      <div class="gc-meta">
+        <span class="gc-lic">${g.lic}</span>
+        <span class="gc-play">▶ 開始遊戲</span>
+      </div>
+    </div>`;
+  card.addEventListener('click', () => openGame(g));
+  grid.appendChild(card);
+});
+
+const overlay = document.getElementById('playOverlay');
+const frame = document.getElementById('playFrame');
+function openGame(g) {
+  document.getElementById('playTitle').textContent = '🕹️ ' + g.name;
+  document.getElementById('playLic').textContent = g.lic + '・' + g.author;
+  frame.src = g.url;
+  overlay.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => frame.focus(), 100);
+}
+function closeGame() {
+  overlay.classList.add('hidden');
+  frame.src = 'about:blank';
+  document.body.style.overflow = '';
+}
+document.getElementById('playClose').addEventListener('click', closeGame);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.classList.contains('hidden')) closeGame(); });
+</script>
+</body>
+</html>
