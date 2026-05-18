@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>接電路 ｜ PC13110 遊樂區</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #14132b; color: #e8e8f5;
+    font-family: "Noto Sans TC", -apple-system, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 13px; padding: 18px;
+    -webkit-user-select: none; user-select: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .mono { font-family: "Press Start 2P", monospace; }
+  .title { font-size: 13px; color: #ffd34e; text-shadow: 2px 2px 0 #000; letter-spacing: .04em; }
+  .hud { display: flex; gap: 22px; font-size: 11px; }
+  .hud b { color: #ffd34e; }
+  #cv {
+    border: 4px solid #0b0b18; box-shadow: 7px 7px 0 #0b0b18;
+    background: #1a1933; image-rendering: pixelated;
+    max-width: 92vw; height: auto; cursor: pointer; touch-action: manipulation;
+  }
+  .msg { font-size: 13px; color: #9a98c8; min-height: 20px; text-align: center; }
+  .msg b { color: #2dd4a7; }
+  button {
+    font-family: "Noto Sans TC", sans-serif; font-size: 13px; font-weight: 900; color: #14132b;
+    background: #ffd34e; border: 3px solid #0b0b18; box-shadow: 0 5px 0 #0b0b18;
+    padding: 10px 22px; cursor: pointer;
+  }
+  button:active { transform: translateY(5px); box-shadow: 0 0 0 #0b0b18; }
+</style>
+</head>
+<body>
+
+<div class="title mono">CIRCUIT CONNECT</div>
+<div class="hud mono">
+  <span>步數 <b id="moves">0</b></span>
+  <span>最佳 <b id="best">—</b></span>
+</div>
+<canvas id="cv" width="340" height="340"></canvas>
+<div class="msg" id="msg">點格子旋轉電線,把 🔋 電池接到 💡 燈泡!</div>
+<button id="restart">換一題</button>
+
+<script>
+const GW = 5, GH = 5, CELL = 68;
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+const DX = [0, 1, 0, -1], DY = [-1, 0, 1, 0];   /* 0上 1右 2下 3左 */
+const BEST_KEY = 'pc13110_circuit_best';
+
+let grid, battery, bulb, moves, won;
+let best = +(localStorage.getItem(BEST_KEY) || 0);
+document.getElementById('best').textContent = best || '—';
+document.getElementById('msg').textContent = '點格子旋轉電線,把 🔋 電池接到 💡 燈泡!';
+
+const rot1 = m => ((m << 1) | (m >> 3)) & 15;
+
+function genTree() {
+  const mask = Array.from({ length: GH }, () => Array(GW).fill(0));
+  const vis = Array.from({ length: GH }, () => Array(GW).fill(false));
+  const stack = [[0, 0]]; vis[0][0] = true;
+  while (stack.length) {
+    const [x, y] = stack[stack.length - 1];
+    const opts = [];
+    for (let d = 0; d < 4; d++) {
+      const nx = x + DX[d], ny = y + DY[d];
+      if (nx >= 0 && ny >= 0 && nx < GW && ny < GH && !vis[ny][nx]) opts.push(d);
+    }
+    if (opts.length) {
+      const d = opts[(Math.random() * opts.length) | 0];
+      const nx = x + DX[d], ny = y + DY[d];
+      mask[y][x] |= (1 << d);
+      mask[ny][nx] |= (1 << ((d + 2) % 4));
+      vis[ny][nx] = true; stack.push([nx, ny]);
+    } else stack.pop();
+  }
+  return mask;
+}
+function leaves(mask) {
+  const out = [];
+  for (let y = 0; y < GH; y++) for (let x = 0; x < GW; x++) {
+    let bits = 0; for (let d = 0; d < 4; d++) if (mask[y][x] & (1 << d)) bits++;
+    if (bits === 1 && !(x === 0 && y === 0)) out.push([x, y]);
+  }
+  return out;
+}
+function powered() {
+  /* 從電池 BFS,回傳 powered 二維布林 */
+  const pw = Array.from({ length: GH }, () => Array(GW).fill(false));
+  const q = [battery]; pw[battery[1]][battery[0]] = true;
+  while (q.length) {
+    const [x, y] = q.shift();
+    const m = grid[y][x];
+    for (let d = 0; d < 4; d++) {
+      if (!(m & (1 << d))) continue;
+      const nx = x + DX[d], ny = y + DY[d];
+      if (nx < 0 || ny < 0 || nx >= GW || ny >= GH || pw[ny][nx]) continue;
+      if (grid[ny][nx] & (1 << ((d + 2) % 4))) { pw[ny][nx] = true; q.push([nx, ny]); }
+    }
+  }
+  return pw;
+}
+function newPuzzle() {
+  let tree;
+  for (;;) {
+    tree = genTree();
+    const lv = leaves(tree);
+    if (!lv.length) continue;
+    battery = [0, 0];
+    /* 選最遠的葉子當燈泡 */
+    lv.sort((a, b) => (b[0] + b[1]) - (a[0] + a[1]));
+    bulb = lv[0];
+    grid = tree.map(row => row.slice());
+    /* 打亂每格旋轉 */
+    for (let y = 0; y < GH; y++) for (let x = 0; x < GW; x++) {
+      const r = (Math.random() * 4) | 0;
+      for (let i = 0; i < r; i++) grid[y][x] = rot1(grid[y][x]);
+    }
+    if (!powered()[bulb[1]][bulb[0]]) break;   /* 確保一開始尚未接通 */
+  }
+  moves = 0; won = false;
+  document.getElementById('moves').textContent = 0;
+  document.getElementById('msg').textContent = '點格子旋轉電線,把 🔋 電池接到 💡 燈泡!';
+  draw();
+}
+function draw() {
+  ctx.fillStyle = '#1a1933'; ctx.fillRect(0, 0, cv.width, cv.height);
+  const pw = powered();
+  for (let y = 0; y < GH; y++) for (let x = 0; x < GW; x++) {
+    const cx = x * CELL + CELL / 2, cy = y * CELL + CELL / 2;
+    /* 格線 */
+    ctx.strokeStyle = 'rgba(255,255,255,.05)';
+    ctx.strokeRect(x * CELL, y * CELL, CELL, CELL);
+    const on = pw[y][x];
+    const m = grid[y][x];
+    const wire = on ? '#ffd34e' : '#4a4878';
+    /* 電線 */
+    ctx.fillStyle = wire;
+    for (let d = 0; d < 4; d++) {
+      if (!(m & (1 << d))) continue;
+      const len = CELL / 2;
+      if (d === 0) ctx.fillRect(cx - 4, cy - len, 8, len);
+      if (d === 2) ctx.fillRect(cx - 4, cy, 8, len);
+      if (d === 3) ctx.fillRect(cx - len, cy - 4, len, 8);
+      if (d === 1) ctx.fillRect(cx, cy - 4, len, 8);
+    }
+    /* 中心節點 */
+    ctx.fillStyle = on ? '#ffe27a' : '#5a5890';
+    ctx.fillRect(cx - 6, cy - 6, 12, 12);
+    /* 電池 / 燈泡 */
+    if (x === battery[0] && y === battery[1]) {
+      ctx.font = '26px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('🔋', cx, cy + 1);
+    }
+    if (x === bulb[0] && y === bulb[1]) {
+      ctx.font = '26px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.globalAlpha = on ? 1 : 0.4;
+      ctx.fillText('💡', cx, cy + 1);
+      ctx.globalAlpha = 1;
+    }
+  }
+  if (won) {
+    ctx.fillStyle = 'rgba(11,11,24,.78)'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#2dd4a7'; ctx.font = '15px "Press Start 2P", monospace';
+    ctx.fillText('CIRCUIT ON!', cv.width / 2, cv.height / 2 - 14);
+    ctx.fillStyle = '#e8e8f5'; ctx.font = '700 13px "Noto Sans TC", sans-serif';
+    ctx.fillText('用了 ' + moves + ' 步接通電路', cv.width / 2, cv.height / 2 + 14);
+  }
+}
+function checkWin() {
+  if (powered()[bulb[1]][bulb[0]]) {
+    won = true;
+    let txt = `🎉 燈泡亮了!用了 <b>${moves}</b> 步`;
+    if (!best || moves < best) {
+      best = moves; localStorage.setItem(BEST_KEY, best);
+      document.getElementById('best').textContent = best;
+      txt += '　★ 新紀錄!';
+    }
+    document.getElementById('msg').innerHTML = txt;
+  }
+}
+cv.addEventListener('click', e => {
+  if (won) return;
+  const rect = cv.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) * (cv.width / rect.width) / CELL) | 0;
+  const y = ((e.clientY - rect.top) * (cv.height / rect.height) / CELL) | 0;
+  if (x < 0 || y < 0 || x >= GW || y >= GH) return;
+  grid[y][x] = rot1(grid[y][x]);
+  moves++; document.getElementById('moves').textContent = moves;
+  draw(); checkWin();
+});
+document.getElementById('restart').addEventListener('click', newPuzzle);
+newPuzzle();
+</script>
+</body>
+</html>
