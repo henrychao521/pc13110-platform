@@ -4,182 +4,131 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>下課遊樂區 ｜ PC13110 工程設計學習平台</title>
-<meta name="description" content="PC13110 工程設計學習平台的下課遊樂區:收錄開源授權的網頁小遊戲,動動腦、放鬆一下。">
+<meta name="description" content="PC13110 工程設計學習平台的下課遊樂區:像素小遊戲、占卜師、科技新聞與即時氣象。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/svg-effects.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pixel.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕹️%3C/text%3E%3C/svg%3E">
 <style>
-  .game-grid {
-    max-width: 1080px; margin: 0 auto; padding: 8px 36px 50px;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(248px, 1fr)); gap: 18px;
+  .arc-wrap {
+    max-width: 1080px; margin: 22px auto 0; padding: 0 20px;
+    display: flex; gap: 16px; align-items: flex-start;
   }
-  .game-card {
-    background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-    overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer;
-    transition: transform .18s var(--easing), box-shadow .18s var(--easing);
-    display: flex; flex-direction: column;
+  /* 上下選單 */
+  .arc-menu {
+    width: 232px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;
   }
-  .game-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--brand); }
-  .gc-art {
-    height: 116px; display: flex; align-items: center; justify-content: center;
-    font-size: 58px; color: #fff;
+  .arc-item {
+    display: flex; align-items: center; gap: 10px; cursor: pointer;
+    padding: 10px 12px; background: var(--px-panel);
+    border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink);
+    transition: transform .07s, background .12s;
   }
-  .gc-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
-  .gc-name { font-size: 16px; font-weight: 800; }
-  .gc-desc { font-size: 13px; color: var(--text-soft); line-height: 1.6; flex: 1; }
-  .gc-meta { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
-  .gc-lic { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted);
-    background: var(--bg-soft); padding: 2px 8px; border-radius: 999px; }
-  .gc-play { margin-left: auto; font-size: 13px; font-weight: 800; color: var(--brand); }
+  .arc-item:hover { background: var(--px-line); }
+  .arc-item.on { background: var(--px-panel2); border-color: var(--px-gold); box-shadow: 3px 3px 0 var(--px-gold); }
+  .arc-item .ai-ic { font-size: 22px; }
+  .arc-item .ai-name { font-size: 13.5px; font-weight: 800; }
+  .arc-item .ai-kind { font-size: 9px; color: var(--px-dim); }
+  .arc-menu-sep { font-size: 9px; color: var(--px-dim); margin: 6px 0 1px 2px; }
+  /* 旁邊面板 */
+  .arc-panel {
+    flex: 1; min-height: 420px; background: var(--px-panel);
+    border: 4px solid var(--px-ink); box-shadow: 7px 7px 0 var(--px-ink);
+    padding: 22px;
+  }
+  .ap-head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .ap-ic { font-size: 40px; }
+  .ap-title { font-size: 19px; font-weight: 900; }
+  .ap-tag { font-size: 10px; color: var(--px-ink); background: var(--px-gold);
+    padding: 3px 8px; border: 2px solid var(--px-ink); }
+  .ap-desc { font-size: 14px; color: var(--px-text); line-height: 1.85; margin: 12px 0; }
+  .ap-meta { font-size: 12px; color: var(--px-dim); line-height: 1.8; }
+  .ap-btn {
+    margin-top: 16px; font-family: "Noto Sans TC", sans-serif; font-size: 14px; font-weight: 900;
+    color: var(--px-ink); background: var(--px-gold);
+    border: 3px solid var(--px-ink); box-shadow: 0 5px 0 var(--px-ink);
+    padding: 12px 26px; cursor: pointer;
+  }
+  .ap-btn:active { transform: translateY(5px); box-shadow: 0 0 0 var(--px-ink); }
+  .ap-btn.ghost { background: var(--px-panel2); color: var(--px-text); }
+  /* 占卜 / 新聞 / 氣象 共用卡片 */
+  .ap-card {
+    background: var(--px-bg); border: 3px solid var(--px-ink);
+    padding: 16px; margin-top: 14px; line-height: 1.9;
+  }
+  .ap-fortune-stars { font-size: 18px; color: var(--px-gold); letter-spacing: 3px; }
+  .ap-fortune-title { font-size: 17px; font-weight: 900; color: var(--px-gold); margin: 6px 0; }
+  .ap-fortune-line { font-size: 14px; color: var(--px-text); }
+  .ap-fortune-line b { color: #38e0a8; }
+  .ap-news-item { display: block; padding: 9px 0; border-bottom: 2px solid var(--px-line); }
+  .ap-news-item:last-child { border-bottom: 0; }
+  .ap-news-rank { color: var(--px-gold); font-weight: 900; }
+  .ap-news-title { font-size: 13.5px; font-weight: 700; }
+  .ap-news-meta { font-size: 11px; color: var(--px-dim); }
+  .ap-wx-big { font-size: 52px; }
+  .ap-wx-temp { font-size: 34px; font-weight: 900; color: var(--px-gold); font-family: "Press Start 2P", monospace; }
+  .ap-wx-row { display: flex; gap: 22px; flex-wrap: wrap; font-size: 13px; margin-top: 10px; }
+  .ap-wx-row b { color: #38e0a8; }
+  .ap-loading { font-size: 13px; color: var(--px-dim); }
   /* 遊玩覆蓋層 */
-  .play-overlay {
-    position: fixed; inset: 0; z-index: 200; background: #0b1020;
-    display: flex; flex-direction: column;
-  }
-  .play-overlay.hidden { display: none; }
-  .play-bar {
+  .arc-play { position: fixed; inset: 0; z-index: 200; background: #0d0c1f;
+    display: flex; flex-direction: column; }
+  .arc-play.hidden { display: none; }
+  .arc-play-bar {
     display: flex; align-items: center; gap: 12px; padding: 10px 16px;
-    background: var(--brand-dark); color: #fff;
+    background: var(--px-panel); border-bottom: 4px solid var(--px-ink);
   }
-  .play-bar .pb-title { font-weight: 800; font-size: 14px; }
-  .play-bar .pb-lic { font-size: 11px; opacity: .8; }
-  .play-bar button {
-    margin-left: auto; font-family: var(--font-sans); font-size: 13px; font-weight: 700;
-    background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.4);
-    padding: 7px 14px; border-radius: 8px; cursor: pointer;
+  .arc-play-bar .pb-title { font-weight: 900; font-size: 14px; color: var(--px-gold); }
+  .arc-play-bar button {
+    margin-left: auto; font-family: "Noto Sans TC", sans-serif; font-size: 13px; font-weight: 800;
+    color: var(--px-text); background: var(--px-panel2);
+    border: 3px solid var(--px-ink); box-shadow: 3px 3px 0 var(--px-ink); padding: 8px 14px; cursor: pointer;
   }
-  .play-bar button:hover { background: rgba(255,255,255,.28); }
-  #playFrame { flex: 1; width: 100%; border: 0; background: #0b1020; }
-  .arcade-note {
-    max-width: 1008px; margin: 0 auto 30px; padding: 0 36px;
-    font-size: 12.5px; color: var(--text-muted); line-height: 1.7;
-  }
-  @media (max-width: 680px) {
-    .game-grid { padding: 8px 18px 40px; }
-    .arcade-note { padding: 0 18px; }
+  .arc-play-bar button:active { transform: translate(3px,3px); box-shadow: 0 0 0 var(--px-ink); }
+  #playFrame { flex: 1; width: 100%; border: 0; background: #0d0c1f; }
+
+  @media (max-width: 720px) {
+    .arc-wrap { flex-direction: column; }
+    .arc-menu { width: 100%; }
+    .arc-panel { width: 100%; min-height: 0; }
   }
 </style>
 </head>
-<body class="hub">
+<body class="lobby">
 
-<header class="topbar">
-  <div class="brand">
-    <div class="logo">⚙️</div>
-    <div class="brand-text">
-      <h1>工程設計學習平台</h1>
-      <div class="subtitle">PC13110・下課遊樂區</div>
-    </div>
+<header class="px-topbar">
+  <div class="px-logo">🕹️</div>
+  <div class="px-brand">
+    <div class="t1 mono">PC13110</div>
+    <div class="t2">下課遊樂區</div>
   </div>
-  <nav class="topnav">
-    <a href="index.html">← 回首頁</a>
-    <a href="lobby.html">像素大廳</a>
+  <nav class="px-topnav">
+    <a class="px-navbtn" href="lobby.html">🧪 像素大廳</a>
+    <a class="px-navbtn" href="index.html">🖥 經典首頁</a>
   </nav>
 </header>
 
-<section class="hub-hero" style="padding:56px 36px 14px">
-  <span class="badge">開源授權・動動腦放鬆區</span>
-  <h2 style="font-size:38px;margin:14px 0 12px">下課<span class="grad">遊樂區</span></h2>
-  <p style="font-size:15.5px">
-    收錄採用開源授權(Open Source)的網頁小遊戲。下課動動腦、放鬆一下,
-    再回到實驗室繼續闖關!
-  </p>
-</section>
+<main class="arc-wrap">
+  <nav class="arc-menu" id="arcMenu"></nav>
+  <section class="arc-panel" id="arcPanel"></section>
+</main>
 
-<section class="game-grid" id="gameGrid"></section>
-
-<p class="arcade-note">
-  本區收錄<strong>本平台原創</strong>的像素小遊戲,以及第三方<strong>開源授權</strong>作品(2048、Hextris);
-  開源作品著作權屬原作者,平台合法嵌入並保留各自授權聲明(見各遊戲資料夾的 LICENSE)。
-</p>
-
-<!-- 遊玩覆蓋層 -->
-<div id="playOverlay" class="play-overlay hidden">
-  <div class="play-bar">
+<div id="playOverlay" class="arc-play hidden">
+  <div class="arc-play-bar">
     <span class="pb-title" id="playTitle"></span>
-    <span class="pb-lic" id="playLic"></span>
     <button id="playClose">✕ 關閉遊戲</button>
   </div>
   <iframe id="playFrame" title="遊戲畫面"></iframe>
 </div>
 
-<script src="js/main.js"></script>
-<script>
-const GAMES = [
-  { id: 'snake', name: '像素貪食蛇', icon: '🐍',
-    grad: 'linear-gradient(135deg,#38e07a,#1f9d57)',
-    desc: '經典貪食蛇的像素版!吃到方塊就變長,小心別撞牆或咬到自己。鍵盤、滑動、按鈕都能玩。',
-    lic: '本平台原創', author: 'PC13110 平台',
-    url: 'arcade/games/snake/index.html' },
-  { id: 'breakout', name: '像素打磚塊', icon: '🧱',
-    grad: 'linear-gradient(135deg,#4f8cff,#1d4ed8)',
-    desc: '經典打磚塊!移動底板把球接住,打掉上方所有彩色磚塊。鍵盤、滑鼠、觸控都能玩。',
-    lic: '本平台原創', author: 'PC13110 平台',
-    url: 'arcade/games/breakout/index.html' },
-  { id: 'shooter', name: '像素太空射擊', icon: '🚀',
-    grad: 'linear-gradient(135deg,#a98bff,#6d28d9)',
-    desc: '駕駛太空船自動射擊,擊落一波波下降的外星方塊,別讓它們撞上你!',
-    lic: '本平台原創', author: 'PC13110 平台',
-    url: 'arcade/games/shooter/index.html' },
-  { id: 'memory', name: '工程記憶配對', icon: '🧠',
-    grad: 'linear-gradient(135deg,#2dd4a7,#0e9e7a)',
-    desc: '翻牌記憶遊戲!配對齒輪、燈泡、機器人等工程圖示,挑戰用最少步數完成。',
-    lic: '本平台原創', author: 'PC13110 平台',
-    url: 'arcade/games/memory/index.html' },
-  { id: 'circuit', name: '接電路', icon: '🔌',
-    grad: 'linear-gradient(135deg,#ffd34e,#e0902a)',
-    desc: '電路解謎!點格子旋轉電線,把電池接到燈泡讓它亮起來——呼應第 4 章電路單元。',
-    lic: '本平台原創', author: 'PC13110 平台',
-    url: 'arcade/games/circuit/index.html' },
-  { id: '2048', name: '2048', icon: '🔢',
-    grad: 'linear-gradient(135deg,#edc22e,#e8a317)',
-    desc: '滑動合成相同數字,挑戰湊出 2048!考驗規劃與邏輯的經典益智遊戲。',
-    lic: 'MIT 授權', author: 'Gabriele Cirulli',
-    url: 'arcade/games/2048/index.html' },
-  { id: 'hextris', name: 'Hextris', icon: '⬡',
-    grad: 'linear-gradient(135deg,#e74c3c,#c0392b)',
-    desc: '六邊形版的方塊消除遊戲,旋轉中央六邊形接住同色方塊,考驗反應與空間思考。',
-    lic: 'GPL 授權', author: 'Hextris 開源團隊',
-    url: 'arcade/games/hextris/index.html' },
-];
+<footer class="px-footer">
+  <div>© 趙珩宇老師製作・PC13110 工程設計學習平台</div>
+  <div class="mono">PIXEL ARCADE</div>
+  <div>用方向鍵 ▲▼ 選擇,或直接點選單。</div>
+</footer>
 
-const grid = document.getElementById('gameGrid');
-GAMES.forEach(g => {
-  const card = document.createElement('div');
-  card.className = 'game-card';
-  card.innerHTML = `
-    <div class="gc-art" style="background:${g.grad}">${g.icon}</div>
-    <div class="gc-body">
-      <div class="gc-name">${g.name}</div>
-      <div class="gc-desc">${g.desc}</div>
-      <div class="gc-meta">
-        <span class="gc-lic">${g.lic}</span>
-        <span class="gc-play">▶ 開始遊戲</span>
-      </div>
-    </div>`;
-  card.addEventListener('click', () => openGame(g));
-  grid.appendChild(card);
-});
-
-const overlay = document.getElementById('playOverlay');
-const frame = document.getElementById('playFrame');
-function openGame(g) {
-  document.getElementById('playTitle').textContent = '🕹️ ' + g.name;
-  document.getElementById('playLic').textContent = g.lic + '・' + g.author;
-  frame.src = g.url;
-  overlay.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => frame.focus(), 100);
-}
-function closeGame() {
-  overlay.classList.add('hidden');
-  frame.src = 'about:blank';
-  document.body.style.overflow = '';
-}
-document.getElementById('playClose').addEventListener('click', closeGame);
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.classList.contains('hidden')) closeGame(); });
-</script>
+<script src="js/audio.js"></script>
+<script src="js/arcade.js"></script>
 </body>
 </html>
