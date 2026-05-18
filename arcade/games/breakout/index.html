@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素打磚塊 ｜ PC13110 遊樂區</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #14132b; color: #e8e8f5;
+    font-family: "Noto Sans TC", -apple-system, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px; padding: 16px;
+    -webkit-user-select: none; user-select: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .mono { font-family: "Press Start 2P", monospace; }
+  .title { font-size: 13px; color: #ffd34e; text-shadow: 2px 2px 0 #000; letter-spacing: .04em; }
+  .hud { display: flex; gap: 22px; font-size: 11px; }
+  .hud b { color: #ffd34e; }
+  #cv {
+    border: 4px solid #0b0b18; box-shadow: 7px 7px 0 #0b0b18;
+    background: #1a1933; image-rendering: pixelated;
+    max-width: 94vw; height: auto; touch-action: none; cursor: pointer;
+  }
+  .hint { font-size: 11px; color: #9a98c8; text-align: center; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<div class="title mono">PIXEL BREAKOUT</div>
+<div class="hud mono">
+  <span>分數 <b id="score">0</b></span>
+  <span>命 <b id="lives">3</b></span>
+  <span>最高 <b id="best">0</b></span>
+</div>
+<canvas id="cv" width="420" height="480"></canvas>
+<div class="hint">移動滑鼠 / 手指　或　← → 鍵控制底板　|　點畫面 / 空白鍵發射</div>
+
+<script>
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+const W = cv.width, H = cv.height;
+const BEST_KEY = 'pc13110_breakout_best';
+
+const COLORS = ['#ffd34e', '#2dd4a7', '#e879f9', '#ff6b6b', '#a98bff'];
+const ROWS = 5, COLS = 9, BW = 42, BH = 18, BGAP = 2, BTOP = 54, BLEFT = 6;
+const PADW = 74, PADH = 12, PADY = H - 34;
+
+let bricks, paddle, ball, score, lives, state, best;
+best = +(localStorage.getItem(BEST_KEY) || 0);
+document.getElementById('best').textContent = best;
+
+function reset(full) {
+  if (full) { score = 0; lives = 3; }
+  bricks = [];
+  for (let r = 0; r < ROWS; r++)
+    for (let c = 0; c < COLS; c++)
+      bricks.push({ r, c, x: BLEFT + c * (BW + BGAP), y: BTOP + r * (BH + BGAP), alive: true });
+  paddle = { x: W / 2 - PADW / 2 };
+  resetBall();
+  state = 'ready';
+  syncHud();
+  draw();
+}
+function resetBall() {
+  ball = { x: W / 2, y: PADY - 12, vx: 0, vy: 0, r: 5, stuck: true };
+}
+function launch() {
+  if (state === 'ready') { ball.stuck = false; ball.vx = 2.4; ball.vy = -3.4; state = 'play'; }
+  else if (state === 'over' || state === 'win') reset(true);
+}
+function syncHud() {
+  document.getElementById('score').textContent = score;
+  document.getElementById('lives').textContent = lives;
+}
+function tick() {
+  if (state !== 'play') return;
+  if (ball.stuck) { ball.x = paddle.x + PADW / 2; return; }
+  ball.x += ball.vx; ball.y += ball.vy;
+  /* 牆 */
+  if (ball.x - ball.r < 0) { ball.x = ball.r; ball.vx *= -1; }
+  if (ball.x + ball.r > W) { ball.x = W - ball.r; ball.vx *= -1; }
+  if (ball.y - ball.r < 0) { ball.y = ball.r; ball.vy *= -1; }
+  /* 底板 */
+  if (ball.vy > 0 && ball.y + ball.r >= PADY && ball.y + ball.r <= PADY + PADH &&
+      ball.x >= paddle.x - 4 && ball.x <= paddle.x + PADW + 4) {
+    ball.vy = -Math.abs(ball.vy);
+    const hit = (ball.x - (paddle.x + PADW / 2)) / (PADW / 2);   /* -1~1 */
+    ball.vx = hit * 3.6;
+    ball.y = PADY - ball.r;
+  }
+  /* 磚塊 */
+  for (const b of bricks) {
+    if (!b.alive) continue;
+    if (ball.x + ball.r > b.x && ball.x - ball.r < b.x + BW &&
+        ball.y + ball.r > b.y && ball.y - ball.r < b.y + BH) {
+      b.alive = false;
+      score += 10; syncHud();
+      /* 從上下或左右反彈:看穿透方向 */
+      const overlapX = Math.min(ball.x + ball.r - b.x, b.x + BW - (ball.x - ball.r));
+      const overlapY = Math.min(ball.y + ball.r - b.y, b.y + BH - (ball.y - ball.r));
+      if (overlapX < overlapY) ball.vx *= -1; else ball.vy *= -1;
+      break;
+    }
+  }
+  /* 掉出底部 */
+  if (ball.y - ball.r > H) {
+    lives--; syncHud();
+    if (lives <= 0) { state = 'over'; saveBest(); }
+    else { resetBall(); state = 'ready'; }
+  }
+  /* 全破 */
+  if (bricks.every(b => !b.alive)) { state = 'win'; saveBest(); }
+}
+function saveBest() {
+  if (score > best) { best = score; localStorage.setItem(BEST_KEY, best); document.getElementById('best').textContent = best; }
+}
+function draw() {
+  ctx.fillStyle = '#1a1933'; ctx.fillRect(0, 0, W, H);
+  /* 磚塊 */
+  for (const b of bricks) {
+    if (!b.alive) continue;
+    ctx.fillStyle = COLORS[b.r % COLORS.length];
+    ctx.fillRect(b.x, b.y, BW, BH);
+    ctx.fillStyle = 'rgba(255,255,255,.35)';
+    ctx.fillRect(b.x, b.y, BW, 3);
+    ctx.fillStyle = 'rgba(0,0,0,.28)';
+    ctx.fillRect(b.x, b.y + BH - 3, BW, 3);
+  }
+  /* 底板 */
+  ctx.fillStyle = '#ffd34e';
+  ctx.fillRect(paddle.x, PADY, PADW, PADH);
+  ctx.fillStyle = 'rgba(255,255,255,.5)';
+  ctx.fillRect(paddle.x, PADY, PADW, 3);
+  /* 球 */
+  ctx.fillStyle = '#fdfdff';
+  ctx.fillRect(ball.x - ball.r, ball.y - ball.r, ball.r * 2, ball.r * 2);
+  /* 字幕 */
+  if (state !== 'play') {
+    ctx.fillStyle = 'rgba(11,11,24,.8)'; ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = state === 'win' ? '#2dd4a7' : '#ffd34e';
+    ctx.font = '15px "Press Start 2P", monospace';
+    const t = state === 'over' ? 'GAME OVER' : state === 'win' ? 'YOU WIN!' : 'PIXEL BREAKOUT';
+    ctx.fillText(t, W / 2, H / 2 - 22);
+    ctx.fillStyle = '#e8e8f5'; ctx.font = '700 14px "Noto Sans TC", sans-serif';
+    if (state === 'over' || state === 'win') ctx.fillText('得分 ' + score, W / 2, H / 2 + 6);
+    ctx.fillStyle = '#9a98c8'; ctx.font = '700 12px "Noto Sans TC", sans-serif';
+    ctx.fillText(state === 'ready' ? '點畫面 / 空白鍵　發射' : '點畫面 / 空白鍵　再玩一次',
+      W / 2, H / 2 + (state === 'ready' ? 14 : 30));
+  }
+}
+
+/* ---- 輸入 ---- */
+function movePaddle(px) {
+  paddle.x = Math.max(0, Math.min(W - PADW, px - PADW / 2));
+}
+cv.addEventListener('mousemove', e => {
+  const rect = cv.getBoundingClientRect();
+  movePaddle((e.clientX - rect.left) * (W / rect.width));
+});
+cv.addEventListener('touchmove', e => {
+  const rect = cv.getBoundingClientRect();
+  movePaddle((e.touches[0].clientX - rect.left) * (W / rect.width));
+  e.preventDefault();
+}, { passive: false });
+cv.addEventListener('click', launch);
+const keys = {};
+window.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === ' ' || k === 'enter') { e.preventDefault(); launch(); }
+  if (['arrowleft', 'arrowright', 'a', 'd'].includes(k)) keys[k] = true;
+});
+window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+
+let last = 0;
+function loop(t) {
+  if (keys['arrowleft'] || keys['a']) movePaddle(paddle.x + PADW / 2 - 7);
+  if (keys['arrowright'] || keys['d']) movePaddle(paddle.x + PADW / 2 + 7);
+  tick();
+  draw();
+  requestAnimationFrame(loop);
+}
+reset(true);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

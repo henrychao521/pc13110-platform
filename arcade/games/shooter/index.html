@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>像素太空射擊 ｜ PC13110 遊樂區</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #14132b; color: #e8e8f5;
+    font-family: "Noto Sans TC", -apple-system, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px; padding: 16px;
+    -webkit-user-select: none; user-select: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .mono { font-family: "Press Start 2P", monospace; }
+  .title { font-size: 13px; color: #ffd34e; text-shadow: 2px 2px 0 #000; letter-spacing: .04em; }
+  .hud { display: flex; gap: 22px; font-size: 11px; }
+  .hud b { color: #ffd34e; }
+  #cv {
+    border: 4px solid #0b0b18; box-shadow: 7px 7px 0 #0b0b18;
+    background: #0d0c1f; image-rendering: pixelated;
+    max-width: 94vw; height: auto; touch-action: none; cursor: pointer;
+  }
+  .hint { font-size: 11px; color: #9a98c8; text-align: center; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<div class="title mono">PIXEL SHOOTER</div>
+<div class="hud mono">
+  <span>分數 <b id="score">0</b></span>
+  <span>命 <b id="lives">3</b></span>
+  <span>最高 <b id="best">0</b></span>
+</div>
+<canvas id="cv" width="400" height="500"></canvas>
+<div class="hint">← → / A D 鍵　或　滑鼠 / 手指拖動 控制太空船・自動發射　|　空白鍵開始 / 重來</div>
+
+<script>
+const cv = document.getElementById('cv'), ctx = cv.getContext('2d');
+ctx.imageSmoothingEnabled = false;
+const W = cv.width, H = cv.height;
+const BEST_KEY = 'pc13110_shooter_best';
+
+const EN_COLORS = ['#ff6b6b', '#e879f9', '#2dd4a7', '#a98bff'];
+let player, bullets, enemies, stars, score, lives, state, fireCd, spawnCd, spawnGap, best;
+best = +(localStorage.getItem(BEST_KEY) || 0);
+document.getElementById('best').textContent = best;
+
+function reset() {
+  player = { x: W / 2, y: H - 44, w: 28, h: 22 };
+  bullets = []; enemies = [];
+  stars = Array.from({ length: 36 }, () => ({ x: Math.random() * W, y: Math.random() * H, s: Math.random() * 1.4 + 0.4 }));
+  score = 0; lives = 3; fireCd = 0; spawnCd = 30; spawnGap = 52;
+  state = 'ready';
+  syncHud(); draw();
+}
+function syncHud() {
+  document.getElementById('score').textContent = score;
+  document.getElementById('lives').textContent = lives;
+}
+function startOrRestart() {
+  if (state === 'ready') state = 'play';
+  else if (state === 'over') { reset(); state = 'play'; }
+}
+function hit(a, aw, ah, b, bw, bh) {
+  return Math.abs(a.x - b.x) < (aw + bw) / 2 && Math.abs(a.y - b.y) < (ah + bh) / 2;
+}
+function tick() {
+  /* 星空(永遠流動) */
+  stars.forEach(s => { s.y += s.s; if (s.y > H) { s.y = 0; s.x = Math.random() * W; } });
+  if (state !== 'play') return;
+
+  /* 自動發射 */
+  if (--fireCd <= 0) { bullets.push({ x: player.x, y: player.y - 14 }); fireCd = 16; }
+
+  /* 生成敵人 */
+  if (--spawnCd <= 0) {
+    enemies.push({ x: 22 + Math.random() * (W - 44), y: -16,
+      vx: (Math.random() - 0.5) * 1.6, vy: 1.1 + Math.random() * 0.9,
+      c: EN_COLORS[(Math.random() * EN_COLORS.length) | 0] });
+    spawnCd = spawnGap;
+    if (spawnGap > 24) spawnGap -= 0.6;
+  }
+
+  /* 子彈 */
+  bullets.forEach(b => b.y -= 7);
+  bullets = bullets.filter(b => b.y > -16);
+
+  /* 敵人 */
+  enemies.forEach(e => {
+    e.x += e.vx; e.y += e.vy;
+    if (e.x < 16 || e.x > W - 16) e.vx *= -1;
+  });
+
+  /* 子彈擊中敵人 */
+  for (const e of enemies) {
+    for (const b of bullets) {
+      if (!e.dead && !b.dead && hit(e, 26, 20, b, 5, 12)) {
+        e.dead = true; b.dead = true; score += 10; syncHud();
+      }
+    }
+  }
+  /* 敵人撞到玩家 / 掉出底部 */
+  for (const e of enemies) {
+    if (e.dead) continue;
+    if (hit(e, 24, 18, player, player.w, player.h)) { e.dead = true; loseLife(); }
+    else if (e.y > H + 16) { e.dead = true; loseLife(); }
+  }
+  enemies = enemies.filter(e => !e.dead);
+  bullets = bullets.filter(b => !b.dead);
+}
+function loseLife() {
+  lives--; syncHud();
+  if (lives <= 0) {
+    state = 'over';
+    if (score > best) { best = score; localStorage.setItem(BEST_KEY, best); document.getElementById('best').textContent = best; }
+  }
+}
+function R(x, y, w, h, col) { ctx.fillStyle = col; ctx.fillRect(x, y, w, h); }
+function drawShip(cx, cy) {
+  /* 28×22 像素太空船,cx,cy 為中心 */
+  const x = cx - 14, y = cy - 11;
+  R(x + 12, y, 4, 5, '#ffd34e');                 /* 機鼻 */
+  R(x + 9, y + 5, 10, 6, '#ffe27a');             /* 駕駛艙上 */
+  R(x + 11, y + 6, 6, 4, '#4fc8ff');             /* 玻璃 */
+  R(x + 4, y + 11, 20, 6, '#ffd34e');            /* 機身 */
+  R(x, y + 13, 6, 6, '#e8a317'); R(x + 22, y + 13, 6, 6, '#e8a317'); /* 機翼 */
+  R(x + 10, y + 17, 8, 4, '#ff6b6b');            /* 噴射 */
+  R(x + 12, y + 19, 4, 3, '#ffe27a');
+}
+function drawEnemy(e) {
+  const x = e.x - 13, y = e.y - 10;
+  R(x, y, 26, 20, e.c);
+  R(x + 2, y + 2, 22, 3, 'rgba(255,255,255,.4)');
+  R(x + 2, y + 15, 22, 3, 'rgba(0,0,0,.3)');
+  R(x + 5, y + 7, 5, 5, '#14132b');              /* 眼 */
+  R(x + 16, y + 7, 5, 5, '#14132b');
+  R(x + 6, y + 8, 2, 2, '#fff'); R(x + 17, y + 8, 2, 2, '#fff');
+}
+function draw() {
+  ctx.fillStyle = '#0d0c1f'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#3a3870';
+  stars.forEach(s => ctx.fillRect(s.x | 0, s.y | 0, s.s > 1 ? 2 : 1, s.s > 1 ? 2 : 1));
+  bullets.forEach(b => R(b.x - 2, b.y - 6, 4, 12, '#4fc8ff'));
+  enemies.forEach(drawEnemy);
+  if (state !== 'over') drawShip(player.x, player.y);
+  if (state !== 'play') {
+    ctx.fillStyle = 'rgba(11,11,24,.78)'; ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#ffd34e'; ctx.font = '15px "Press Start 2P", monospace';
+    ctx.fillText(state === 'over' ? 'GAME OVER' : 'PIXEL SHOOTER', W / 2, H / 2 - 22);
+    ctx.fillStyle = '#e8e8f5'; ctx.font = '700 14px "Noto Sans TC", sans-serif';
+    if (state === 'over') ctx.fillText('得分 ' + score, W / 2, H / 2 + 6);
+    ctx.fillStyle = '#9a98c8'; ctx.font = '700 12px "Noto Sans TC", sans-serif';
+    ctx.fillText(state === 'over' ? '點畫面 / 空白鍵　再玩一次' : '點畫面 / 空白鍵　開始',
+      W / 2, H / 2 + (state === 'over' ? 30 : 14));
+  }
+}
+
+/* ---- 輸入 ---- */
+const keys = {};
+function setX(px) { player.x = Math.max(16, Math.min(W - 16, px)); }
+window.addEventListener('keydown', e => {
+  const k = e.key.toLowerCase();
+  if (k === ' ' || k === 'enter') { e.preventDefault(); startOrRestart(); }
+  if (['arrowleft', 'arrowright', 'a', 'd'].includes(k)) { e.preventDefault(); keys[k] = true; }
+});
+window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
+cv.addEventListener('click', startOrRestart);
+function pointerX(e) {
+  const rect = cv.getBoundingClientRect();
+  const cx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+  return cx * (W / rect.width);
+}
+cv.addEventListener('mousemove', e => { if (e.buttons || state === 'play') setX(pointerX(e)); });
+cv.addEventListener('touchmove', e => { setX(pointerX(e)); e.preventDefault(); }, { passive: false });
+cv.addEventListener('touchstart', e => { startOrRestart(); setX(pointerX(e)); }, { passive: true });
+
+function loop() {
+  const sp = 5;
+  if (keys['arrowleft'] || keys['a']) setX(player.x - sp);
+  if (keys['arrowright'] || keys['d']) setX(player.x + sp);
+  tick(); draw();
+  requestAnimationFrame(loop);
+}
+reset();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
