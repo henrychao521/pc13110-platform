@@ -63,6 +63,19 @@
   button:not(:disabled):active { transform: translateY(5px); box-shadow: 0 0 0 #0b0b18; }
   .btn-ghost { background: #2c2a5a; color: #e8e8f5; }
   .hint { font-size: 11px; color: #9a98c8; text-align: center; line-height: 1.7; max-width: 640px; }
+  .zoombar {
+    display: none; gap: 8px; align-items: center;
+    padding: 7px 9px; border-top: 3px solid #0b0b18; background: #1a1933;
+  }
+  .zoombar.on { display: flex; }
+  .zbtn { font-size: 11px; padding: 7px 12px; box-shadow: 0 3px 0 #0b0b18; }
+  .zbtn:not(:disabled):active { transform: translateY(3px); box-shadow: 0 0 0 #0b0b18; }
+  .zlabel { font-size: 10px; color: #9a98c8; flex: 1; text-align: center; }
+  .photo-clue {
+    display: none; font-size: 11.5px; color: #ffd34e; line-height: 1.6;
+    padding: 8px 10px; background: #221f3f; border-top: 2px dashed #4a4878;
+  }
+  .photo-clue.on { display: block; }
   .overlay {
     position: fixed; inset: 0; background: rgba(8,8,20,.93);
     display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
@@ -102,7 +115,13 @@
       <img id="photo" alt="地點照片">
       <div class="photo-msg" id="photoMsg">準備中…</div>
     </div>
+    <div class="zoombar" id="zoombar">
+      <button id="zoomOut" class="zbtn">➖ 拉遠</button>
+      <span class="zlabel" id="zoomLabel">視野</span>
+      <button id="zoomIn" class="zbtn">➕ 拉近</button>
+    </div>
     <div class="photo-cap" id="photoCap">這是台灣的哪裡?在右側地圖上點出你的猜測。</div>
+    <div class="photo-clue" id="photoClue"></div>
   </div>
   <div class="map-panel">
     <div class="mp-h mono">GUESS ON MAP</div>
@@ -377,12 +396,15 @@ function geoXY(lat, lon) {
 function xyGeo(x, y) {
   return { lon: LON0 + x / MW * (LON1 - LON0), lat: LAT1 - y / MH * (LAT1 - LAT0) };
 }
-/* 工程地景模式:以 Esri World Imagery 衛星空照圖呈現地點(無需金鑰) */
-function esriUrl(lat, lon) {
+/* 工程地景模式:以 Esri World Imagery 衛星空照圖呈現地點(無需金鑰)
+ * ZOOMS = 各視野等級的半寬(Web Mercator 公尺),由近到遠 */
+const ZOOMS = [665, 1330, 3325, 8000, 20000];
+const ZOOM_NAMES = ['街廓', '近', '中', '遠', '最遠'];
+function esriUrl(lat, lon, hw) {
   const R = 20037508.34;
   const mx = lon * R / 180;
   const my = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180) * R / 180;
-  const hw = 1330, hh = 1000;            /* 約 2.4km × 1.8km 視野 */
+  const hh = hw * 0.75;                  /* 維持 4:3 */
   const bbox = [mx - hw, my - hh, mx + hw, my + hh].join(',');
   return 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/export'
     + '?bbox=' + bbox + '&size=1024,768&format=jpg&f=image';
@@ -395,7 +417,19 @@ function distKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
-let mode, rounds, idx, total, guess, actual, state, current, roundCount;
+let mode, rounds, idx, total, guess, actual, state, current, roundCount, zoomIdx;
+
+/* 工程地景:依目前視野等級重新載入衛星空照圖 */
+function applyZoom() {
+  zoomIdx = Math.max(0, Math.min(ZOOMS.length - 1, zoomIdx));
+  $('zoomOut').disabled = zoomIdx >= ZOOMS.length - 1;
+  $('zoomIn').disabled = zoomIdx <= 0;
+  $('zoomLabel').textContent = '視野:' + ZOOM_NAMES[zoomIdx] + '（➖ 拉遠看地理位置、➕ 拉近看工程結構）';
+  const img = $('photo');
+  $('photoMsg').classList.add('hidden');
+  img.style.display = 'block';
+  img.src = esriUrl(current.lat, current.lon, ZOOMS[zoomIdx]);
+}
 
 /* ---------- Mapillary 取街景 ---------- */
 async function fetchMapillaryShot() {
@@ -457,6 +491,8 @@ async function loadRound() {
   $('actBtn').disabled = true;
   $('actBtn').textContent = '確認猜測';
   $('photo').onerror = null;
+  $('zoombar').classList.remove('on');
+  $('photoClue').classList.remove('on');
   if (mode === 'curated') {
     const loc = rounds[idx];
     current = { src: 'img/' + loc.img, lat: loc.lat, lon: loc.lon, name: loc.name, blurb: loc.blurb, by: loc.by };
@@ -465,7 +501,7 @@ async function loadRound() {
     state = 'guess';
   } else if (mode === 'engineering') {
     const s = rounds[idx];
-    current = { src: esriUrl(s.lat, s.lon), lat: s.lat, lon: s.lon, name: s.name, blurb: s.tip, ch: s.ch };
+    current = { lat: s.lat, lon: s.lon, name: s.name, blurb: s.tip, ch: s.ch };
     $('photo').onerror = () => {
       if (state !== 'guess') return;
       state = 'error';
@@ -473,8 +509,13 @@ async function loadRound() {
       $('result').innerHTML = '影像載入失敗,按下方「重試」再試一次。';
       $('actBtn').textContent = '重試'; $('actBtn').disabled = false;
     };
-    setPhoto(current.src, '🛰 衛星空照圖・Esri / Maxar / Earthstar Geographics');
-    $('result').textContent = '看衛星空照圖,在地圖上點出這個工程地點。';
+    $('photoCap').textContent = '🛰 衛星空照圖・Esri / Maxar / Earthstar Geographics';
+    $('photoClue').textContent = '🔍 觀察提示:' + s.tip;
+    $('photoClue').classList.add('on');
+    $('zoombar').classList.add('on');
+    zoomIdx = 3;
+    applyZoom();
+    $('result').textContent = '用下方「拉遠／拉近」觀察地形,再到地圖上點出位置。';
     state = 'guess';
   } else {
     state = 'loading';
@@ -558,6 +599,7 @@ function confirmGuess() {
   $('score').textContent = total;
   let head;
   if (mode === 'engineering') {
+    zoomIdx = 1; applyZoom();          /* 揭曉時拉近,看清工程結構 */
     const chTxt = current.ch ? `第${'一二三四五'[current.ch - 1]}章 ｜ ` : '';
     head = `正解:<span class="rn">${current.name}</span><br>` +
       `<span style="color:#7fc7ff">${chTxt}</span>${current.blurb}<br>`;
@@ -588,6 +630,12 @@ $('actBtn').addEventListener('click', () => {
   if (state === 'guess') confirmGuess();
   else if (state === 'reveal') nextRound();
   else if (state === 'error') loadRound();
+});
+$('zoomOut').addEventListener('click', () => {
+  if (mode === 'engineering' && (state === 'guess' || state === 'reveal')) { zoomIdx++; applyZoom(); }
+});
+$('zoomIn').addEventListener('click', () => {
+  if (mode === 'engineering' && (state === 'guess' || state === 'reveal')) { zoomIdx--; applyZoom(); }
 });
 
 /* ---------- 開始畫面 / token 設定 ---------- */
