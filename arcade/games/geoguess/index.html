@@ -463,6 +463,25 @@ async function fetchMapillaryShot() {
   return null;                             /* 試完都沒有 */
 }
 
+/* 工程地景:抓某座標附近的 Mapillary 實景影像(由近而遠擴大搜尋範圍) */
+async function fetchMapillaryAt(lat, lon) {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) return null;
+  for (const half of [0.0013, 0.0027, 0.005]) {     /* 約 145m / 300m / 555m */
+    const bbox = [lon - half, lat - half, lon + half, lat + half]
+      .map(n => n.toFixed(6)).join(',');
+    const url = 'https://graph.mapillary.com/images?access_token=' + encodeURIComponent(token) +
+      '&fields=id,thumb_1024_url&bbox=' + bbox + '&limit=15';
+    let j;
+    try { j = await (await fetch(url)).json(); }
+    catch (e) { return null; }
+    if (j.error) return null;                       /* token 無效或範圍過大 → 退回空照圖 */
+    const list = (j.data || []).filter(d => d.thumb_1024_url);
+    if (list.length) return { url: list[(Math.random() * list.length) | 0].thumb_1024_url };
+  }
+  return null;                                      /* 此座標無 Mapillary 覆蓋 */
+}
+
 /* ---------- 流程 ---------- */
 function startGame(m) {
   mode = m;
@@ -505,17 +524,33 @@ async function loadRound() {
     $('photo').onerror = () => {
       if (state !== 'guess') return;
       state = 'error';
-      showMsg('⚠ 衛星影像載入失敗');
+      showMsg('⚠ 影像載入失敗');
       $('result').innerHTML = '影像載入失敗,按下方「重試」再試一次。';
       $('actBtn').textContent = '重試'; $('actBtn').disabled = false;
     };
-    $('photoCap').textContent = '🛰 衛星空照圖・Esri / Maxar / Earthstar Geographics';
     $('photoClue').textContent = '🔍 觀察提示:' + s.tip;
     $('photoClue').classList.add('on');
-    $('zoombar').classList.add('on');
-    zoomIdx = 3;
-    applyZoom();
-    $('result').textContent = '用下方「拉遠／拉近」觀察地形,再到地圖上點出位置。';
+    /* 先試 Mapillary 實景照,查無覆蓋則退回 Esri 衛星空照圖 */
+    state = 'loading';
+    let shot = null;
+    if (localStorage.getItem(TOKEN_KEY)) {
+      showMsg('🔍 搜尋實景影像中…');
+      $('result').textContent = '搜尋實景影像中,請稍候…';
+      shot = await fetchMapillaryAt(s.lat, s.lon);
+    }
+    if (shot && shot.url) {
+      current.imgType = 'mapillary';
+      $('zoombar').classList.remove('on');
+      setPhoto(shot.url, '📷 Mapillary 實景影像・CC BY-SA');
+      $('result').textContent = '看實景照,在地圖上點出這個工程地點的位置。';
+    } else {
+      current.imgType = 'sat';
+      $('photoCap').textContent = '🛰 衛星空照圖・Esri / Maxar / Earthstar Geographics';
+      $('zoombar').classList.add('on');
+      zoomIdx = 3;
+      applyZoom();
+      $('result').textContent = '用下方「拉遠／拉近」觀察地形,再到地圖上點出位置。';
+    }
     state = 'guess';
   } else {
     state = 'loading';
@@ -599,7 +634,7 @@ function confirmGuess() {
   $('score').textContent = total;
   let head;
   if (mode === 'engineering') {
-    zoomIdx = 1; applyZoom();          /* 揭曉時拉近,看清工程結構 */
+    if (current.imgType === 'sat') { zoomIdx = 1; applyZoom(); }  /* 空照圖揭曉時拉近 */
     const chTxt = current.ch ? `第${'一二三四五'[current.ch - 1]}章 ｜ ` : '';
     head = `正解:<span class="rn">${current.name}</span><br>` +
       `<span style="color:#7fc7ff">${chTxt}</span>${current.blurb}<br>`;
@@ -644,7 +679,7 @@ function showStart() {
   $('ovBox').innerHTML =
     `<h1>街景定位挑戰</h1>` +
     `<p>看照片或衛星空照圖,在地圖上猜出它在台灣的位置。越接近正解、分數越高!</p>` +
-    `<button id="mEng">🏗 工程地景挑戰<br><span style="font-size:10px;font-weight:400">200 個課程工程景點・每局隨機 10 題</span></button>` +
+    `<button id="mEng">🏗 工程地景挑戰<br><span style="font-size:10px;font-weight:400">200 個課程工程景點・實景照＋衛星空照圖・每局隨機 10 題</span></button>` +
     `<button id="mCurated" class="btn-ghost">📷 精選地景(10 個台灣名勝)</button>` +
     `<button id="mMapi" class="btn-ghost">🛰 Mapillary 即時街景</button>`;
   $('mEng').addEventListener('click', () => startGame('engineering'));
