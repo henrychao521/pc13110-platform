@@ -76,6 +76,18 @@
     padding: 8px 10px; background: #221f3f; border-top: 2px dashed #4a4878;
   }
   .photo-clue.on { display: block; }
+  #pano {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: none; cursor: grab; touch-action: none;
+  }
+  #pano.on { display: block; }
+  #pano.drag { cursor: grabbing; }
+  .pano-badge {
+    position: absolute; left: 8px; top: 8px; z-index: 3;
+    font-size: 10px; color: #14132b; background: #2dd4a7;
+    padding: 3px 8px; border: 2px solid #0b0b18; pointer-events: none;
+  }
+  .pano-badge.hidden { display: none; }
   .overlay {
     position: fixed; inset: 0; background: rgba(8,8,20,.93);
     display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
@@ -113,6 +125,8 @@
   <div class="photo-panel">
     <div class="photo-box">
       <img id="photo" alt="地點照片">
+      <canvas id="pano"></canvas>
+      <div class="pano-badge hidden" id="panoBadge">🔄 拖曳環視 360°</div>
       <div class="photo-msg" id="photoMsg">準備中…</div>
     </div>
     <div class="zoombar" id="zoombar">
@@ -463,24 +477,92 @@ async function fetchMapillaryShot() {
   return null;                             /* 試完都沒有 */
 }
 
-/* 工程地景:抓某座標附近的 Mapillary 實景影像(由近而遠擴大搜尋範圍) */
+/* 工程地景:抓某座標附近的 Mapillary 實景影像(由近而遠擴大搜尋範圍)
+ * 優先回傳 360° 環景(spherical)影像,供拖曳環視 */
 async function fetchMapillaryAt(lat, lon) {
   const token = localStorage.getItem(TOKEN_KEY);
   if (!token) return null;
+  const rnd = a => a[(Math.random() * a.length) | 0];
   for (const half of [0.0013, 0.0027, 0.005]) {     /* 約 145m / 300m / 555m */
     const bbox = [lon - half, lat - half, lon + half, lat + half]
       .map(n => n.toFixed(6)).join(',');
     const url = 'https://graph.mapillary.com/images?access_token=' + encodeURIComponent(token) +
-      '&fields=id,thumb_1024_url&bbox=' + bbox + '&limit=15';
+      '&fields=id,thumb_1024_url,thumb_2048_url,camera_type&bbox=' + bbox + '&limit=25';
     let j;
     try { j = await (await fetch(url)).json(); }
     catch (e) { return null; }
     if (j.error) return null;                       /* token 無效或範圍過大 → 退回空照圖 */
     const list = (j.data || []).filter(d => d.thumb_1024_url);
-    if (list.length) return { url: list[(Math.random() * list.length) | 0].thumb_1024_url };
+    if (!list.length) continue;
+    const panos = list.filter(d => /spher|equirect|pano/i.test(d.camera_type || ''));
+    if (panos.length) {
+      const p = rnd(panos);
+      return { url: p.thumb_2048_url || p.thumb_1024_url, pano: true };
+    }
+    return { url: rnd(list).thumb_1024_url, pano: false };
   }
   return null;                                      /* 此座標無 Mapillary 覆蓋 */
 }
+
+/* ---------- 360° 環景檢視器(以已內建的 three.js 將環景貼在球內) ---------- */
+const pano = {
+  THREE: null, renderer: null, raf: 0, active: false,
+  lon: 0, lat: 0, down: false, _geo: null, _tex: null, _mat: null, scene: null, camera: null,
+  async show(url) {
+    if (!this.THREE) this.THREE = await import('../../../vendor/three/three.module.min.js');
+    const T = this.THREE, cv = $('pano'), box = cv.parentElement;
+    const w = box.clientWidth || 640, h = box.clientHeight || 480;
+    if (!this.renderer) {
+      /* 自行建立 webgl2 context 交給 three,避免其內部多型別探測產生 console 雜訊 */
+      const gl = cv.getContext('webgl2', { antialias: true });
+      this.renderer = new T.WebGLRenderer({ canvas: cv, context: gl, antialias: true });
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    }
+    this.renderer.setSize(w, h, false);
+    this._clean();
+    const loader = new T.TextureLoader();
+    loader.setCrossOrigin('anonymous');
+    const tex = await new Promise((res, rej) => loader.load(url, res, undefined, rej));
+    if ('colorSpace' in tex) tex.colorSpace = T.SRGBColorSpace;
+    const geo = new T.SphereGeometry(500, 60, 40); geo.scale(-1, 1, 1);
+    const mat = new T.MeshBasicMaterial({ map: tex });
+    this.scene = new T.Scene();
+    this.scene.add(new T.Mesh(geo, mat));
+    this.camera = new T.PerspectiveCamera(74, w / h, 1, 1100);
+    this._geo = geo; this._tex = tex; this._mat = mat;
+    this.lon = 0; this.lat = 0; this.active = true;
+    if (!this.raf) this._loop();
+  },
+  _loop() {
+    const tick = () => {
+      this.raf = requestAnimationFrame(tick);
+      if (!this.active || !this.scene) return;
+      this.lat = Math.max(-85, Math.min(85, this.lat));
+      const phi = (90 - this.lat) * Math.PI / 180, th = this.lon * Math.PI / 180;
+      this.camera.lookAt(
+        Math.sin(phi) * Math.cos(th), Math.cos(phi), Math.sin(phi) * Math.sin(th));
+      this.renderer.render(this.scene, this.camera);
+    };
+    this.raf = requestAnimationFrame(tick);
+  },
+  zoom(d) {
+    if (!this.camera) return;
+    this.camera.fov = Math.max(35, Math.min(90, this.camera.fov + d));
+    this.camera.updateProjectionMatrix();
+  },
+  _clean() {
+    if (this._geo) this._geo.dispose();
+    if (this._tex) this._tex.dispose();
+    if (this._mat) this._mat.dispose();
+    this._geo = this._tex = this._mat = this.scene = null;
+  },
+  stop() {
+    this.active = false;
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = 0;
+    this._clean();
+  },
+};
 
 /* ---------- 流程 ---------- */
 function startGame(m) {
@@ -512,6 +594,9 @@ async function loadRound() {
   $('photo').onerror = null;
   $('zoombar').classList.remove('on');
   $('photoClue').classList.remove('on');
+  pano.stop();
+  $('pano').classList.remove('on');
+  $('panoBadge').classList.add('hidden');
   if (mode === 'curated') {
     const loc = rounds[idx];
     current = { src: 'img/' + loc.img, lat: loc.lat, lon: loc.lon, name: loc.name, blurb: loc.blurb, by: loc.by };
@@ -538,7 +623,26 @@ async function loadRound() {
       $('result').textContent = '搜尋實景影像中,請稍候…';
       shot = await fetchMapillaryAt(s.lat, s.lon);
     }
-    if (shot && shot.url) {
+    if (shot && shot.url && shot.pano) {
+      current.imgType = 'pano';
+      $('zoombar').classList.remove('on');
+      try {
+        $('photoMsg').classList.add('hidden');
+        $('photo').style.display = 'none';
+        $('pano').classList.add('on');
+        await pano.show(shot.url);
+        $('panoBadge').classList.remove('hidden');
+        $('photoCap').textContent = '📷 Mapillary 360° 環景・CC BY-SA';
+        $('result').textContent = '拖曳畫面環視四周（滾輪可縮放）,再到地圖上點出位置。';
+      } catch (e) {
+        pano.stop();
+        $('pano').classList.remove('on');
+        $('panoBadge').classList.add('hidden');
+        current.imgType = 'mapillary';
+        setPhoto(shot.url, '📷 Mapillary 實景影像・CC BY-SA');
+        $('result').textContent = '看實景照,在地圖上點出這個工程地點的位置。';
+      }
+    } else if (shot && shot.url) {
       current.imgType = 'mapillary';
       $('zoombar').classList.remove('on');
       setPhoto(shot.url, '📷 Mapillary 實景影像・CC BY-SA');
@@ -651,6 +755,7 @@ function confirmGuess() {
 function nextRound() { idx++; (idx >= roundCount) ? endGame() : loadRound(); }
 function endGame() {
   state = 'over';
+  pano.stop();
   const max = roundCount * 1000;
   const rank = total >= max * 0.84 ? '🏆 台灣地理達人' : total >= max * 0.6 ? '🌟 在地通'
     : total >= max * 0.36 ? '🙂 還不錯' : '💪 再接再厲';
@@ -672,6 +777,30 @@ $('zoomOut').addEventListener('click', () => {
 $('zoomIn').addEventListener('click', () => {
   if (mode === 'engineering' && (state === 'guess' || state === 'reveal')) { zoomIdx--; applyZoom(); }
 });
+/* 360° 環景:拖曳轉動視角、滾輪縮放 */
+(function panoControls() {
+  const cv = $('pano');
+  let px = 0, py = 0;
+  cv.addEventListener('pointerdown', e => {
+    if (!pano.active) return;
+    pano.down = true; px = e.clientX; py = e.clientY;
+    cv.classList.add('drag'); cv.setPointerCapture(e.pointerId);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!pano.down) return;
+    pano.lon -= (e.clientX - px) * 0.16;
+    pano.lat += (e.clientY - py) * 0.16;
+    px = e.clientX; py = e.clientY;
+  });
+  const release = () => { pano.down = false; cv.classList.remove('drag'); };
+  cv.addEventListener('pointerup', release);
+  cv.addEventListener('pointercancel', release);
+  cv.addEventListener('wheel', e => {
+    if (!pano.active) return;
+    e.preventDefault();
+    pano.zoom(e.deltaY > 0 ? 5 : -5);
+  }, { passive: false });
+})();
 
 /* ---------- 開始畫面 / token 設定 ---------- */
 function showStart() {
