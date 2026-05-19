@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../vendor/leaflet/leaflet.css">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -49,7 +50,16 @@
     font-size: 9px; color: #0b0b18; background: #ffd34e;
     padding: 6px 9px; border-bottom: 4px solid #0b0b18;
   }
-  #map { display: block; cursor: crosshair; image-rendering: pixelated; max-height: 60vh; }
+  #map { width: 280px; height: 440px; cursor: crosshair; background: #1a1933; }
+  .gm {
+    width: 18px; height: 18px; box-sizing: border-box;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 900; border: 2px solid #0b0b18;
+  }
+  .gm-guess { background: #ffd34e; color: #14132b; }
+  .gm-actual { background: #ff6b6b; color: #fff; }
+  .leaflet-container { font-family: "Noto Sans TC", sans-serif; }
+  @media (max-width: 680px) { #map { width: 88vw; height: 60vh; } }
   .controls { display: flex; flex-direction: column; gap: 8px; padding: 9px; }
   .result { font-size: 11.5px; line-height: 1.6; color: #9a98c8; min-height: 34px; }
   .result b { color: #2dd4a7; }
@@ -139,7 +149,7 @@
   </div>
   <div class="map-panel">
     <div class="mp-h mono">GUESS ON MAP</div>
-    <canvas id="map" width="232" height="424"></canvas>
+    <div id="map"></div>
     <div class="controls">
       <div class="result" id="result">點地圖選一個位置</div>
       <button id="actBtn" disabled>確認猜測</button>
@@ -152,6 +162,7 @@
   <div class="ov-box" id="ovBox"></div>
 </div>
 
+<script src="../../../vendor/leaflet/leaflet.js"></script>
 <script>
 /* ============================================================
  * 街景定位挑戰 — 精選地景模式 + Mapillary 即時街景模式
@@ -383,12 +394,6 @@ const SITES = [
   ["中央大學鹿林天文台",23.4686,120.8728,0,"高山天文望遠鏡。精密光學追星儀器的無背隙齒輪驅動系統，與防寒、防風、防震的圓頂開啟機電整合機構。"],
   ["屏東大鵬灣水上飛機景觀台",22.4485,120.4851,0,"太陽光電與遊憩結合。早期軍用基地改建，保留建築幾何歷史，並融入太陽光電的區域活化與結構翻新工程。"],
 ];
-const TW = [
-  [25.30,121.54],[25.13,121.94],[24.85,121.83],[24.60,121.87],[24.00,121.62],
-  [23.40,121.50],[22.75,121.15],[22.00,120.92],[21.90,120.85],[22.30,120.65],
-  [22.60,120.27],[23.00,120.10],[23.45,120.13],[24.05,120.38],[24.40,120.55],
-  [24.70,120.85],[25.00,121.10],[25.18,121.41],
-];
 /* Mapillary 取樣種子(經度,緯度)—— 台灣各地有街景覆蓋的城鎮 */
 const SEEDS = [
   [121.565,25.033],[120.673,24.144],[120.205,22.997],[120.301,22.627],
@@ -397,18 +402,35 @@ const SEEDS = [
   [120.488,22.669],
 ];
 const TOKEN_KEY = 'pc13110_mapillary_token';
+/* 工程地景四大主題模組:SITES 依序每 50 筆對應一個主題(教科書原始四張表) */
+const ENG_THEMES = [
+  '結構力學與土木工程',
+  '參數化設計與現代建築',
+  '機電整合與自動化機構',
+  '新興科技與綠色能源',
+];
 
-const LAT0 = 21.7, LAT1 = 25.45, LON0 = 119.85, LON1 = 122.15;
-const cv = document.getElementById('map'), ctx = cv.getContext('2d');
-const MW = cv.width, MH = cv.height;
-ctx.imageSmoothingEnabled = false;
 const $ = id => document.getElementById(id);
 
-function geoXY(lat, lon) {
-  return { x: (lon - LON0) / (LON1 - LON0) * MW, y: (LAT1 - lat) / (LAT1 - LAT0) * MH };
-}
-function xyGeo(x, y) {
-  return { lon: LON0 + x / MW * (LON1 - LON0), lat: LAT1 - y / MH * (LAT1 - LAT0) };
+/* ---------- 猜測地圖:Leaflet + CartoDB Voyager 圖磚 ---------- */
+const TW_VIEW = [23.7, 120.95], TW_ZOOM = 7;
+const lmap = L.map('map', {
+  minZoom: 6, zoomControl: true, attributionControl: true,
+  maxBounds: [[20.4, 117.4], [26.9, 123.6]], maxBoundsViscosity: 0.85,
+}).setView(TW_VIEW, TW_ZOOM);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  subdomains: 'abcd', maxZoom: 16, attribution: '© OpenStreetMap, © CARTO',
+}).addTo(lmap);
+const GUESS_ICON = L.divIcon({ className: '', iconSize: [18, 18],
+  html: '<div class="gm gm-guess">你</div>' });
+const ACTUAL_ICON = L.divIcon({ className: '', iconSize: [18, 18],
+  html: '<div class="gm gm-actual">✓</div>' });
+let guessMarker = null, actualMarker = null, distLine = null;
+function clearMap() {
+  [guessMarker, actualMarker, distLine].forEach(o => o && lmap.removeLayer(o));
+  guessMarker = actualMarker = distLine = null;
+  lmap.setView(TW_VIEW, TW_ZOOM);
+  lmap.invalidateSize();
 }
 /* 工程地景模式:以 Esri World Imagery 衛星空照圖呈現地點(無需金鑰)
  * ZOOMS = 各視野等級的半寬(Web Mercator 公尺),由近到遠 */
@@ -431,7 +453,7 @@ function distKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
-let mode, rounds, idx, total, guess, actual, state, current, roundCount, zoomIdx;
+let mode, rounds, idx, total, guess, actual, state, current, roundCount, zoomIdx, engTheme;
 
 /* 工程地景:依目前視野等級重新載入衛星空照圖 */
 function applyZoom() {
@@ -565,15 +587,20 @@ const pano = {
 };
 
 /* ---------- 流程 ---------- */
-function startGame(m) {
+function startGame(m, theme) {
   mode = m;
   idx = 0; total = 0;
   $('score').textContent = 0;
   $('overlay').classList.add('hidden');
   if (m === 'engineering') {
     roundCount = 10;
-    $('modeLabel').textContent = '🏗 工程地景';
-    rounds = SITES.slice().sort(() => Math.random() - 0.5).slice(0, roundCount)
+    engTheme = theme || 0;                         /* 0=全部,1~4=四大主題模組 */
+    const pool = engTheme
+      ? SITES.slice((engTheme - 1) * 50, engTheme * 50)
+      : SITES;
+    $('modeLabel').textContent = '🏗 工程地景'
+      + (engTheme ? '・' + ENG_THEMES[engTheme - 1] : '');
+    rounds = pool.slice().sort(() => Math.random() - 0.5).slice(0, roundCount)
       .map(s => ({ name: s[0], lat: s[1], lon: s[2], ch: s[3], tip: s[4] }));
   } else if (m === 'curated') {
     roundCount = 5;
@@ -588,6 +615,7 @@ function startGame(m) {
 }
 async function loadRound() {
   guess = null; actual = null;
+  clearMap();
   $('round').textContent = idx + 1;
   $('actBtn').disabled = true;
   $('actBtn').textContent = '確認猜測';
@@ -675,7 +703,6 @@ async function loadRound() {
     $('result').textContent = '點地圖選一個位置';
     state = 'guess';
   }
-  drawMap();
 }
 function setPhoto(src, cap) {
   const img = $('photo');
@@ -691,44 +718,13 @@ function showMsg(text) {
   $('photoCap').textContent = '';
 }
 
-function drawMap() {
-  ctx.fillStyle = '#10204a'; ctx.fillRect(0, 0, MW, MH);
-  ctx.beginPath();
-  TW.forEach((p, i) => {
-    const xy = geoXY(p[0], p[1]);
-    i ? ctx.lineTo(xy.x, xy.y) : ctx.moveTo(xy.x, xy.y);
-  });
-  ctx.closePath();
-  ctx.fillStyle = '#3b6b3a'; ctx.fill();
-  ctx.lineWidth = 2; ctx.strokeStyle = '#bce8a8'; ctx.stroke();
-  if (guess) marker(guess, '#ffd34e', '你');
-  if (actual) {
-    if (guess) {
-      const g = geoXY(guess.lat, guess.lon), a = geoXY(actual.lat, actual.lon);
-      ctx.strokeStyle = '#ff6b6b'; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
-      ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(a.x, a.y); ctx.stroke();
-      ctx.setLineDash([]);
-    }
-    marker(actual, '#ff6b6b', '✓');
-  }
-}
-function marker(pt, color, label) {
-  const { x, y } = geoXY(pt.lat, pt.lon);
-  ctx.fillStyle = color;
-  ctx.fillRect(x - 5, y - 5, 10, 10);
-  ctx.strokeStyle = '#0b0b18'; ctx.lineWidth = 2;
-  ctx.strokeRect(x - 5, y - 5, 10, 10);
-  ctx.fillStyle = '#fff'; ctx.font = '700 10px "Noto Sans TC",sans-serif';
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText(label, x, y - 13);
-}
-cv.addEventListener('click', e => {
+lmap.on('click', e => {
   if (state !== 'guess') return;
-  const r = cv.getBoundingClientRect();
-  guess = xyGeo((e.clientX - r.left) * (MW / r.width), (e.clientY - r.top) * (MH / r.height));
+  guess = { lat: e.latlng.lat, lon: e.latlng.lng };
+  if (guessMarker) guessMarker.setLatLng(e.latlng);
+  else guessMarker = L.marker(e.latlng, { icon: GUESS_ICON }).addTo(lmap);
   $('actBtn').disabled = false;
   $('result').textContent = '按「確認猜測」送出。';
-  drawMap();
 });
 function confirmGuess() {
   actual = { lat: current.lat, lon: current.lon };
@@ -750,7 +746,10 @@ function confirmGuess() {
   $('result').innerHTML = head +
     `距離 <b>${d < 1 ? '<1' : Math.round(d)}</b> 公里・本題 <b>${pts}</b> 分`;
   $('actBtn').textContent = idx < roundCount - 1 ? '下一題 ▶' : '看成績';
-  drawMap();
+  actualMarker = L.marker([actual.lat, actual.lon], { icon: ACTUAL_ICON }).addTo(lmap);
+  distLine = L.polyline([[guess.lat, guess.lon], [actual.lat, actual.lon]],
+    { color: '#ff6b6b', weight: 2, dashArray: '6 5' }).addTo(lmap);
+  lmap.fitBounds(distLine.getBounds(), { padding: [36, 36], maxZoom: 12 });
 }
 function nextRound() { idx++; (idx >= roundCount) ? endGame() : loadRound(); }
 function endGame() {
@@ -811,11 +810,26 @@ function showStart() {
     `<button id="mEng">🏗 工程地景挑戰<br><span style="font-size:10px;font-weight:400">200 個課程工程景點・實景照＋衛星空照圖・每局隨機 10 題</span></button>` +
     `<button id="mCurated" class="btn-ghost">📷 精選地景(10 個台灣名勝)</button>` +
     `<button id="mMapi" class="btn-ghost">🛰 Mapillary 即時街景</button>`;
-  $('mEng').addEventListener('click', () => startGame('engineering'));
+  $('mEng').addEventListener('click', showEngThemes);
   $('mCurated').addEventListener('click', () => startGame('curated'));
   $('mMapi').addEventListener('click', () => {
     localStorage.getItem(TOKEN_KEY) ? startGame('mapillary') : showTokenSetup();
   });
+}
+/* 工程地景:選擇主題模組 */
+function showEngThemes() {
+  const marks = ['①', '②', '③', '④'];
+  $('ovBox').innerHTML =
+    `<h1>工程地景挑戰</h1>` +
+    `<p>挑選主題範圍,每局隨機 10 題:</p>` +
+    `<button id="thAll">🌐 全部主題（200 個工程景點）</button>` +
+    ENG_THEMES.map((t, i) =>
+      `<button id="th${i}" class="btn-ghost">${marks[i]} ${t}（50 景點）</button>`).join('') +
+    `<button id="thBack" class="btn-ghost" style="margin-top:14px">← 返回</button>`;
+  $('thAll').addEventListener('click', () => startGame('engineering', 0));
+  ENG_THEMES.forEach((t, i) =>
+    $('th' + i).addEventListener('click', () => startGame('engineering', i + 1)));
+  $('thBack').addEventListener('click', showStart);
 }
 function showTokenSetup() {
   $('ovBox').innerHTML =
@@ -835,7 +849,6 @@ function showTokenSetup() {
   $('tokBack').addEventListener('click', showStart);
 }
 
-drawMap();
 showStart();
 </script>
 </body>
