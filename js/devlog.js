@@ -480,6 +480,20 @@ const PHASES = [
       '驗證:有條目的景點顯示卡片、截圖正常載入、無條目景點不顯示、回合切換正確清除,無新增 console 錯誤',
     ],
   },
+  {
+    tag: '段落 35',
+    date: '2026-05-19',
+    title: '第 2 章導入 GenCAD:以「指令序列」表示 CAD 的 AI 研究實例',
+    verbatim: '這個專案中有關於 3D 繪圖的介紹章節以及三視圖的介紹,你看看 https://github.com/ferdous-alam/GenCAD 這個是否能幫助提升專案內容。',
+    context: '評估 GenCAD(Image-conditioned CAD Generation,TMLR 2025 論文)能否提升專案。結論:GenCAD 是 GPU 深度學習研究專案(PyTorch／Docker／pythonocc-core 幾何核心、大型預訓練權重),與本平台「純前端、零相依、靜態」架構不相容,無法當工具嵌入瀏覽器;GitHub 上亦偵測不到明確開源授權。但其核心觀念具教材價值——GenCAD 把 CAD 模型表示成「草圖→擠出」的參數化指令序列(而非網格/體素/點雲),論文明言此舉是為了保留真實 CAD 的精準性與可修改性。此觀念正好印證 M3「程式化 CAD 建模器」的核心論點(CAD = 一段可讀可改的建模程式)。故採「教材內容」而非「工具」的方式導入:M3 modeling.html 新增知識小百科,M8 emerging.html 延伸資源新增 GenCAD。三視圖章節契合度弱(GenCAD 做影像→3D,與三視圖 3D→平面投影方向相反),不強加。',
+    decisions: ['GenCAD 不整合為工具:GPU／PyTorch 研究專案,與純前端靜態架構不相容', '改以「教材內容」方式導入,而非可執行工具', 'M3 加知識小百科——連 AI 都把 CAD 當成「一串指令」', 'M8 延伸資源新增 GenCAD 專案連結', '三視圖章節不導入(方向相反、契合度弱)', '事實宣稱附論文來源:TMLR 2025／arXiv:2409.16294'],
+    outputs: [
+      'modeling.html(M3)新增知識小百科:以 GenCAD 印證「CAD = 指令序列」的核心觀念,附論文來源',
+      'modeling.html(M3)延伸資源新增 GenCAD 卡片',
+      'emerging.html(M8)延伸資源新增 GenCAD 卡片,定位為生成式／AI 輔助 CAD 前沿案例',
+      '驗證:preview 實測 M3 知識小百科與兩處延伸資源卡片正常渲染,無新增 console 錯誤',
+    ],
+  },
 ];
 
 /* ============================================================

@@ -125,6 +125,24 @@
       <span>本建模器的 3D 顯示由開源 3D 函式庫
         <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a>（MIT 授權)驅動。</span>
     </div>
+
+    <div class="knowledge-box">
+      <span class="kb-label">💡 知識小百科</span>
+      <h4>連 AI 都把 CAD 當成「一串指令」</h4>
+      <p>
+        2025 年有一項 AI 研究 <strong>GenCAD</strong>:給它一張物體的圖,它會自動生成那個物體的
+        3D 模型。特別的是——它產出的<strong>不是</strong>一堆三角形網格,而是一連串
+        <strong>「草圖 → 擠出」的建模指令</strong>,和你在上面建模器、在 Onshape 裡做的事情一模一樣。
+      </p>
+      <p>
+        研究團隊解釋為什麼這樣做:用「指令序列」表示 CAD,才能<strong>保留真實 CAD 的精準與可修改性</strong>
+        ——生成出來的模型還能再改尺寸、再編輯。這正好印證了本節的重點:把 3D 模型理解成
+        <strong>一段可讀、可改的「建模程式」</strong>,是 CAD 的核心思維,連最前沿的 AI 也採用同一套邏輯。
+      </p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:6px">
+        資料來源:Alam &amp; Shabani,<em>GenCAD</em>,TMLR 2025（arXiv:2409.16294)。
+      </p>
+    </div>
   </section>
 
   <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
@@ -152,6 +170,12 @@
       <span><span class="rc-title">JSCAD</span>
       <span class="rc-src">jscad.app</span>
       <span class="rc-desc">在瀏覽器中用 JavaScript 程式化建模的開源專案。</span></span>
+    </a>
+    <a class="resource-card" href="https://gencad.github.io" target="_blank" rel="noopener">
+      <span class="rc-icon">🤖</span>
+      <span><span class="rc-title">GenCAD</span>
+      <span class="rc-src">gencad.github.io</span>
+      <span class="rc-desc">AI 研究專案:從一張圖生成可編輯的 CAD 建模指令序列。</span></span>
     </a>
   </div>
 
