@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教師操作手冊 ｜ PC13110 工程設計學習平台</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
+<style>
+  body.manual { background:
+    radial-gradient(ellipse 60% 50% at 85% -5%, rgba(29,78,216,.08), transparent),
+    var(--bg); }
+  .man-wrap { max-width: 960px; margin: 0 auto; padding: 0 28px 100px; }
+  .man-hero { padding: 52px 0 18px; }
+  .man-hero h1 { font-size: 36px; font-weight: 900; letter-spacing: -.025em; }
+  .man-hero h1 .grad {
+    background: linear-gradient(120deg, var(--brand), var(--brand-cyan));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .man-hero p { font-size: 15.5px; color: var(--text-soft); margin-top: 10px; line-height: 1.8; }
+
+  /* 目錄 */
+  .toc { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 20px 24px; margin: 26px 0 36px; box-shadow: var(--shadow-sm); }
+  .toc h2 { font-size: 15px; font-weight: 800; margin-bottom: 12px; color: var(--text); }
+  .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px 16px; }
+  .toc-grid a { font-size: 13.5px; color: var(--text-soft); text-decoration: none;
+    padding: 4px 0; border-bottom: 1px dashed transparent; }
+  .toc-grid a:hover { color: var(--brand); border-bottom-color: var(--brand-light); }
+  @media (max-width: 680px) { .toc-grid { grid-template-columns: 1fr 1fr; } }
+
+  .man-section { margin: 44px 0 0; }
+  .man-section > h2 { font-size: 23px; font-weight: 900; letter-spacing: -.02em;
+    padding-bottom: 8px; border-bottom: 3px solid var(--brand-light); margin-bottom: 6px; }
+  .man-section > .sec-intro { font-size: 14px; color: var(--text-muted); margin: 8px 0 18px; line-height: 1.8; }
+
+  /* 一般說明卡 */
+  .info-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 22px; margin-bottom: 14px; box-shadow: var(--shadow-xs); }
+  .info-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .info-card p, .info-card li { font-size: 14px; color: var(--text-soft); line-height: 1.8; }
+  .info-card ul { margin: 4px 0 0 20px; }
+  .info-card li { margin-bottom: 5px; }
+  .info-card .tagk { font-weight: 700; color: var(--brand-dark); }
+
+  .note { background: var(--warning-light); border: 1px solid #FDE68A;
+    border-left: 4px solid var(--warning); border-radius: var(--radius);
+    padding: 14px 18px; margin: 14px 0; font-size: 13.5px; color: #92400E; line-height: 1.8; }
+  .note strong { color: #78350F; }
+
+  /* 逐頁指引卡 */
+  .ch-band { display: flex; align-items: center; gap: 10px; margin: 26px 0 14px; }
+  .ch-band .cb-no { font-family: var(--font-mono); font-weight: 800; font-size: 13px;
+    color: #fff; background: var(--theme); padding: 4px 11px; border-radius: 999px; }
+  .ch-band h3 { font-size: 18px; font-weight: 800; }
+  .ch1 { --theme: var(--c1); } .ch2 { --theme: var(--c2); } .ch3 { --theme: var(--c3); }
+  .ch4 { --theme: var(--c4); } .ch5 { --theme: var(--c5); }
+
+  .guide-card { background: #fff; border: 1px solid var(--border);
+    border-left: 5px solid var(--theme); border-radius: var(--radius);
+    padding: 16px 20px; margin-bottom: 12px; box-shadow: var(--shadow-xs); }
+  .gc-head { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 4px; }
+  .gc-no { font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: var(--theme); }
+  .gc-head h4 { font-size: 16px; font-weight: 800; }
+  .gc-head .gc-link { font-size: 12px; color: var(--text-muted); text-decoration: none;
+    margin-left: auto; white-space: nowrap; }
+  .gc-head .gc-link:hover { color: var(--theme); }
+  .gc-corr { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); }
+  .gc-body { margin-top: 8px; }
+  .gc-row { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 5px 0;
+    border-top: 1px dashed var(--border); }
+  .gc-row:first-child { border-top: none; }
+  .gc-k { font-size: 12.5px; font-weight: 800; color: var(--theme); }
+  .gc-v { font-size: 13.5px; color: var(--text-soft); line-height: 1.78; }
+  @media (max-width: 680px) {
+    .gc-row { grid-template-columns: 1fr; gap: 1px; }
+    .man-wrap { padding: 0 16px 80px; }
+  }
+
+  .back-top { display: inline-block; margin-top: 10px; font-size: 12px;
+    color: var(--text-muted); text-decoration: none; }
+  .back-top:hover { color: var(--brand); }
+
+  @media print {
+    .topbar, .toc, .back-top { display: none; }
+    body.manual { background: #fff; }
+    .guide-card, .info-card { break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body class="manual">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">📖</div>
+    <div class="brand-text">
+      <h1>教師操作手冊</h1>
+      <div class="subtitle">PC13110 工程設計學習平台</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="index.html">平台首頁</a>
+    <a href="teacher.html">教師後台</a>
+  </nav>
+</header>
+
+<main class="man-wrap" id="top">
+  <section class="man-hero">
+    <h1>教師<span class="grad">操作手冊</span></h1>
+    <p>本手冊說明「PC13110 工程設計學習平台」的整體架構、通用操作,並提供 27 個教學模組
+      與各入口頁面的<strong>逐頁教學指引</strong>——每頁含教學目標、學生操作方式、課堂帶領建議與提醒。
+      平台為純前端網頁,無須安裝;用瀏覽器開啟即可使用。本頁可直接以瀏覽器「列印」功能輸出成紙本。</p>
+  </section>
+
+  <nav class="toc">
+    <h2>📑 目錄</h2>
+    <div class="toc-grid">
+      <a href="#start">一、三分鐘快速開始</a>
+      <a href="#overview">二、平台總覽</a>
+      <a href="#common">三、通用操作說明</a>
+      <a href="#flow">四、一堂課的建議流程</a>
+      <a href="#ch1">五、第 1 章 逐頁指引</a>
+      <a href="#ch2">六、第 2 章 逐頁指引</a>
+      <a href="#ch3">七、第 3 章 逐頁指引</a>
+      <a href="#ch4">八、第 4 章 逐頁指引</a>
+      <a href="#ch5">九、第 5 章 逐頁指引</a>
+      <a href="#entry">十、入口頁與輔助頁</a>
+      <a href="#teacher">十一、教師後台操作</a>
+      <a href="#tech">十二、技術需求與疑難排解</a>
+    </div>
+  </nav>
+
+  <!-- ============ 一、快速開始 ============ -->
+  <section class="man-section" id="start">
+    <h2>一、三分鐘快速開始</h2>
+    <p class="sec-intro">第一次帶這套平台,照這四步走即可。</p>
+    <div class="info-card">
+      <h3>① 開啟平台</h3>
+      <p>用 Chrome、Edge 或 Safari 開啟平台首頁 <span class="tagk">index.html</span>。線上版網址為
+        <span class="tagk">henrychao521.github.io/pc13110-platform/</span>;若用校內伺服器,把整個資料夾放上去即可。
+        平台是純網頁,學生端不必安裝任何軟體。</p>
+    </div>
+    <div class="info-card">
+      <h3>② 選一個進入方式</h3>
+      <p>平台有兩個並存的入口:<span class="tagk">經典首頁</span>(五章卡片、適合課堂直接上課)與
+        <span class="tagk">像素工程實驗室</span>(可走動的像素世界、適合提高學生興趣)。兩者進到的教學內容完全相同。</p>
+    </div>
+    <div class="info-card">
+      <h3>③ 進入章節與模組</h3>
+      <p>點章節卡片進入「章 Hub」,再點模組卡片進入單一教學模組。每章模組數量不同(第 1 章 5 個、
+        第 2 章 9 個、第 3 章 5 個、第 4 章 4 個、第 5 章 4 個),共 27 個模組。</p>
+    </div>
+    <div class="info-card">
+      <h3>④ 需要派作業 / 看進度時</h3>
+      <p>開啟<span class="tagk">教師後台 teacher.html</span>。可指派作業(產生 QR 與深連結)、
+        貼上學生匯出的學習紀錄查看進度、取用備課資源。詳見本手冊第十一節。</p>
+    </div>
+    <div class="note">📍 <strong>學習進度存在學生自己的瀏覽器裡</strong>(localStorage),不會自動上傳。
+      學生換電腦、換瀏覽器或清除瀏覽資料,進度就會消失。需要彙整進度時,請學生用「匯出學習紀錄」功能(見第十一節)。</div>
+  </section>
+
+  <!-- ============ 二、平台總覽 ============ -->
+  <section class="man-section" id="overview">
+    <h2>二、平台總覽</h2>
+    <p class="sec-intro">平台對應高中生活科技教科書 PC13110(趙珩宇編)五章,把課本內容做成可在瀏覽器操作的互動模組。</p>
+    <div class="info-card">
+      <h3>五章架構</h3>
+      <ul>
+        <li><span class="tagk">第 1 章 加速發展的科技與工程</span> — 5 模組:科技趨勢、工程設計流程、創意思考、專題規劃、競賽與職涯倫理。</li>
+        <li><span class="tagk">第 2 章 數位加工到機構實作</span> — 9 模組:CAD 概念與建模、三視圖、3D 列印 / 雷射 / CNC 操作、新興設備、虛擬模擬。</li>
+        <li><span class="tagk">第 3 章 機構與結構的深化探究</span> — 5 模組:靜力學、桁架、機構運動、有限元素分析、AI 輔助分析。</li>
+        <li><span class="tagk">第 4 章 日常生活中的電</span> — 4 模組:電子元件、電路設計與模擬、邏輯與感應電路、工具與量測。</li>
+        <li><span class="tagk">第 5 章 機電整合的工程設計</span> — 4 模組:控制板、ESP32、電子周邊、統整專題。</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>頁面類型</h3>
+      <ul>
+        <li><span class="tagk">入口頁</span>:經典首頁、像素工程實驗室。</li>
+        <li><span class="tagk">章 Hub</span>:每章一個,列出該章模組卡片與完成進度。</li>
+        <li><span class="tagk">教學模組</span>:27 個,本手冊逐頁說明(第五～九節)。</li>
+        <li><span class="tagk">輔助頁</span>:下課遊樂區、互動交誼廳(課堂調劑用)。</li>
+        <li><span class="tagk">教師工具</span>:教師後台、開發紀錄。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 三、通用操作說明 ============ -->
+  <section class="man-section" id="common">
+    <h2>三、通用操作說明</h2>
+    <p class="sec-intro">以下機制在所有教學模組通用,先了解一次,後面逐頁指引就不再重複。</p>
+    <div class="info-card">
+      <h3>進度儲存</h3>
+      <p>學生每完成一個模組(通常是做完模組底部的檢核題),平台會自動把完成狀態記錄在該瀏覽器的
+        localStorage。章 Hub 與首頁的進度條會即時反映。<strong>進度僅存於本機瀏覽器</strong>,不跨裝置同步。</p>
+    </div>
+    <div class="info-card">
+      <h3>模組頁的互動元件</h3>
+      <p>每個教學模組頁由幾種固定元件組成,認得它們,帶課就順:</p>
+      <ul>
+        <li><span class="tagk">🧠 動動腦 動動手</span> — 核心互動操作區(模擬器、拖曳、配對、排序等),學生主要在這裡動手。</li>
+        <li><span class="tagk">💡 知識小百科</span> — 補充概念的小框,適合當隨堂講解或提問點。</li>
+        <li><span class="tagk">🔍 觀念釐清 / 多方查證</span> — 釐清易混淆觀念、或示範事實如何用多個來源交叉印證(查證素養)。</li>
+        <li><span class="tagk">深入探究</span> — 可展開的進階內容,適合行有餘力或分組進階。</li>
+        <li><span class="tagk">🔗 延伸資源</span> — 連到官方網站、開源工具的外部連結。</li>
+        <li><span class="tagk">檢核題</span> — 模組底部的小測驗,答對即完成該模組。</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>導覽與音效</h3>
+      <ul>
+        <li>每個模組頁頂端有麵包屑、底部有「上一個 / 下一個模組」按鈕,可依序上課。</li>
+        <li>平台有操作音效(Web Audio);部分瀏覽器需先點一下頁面才會發聲,屬正常現象。</li>
+        <li>建議用單槍投影示範一次操作流程,再讓學生各自在電腦 / 平板上操作。</li>
+      </ul>
+    </div>
+    <div class="note">🖨 <strong>可列印</strong>:創意思考工具箱、專題規劃器等模組的學生填寫成果支援列印;本手冊本身也可用瀏覽器列印成紙本備課。</div>
+  </section>
+
+  <!-- ============ 四、一堂課流程 ============ -->
+  <section class="man-section" id="flow">
+    <h2>四、一堂課的建議流程</h2>
+    <p class="sec-intro">每個模組都可套用這個四段式節奏,單一模組約 15–25 分鐘。</p>
+    <div class="info-card">
+      <h3>① 引起動機(3–5 分)</h3>
+      <p>用模組開頭的情境提問或「知識小百科」破題,連結課本與學生生活經驗。</p>
+    </div>
+    <div class="info-card">
+      <h3>② 示範操作(3–5 分)</h3>
+      <p>投影示範「動動腦 動動手」互動區一次,讓學生知道要操作什麼、觀察什麼。</p>
+    </div>
+    <div class="info-card">
+      <h3>③ 學生動手(8–12 分)</h3>
+      <p>學生自行操作互動、完成挑戰與檢核題。老師巡視,用各頁「課堂指引」的提問引導思考。</p>
+    </div>
+    <div class="info-card">
+      <h3>④ 收斂討論(3–5 分)</h3>
+      <p>回到「觀念釐清」或檢核題,統整重點、釐清迷思,並用一句話銜接下一個模組。</p>
+    </div>
+  </section>
+
+  <!-- ============ 五、第 1 章 ============ -->
+  <section class="man-section ch1" id="ch1">
+    <h2>五、第 1 章 加速發展的科技與工程</h2>
+    <p class="sec-intro">本章建立工程設計的整體觀念與流程,是後續四章的基礎。</p>
+
+    <div class="ch-band"><span class="cb-no">CH1</span><h3>逐頁教學指引</h3></div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">1-1</span><h4>科技趨勢儀表板</h4>
+        <a class="gc-link" href="ch1-engineering/pages/trends.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:1-1 科技加速發展的時代</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識 AI、量子運算與半導體、生醫科技、再生能源四大趨勢,理解科技為何「指數級加速」。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">切換四個趨勢分頁,閱讀互動圖表與里程碑時間軸,完成「趨勢檢核」。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「多方查證」框帶查證素養——同一個趨勢由 WEF、IEA、Statista 等多個獨立來源交叉印證。可請學生舉一個自己感受到「科技加速」的例子。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">圖表為課程整理之公開數據;重點不在背數字,而在看出「加速」的趨勢。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">1-2</span><h4>工程設計流程互動</h4>
+        <a class="gc-link" href="ch1-engineering/pages/process.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:1-2 工程設計流程</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解 STEM 跨域整合,並掌握貫穿全書的「工程設計流程」七階段。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作齒輪動畫與七階段環、完成「界定問題」測驗,把流程卡片排回正確順序。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">強調流程「不是死板的線性步驟」,常需來回修正。可用戴森 5127 個原型的案例談「失敗是設計的一部分」。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組的流程觀念會在第 2、3 章不斷被引用,務必讓學生熟悉七階段名稱。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">1-3</span><h4>創意思考工具箱</h4>
+        <a class="gc-link" href="ch1-engineering/pages/thinking.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:1-3 構思解決方案</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">學會用六頂思考帽、SCAMPER、曼陀羅三種創意思考法,系統化展開點子。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">在三種工具中實際填寫內容;填寫內容會存在瀏覽器,並可列印。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">適合分組:給一個真實題目,讓各組用不同工具發想,再互相比較。提醒學生創意思考「不是隨便亂想」,是有方法的。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">填寫內容存於本機瀏覽器;若要保留成果,請當堂列印或截圖。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">1-4</span><h4>專題規劃器</h4>
+        <a class="gc-link" href="ch1-engineering/pages/planner.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:1-4 專題規劃</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">用心智圖梳理專題架構、用甘特圖排定時程,學會「做什麼」與「何時做」。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">在心智圖工具畫出專題分支,在甘特圖排出各任務的起訖與里程碑。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">最適合在學生要做學期專題時搭配使用。可要求每組產出一張甘特圖作為專題計畫書的一部分。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">規劃內容存於本機瀏覽器,換裝置不同步;完成後請學生列印或匯出保存。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">1-5</span><h4>競賽與職涯倫理</h4>
+        <a class="gc-link" href="ch1-engineering/pages/career.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:1-5 專題、競賽與職涯</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識國內外科技競賽舞台,並省思工程師決策背後的倫理與社會責任。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">瀏覽競賽圖鑑,完成「工程倫理情境抉擇」的情境題。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">倫理情境題沒有標準答案,適合引導全班辯論——讓學生說出選擇的理由與取捨。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">可順勢鼓勵有興趣的學生報名競賽,銜接專題成果的延伸。</span></div>
+      </div>
+    </div>
+    <a class="back-top" href="#top">↑ 回目錄</a>
+  </section>
+
+  <!-- ============ 六、第 2 章 ============ -->
+  <section class="man-section ch2" id="ch2">
+    <h2>六、第 2 章 數位加工到機構實作</h2>
+    <p class="sec-intro">本章以「機具操作」為主軸,帶學生從 CAD 設計走到 3D 列印 / 雷射 / CNC 實作。深入的力學分析留待第 3 章。</p>
+
+    <div class="ch-band"><span class="cb-no">CH2</span><h3>逐頁教學指引</h3></div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-1</span><h4>為什麼需要 CAD?</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/cad-intro.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-1 電腦輔助設計</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解 CAD 是什麼、它的四大價值與應用領域。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作「同一個修改,兩種畫法的差別」對比互動,完成觀念檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「沒有電腦的時代怎麼畫藍圖」破題;以淡江大橋為例談 CAD 如何實現複雜設計。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組是第 2 章的觀念基礎,不需任何軟體,適合當章節開場。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-2</span><h4>實體建模與原型製作</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/prototype.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-2 從構想到原型的實踐</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解為什麼要先做原型,認識常見原型材料與外觀 / 材質模擬。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">完成「原型材料選擇」與「外觀模型製作流程排序」。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">呼應第 1 章戴森案例,談原型如何用低成本驗證設計。可帶學生比較不同材料的適用情境。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">「金屬原型物理分析較準確」的觀念為後面虛擬模擬與第 3 章鋪路。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-3</span><h4>程式化 CAD 建模器</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/modeling.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-3 電腦建模工具</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識四類 3D 建模軟體與 Onshape 工作流程,理解「用指令描述物體」的程式化建模思維。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">在程式化建模器寫指令(方塊 / 圓柱 / 球 / 圓錐)建出 3D 模型,拖曳旋轉檢視。挑戰:做含 3 個以上零件的作品。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「知識小百科:連 AI 都把 CAD 當成一串指令」連結 GenCAD 研究,說明「CAD = 可讀可改的建模程式」的核心觀念。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">3D 顯示由 three.js 驅動,需較新的瀏覽器;舊裝置若顯示卡頓可降低零件數。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-3</span><h4>三視圖與立體模型</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/orthographic.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-3 工程圖的語言</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解三視圖(前 / 上 / 側視圖)與第三角投影法,看懂工程師共通的圖學語言。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">用「立體 ↔ 三視圖即時對照」觀察體素模型的投影,完成「找出正確視圖」判讀挑戰。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">先讓學生轉動立體模型、觀察各面投影,再做判讀題。強調三視圖是進入雷射切割等 2D 加工的前置能力。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">第三角投影法是台灣 / 美國慣例,與第一角不同,務必點明。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-3</span><h4>3D 列印操作</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/print3d.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-3 數位加工機具操作</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">完整走過 3D 列印(加法製造)流程:從切片設定到逐層列印,並認識切片參數與安全規範。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作「3D 印表機模擬器」:設定切片參數、模擬逐層列印。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">若教室有實體印表機,可先用模擬器讓全班理解流程與參數,再分組實機操作。務必帶過安全操作規範。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">「G-code 是機器的語言」是三種加工模組共通的觀念。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-3</span><h4>雷射切割與割字操作</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/laser.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-3 數位加工機具操作</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解雷射切割(2D 減法加工)原理、材料與參數對照、切割 vs 雕刻的差別。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作雷射切割模擬器:路徑加工、依功率 / 速度 / 材料判定加工結果。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">帶學生比較「切割」與「雕刻」是同一台機器的兩種任務(差在功率 / 速度)。強調材料安全——並非所有材料都能雷射加工。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">可與三視圖模組連動:雷射切割只吃平面 2D 線條。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-3</span><h4>CNC 雕銑操作</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/cnc.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-3 數位加工機具操作</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解 CNC 雕銑(減法製造)原理、操作流程與切削參數。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作 CNC 模擬器:規劃刀具路徑、觀察斷刀判定。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「加法製造 vs 減法製造」統整 3D 列印 / 雷射 / CNC 三模組——這是第 2 章機具教學的收斂點。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">斷刀判定讓學生體會「切削參數設錯的後果」,呼應安全與成本觀念。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-延伸</span><h4>新興數位加工設備</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/emerging.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:延伸視野</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識 3D 列印 / 雷射 / CNC 之外的新興設備(光固化樹脂、金屬列印、3D 掃描、五軸、生成式設計等)。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">先展開至少 4 張設備卡片,再完成「技術配對挑戰」。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「從製造到智慧製造」談工業 4.0;延伸資源含 GenCAD,可帶到 AI 生成式 CAD 的前沿應用。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">配對挑戰需先展開卡片才會解鎖,提醒學生先閱讀再作答。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">2-3</span><h4>虛擬模擬與分析入門</h4>
+        <a class="gc-link" href="ch2-fabrication/pages/simulation.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:2-3 從平面草圖到立體模型</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解「在電腦裡先預演」的虛擬模擬概念,知道可以模擬什麼。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作「這根梁撐得住嗎?」懸臂梁模擬。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">這是第 2 章與第 3 章的橋樑——第 2 章確認「做得出來」,第 3 章確認「撐得住」。上完直接銜接第 3 章靜力學。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組為「入門」,深入的有限元素分析在第 3 章 FEA 模組。</span></div>
+      </div>
+    </div>
+    <a class="back-top" href="#top">↑ 回目錄</a>
+  </section>
+
+  <!-- ============ 七、第 3 章 ============ -->
+  <section class="man-section ch3" id="ch3">
+    <h2>七、第 3 章 機構與結構的深化探究</h2>
+    <p class="sec-intro">本章深入結構受力與機構運動的學理分析,從手算走到電腦模擬與 AI 輔助。</p>
+
+    <div class="ch-band"><span class="cb-no">CH3</span><h3>逐頁教學指引</h3></div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">3-1</span><h4>靜力學與自由體圖</h4>
+        <a class="gc-link" href="ch3-mechanism/pages/statics.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:3-1 解鎖看不見的力</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">學會畫自由體圖(FBD)、用平衡方程式分析受力,並理解手算的局限。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">拖動載重觀察支承反力如何變化,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">強調「一切結構分析都從一張 FBD 開始」。用拖動互動讓學生直覺感受「力的平衡」,再帶到方程式。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">「靜不定結構」的觀念會在桁架模組再次出現,先打底。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">3-1</span><h4>桁架結構解算</h4>
+        <a class="gc-link" href="ch3-mechanism/pages/truss.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:3-1 桁架結構</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解桁架如何用最少材料撐起最大負載,關鍵在三角形;能判斷靜定 / 靜不定。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">比較三種經典桁架的受力差異,判斷桁架是靜定或靜不定,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">連結生活實例(橋梁、屋架、起重機骨架)。讓學生觀察「三角形不會變形」是桁架的核心。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">承接靜力學模組的平衡觀念,建議兩模組連著上。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">3-2</span><h4>機構類型與運動</h4>
+        <a class="gc-link" href="ch3-mechanism/pages/mechanism.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:3-2 駕馭運動的藝術</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解機構是「運動的轉換器」,把馬達的旋轉變成推、拉、升降、間歇等運動。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">觀察四種機構的運動轉換動畫,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「死點與 Grashof 定則」的知識小百科談機構設計的關鍵限制。可請學生在生活中找機構的例子。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組是第 5 章機電整合(用馬達驅動機構)的重要前置。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">3-1</span><h4>電腦輔助結構分析 FEA</h4>
+        <a class="gc-link" href="ch3-mechanism/pages/fea.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:3-1 從手算到電腦模擬</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解有限元素分析(FEA)如何把物體切成大量小元素逐一計算,並認識模擬操作步驟。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作互動找出結構最脆弱的地方,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">承接靜力學「手算的局限」,說明複雜結構為何需要 FEA。用「馮·米塞斯應力與安全係數」談如何判讀模擬結果。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">呼應第 2 章「虛擬模擬入門」,此處是深化版。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">3-3</span><h4>AI 輔助的機構結構分析</h4>
+        <a class="gc-link" href="ch3-mechanism/pages/ai-analysis.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:3-3 AI 輔助的機構結構分析</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識內建 AI 的 CAD/CAE、機器學習模擬平台、LLM 學習助手,並理解 AI 的限制。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作互動看 AI 如何把零件「越做越輕」(生成式 / 拓樸最佳化),完成 3 題檢核(同時完成第 3 章)。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">核心訊息:「AI 是強大的助手,不是答案」——工程師仍須判斷與驗證 AI 的輸出。適合引導討論 AI 素養。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組是第 3 章最後一個模組,可作全章收尾。</span></div>
+      </div>
+    </div>
+    <a class="back-top" href="#top">↑ 回目錄</a>
+  </section>
+
+  <!-- ============ 八、第 4 章 ============ -->
+  <section class="man-section ch4" id="ch4">
+    <h2>八、第 4 章 日常生活中的電</h2>
+    <p class="sec-intro">本章從電子元件、電路設計與模擬,到邏輯與感應電路,建立電子製作的基礎能力。</p>
+
+    <div class="ch-band"><span class="cb-no">CH4</span><h3>逐頁教學指引</h3></div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">4-1</span><h4>基本電子元件</h4>
+        <a class="gc-link" href="ch4-electricity/pages/components.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:4-1 常用的基本電子元件</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">區分主動 / 被動元件,認識常用電子元件,學會用色環判讀電阻值。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作「用色環判讀電阻值」互動,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">電阻色碼是電子實作的基本功,讓學生多練幾顆不同色環。可搭配教室實體電阻對照。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組是後面電路設計與實作的基礎,務必確實完成。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">4-3</span><h4>電路設計與模擬</h4>
+        <a class="gc-link" href="ch4-electricity/pages/circuit.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:4-3 電路設計軟體介紹與練習</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解為什麼要先模擬電路(避免燒壞元件),認識常見電路設計軟體。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">在瀏覽器內嵌的電路模擬器中設計並模擬電路,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">先模擬、再實作是安全又有效的習慣。用「PCB 印刷電路板」知識小百科連結到實際電路板。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v"><strong>需網路連線</strong>:電路模擬器以 iframe 嵌入官方服務,離線無法使用。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">4-3</span><h4>邏輯與感應電路</h4>
+        <a class="gc-link" href="ch4-electricity/pages/logic.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:4-3 電路隨堂實作</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解 AND / OR 邏輯如何由開關組合而成,以及感測元件如何讓電路「感知環境」。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">切換開關觀察 LED 與真值表;拖動環境亮度觀察路燈自動反應。完成 3 題檢核(同時完成第 4 章)。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用真值表把抽象邏輯具體化;用「分壓電路與感測」說明光感應自動開關的原理。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">感測與自動反應的觀念直接銜接第 5 章機電整合。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">4-2</span><h4>常用工具與量測</h4>
+        <a class="gc-link" href="ch4-electricity/pages/tools.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:4-2 常用工具介紹</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識常見手工具、三用電表的使用,並理解麵包板的連通規則。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">點麵包板上的孔,觀察哪些孔彼此「相通」。完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">麵包板連通規則是學生實作最常出錯的地方,務必讓每位學生親手點過、看清楚。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">若教室有實體麵包板與三用電表,搭配本模組做實機對照效果最好。</span></div>
+      </div>
+    </div>
+    <a class="back-top" href="#top">↑ 回目錄</a>
+  </section>
+
+  <!-- ============ 九、第 5 章 ============ -->
+  <section class="man-section ch5" id="ch5">
+    <h2>九、第 5 章 機電整合的工程設計</h2>
+    <p class="sec-intro">本章整合前四章,帶學生用控制板、感測器與致動器,規劃並設計一件機電整合作品。</p>
+
+    <div class="ch-band"><span class="cb-no">CH5</span><h3>逐頁教學指引</h3></div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">5-1</span><h4>常見控制板</h4>
+        <a class="gc-link" href="ch5-mechatronics/pages/boards.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:5-1 市面上常見控制板</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解控制板是機電作品的「大腦」,認識常見控制板並學會比較選型。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">瀏覽控制板圖鑑與比較表,完成「幫專案挑選合適控制板」。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用不同專案需求(成本、聯網、腳位數)帶學生練習選型思維。可先預告本章將以 ESP32 為主。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">「為什麼 ESP32 適合做物聯網」的知識小百科,為下一個模組鋪路。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">5-3</span><h4>認識 ESP32 與實作</h4>
+        <a class="gc-link" href="ch5-mechatronics/pages/esp32.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:5-3 認識 ESP32 控制板與實作</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識 ESP32 的特色、在 Arduino IDE 的開發流程,並完成「序列埠控制 LED」隨堂實作。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">點選腳位認識其功能;沒有硬體時用 Wokwi 線上模擬器實作。完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">有實體 ESP32 的班級可直接燒錄;沒有的班級用 Wokwi 模擬,全班都能動手。帶過「程式燒錄與下載模式」。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v"><strong>Wokwi 模擬需網路連線</strong>;實體燒錄則需在電腦端安裝 Arduino IDE 與驅動。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">5-2</span><h4>機電整合的電子周邊</h4>
+        <a class="gc-link" href="ch5-mechatronics/pages/peripherals.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:5-2 機電整合的電子周邊元件</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解機電整合基本架構(感測 → 控制 → 致動),認識常見感測器與序列埠通訊。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">用程式精準控制伺服馬達的旋轉角度,完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">用「控制板是大腦、感測器是感官、致動器是手腳」的比喻統整架構。「開關彈跳」是實作常見坑,值得點出。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組結合第 3 章機構觀念(致動器驅動機構)與第 4 章電路觀念。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">5-統整</span><h4>機電整合統整專題</h4>
+        <a class="gc-link" href="ch5-mechatronics/pages/project.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:統整專題</div>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">整合五章所學,規劃一件屬於自己的機電整合作品。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">用「設計你的作品系統」互動,規劃作品的感測 / 控制 / 致動架構。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">這是全書終點也是專題起點。建議搭配第 1 章「專題規劃器」一起用——本模組定架構、規劃器排時程。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">適合作為學期專題的啟動課;鼓勵學生把成果連結到競賽(第 1-5 模組)。</span></div>
+      </div>
+    </div>
+    <a class="back-top" href="#top">↑ 回目錄</a>
+  </section>
+
+  <!-- ============ 十、入口頁與輔助頁 ============ -->
+  <section class="man-section" id="entry">
+    <h2>十、入口頁與輔助頁</h2>
+    <p class="sec-intro">教學模組之外的頁面,各有用途。</p>
+
+    <div class="info-card">
+      <h3>🏠 經典首頁(index.html)</h3>
+      <p>平台主入口。呈現工程設計流程七階段互動環、五章卡片與整體學習進度。也是學生<strong>接收作業深連結</strong>
+        (老師指派的 <span class="tagk">index.html?a=代碼</span> 連結 / QR)與<strong>匯出學習紀錄</strong>的地方。
+        建議設為課堂預設開啟頁。</p>
+    </div>
+    <div class="info-card">
+      <h3>🕹 像素工程實驗室(lobby.html)</h3>
+      <p>第二入口,一個可走動的像素世界。學生先建立個人角色(暱稱、外觀),走到 5 個傳送門進入對應章節;
+        內含 NPC 導師、布告欄、成就徽章。桌機用鍵盤、手機用虛擬搖桿。<strong>支援多人連線</strong>——同班級代碼的學生
+        會在同一個實驗室、可鄰近聊天。</p>
+      <div class="note">多人連線需另外啟動連線伺服器(<span class="tagk">node server/server.js</span>,埠 8732)。
+        未啟動伺服器或在 https 線上版,會自動退回單人模式,教學內容不受影響。正式上課前建議先小規模(5–10 台)實測。</div>
+    </div>
+    <div class="info-card">
+      <h3>🎮 下課遊樂區(arcade.html)</h3>
+      <p>8 款遊戲,適合下課調劑或作為完成進度的獎勵。其中「<strong>街景定位挑戰</strong>」(GeoGuessr 式)有教學價值——
+        「工程地景」模式收錄 200 個與課程連結的台灣工程地景,答題揭曉時提供地區 / 設施類型提示與教材知識點,
+        並附維基百科參考卡片。</p>
+      <div class="note">「工程地景」的實景影像需網路;若要顯示 360° 環景,需使用者在自己瀏覽器填入個人的
+        Mapillary token(只存本機、不外流)。未填 token 時自動改用衛星空照圖,仍可遊玩。</div>
+    </div>
+    <div class="info-card">
+      <h3>☕ 互動交誼廳(lounge.html)</h3>
+      <p>輕鬆的互動頁,有占卜師、科技新聞記者、氣象記者三位來賓。<strong>需網路連線</strong>(讀取新聞、氣象 API);
+        連線失敗會自動退回內建內容。屬調劑性質,非必要教學內容。</p>
+    </div>
+  </section>
+
+  <!-- ============ 十一、教師後台 ============ -->
+  <section class="man-section" id="teacher">
+    <h2>十一、教師後台操作(teacher.html)</h2>
+    <p class="sec-intro">教師後台是純前端工具,不需帳號、不需後端伺服器,所有操作都在你的瀏覽器完成。共五個分頁。</p>
+
+    <div class="info-card">
+      <h3>① 課程總覽</h3>
+      <p>綜覽五章與全部模組,快速掌握平台有哪些教學內容,點選即可跳到對應頁面備課。</p>
+    </div>
+    <div class="info-card">
+      <h3>② 作業指派</h3>
+      <p>勾選要指派的模組,系統會產生一組<strong>作業代碼</strong>,轉成深連結 <span class="tagk">index.html?a=代碼</span> 與
+        <strong>QR 碼</strong>。把連結或 QR 給學生,學生開啟後首頁就會標示這次的作業範圍。</p>
+    </div>
+    <div class="info-card">
+      <h3>③ 學生進度</h3>
+      <p>學生在自己的首頁點「📤 匯出學習紀錄」,會得到一段 <span class="tagk">PC13110~開頭的代碼</span>;
+        學生把代碼交給老師,老師在此分頁貼上,即可解析該生完成了哪些模組。多位學生可逐一貼入彙整。</p>
+      <div class="note">因為進度存在學生本機、不自動上傳,「匯出代碼 → 老師貼入」是查看進度的唯一方式。
+        可請學生課末統一匯出回傳。</div>
+    </div>
+    <div class="info-card">
+      <h3>④ 備課資源</h3>
+      <p>集中整理各章備課素材與連結,供老師上課前取用。</p>
+    </div>
+    <div class="info-card">
+      <h3>⑤ 🏫 班級實驗室</h3>
+      <p>對應像素工程實驗室的多人連線:用班級代碼把學生分流到同一個實驗室。搭配 lobby.html 的多人連線伺服器使用。</p>
+    </div>
+  </section>
+
+  <!-- ============ 十二、技術需求 ============ -->
+  <section class="man-section" id="tech">
+    <h2>十二、技術需求與疑難排解</h2>
+    <div class="info-card">
+      <h3>基本需求</h3>
+      <ul>
+        <li><span class="tagk">瀏覽器</span>:Chrome、Edge、Safari 等較新版本;3D 模組(程式化建模、三視圖)需支援 WebGL。</li>
+        <li><span class="tagk">不需安裝</span>:平台是純前端網頁,學生端不必安裝任何軟體。</li>
+        <li><span class="tagk">裝置</span>:桌機、筆電、平板皆可;像素實驗室在手機上以虛擬搖桿操作。</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>哪些功能需要網路</h3>
+      <p>多數教學模組可離線使用。<strong>需要網路</strong>的是:電路設計與模擬(4-3)、ESP32 的 Wokwi 線上模擬(5-3)、
+        互動交誼廳、下課遊樂區的街景定位挑戰。若教室網路不穩,建議這幾項先測試或預先準備替代方案。</p>
+    </div>
+    <div class="info-card">
+      <h3>常見問題</h3>
+      <ul>
+        <li><span class="tagk">進度不見了</span>:多半是換了瀏覽器 / 裝置,或清除了瀏覽資料。進度只存本機,屬正常。</li>
+        <li><span class="tagk">沒有聲音</span>:部分瀏覽器需先點一下頁面才允許播放音效。</li>
+        <li><span class="tagk">3D 畫面卡頓</span>:改用較新的電腦 / 瀏覽器,或減少模型零件數。</li>
+        <li><span class="tagk">內嵌工具空白</span>:電路模擬器、Wokwi 為內嵌的外部服務,請確認網路與是否被校園網路阻擋。</li>
+        <li><span class="tagk">多人連線連不上</span>:確認已啟動 server.js;線上 https 版不支援,會自動退回單人。</li>
+      </ul>
+    </div>
+    <p style="font-size:13px;color:var(--text-muted);margin-top:18px">
+      平台的開發歷程與全站驗證紀錄,可參考 <a href="dev-log.html" style="color:var(--brand)">開發紀錄頁</a>。</p>
+    <a class="back-top" href="#top">↑ 回目錄</a>
+  </section>
+
+</main>
+
+<script src="js/main.js"></script>
+</body>
+</html>
