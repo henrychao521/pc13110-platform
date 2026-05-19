@@ -359,6 +359,19 @@ const PHASES = [
       '驗證:抽題、地圖點選、距離計分、揭曉正解、總分結算皆正常,無 console 錯誤',
     ],
   },
+  {
+    tag: '段落 26',
+    date: '2026-05-19',
+    title: '街景定位挑戰加入 Mapillary 即時街景模式',
+    verbatim: '(使用者申請了免費的 Mapillary API token 並提供,要求為街景定位挑戰加上「即時街景」模式。)',
+    context: '為街景定位挑戰加上 Mapillary 即時街景模式。先驗證 Mapillary Graph API:小範圍 bbox 查詢可取得街景影像與座標、API 開放 CORS(可在瀏覽器直接呼叫)、查詢範圍過大會回「資料過多」需縮小。據此實作:遊戲開始畫面新增「模式選擇」——「📷 精選地景」(原 10 張 CC 授權台灣名勝照)與「🛰 Mapillary 即時街景」。即時模式從台灣 13 個有街景覆蓋的城鎮種子點隨機取樣,以小 bbox 查詢(遇「資料過多」自動縮小、查無街景則換種子點),取回真實街景照,玩家一樣在台灣地圖上猜位置、以距離計分。Mapillary token 只存在使用者自己瀏覽器的 localStorage,不寫入程式碼、不進 repo;遊戲內提供 token 設定畫面,並引導使用者註冊時只開 READ 權限。',
+    decisions: ['Mapillary 即時模式與精選地景模式並存,開始畫面可自由選擇', 'Mapillary token 僅存於瀏覽器 localStorage,程式碼與公開 repo 一律不含金鑰', '以城鎮種子點 + 小 bbox 取樣,並自動處理 API 的查詢資料量上限'],
+    outputs: [
+      '街景定位挑戰新增「Mapillary 即時街景」模式,精選地景模式保留',
+      'Mapillary token 由使用者於遊戲內設定、僅存 localStorage —— 程式碼與 repo 不含任何金鑰',
+      '驗證:Graph API 與 CORS、兩種模式的抽題/取街景/計分/結算皆正常,無 console 錯誤',
+    ],
+  },
 ];
 
 /* ============================================================

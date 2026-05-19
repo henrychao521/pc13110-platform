@@ -21,18 +21,24 @@
   }
   .mono { font-family: "Press Start 2P", monospace; }
   .title { font-size: 13px; color: #ffd34e; text-shadow: 2px 2px 0 #000; letter-spacing: .03em; }
-  .hud { display: flex; gap: 22px; font-size: 11px; }
+  .hud { display: flex; gap: 20px; font-size: 11px; flex-wrap: wrap; justify-content: center; }
   .hud b { color: #ffd34e; }
+  .hud .mode { color: #2dd4a7; }
   .stage { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; max-width: 860px; }
   .photo-panel {
     flex: 1; min-width: 300px; border: 4px solid #0b0b18; box-shadow: 6px 6px 0 #0b0b18;
     background: #0d0c1f; display: flex; flex-direction: column;
   }
   .photo-box {
-    width: 100%; aspect-ratio: 4 / 3; background: #0d0c1f;
+    width: 100%; aspect-ratio: 4 / 3; background: #0d0c1f; position: relative;
     display: flex; align-items: center; justify-content: center; overflow: hidden;
   }
   .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-msg {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #9a98c8; background: #0d0c1f; text-align: center; padding: 16px;
+  }
+  .photo-msg.hidden { display: none; }
   .photo-cap { font-size: 10px; color: #6b69a8; padding: 6px 9px; line-height: 1.5; }
   .map-panel {
     border: 4px solid #0b0b18; box-shadow: 6px 6px 0 #0b0b18; background: #1a1933;
@@ -52,22 +58,32 @@
     background: #ffd34e; border: 3px solid #0b0b18; box-shadow: 0 5px 0 #0b0b18;
     padding: 11px; cursor: pointer;
   }
-  button:disabled { background: #4a4878; color: #2a2950; box-shadow: 0 5px 0 #0b0b18; cursor: default; }
+  button:disabled { background: #4a4878; color: #2a2950; cursor: default; }
   button:not(:disabled):active { transform: translateY(5px); box-shadow: 0 0 0 #0b0b18; }
+  .btn-ghost { background: #2c2a5a; color: #e8e8f5; }
   .hint { font-size: 11px; color: #9a98c8; text-align: center; line-height: 1.7; max-width: 640px; }
   .overlay {
-    position: fixed; inset: 0; background: rgba(8,8,20,.92);
+    position: fixed; inset: 0; background: rgba(8,8,20,.93);
     display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+    overflow: auto;
   }
   .overlay.hidden { display: none; }
   .ov-box {
     background: #232248; border: 4px solid #0b0b18; box-shadow: 8px 8px 0 #0b0b18;
-    padding: 24px 26px; text-align: center; max-width: 380px;
+    padding: 22px 24px; text-align: center; max-width: 400px; width: 100%;
   }
-  .ov-box h1 { font-size: 15px; color: #ffd34e; margin-bottom: 10px;
-    font-family: "Press Start 2P", monospace; line-height: 1.6; }
-  .ov-box p { font-size: 13px; color: #e8e8f5; line-height: 1.8; margin-bottom: 16px; }
-  .ov-box .big { font-size: 26px; color: #2dd4a7; font-weight: 900; }
+  .ov-box h1 { font-size: 14px; color: #ffd34e; margin-bottom: 12px;
+    font-family: "Press Start 2P", monospace; line-height: 1.7; }
+  .ov-box p { font-size: 13px; color: #e8e8f5; line-height: 1.8; margin-bottom: 14px; }
+  .ov-box .big { font-size: 26px; color: #2dd4a7; font-weight: 900; margin-bottom: 8px; }
+  .ov-box button { width: 100%; margin-top: 8px; }
+  .ov-box .lead { font-size: 11px; color: #9a98c8; margin: 14px 0 6px; }
+  .ov-box input {
+    width: 100%; font-family: monospace; font-size: 12px; color: #e8e8f5;
+    background: #14132b; border: 3px solid #4a4878; padding: 9px; margin-top: 4px;
+  }
+  .ov-box input:focus { outline: none; border-color: #ffd34e; }
+  .ov-box a { color: #ffd34e; }
 </style>
 </head>
 <body>
@@ -76,11 +92,15 @@
 <div class="hud mono">
   <span>第 <b id="round">1</b> / 5 題</span>
   <span>總分 <b id="score">0</b></span>
+  <span class="mode" id="modeLabel"></span>
 </div>
 
 <div class="stage">
   <div class="photo-panel">
-    <div class="photo-box"><img id="photo" alt="地點照片"></div>
+    <div class="photo-box">
+      <img id="photo" alt="地點照片">
+      <div class="photo-msg" id="photoMsg">準備中…</div>
+    </div>
     <div class="photo-cap" id="photoCap">這是台灣的哪裡?在右側地圖上點出你的猜測。</div>
   </div>
   <div class="map-panel">
@@ -92,19 +112,17 @@
     </div>
   </div>
 </div>
-<div class="hint">看照片猜它在台灣的哪個位置 —— 點地圖、按「確認猜測」。離正確地點越近,分數越高(每題最高 1000 分)。</div>
+<div class="hint">看照片猜它在台灣哪裡 —— 點地圖、按「確認猜測」。離正解越近,分數越高(每題最高 1000 分)。</div>
 
-<!-- 開始 / 結束 -->
 <div class="overlay" id="overlay">
-  <div class="ov-box">
-    <h1 id="ovTitle">街景定位挑戰</h1>
-    <p id="ovText">看 5 張台灣各地的照片,在地圖上猜出它們的位置。<br>越接近正確地點,得分越高!</p>
-    <div class="big mono" id="ovScore" style="display:none"></div>
-    <button id="ovBtn" style="width:100%;margin-top:14px">開始挑戰</button>
-  </div>
+  <div class="ov-box" id="ovBox"></div>
 </div>
 
 <script>
+/* ============================================================
+ * 街景定位挑戰 — 精選地景模式 + Mapillary 即時街景模式
+ * Mapillary token 只存在瀏覽器 localStorage,不寫入程式碼。
+ * ============================================================ */
 const LOCS = [
   { img: 'geo-101.jpg', name: '台北 101', lat: 25.0337, lon: 121.5645,
     blurb: '曾是世界第一高樓,位於台北信義區。', by: 'AngMoKio・CC BY-SA 3.0' },
@@ -127,17 +145,26 @@ const LOCS = [
   { img: 'geo-palace.jpg', name: '國立故宮博物院', lat: 25.1023, lon: 121.5485,
     blurb: '台北的博物館,典藏豐富的中華文物。', by: 'CEphoto, Uwe Aranas・CC BY-SA 3.0' },
 ];
-/* 簡化台灣海岸線(lat,lon) */
 const TW = [
   [25.30,121.54],[25.13,121.94],[24.85,121.83],[24.60,121.87],[24.00,121.62],
   [23.40,121.50],[22.75,121.15],[22.00,120.92],[21.90,120.85],[22.30,120.65],
   [22.60,120.27],[23.00,120.10],[23.45,120.13],[24.05,120.38],[24.40,120.55],
   [24.70,120.85],[25.00,121.10],[25.18,121.41],
 ];
+/* Mapillary 取樣種子(經度,緯度)—— 台灣各地有街景覆蓋的城鎮 */
+const SEEDS = [
+  [121.565,25.033],[120.673,24.144],[120.205,22.997],[120.301,22.627],
+  [121.606,23.991],[121.754,24.757],[120.968,24.804],[120.449,23.479],
+  [120.913,23.852],[121.144,22.758],[121.741,25.128],[121.301,24.993],
+  [120.488,22.669],
+];
+const TOKEN_KEY = 'pc13110_mapillary_token';
+
 const LAT0 = 21.7, LAT1 = 25.45, LON0 = 119.85, LON1 = 122.15;
 const cv = document.getElementById('map'), ctx = cv.getContext('2d');
 const MW = cv.width, MH = cv.height;
 ctx.imageSmoothingEnabled = false;
+const $ = id => document.getElementById(id);
 
 function geoXY(lat, lon) {
   return { x: (lon - LON0) / (LON1 - LON0) * MW, y: (LAT1 - lat) / (LAT1 - LAT0) * MH };
@@ -153,29 +180,100 @@ function distKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
-let rounds, idx, total, guess, actual, state;
+let mode, rounds, idx, total, guess, actual, state, current;
 
-function startGame() {
-  rounds = LOCS.slice().sort(() => Math.random() - 0.5).slice(0, 5);
+/* ---------- Mapillary 取街景 ---------- */
+async function fetchMapillaryShot() {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (!token) return null;
+  for (let attempt = 0; attempt < 9; attempt++) {
+    const seed = SEEDS[(Math.random() * SEEDS.length) | 0];
+    const cx = seed[0] + (Math.random() - 0.5) * 0.045;
+    const cy = seed[1] + (Math.random() - 0.5) * 0.045;
+    let half = 0.0045;
+    for (let shrink = 0; shrink < 3; shrink++) {
+      const bbox = [cx - half, cy - half, cx + half, cy + half].map(n => n.toFixed(5)).join(',');
+      const url = 'https://graph.mapillary.com/images?access_token=' + encodeURIComponent(token) +
+        '&fields=id,computed_geometry,thumb_1024_url&bbox=' + bbox + '&limit=8';
+      let j;
+      try { j = await (await fetch(url)).json(); }
+      catch (e) { return { error: 'network' }; }
+      if (j.error) {
+        if (/reduce/i.test(j.error.message || '')) { half *= 0.5; continue; }
+        return { error: 'auth' };          /* token 無效等 */
+      }
+      const list = (j.data || []).filter(d => d.thumb_1024_url && d.computed_geometry);
+      if (list.length) {
+        const p = list[(Math.random() * list.length) | 0];
+        const c = p.computed_geometry.coordinates;
+        return { url: p.thumb_1024_url, lon: c[0], lat: c[1], id: p.id };
+      }
+      break;                               /* 空的 → 換種子 */
+    }
+  }
+  return null;                             /* 試完都沒有 */
+}
+
+/* ---------- 流程 ---------- */
+function startGame(m) {
+  mode = m;
   idx = 0; total = 0;
-  document.getElementById('score').textContent = 0;
-  document.getElementById('overlay').classList.add('hidden');
+  $('score').textContent = 0;
+  $('modeLabel').textContent = m === 'mapillary' ? '🛰 Mapillary 即時' : '📷 精選地景';
+  $('overlay').classList.add('hidden');
+  if (m === 'curated') {
+    rounds = LOCS.slice().sort(() => Math.random() - 0.5).slice(0, 5);
+  }
   loadRound();
 }
-function loadRound() {
-  const loc = rounds[idx];
-  guess = null; actual = null; state = 'guess';
-  document.getElementById('round').textContent = idx + 1;
-  document.getElementById('photo').src = 'img/' + loc.img;
-  document.getElementById('photoCap').textContent = '📷 ' + loc.by + '・Wikimedia Commons';
-  document.getElementById('result').textContent = '點地圖選一個位置';
-  const btn = document.getElementById('actBtn');
-  btn.textContent = '確認猜測'; btn.disabled = true;
+async function loadRound() {
+  guess = null; actual = null;
+  $('round').textContent = idx + 1;
+  $('actBtn').disabled = true;
+  $('actBtn').textContent = '確認猜測';
+  if (mode === 'curated') {
+    const loc = rounds[idx];
+    current = { src: 'img/' + loc.img, lat: loc.lat, lon: loc.lon, name: loc.name, blurb: loc.blurb, by: loc.by };
+    setPhoto(current.src, '📷 ' + loc.by + '・Wikimedia Commons');
+    $('result').textContent = '點地圖選一個位置';
+    state = 'guess';
+  } else {
+    state = 'loading';
+    showMsg('🛰 連線 Mapillary,載入街景中…');
+    $('result').textContent = '取得街景中,請稍候…';
+    const shot = await fetchMapillaryShot();
+    if (!shot || shot.error) {
+      state = 'error';
+      showMsg(shot && shot.error === 'auth' ? '⚠ Mapillary token 無效'
+        : shot && shot.error === 'network' ? '⚠ 網路連線失敗'
+        : '⚠ 這次沒抓到街景');
+      $('result').innerHTML = '取得街景失敗,按下方「重試」再試一次。';
+      $('actBtn').textContent = '重試'; $('actBtn').disabled = false;
+      return;
+    }
+    current = { src: shot.url, lat: shot.lat, lon: shot.lon, name: null, by: 'Mapillary 街景・CC BY-SA' };
+    setPhoto(current.src, '📷 Mapillary 街景・CC BY-SA');
+    $('result').textContent = '點地圖選一個位置';
+    state = 'guess';
+  }
   drawMap();
 }
+function setPhoto(src, cap) {
+  const img = $('photo');
+  $('photoMsg').classList.add('hidden');
+  img.style.display = 'block';
+  img.src = src;
+  $('photoCap').textContent = cap;
+}
+function showMsg(text) {
+  $('photo').style.display = 'none';
+  const m = $('photoMsg');
+  m.textContent = text; m.classList.remove('hidden');
+  $('photoCap').textContent = '';
+}
+
 function drawMap() {
-  ctx.fillStyle = '#10204a'; ctx.fillRect(0, 0, MW, MH);   /* 海 */
-  /* 台灣陸地 */
+  ctx.fillStyle = '#10204a'; ctx.fillRect(0, 0, MW, MH);
   ctx.beginPath();
   TW.forEach((p, i) => {
     const xy = geoXY(p[0], p[1]);
@@ -184,9 +282,7 @@ function drawMap() {
   ctx.closePath();
   ctx.fillStyle = '#3b6b3a'; ctx.fill();
   ctx.lineWidth = 2; ctx.strokeStyle = '#bce8a8'; ctx.stroke();
-  /* 猜測標記 */
   if (guess) marker(guess, '#ffd34e', '你');
-  /* 揭曉 */
   if (actual) {
     if (guess) {
       const g = geoXY(guess.lat, guess.lon), a = geoXY(actual.lat, actual.lon);
@@ -203,57 +299,83 @@ function marker(pt, color, label) {
   ctx.fillRect(x - 5, y - 5, 10, 10);
   ctx.strokeStyle = '#0b0b18'; ctx.lineWidth = 2;
   ctx.strokeRect(x - 5, y - 5, 10, 10);
-  ctx.fillStyle = '#0b0b18'; ctx.font = '700 10px "Noto Sans TC",sans-serif';
+  ctx.fillStyle = '#fff'; ctx.font = '700 10px "Noto Sans TC",sans-serif';
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillStyle = '#fff';
   ctx.fillText(label, x, y - 13);
 }
 cv.addEventListener('click', e => {
   if (state !== 'guess') return;
   const r = cv.getBoundingClientRect();
-  const x = (e.clientX - r.left) * (MW / r.width);
-  const y = (e.clientY - r.top) * (MH / r.height);
-  guess = xyGeo(x, y);
-  document.getElementById('actBtn').disabled = false;
-  document.getElementById('result').textContent = '按「確認猜測」送出。';
+  guess = xyGeo((e.clientX - r.left) * (MW / r.width), (e.clientY - r.top) * (MH / r.height));
+  $('actBtn').disabled = false;
+  $('result').textContent = '按「確認猜測」送出。';
   drawMap();
 });
 function confirmGuess() {
-  const loc = rounds[idx];
-  actual = { lat: loc.lat, lon: loc.lon };
+  actual = { lat: current.lat, lon: current.lon };
   const d = distKm(guess, actual);
   const pts = Math.round(1000 * Math.exp(-d / 55));
   total += pts; state = 'reveal';
-  document.getElementById('score').textContent = total;
-  document.getElementById('result').innerHTML =
-    `正解:<span class="rn">${loc.name}</span><br>${loc.blurb}<br>` +
+  $('score').textContent = total;
+  const head = current.name
+    ? `正解:<span class="rn">${current.name}</span><br>${current.blurb}<br>`
+    : `📍 這是 Mapillary 上的一個實際街景點。<br>`;
+  $('result').innerHTML = head +
     `距離 <b>${d < 1 ? '<1' : Math.round(d)}</b> 公里・本題 <b>${pts}</b> 分`;
-  const btn = document.getElementById('actBtn');
-  btn.textContent = idx < 4 ? '下一題 ▶' : '看成績';
+  $('actBtn').textContent = idx < 4 ? '下一題 ▶' : '看成績';
   drawMap();
 }
-function nextRound() {
-  idx++;
-  if (idx >= 5) { endGame(); return; }
-  loadRound();
-}
+function nextRound() { idx++; (idx >= 5) ? endGame() : loadRound(); }
 function endGame() {
   state = 'over';
-  document.getElementById('ovTitle').textContent = '挑戰結束!';
-  let rank = total >= 4200 ? '🏆 台灣地理達人' : total >= 3000 ? '🌟 在地通'
+  const rank = total >= 4200 ? '🏆 台灣地理達人' : total >= 3000 ? '🌟 在地通'
     : total >= 1800 ? '🙂 還不錯' : '💪 再接再厲';
-  document.getElementById('ovText').innerHTML = '你的稱號:<b>' + rank + '</b>';
-  const sc = document.getElementById('ovScore');
-  sc.style.display = 'block'; sc.textContent = total + ' / 5000';
-  document.getElementById('ovBtn').textContent = '再玩一次';
-  document.getElementById('overlay').classList.remove('hidden');
+  $('ovBox').innerHTML =
+    `<h1>挑戰結束!</h1><div class="big mono">${total} / 5000</div>` +
+    `<p>你的稱號:<b>${rank}</b></p>` +
+    `<button id="againBtn">再玩一次</button>`;
+  $('againBtn').addEventListener('click', showStart);
+  $('overlay').classList.remove('hidden');
 }
-document.getElementById('actBtn').addEventListener('click', () => {
+$('actBtn').addEventListener('click', () => {
   if (state === 'guess') confirmGuess();
   else if (state === 'reveal') nextRound();
+  else if (state === 'error') loadRound();
 });
-document.getElementById('ovBtn').addEventListener('click', startGame);
+
+/* ---------- 開始畫面 / token 設定 ---------- */
+function showStart() {
+  $('overlay').classList.remove('hidden');
+  $('ovBox').innerHTML =
+    `<h1>街景定位挑戰</h1>` +
+    `<p>看 5 張台灣的照片,在地圖上猜出位置。越接近正解、分數越高!</p>` +
+    `<button id="mCurated">📷 精選地景(10 個台灣名勝)</button>` +
+    `<button id="mMapi" class="btn-ghost">🛰 Mapillary 即時街景</button>`;
+  $('mCurated').addEventListener('click', () => startGame('curated'));
+  $('mMapi').addEventListener('click', () => {
+    localStorage.getItem(TOKEN_KEY) ? startGame('mapillary') : showTokenSetup();
+  });
+}
+function showTokenSetup() {
+  $('ovBox').innerHTML =
+    `<h1>Mapillary 設定</h1>` +
+    `<p>即時街景需要一組免費的 Mapillary token。</p>` +
+    `<p class="lead">到 <a href="https://www.mapillary.com/dashboard/developers" target="_blank">mapillary.com</a> ` +
+    `→ Developers → 註冊應用程式(權限只開 READ),取得 <code>MLY|…</code> 開頭的 token,貼在下方:</p>` +
+    `<input id="tokIn" placeholder="MLY|...|..." autocomplete="off">` +
+    `<button id="tokSave">儲存並開始</button>` +
+    `<button id="tokBack" class="btn-ghost">← 返回</button>`;
+  $('tokSave').addEventListener('click', () => {
+    const v = $('tokIn').value.trim();
+    if (!v.startsWith('MLY')) { $('tokIn').style.borderColor = '#ff6b6b'; return; }
+    localStorage.setItem(TOKEN_KEY, v);
+    startGame('mapillary');
+  });
+  $('tokBack').addEventListener('click', showStart);
+}
+
 drawMap();
+showStart();
 </script>
 </body>
 </html>
