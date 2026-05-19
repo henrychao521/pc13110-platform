@@ -781,6 +781,36 @@ function startGame(m, theme) {
   $('roundTotal').textContent = roundCount;
   loadRound();
 }
+/* 依經緯度推地區提示(不洩漏景點名) */
+function regionHint(lat, lon) {
+  if (lat > 25.9) return '馬祖列島';
+  if (lon < 119.0) return '金門';
+  if (lon < 120.0 && lat < 24.0) return '澎湖群島';
+  if (lon > 121.4 && lat < 22.85) return '台東外海離島（蘭嶼／綠島）';
+  if (lat >= 24.5) return '北台灣（桃竹苗以北、含宜蘭)';
+  if (lon >= 121.0) return '東台灣（花蓮、台東)';
+  if (lat >= 23.6) return '中台灣（苗中彰投雲)';
+  return '南台灣（嘉南高屏)';
+}
+/* 依景點名關鍵字推設施類型(只給類型,不給名稱) */
+function typeHint(name) {
+  const T = [
+    [/攔河堰|水庫|壩|堰/, '水利設施(水庫／攔河堰)'],
+    [/橋/, '橋樑'],
+    [/隧道/, '隧道'],
+    [/發電|電廠|風場|風力|光電|地熱|機組|核三|核能/, '發電／能源設施'],
+    [/高鐵|捷運|輕軌|車站|火車站|機廠|林鐵|五分車|纜車/, '軌道／纜車運輸'],
+    [/機場|航廈|塔台|空橋/, '航空設施'],
+    [/港|碼頭/, '港灣設施'],
+    [/圖書館|美術館|博物館|歌劇院|文化中心|藝術中心|考古館|天文/, '文化／教育場館'],
+    [/大樓|總部|大廈|101|塔|i-Tower/, '高樓建築'],
+    [/科學園區|工業區|科技園區|產業園區|園區|廠/, '產業園區／廠房'],
+    [/公園|濕地|步道|觀景|景觀台|遊客中心|樂園|市集/, '景觀／遊憩設施'],
+    [/收費站|門架/, '公路設施'],
+  ];
+  for (const [re, label] of T) if (re.test(name)) return label;
+  return '工程地景';
+}
 async function loadRound() {
   guess = null; actual = null;
   clearMap();
@@ -811,7 +841,10 @@ async function loadRound() {
       $('result').innerHTML = '影像載入失敗,按下方「重試」再試一次。';
       $('actBtn').textContent = '重試'; $('actBtn').disabled = false;
     };
-    $('photoClue').textContent = '🔍 觀察提示:' + s.tip;
+    $('photoClue').innerHTML =
+      '📍 地區:' + regionHint(s.lat, s.lon) + '<br>' +
+      '🏗 設施類型:' + typeHint(s.name) + '<br>' +
+      '🔍 觀察重點:' + s.tip;
     $('photoClue').classList.add('on');
     /* 先試 Mapillary 實景照,查無覆蓋則退回 Esri 衛星空照圖 */
     state = 'loading';
