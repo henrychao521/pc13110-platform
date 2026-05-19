@@ -60,7 +60,22 @@
 | `sensor-dht.jpg` | 溫濕度感測器 DHT22 | CC BY-SA 4.0 | Suyash Dwivedi | File:AM2302 (DHT22) digital temperature and humidity sensor module.jpg |
 | `sensor-ultrasonic.jpg` | 超音波感測器 HC-SR04 | CC BY-SA 4.0 | Suyash Dwivedi | File:HC SR04 Ultrasonic Module.jpg |
 
+### 遊樂區「街景定位挑戰」台灣地景照片（2026-05-19 新增,位於 `arcade/games/geoguess/img/`)
+
+| 檔案 | 用途 | 授權 | 作者 | 來源（Wikimedia Commons) |
+|---|---|---|---|---|
+| `geo-101.jpg` | 台北 101 | CC BY-SA 3.0 | AngMoKio | File:Taipei 101 2009 amk-EditMylius.jpg |
+| `geo-cks.jpg` | 中正紀念堂 | CC BY-SA 3.0 | AngMoKio | File:ChiangKai-shek memorial2009 amk.jpg |
+| `geo-sunmoon.jpg` | 日月潭 | CC BY-SA 3.0 | CEphoto, Uwe Aranas | File:Nantou-County Taiwan Sun-Moon-Lake-Ropeway-01.jpg |
+| `geo-taroko.jpg` | 太魯閣峽谷 | CC BY-SA 3.0 | CEphoto, Uwe Aranas | File:Taroko-Gorge Hualien Taiwan Cihmu-Bridge-at-Taroko-National-Park-01.jpg |
+| `geo-alishan.jpg` | 阿里山 | CC BY-SA 3.0 | CEphoto, Uwe Aranas | File:Alishan Taiwan Alishan-Forest-Railway-01.jpg |
+| `geo-anping.jpg` | 安平古堡 | CC BY-SA 4.0 | Mk2010 | File:Anping Small Fort, Anping Dist., Tainan City (Taiwan).jpg |
+| `geo-taichung.jpg` | 台中國家歌劇院 | CC BY 2.0 | MiNe | File:National Taichung Theater 20150107.jpg |
+| `geo-jiufen.jpg` | 九份老街 | CC BY-SA 4.0 | Another Believer | File:A-Zhu Peanut Ice Cream Roll, Jiufen Old Street, 2024.jpg |
+| `geo-eluanbi.jpg` | 鵝鑾鼻燈塔 | CC BY-SA 3.0 | Bernard Gagnon | File:Eluanbi Lighthouse 02.jpg |
+| `geo-palace.jpg` | 國立故宮博物院 | CC BY-SA 3.0 | CEphoto, Uwe Aranas | File:Taipei Taiwan National-Palace-Museum-01.jpg |
+
 > 每張圖片的 Wikimedia Commons 檔案頁網址格式為:
 > `https://commons.wikimedia.org/wiki/<上表「來源」欄位,空格改為底線>`
 
-整理日期:2026-05-16(第 2 章 19 張)、2026-05-17(第 4、5 章 19 張)
+整理日期:2026-05-16(第 2 章 19 張)、2026-05-17(第 4、5 章 19 張)、2026-05-19(街景定位挑戰 10 張)

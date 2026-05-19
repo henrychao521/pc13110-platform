@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>街景定位挑戰 ｜ PC13110 遊樂區</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #14132b; color: #e8e8f5;
+    font-family: "Noto Sans TC", -apple-system, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    gap: 12px; padding: 16px; -webkit-user-select: none; user-select: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+  .mono { font-family: "Press Start 2P", monospace; }
+  .title { font-size: 13px; color: #ffd34e; text-shadow: 2px 2px 0 #000; letter-spacing: .03em; }
+  .hud { display: flex; gap: 22px; font-size: 11px; }
+  .hud b { color: #ffd34e; }
+  .stage { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; max-width: 860px; }
+  .photo-panel {
+    flex: 1; min-width: 300px; border: 4px solid #0b0b18; box-shadow: 6px 6px 0 #0b0b18;
+    background: #0d0c1f; display: flex; flex-direction: column;
+  }
+  .photo-box {
+    width: 100%; aspect-ratio: 4 / 3; background: #0d0c1f;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-cap { font-size: 10px; color: #6b69a8; padding: 6px 9px; line-height: 1.5; }
+  .map-panel {
+    border: 4px solid #0b0b18; box-shadow: 6px 6px 0 #0b0b18; background: #1a1933;
+    display: flex; flex-direction: column;
+  }
+  .map-panel .mp-h {
+    font-size: 9px; color: #0b0b18; background: #ffd34e;
+    padding: 6px 9px; border-bottom: 4px solid #0b0b18;
+  }
+  #map { display: block; cursor: crosshair; image-rendering: pixelated; }
+  .controls { display: flex; flex-direction: column; gap: 8px; padding: 9px; }
+  .result { font-size: 11.5px; line-height: 1.6; color: #9a98c8; min-height: 34px; }
+  .result b { color: #2dd4a7; }
+  .result .rn { color: #ffd34e; }
+  button {
+    font-family: "Noto Sans TC", sans-serif; font-size: 13px; font-weight: 900; color: #14132b;
+    background: #ffd34e; border: 3px solid #0b0b18; box-shadow: 0 5px 0 #0b0b18;
+    padding: 11px; cursor: pointer;
+  }
+  button:disabled { background: #4a4878; color: #2a2950; box-shadow: 0 5px 0 #0b0b18; cursor: default; }
+  button:not(:disabled):active { transform: translateY(5px); box-shadow: 0 0 0 #0b0b18; }
+  .hint { font-size: 11px; color: #9a98c8; text-align: center; line-height: 1.7; max-width: 640px; }
+  .overlay {
+    position: fixed; inset: 0; background: rgba(8,8,20,.92);
+    display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+  }
+  .overlay.hidden { display: none; }
+  .ov-box {
+    background: #232248; border: 4px solid #0b0b18; box-shadow: 8px 8px 0 #0b0b18;
+    padding: 24px 26px; text-align: center; max-width: 380px;
+  }
+  .ov-box h1 { font-size: 15px; color: #ffd34e; margin-bottom: 10px;
+    font-family: "Press Start 2P", monospace; line-height: 1.6; }
+  .ov-box p { font-size: 13px; color: #e8e8f5; line-height: 1.8; margin-bottom: 16px; }
+  .ov-box .big { font-size: 26px; color: #2dd4a7; font-weight: 900; }
+</style>
+</head>
+<body>
+
+<div class="title mono">TAIWAN GEO-GUESS</div>
+<div class="hud mono">
+  <span>第 <b id="round">1</b> / 5 題</span>
+  <span>總分 <b id="score">0</b></span>
+</div>
+
+<div class="stage">
+  <div class="photo-panel">
+    <div class="photo-box"><img id="photo" alt="地點照片"></div>
+    <div class="photo-cap" id="photoCap">這是台灣的哪裡?在右側地圖上點出你的猜測。</div>
+  </div>
+  <div class="map-panel">
+    <div class="mp-h mono">GUESS ON MAP</div>
+    <canvas id="map" width="232" height="424"></canvas>
+    <div class="controls">
+      <div class="result" id="result">點地圖選一個位置</div>
+      <button id="actBtn" disabled>確認猜測</button>
+    </div>
+  </div>
+</div>
+<div class="hint">看照片猜它在台灣的哪個位置 —— 點地圖、按「確認猜測」。離正確地點越近,分數越高(每題最高 1000 分)。</div>
+
+<!-- 開始 / 結束 -->
+<div class="overlay" id="overlay">
+  <div class="ov-box">
+    <h1 id="ovTitle">街景定位挑戰</h1>
+    <p id="ovText">看 5 張台灣各地的照片,在地圖上猜出它們的位置。<br>越接近正確地點,得分越高!</p>
+    <div class="big mono" id="ovScore" style="display:none"></div>
+    <button id="ovBtn" style="width:100%;margin-top:14px">開始挑戰</button>
+  </div>
+</div>
+
+<script>
+const LOCS = [
+  { img: 'geo-101.jpg', name: '台北 101', lat: 25.0337, lon: 121.5645,
+    blurb: '曾是世界第一高樓,位於台北信義區。', by: 'AngMoKio・CC BY-SA 3.0' },
+  { img: 'geo-cks.jpg', name: '中正紀念堂', lat: 25.0360, lon: 121.5218,
+    blurb: '台北市中心的紀念性建築與廣場。', by: 'AngMoKio・CC BY-SA 3.0' },
+  { img: 'geo-sunmoon.jpg', name: '日月潭', lat: 23.8530, lon: 120.9150,
+    blurb: '南投縣的高山湖泊,著名觀光勝地。', by: 'CEphoto, Uwe Aranas・CC BY-SA 3.0' },
+  { img: 'geo-taroko.jpg', name: '太魯閣峽谷', lat: 24.1730, lon: 121.4920,
+    blurb: '花蓮的大理岩峽谷,台灣東部代表地景。', by: 'CEphoto, Uwe Aranas・CC BY-SA 3.0' },
+  { img: 'geo-alishan.jpg', name: '阿里山', lat: 23.5100, lon: 120.8030,
+    blurb: '嘉義的高山森林,以森林鐵路與日出聞名。', by: 'CEphoto, Uwe Aranas・CC BY-SA 3.0' },
+  { img: 'geo-anping.jpg', name: '安平古堡', lat: 23.0010, lon: 120.1610,
+    blurb: '台南的歷史古堡,荷治時期遺跡。', by: 'Mk2010・CC BY-SA 4.0' },
+  { img: 'geo-taichung.jpg', name: '台中國家歌劇院', lat: 24.1620, lon: 120.6405,
+    blurb: '台中的當代曲牆建築地標。', by: 'MiNe・CC BY 2.0' },
+  { img: 'geo-jiufen.jpg', name: '九份老街', lat: 25.1090, lon: 121.8440,
+    blurb: '新北市的山城,以老街與茶樓聞名。', by: 'Another Believer・CC BY-SA 4.0' },
+  { img: 'geo-eluanbi.jpg', name: '鵝鑾鼻燈塔', lat: 21.9020, lon: 120.8510,
+    blurb: '墾丁的燈塔,台灣本島最南端。', by: 'Bernard Gagnon・CC BY-SA 3.0' },
+  { img: 'geo-palace.jpg', name: '國立故宮博物院', lat: 25.1023, lon: 121.5485,
+    blurb: '台北的博物館,典藏豐富的中華文物。', by: 'CEphoto, Uwe Aranas・CC BY-SA 3.0' },
+];
+/* 簡化台灣海岸線(lat,lon) */
+const TW = [
+  [25.30,121.54],[25.13,121.94],[24.85,121.83],[24.60,121.87],[24.00,121.62],
+  [23.40,121.50],[22.75,121.15],[22.00,120.92],[21.90,120.85],[22.30,120.65],
+  [22.60,120.27],[23.00,120.10],[23.45,120.13],[24.05,120.38],[24.40,120.55],
+  [24.70,120.85],[25.00,121.10],[25.18,121.41],
+];
+const LAT0 = 21.7, LAT1 = 25.45, LON0 = 119.85, LON1 = 122.15;
+const cv = document.getElementById('map'), ctx = cv.getContext('2d');
+const MW = cv.width, MH = cv.height;
+ctx.imageSmoothingEnabled = false;
+
+function geoXY(lat, lon) {
+  return { x: (lon - LON0) / (LON1 - LON0) * MW, y: (LAT1 - lat) / (LAT1 - LAT0) * MH };
+}
+function xyGeo(x, y) {
+  return { lon: LON0 + x / MW * (LON1 - LON0), lat: LAT1 - y / MH * (LAT1 - LAT0) };
+}
+function distKm(a, b) {
+  const R = 6371, t = Math.PI / 180;
+  const dLa = (b.lat - a.lat) * t, dLo = (b.lon - a.lon) * t;
+  const h = Math.sin(dLa / 2) ** 2 +
+    Math.cos(a.lat * t) * Math.cos(b.lat * t) * Math.sin(dLo / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+let rounds, idx, total, guess, actual, state;
+
+function startGame() {
+  rounds = LOCS.slice().sort(() => Math.random() - 0.5).slice(0, 5);
+  idx = 0; total = 0;
+  document.getElementById('score').textContent = 0;
+  document.getElementById('overlay').classList.add('hidden');
+  loadRound();
+}
+function loadRound() {
+  const loc = rounds[idx];
+  guess = null; actual = null; state = 'guess';
+  document.getElementById('round').textContent = idx + 1;
+  document.getElementById('photo').src = 'img/' + loc.img;
+  document.getElementById('photoCap').textContent = '📷 ' + loc.by + '・Wikimedia Commons';
+  document.getElementById('result').textContent = '點地圖選一個位置';
+  const btn = document.getElementById('actBtn');
+  btn.textContent = '確認猜測'; btn.disabled = true;
+  drawMap();
+}
+function drawMap() {
+  ctx.fillStyle = '#10204a'; ctx.fillRect(0, 0, MW, MH);   /* 海 */
+  /* 台灣陸地 */
+  ctx.beginPath();
+  TW.forEach((p, i) => {
+    const xy = geoXY(p[0], p[1]);
+    i ? ctx.lineTo(xy.x, xy.y) : ctx.moveTo(xy.x, xy.y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = '#3b6b3a'; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = '#bce8a8'; ctx.stroke();
+  /* 猜測標記 */
+  if (guess) marker(guess, '#ffd34e', '你');
+  /* 揭曉 */
+  if (actual) {
+    if (guess) {
+      const g = geoXY(guess.lat, guess.lon), a = geoXY(actual.lat, actual.lon);
+      ctx.strokeStyle = '#ff6b6b'; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
+      ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(a.x, a.y); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    marker(actual, '#ff6b6b', '✓');
+  }
+}
+function marker(pt, color, label) {
+  const { x, y } = geoXY(pt.lat, pt.lon);
+  ctx.fillStyle = color;
+  ctx.fillRect(x - 5, y - 5, 10, 10);
+  ctx.strokeStyle = '#0b0b18'; ctx.lineWidth = 2;
+  ctx.strokeRect(x - 5, y - 5, 10, 10);
+  ctx.fillStyle = '#0b0b18'; ctx.font = '700 10px "Noto Sans TC",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#fff';
+  ctx.fillText(label, x, y - 13);
+}
+cv.addEventListener('click', e => {
+  if (state !== 'guess') return;
+  const r = cv.getBoundingClientRect();
+  const x = (e.clientX - r.left) * (MW / r.width);
+  const y = (e.clientY - r.top) * (MH / r.height);
+  guess = xyGeo(x, y);
+  document.getElementById('actBtn').disabled = false;
+  document.getElementById('result').textContent = '按「確認猜測」送出。';
+  drawMap();
+});
+function confirmGuess() {
+  const loc = rounds[idx];
+  actual = { lat: loc.lat, lon: loc.lon };
+  const d = distKm(guess, actual);
+  const pts = Math.round(1000 * Math.exp(-d / 55));
+  total += pts; state = 'reveal';
+  document.getElementById('score').textContent = total;
+  document.getElementById('result').innerHTML =
+    `正解:<span class="rn">${loc.name}</span><br>${loc.blurb}<br>` +
+    `距離 <b>${d < 1 ? '<1' : Math.round(d)}</b> 公里・本題 <b>${pts}</b> 分`;
+  const btn = document.getElementById('actBtn');
+  btn.textContent = idx < 4 ? '下一題 ▶' : '看成績';
+  drawMap();
+}
+function nextRound() {
+  idx++;
+  if (idx >= 5) { endGame(); return; }
+  loadRound();
+}
+function endGame() {
+  state = 'over';
+  document.getElementById('ovTitle').textContent = '挑戰結束!';
+  let rank = total >= 4200 ? '🏆 台灣地理達人' : total >= 3000 ? '🌟 在地通'
+    : total >= 1800 ? '🙂 還不錯' : '💪 再接再厲';
+  document.getElementById('ovText').innerHTML = '你的稱號:<b>' + rank + '</b>';
+  const sc = document.getElementById('ovScore');
+  sc.style.display = 'block'; sc.textContent = total + ' / 5000';
+  document.getElementById('ovBtn').textContent = '再玩一次';
+  document.getElementById('overlay').classList.remove('hidden');
+}
+document.getElementById('actBtn').addEventListener('click', () => {
+  if (state === 'guess') confirmGuess();
+  else if (state === 'reveal') nextRound();
+});
+document.getElementById('ovBtn').addEventListener('click', startGame);
+drawMap();
+</script>
+</body>
+</html>

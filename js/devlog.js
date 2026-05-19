@@ -345,6 +345,20 @@ const PHASES = [
       '提供免費街景方案建議:Mapillary、KartaView、Panoramax',
     ],
   },
+  {
+    tag: '段落 25',
+    date: '2026-05-19',
+    title: '遊樂區新增「街景定位挑戰」(GeoGuessr 式)',
+    verbatim: '那先開始做 Mapillary 的 GeoGuess 街景小挑戰吧。(參考 Gemini 對教科書結合 GeoGuessr 的建議文件)',
+    context: '製作 GeoGuessr 式的地點定位小遊戲。Mapillary 即時 API 需使用者申請的免費 token,且在公開 repo 嵌入金鑰並不妥當;因此第一版改採「精選實景照片」做法——從 Wikimedia Commons 取得 10 張 CC 授權的台灣各地地景照(台北 101、中正紀念堂、日月潭、太魯閣、阿里山、安平古堡、台中歌劇院、九份、鵝鑾鼻、故宮),每張標註座標。遊戲流程:每局隨機抽 5 題,顯示一張照片,玩家在自繪的台灣地圖上點出猜測位置,以 haversine 距離計分(越接近分數越高,每題最高 1000 分),5 題後依總分給稱號。純前端、無需金鑰、可直接上線於 GitHub Pages。Mapillary 即時街景模式列為後續(待使用者提供免費 token 後再加上)。',
+    decisions: ['街景遊戲第一版採 Wikimedia CC 授權實景照(免金鑰、可上線、可驗證)', 'Mapillary 即時 API 模式待使用者提供免費 token 後再加', '台灣地圖以座標多邊形自繪,距離以 haversine 計分'],
+    outputs: [
+      '新增 arcade/games/geoguess「街景定位挑戰」:5 題、台灣地圖點選、距離計分',
+      '10 張 CC 授權台灣地景照(Wikimedia Commons),LICENSE_IMAGES.md 補出處',
+      '加入下課遊樂區(標「綜合」),遊樂區累計 8 款遊戲',
+      '驗證:抽題、地圖點選、距離計分、揭曉正解、總分結算皆正常,無 console 錯誤',
+    ],
+  },
 ];
 
 /* ============================================================
