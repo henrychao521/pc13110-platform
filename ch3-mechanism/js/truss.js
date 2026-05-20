@@ -6,12 +6,12 @@
 /* 節點座標(網格單位);桿件 [節點a, 節點b, 受力類型 'T'張/'C'壓, 相對量值] */
 const SPAN = 4, H = 1.6;
 function bottom(i) { return [i, 0]; }
-function top(i)    { return [i, H]; }
+function topPt(i)    { return [i, H]; }
 
 const TRUSSES = {
   'Pratt 普拉特': {
     joints: [bottom(0),bottom(1),bottom(2),bottom(3),bottom(4),
-             top(0),top(1),top(2),top(3),top(4)],
+             topPt(0),topPt(1),topPt(2),topPt(3),topPt(4)],
     /* index: B0..B4 = 0..4, T0..T4 = 5..9 */
     members: [
       /* 底弦(張) */ [0,1,'T',1],[1,2,'T',1.4],[2,3,'T',1.4],[3,4,'T',1],
@@ -23,7 +23,7 @@ const TRUSSES = {
   },
   'Howe 豪威': {
     joints: [bottom(0),bottom(1),bottom(2),bottom(3),bottom(4),
-             top(0),top(1),top(2),top(3),top(4)],
+             topPt(0),topPt(1),topPt(2),topPt(3),topPt(4)],
     members: [
       [0,1,'T',1],[1,2,'T',1.4],[2,3,'T',1.4],[3,4,'T',1],
       [5,6,'C',1],[6,7,'C',1.4],[7,8,'C',1.4],[8,9,'C',1],
@@ -34,7 +34,7 @@ const TRUSSES = {
   },
   'Warren 華倫': {
     joints: [bottom(0),bottom(1),bottom(2),bottom(3),bottom(4),
-             top(0),top(1),top(2),top(3)],
+             topPt(0),topPt(1),topPt(2),topPt(3)],
     /* B0..B4=0..4, T0..T3=5..8(頂節點在底節點之間)*/
     members: [
       [0,1,'T',1],[1,2,'T',1.3],[2,3,'T',1.3],[3,4,'T',1],
