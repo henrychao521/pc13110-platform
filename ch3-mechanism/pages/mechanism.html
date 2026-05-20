@@ -107,6 +107,32 @@
   </div>
 
   <div class="activity-box">
+    <span class="ab-label">🛠 開源工具實作:設計你的連桿機構</span>
+    <h3 style="margin-bottom:4px">用 PMKS+ 自己建立機構</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      上方四種機構是「看現成的」,這裡讓你「自己設計」。
+      <strong>PMKS+</strong>(Planar Mechanism Kinematic Simulator)是 Oregon State University
+      Matthew I. Campbell 教授開源的平面連桿模擬器(MIT 授權)。在下方視窗中拖曳節點、
+      加入連桿與固定點,設定輸入旋轉,即時觀察輸出端的運動軌跡與速度/加速度曲線。
+    </p>
+    <div class="panel-soft" style="font-size:12.5px;margin-bottom:10px">
+      <strong>挑戰任務:</strong>
+      <ol style="margin:4px 0 0 20px;line-height:1.8">
+        <li>做一個能<strong>整圈旋轉</strong>的曲柄搖桿(四連桿,滿足 Grashof 定則)。</li>
+        <li>把最短桿改長,直到不再滿足定則——觀察輸出端如何從「整圈旋轉」變成「來回擺動」。</li>
+        <li>看看能不能讓機構運轉到<strong>死點</strong>並卡住,理解死點的位置。</li>
+      </ol>
+    </div>
+    <iframe src="https://designengrlab.github.io/PMKS/" title="PMKS+ Planar Mechanism Kinematic Simulator"
+      style="width:100%;height:560px;border:1px solid var(--border);border-radius:10px;background:#fff"
+      loading="lazy"></iframe>
+    <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px">
+      工具由 DesignEngrLab 開發、原作者 Matthew I. Campbell(Oregon State University)・MIT 授權。
+      若內嵌視窗操作不順,可 <a href="https://designengrlab.github.io/PMKS/" target="_blank" rel="noopener">在新分頁開啟 PMKS+</a>。
+    </p>
+  </div>
+
+  <div class="activity-box">
     <span class="ab-label">🧠 觀念檢核</span>
     <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
     <div id="quizArea"></div>
@@ -125,6 +151,18 @@
       <span><span class="rc-title">Onshape Learning Center</span>
       <span class="rc-src">learn.onshape.com</span>
       <span class="rc-desc">含組立件與運動模擬的官方教學。</span></span>
+    </a>
+    <a class="resource-card" href="https://designengrlab.github.io/PMKS/" target="_blank" rel="noopener">
+      <span class="rc-icon">🛠</span>
+      <span><span class="rc-title">PMKS+ 連桿機構模擬器</span>
+      <span class="rc-src">designengrlab.github.io/PMKS</span>
+      <span class="rc-desc">Oregon State Univ. 開源(MIT)的平面連桿動力學模擬,瀏覽器內直接設計與分析。</span></span>
+    </a>
+    <a class="resource-card" href="https://kmoddl.library.cornell.edu/" target="_blank" rel="noopener">
+      <span class="rc-icon">🏛</span>
+      <span><span class="rc-title">KMODDL — Cornell 機構模型典藏</span>
+      <span class="rc-src">kmoddl.library.cornell.edu</span>
+      <span class="rc-desc">Cornell 大學的 Reuleaux 機構模型典藏,19 世紀以來經典機構的 3D 模型與動畫。</span></span>
     </a>
   </div>
 

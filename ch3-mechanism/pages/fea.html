@@ -138,6 +138,41 @@
   </div>
 
   <div class="activity-box">
+    <span class="ab-label">🖥 上機實作:跟著做一次 FEA</span>
+    <h3 style="margin-bottom:4px">用開源 FreeCAD 完成 L 型支架的有限元素分析</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      上方學了 FEA 的觀念與操作步驟,這裡帶你用<strong>完全免費、開源</strong>的工具實際走過一次。
+      <strong>FreeCAD</strong> 是業界與教育界廣泛使用的開源 CAD/CAE 軟體(LGPL 授權,Windows/macOS/Linux 皆可),內建
+      <strong>FEM Workbench</strong>,呼叫 <strong>CalculiX</strong>(GPL 求解器)執行 FEA 計算。
+      教室或家用電腦皆可安裝,沒有試用期。
+    </p>
+    <div class="oss-credit" style="margin-bottom:12px">
+      <span class="oss-icon">🧩</span>
+      <span>FreeCAD ©2002–present, The FreeCAD Project,LGPL 2.1+;CalculiX ©Guido Dhondt,GPL v2。兩者皆為完全免費的開源軟體。</span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">① 下載與安裝</div>
+        <div class="tl-text">到 <a href="https://www.freecad.org/" target="_blank" rel="noopener">freecad.org</a> 下載對應作業系統的安裝檔(約 500 MB)。安裝完成後啟動,左上 Workbench 切換到 <strong>FEM</strong>。</div></div>
+      <div class="tl-item"><div class="tl-year">② 建立或匯入模型</div>
+        <div class="tl-text">用 Part Design 畫一個簡單 L 型支架(或匯入課本提供的 STEP 檔)。先移除不影響結構強度的圓角、刻字、小孔——這就是「模型淨化」。</div></div>
+      <div class="tl-item"><div class="tl-year">③ 建立 FEM 分析容器</div>
+        <div class="tl-text">點工具列「Analysis container」,系統會自動帶入 Solver(CalculiXccxTools)、Material、Constraints 等預設步驟。材料先選「Steel」(或課堂指定的鋼/鋁)。</div></div>
+      <div class="tl-item"><div class="tl-year">④ 設定邊界條件</div>
+        <div class="tl-text">在支架要固定的安裝面加入 <strong>Constraint fixed</strong>(完全約束);在受力面加入 <strong>Constraint force</strong>,輸入力的大小與方向(例如 100 N,沿 -Z)。</div></div>
+      <div class="tl-item"><div class="tl-year">⑤ 網格切割</div>
+        <div class="tl-text">右鍵 Analysis container → 加入 <strong>Mesh / Gmsh</strong>,讓 FreeCAD 把物體切成有限元素。先用預設參數跑一次;結果若不夠細緻再縮小元素尺寸。</div></div>
+      <div class="tl-item"><div class="tl-year">⑥ 執行求解</div>
+        <div class="tl-text">雙擊 Solver,點 <strong>Write .inp file</strong> 產出輸入檔,再點 <strong>Run CalculiX</strong> 啟動求解(視模型大小,幾秒到幾分鐘)。</div></div>
+      <div class="tl-item"><div class="tl-year">⑦ 檢視結果雲圖</div>
+        <div class="tl-text">求解完成後,雙擊結果項目並選 <strong>von Mises Stress</strong>,即可看到應力雲圖。紅色為應力最大、最易破壞處——驗證:它是不是出現在「<strong>內側轉角</strong>」?與課堂講解一致。</div></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:10px">
+      ※ 詳細圖文教學可參閱 FreeCAD 官方 <a href="https://wiki.freecad.org/FEM_tutorial" target="_blank" rel="noopener">FEM Tutorial wiki</a>。學校電腦若沒安裝權限,可改用免安裝的可攜版(FreeCAD AppImage / Portable)。
+    </p>
+  </div>
+
+  <div class="activity-box">
     <span class="ab-label">🧠 觀念檢核</span>
     <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
     <div id="quizArea"></div>
@@ -156,6 +191,18 @@
       <span><span class="rc-title">Autodesk Fusion</span>
       <span class="rc-src">autodesk.com</span>
       <span class="rc-desc">課本範例採用的軟體,內建 FEA 模擬,教育版免費。</span></span>
+    </a>
+    <a class="resource-card" href="https://www.freecad.org/" target="_blank" rel="noopener">
+      <span class="rc-icon">🛠</span>
+      <span><span class="rc-title">FreeCAD</span>
+      <span class="rc-src">freecad.org</span>
+      <span class="rc-desc">完全免費的開源 CAD/CAE(LGPL),內建 FEM Workbench,本模組上機實作的工具。</span></span>
+    </a>
+    <a class="resource-card" href="http://www.dhondt.de/" target="_blank" rel="noopener">
+      <span class="rc-icon">🧮</span>
+      <span><span class="rc-title">CalculiX</span>
+      <span class="rc-src">dhondt.de</span>
+      <span class="rc-desc">FreeCAD 背後的開源 FEA 求解器(GPL),由 Guido Dhondt 等學者維護。</span></span>
     </a>
   </div>
 

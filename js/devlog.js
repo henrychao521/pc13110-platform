@@ -576,6 +576,23 @@ const PHASES = [
       '重截 assets/manual/m-truss.jpg 使教師手冊截圖反映實際渲染',
     ],
   },
+  {
+    tag: '段落 42',
+    date: '2026-05-20',
+    title: '第 3 章導入開源工具:PMKS+ 連桿模擬、FreeCAD FEA、PhET 槓桿等',
+    verbatim: '上面延伸方向先處理內容微調,針對三到五章,先前沒有逐一討論,現在先從第三章開始,思考看看有沒有什麼符合這章可以用的開源專案?可以提升本章活動廣度與上機實作經驗。',
+    context: '為第 3 章「機構與結構的深化探究」補齊「自己動手設計」與「真實工具上機」兩塊弱項,盤點並導入符合本章主題的開源專案。事先以 curl 確認各 URL 可達、無 X-Frame-Options 阻擋,並查證授權:① 3-2 機構模組嵌入 PMKS+(Planar Mechanism Kinematic Simulator,Oregon State Univ. Matthew I. Campbell,MIT)的 iframe,讓學生拖曳節點自己設計四連桿/曲柄滑塊,結合 Grashof 定則與死點觀念設計三項挑戰任務;② 3-1 FEA 模組新增「🖥 上機實作:跟著做一次 FEA」step-by-step 七步教學,使用開源 FreeCAD(LGPL)+ FEM Workbench/CalculiX(GPL)完整走過 L 型支架的 FEA(下載安裝→建模→分析容器→邊界條件→網格→求解→雲圖判讀);③ 3-1 靜力學模組嵌入 PhET「Balancing Act」(科羅拉多大學,CC BY 4.0)中文版,以槓桿平衡實體比喻 ΣM=0,搭配 Intro/Balance Lab/Game 三段建議玩法;④ 3-1 桁架模組延伸資源新增 OpenSees(UC Berkeley,BSD)與 Frame3DD(GPL)兩款業界結構分析求解器;⑤ 3-3 AI 輔助模組延伸資源新增 ToPy(MIT)拓樸最佳化開源實作,呼應 GenCAD 主軸;⑥ 同步更新 manual.html 對應的三張指引卡(靜力學、機構、FEA),把新增的開源工具與課堂帶法寫入。',
+    decisions: ['以 curl 預先驗證每個外連 URL 可達、無 X-Frame-Options 限制再決定是否 iframe', 'PMKS+ 與 PhET 兩個輕量瀏覽器工具直接 iframe 嵌入,學生即時操作', 'FreeCAD 太重不嵌入,改寫成 7 步上機實作教學頁,適合電腦課使用', 'OpenSees／Frame3DD／ToPy 太重或為函式庫,僅作延伸資源連結', '教師手冊同步更新指引卡,把新工具與帶法寫入學生操作／課堂指引/提醒欄', '所有外部工具皆標註原作者與授權(MIT／CC BY 4.0／LGPL／GPL／BSD)以符合事實宣稱規範'],
+    outputs: [
+      'ch3-mechanism/pages/mechanism.html:新增 PMKS+ iframe 區塊與 3 項挑戰任務、延伸資源加 PMKS+ 與 KMODDL',
+      'ch3-mechanism/pages/fea.html:新增「🖥 上機實作」FreeCAD+CalculiX 7 步教學、延伸資源加 FreeCAD 與 CalculiX',
+      'ch3-mechanism/pages/statics.html:新增 PhET Balancing Act iframe 區塊與 3 段玩法、延伸資源加 PhET',
+      'ch3-mechanism/pages/truss.html:延伸資源新增 OpenSees 與 Frame3DD',
+      'ch3-mechanism/pages/ai-analysis.html:延伸資源新增 ToPy 拓樸最佳化',
+      'manual.html:3-1 靜力學／3-2 機構／3-1 FEA 三張指引卡更新,寫入新工具與課堂帶法',
+      '驗證:preview 實測 5 頁全部 200、PMKS+ 與 PhET iframe 載入(816×560、816×510)、無新 console 錯誤',
+    ],
+  },
 ];
 
 /* ============================================================
