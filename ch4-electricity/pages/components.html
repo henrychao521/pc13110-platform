@@ -38,6 +38,24 @@
   .res-out { text-align:center; font-family:var(--font-mono); font-size:26px; font-weight:700;
     color:var(--theme-dark); margin-top:10px; }
   @media(max-width:680px){ .comp-grid{grid-template-columns:1fr;} }
+
+  /* 元件運作動畫 */
+  .csim-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .csim-tabs button { font-size:13px; font-weight:700; padding:7px 14px; border-radius:8px;
+    border:2px solid var(--border-strong); background:#fff; cursor:pointer; color:var(--text); }
+  .csim-tabs button.active { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .csim-tabs button:hover:not(.active) { background:var(--bg-soft); }
+  .csim-stage { border:1px solid var(--border); border-radius:10px; background:#F8FAFC; padding:6px; }
+  .csim-stage svg { display:block; width:100%; max-height:300px; }
+  .csim-wire { stroke:#1F2937; stroke-width:3; stroke-linecap:round; fill:none; }
+  .csim-wire.live { stroke:#DC2626; }
+  .csim-ctrls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:8px; font-size:13px; font-weight:700; }
+  .csim-ctrls button { background:#fff; border:2px solid var(--theme); color:var(--theme);
+    padding:7px 14px; border-radius:8px; font-weight:700; cursor:pointer; }
+  .csim-ctrls button.on { background:var(--theme); color:#fff; }
+  .csim-ctrls input[type=range] { flex:1; accent-color:var(--theme); min-width:140px; }
+  .csim-info { font-size:13px; color:var(--text-soft); margin-top:8px; line-height:1.7; min-height:42px; padding:8px 12px; background:var(--bg-soft); border-radius:8px; }
+  .csim-info strong { color:var(--theme-dark); }
 </style>
 </head>
 <body class="ch4">
@@ -152,6 +170,27 @@
     <div class="band-row" id="bandRow"></div>
     <div class="res-out" id="resOut">—</div>
     <div id="resNote" style="font-size:13px;color:var(--text-soft);text-align:center;margin-top:4px"></div>
+  </div>
+
+  <!-- 互動:元件運作動畫 -->
+  <div class="activity-box">
+    <span class="ab-label">⚡ 動手觀察:元件在電路裡做什麼?</span>
+    <h3 style="margin-bottom:4px">看四種元件「實際工作」的樣子</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      上方是元件的「長相」,這裡看它們的「工作」。LED 怎麼亮?電容如何充放電?二極體為什麼是「單向閥」?
+      電晶體如何「小電流控制大電流」?切換分頁、操作控制器,觀察電流(黃色小點)的流向。
+    </p>
+    <div class="csim-tabs" id="csimTabs">
+      <button data-c="led" class="active">💡 LED 通電</button>
+      <button data-c="cap">🔋 電容充放電</button>
+      <button data-c="diode">↔ 二極體單向</button>
+      <button data-c="trans">🔁 電晶體開關</button>
+    </div>
+    <div class="csim-stage">
+      <svg id="csimSvg" viewBox="0 0 720 280" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="csim-ctrls" id="csimCtrls"></div>
+    <div class="csim-info" id="csimInfo"></div>
   </div>
 
   <div class="knowledge-box">

@@ -91,6 +91,31 @@
     </div>
   </div>
 
+  <!-- 互動①.5:NAND / NOR / XOR 擴充 -->
+  <div class="activity-box">
+    <span class="ab-label">🔁 進階邏輯閘:NAND / NOR / XOR</span>
+    <h3 style="margin-bottom:4px">六大基本邏輯閘真值表互動</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      除了 AND 與 OR,還有<strong>反向</strong>(NOT、NAND、NOR)與<strong>互斥</strong>(XOR)幾個重要的邏輯閘。
+      切換閘類型、點兩個輸入按鈕(A、B)看符號、輸出 Y、與真值表的對應。
+      <strong>挑戰</strong>:NAND 被稱為「通用邏輯閘」,因為只要 NAND 就能組出任何其他邏輯——你能用三個 NAND 組出 AND 嗎?
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:14px;align-items:start" id="lgxStage">
+      <div class="lgx-side" style="background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px">
+        <div class="lgx-gates" id="lgxGates" style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px"></div>
+        <svg id="lgxSvg" viewBox="0 0 320 160" style="display:block;width:100%;max-height:200px;background:#F8FAFC;border:1px solid var(--border);border-radius:8px"></svg>
+        <div style="display:flex;gap:12px;justify-content:center;margin-top:10px;font-size:13px;font-weight:700">
+          <button id="lgxA" type="button" style="padding:8px 14px;border-radius:8px;border:2px solid var(--theme);background:#fff;color:var(--theme);cursor:pointer;font-weight:700">A = 0</button>
+          <button id="lgxB" type="button" style="padding:8px 14px;border-radius:8px;border:2px solid var(--theme);background:#fff;color:var(--theme);cursor:pointer;font-weight:700">B = 0</button>
+        </div>
+      </div>
+      <div>
+        <table class="truth" id="lgxTruth" style="width:100%"></table>
+        <div id="lgxInfo" style="font-size:13px;color:var(--text-soft);margin-top:10px;padding:8px 12px;background:var(--bg-soft);border-radius:8px;line-height:1.7"></div>
+      </div>
+    </div>
+  </div>
+
   <section class="content-section">
     <h2>光感應自動開關電路</h2>
     <p>

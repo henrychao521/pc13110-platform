@@ -593,6 +593,25 @@ const PHASES = [
       '驗證:preview 實測 5 頁全部 200、PMKS+ 與 PhET iframe 載入(816×560、816×510)、無新 console 錯誤',
     ],
   },
+  {
+    tag: '段落 43',
+    date: '2026-05-20',
+    title: '第 4、5 章導入七項自製模擬:電路連接、元件運作、虛擬電表等',
+    verbatim: '然後第四、第五章我希望能讓學生在線上模擬或是看到電路的連接模擬影像,你可以幫我研究看看是否可以透過程式做出模擬畫面嗎?',
+    context: '為第 4、5 章補齊「線上模擬」與「電路連接視覺化」兩塊弱項。研究後採純前端 SVG + Canvas 自製七項互動,完全跑在學生瀏覽器、零相依:① ch5 peripherals 感測器接線實驗——LDR／按鈕／HC-SR04 三種感測器,點「接線通電」看完整接線動畫,拖動環境變數(亮度/距離)看 ESP32 即時讀值印在序列埠監控視窗,即時計算電壓/ADC/echo 脈寬;② ch4 components 元件運作動畫——LED 通電、電容充放電(含電量條)、二極體單向(順/逆向偏壓對比)、電晶體開關(雙迴路示意「小電流控大電流」),每元件以沿線跑的黃色電流點呈現;③ ch4 tools 虛擬三用電表——三檔位(V/Ω/A)× 紅黑探棒在 A/B/C 三節點,即時計算分壓器(9V+4.7kΩ+10kΩ)的讀值,含克希荷夫挑戰任務;④ ch5 boards 腳位接線挑戰——4 題接線實境(LED/按鈕/光敏分壓/伺服),點 ESP32 26 隻腳位的對的腳才過關,糾錯時說明 GPIO 34–39 為何僅輸入、ADC1 vs ADC2 等實作細節;⑤ ch5 project 資料流視覺化——系統規劃器新增 SVG 資料流圖,自動依所選元件標示「訊號類型」(類比/數位/PWM)與對應程式 API(analogRead/digitalRead/pulseIn/servo.write 等),含動畫流動點;⑥ ch4 circuit 引導式電路積木——「LED 點亮」與「分壓器」兩情境,每按一次下一步右側清單勾掉一步、左側 SVG 多放一個元件,最後通電動畫;⑦ ch4 logic 進階邏輯閘——擴充至 7 種閘(AND/OR/NOT/NAND/NOR/XOR/XNOR),自製 SVG 閘符號 + 即時真值表 + 解說(含 NAND 為通用邏輯閘的挑戰)。所有互動皆繁中介面、可離線、加入既有模組頁,沿用平台配色與互動模式。',
+    decisions: ['七項全部自製,純前端 SVG/Canvas,不引外部 iframe(已有 CircuitJS/Wokwi 即可)', 'peripherals 接線動畫採 stroke-dashoffset 動畫 + 即時讀值物理公式(LDR R/V 換算、HC-SR04 距離→μs)', 'components 用沿 SVG path 跑的黃色點代表電流,直觀展示能量流動', '虛擬三用電表以 9V+4.7kΩ+10kΩ 分壓器為固定測試電路,涵蓋三檔位 × 三節點全組合', 'boards 腳位挑戰把實作最常見的卡關(輸入專用/ADC2/伺服電壓)做成錯誤回饋,學前提醒不會踩雷', 'project 資料流圖自動標訊號類型 + 程式 API,把學生選的元件組合即時翻譯成「該寫什麼程式」', '引導式電路積木以「下一步」清單漸進建構 SVG,比一次給最終圖更易理解結構', '邏輯閘擴充採可重用的 SVG 閘符號函式,7 種閘共用同一套渲染管線'],
+    outputs: [
+      'ch5/peripherals.html + peripherals.js:感測器接線實驗(3 情境 + SVG 動畫接線 + 序列埠讀值)',
+      'ch4/components.html + components.js:元件運作動畫(4 元件 × Canvas 電流動畫 + 互動控制)',
+      'ch4/tools.html + tools.js:虛擬三用電表(三檔位 × 三節點 × 即時讀數)',
+      'ch5/boards.html + boards.js:ESP32 腳位接線挑戰(4 題 × 26 腳位 × 角色驗證)',
+      'ch5/project.html + project.js:資料流視覺化(SVG + 訊號類型 + 動畫 + 程式 API 提示)',
+      'ch4/circuit.html + circuit.js:引導式電路積木(2 情境 × 6 步驟漸進建構)',
+      'ch4/logic.html + logic.js:7 種邏輯閘 + 即時真值表(NAND/NOR/XOR 等擴充)',
+      'manual.html:7 張對應指引卡同步更新,寫入新互動的學生操作/課堂指引/提醒',
+      '驗證:preview 實測 7 頁全部 200、各 SVG/Canvas 互動正常、所有切換/讀值/答題流程通過、無新 console 錯誤',
+    ],
+  },
 ];
 
 /* ============================================================

@@ -14,6 +14,31 @@
   .sim-frame { width:100%; height:520px; border:1px solid var(--border);
     border-radius:10px; background:#fff; }
   @media(max-width:680px){ .sim-frame{height:420px;} }
+
+  /* 引導式電路積木 */
+  .gcb-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .gcb-tabs button { font-size:13px; font-weight:700; padding:7px 14px; border-radius:8px;
+    border:2px solid var(--border-strong); background:#fff; cursor:pointer; color:var(--text); }
+  .gcb-tabs button.active { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .gcb-stage { display:grid; grid-template-columns:1.3fr 1fr; gap:14px; align-items:start; }
+  .gcb-canvas { border:1px solid var(--border); border-radius:10px; background:#F8FAFC; padding:6px; }
+  .gcb-canvas svg { display:block; width:100%; max-height:300px; }
+  .gcb-side { background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px; }
+  .gcb-side h4 { font-size:14px; font-weight:800; margin-bottom:8px; }
+  .gcb-steps { list-style:none; padding:0; margin:0; }
+  .gcb-steps li { display:flex; gap:10px; font-size:13px; padding:8px 10px; border-radius:8px;
+    margin-bottom:6px; background:var(--bg-soft); color:var(--text-muted); line-height:1.6; }
+  .gcb-steps li.active { background:var(--theme-light); color:var(--text); border-left:4px solid var(--theme); }
+  .gcb-steps li.done { background:#DCFCE7; color:#166534; }
+  .gcb-steps li .num { font-family:var(--font-mono); font-weight:700; min-width:22px; }
+  .gcb-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .gcb-actions button { font-weight:700; padding:7px 14px; border-radius:8px; border:2px solid var(--theme);
+    background:#fff; color:var(--theme); cursor:pointer; font-size:13px; }
+  .gcb-actions button.primary { background:var(--theme); color:#fff; }
+  .gcb-actions button:disabled { opacity:0.4; cursor:default; }
+  .gcb-readout { background:#0F172A; color:#4ADE80; font-family:var(--font-mono); font-size:13px;
+    padding:8px 12px; border-radius:6px; margin-top:8px; }
+  @media(max-width:880px){ .gcb-stage{grid-template-columns:1fr;} }
 </style>
 </head>
 <body class="ch4">
@@ -76,6 +101,34 @@
       </p>
     </div>
   </section>
+
+  <!-- 互動:引導式電路積木 -->
+  <div class="activity-box">
+    <span class="ab-label">🧩 動手練習:跟著步驟搭建電路</span>
+    <h3 style="margin-bottom:4px">逐步加入元件,看完整電路長出來</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      下方有 2 個常見電路。每按一次「<strong>下一步</strong>」,右側清單會勾掉一步,左側畫布會多放一個元件——
+      看著電路從零組裝起來。最後一步通電,觀察電流流動。完成後,你可以到下方 CircuitJS 模擬器自己重做一次。
+    </p>
+    <div class="gcb-tabs" id="gcbTabs">
+      <button data-c="led" class="active">💡 LED 點亮電路</button>
+      <button data-c="div">📏 分壓器(測中點電壓)</button>
+    </div>
+    <div class="gcb-stage">
+      <div class="gcb-canvas">
+        <svg id="gcbSvg" viewBox="0 0 380 240" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div class="gcb-side">
+        <h4 id="gcbTitle">目標:LED 點亮電路</h4>
+        <ul class="gcb-steps" id="gcbSteps"></ul>
+        <div class="gcb-readout" id="gcbReadout" style="display:none">—</div>
+        <div class="gcb-actions">
+          <button id="gcbReset">↺ 重來</button>
+          <button id="gcbNext" class="primary">▶ 下一步</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- 互動:CircuitJS 電路模擬器 -->
   <div class="activity-box">

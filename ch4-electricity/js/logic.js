@@ -145,3 +145,125 @@ QUIZ.forEach((q, i) => {
     },
   });
 });
+
+/* ============================================================
+ * 進階邏輯閘擴充 — NOT / NAND / NOR / XOR / XNOR + AND + OR
+ * ============================================================ */
+(function lgxSim() {
+  const svg = document.getElementById('lgxSvg');
+  if (!svg) return;
+  const gatesEl = document.getElementById('lgxGates');
+  const truthEl = document.getElementById('lgxTruth');
+  const infoEl = document.getElementById('lgxInfo');
+  const aBtn = document.getElementById('lgxA');
+  const bBtn = document.getElementById('lgxB');
+
+  const GATES = {
+    AND:  { fn:(a,b)=>a&b,        sym:'AND',  fmt:'A · B',         oneIn:false },
+    OR:   { fn:(a,b)=>a|b,        sym:'OR',   fmt:'A + B',         oneIn:false },
+    NOT:  { fn:(a)=>a^1,          sym:'NOT',  fmt:'¬A',            oneIn:true  },
+    NAND: { fn:(a,b)=>(a&b)^1,    sym:'NAND', fmt:'¬(A · B)',      oneIn:false },
+    NOR:  { fn:(a,b)=>(a|b)^1,    sym:'NOR',  fmt:'¬(A + B)',      oneIn:false },
+    XOR:  { fn:(a,b)=>a^b,        sym:'XOR',  fmt:'A ⊕ B',         oneIn:false },
+    XNOR: { fn:(a,b)=>(a^b)^1,    sym:'XNOR', fmt:'¬(A ⊕ B)',      oneIn:false },
+  };
+  const NOTES = {
+    AND:'A、B 同時為 1 時輸出才為 1。',
+    OR:'A 或 B 任一為 1 時輸出為 1。',
+    NOT:'單一輸入,輸出為輸入的反相(0↔1)。',
+    NAND:'AND 的反向。<strong>NAND 是「通用邏輯閘」</strong>——只用 NAND 就能組合出所有其他邏輯閘。',
+    NOR:'OR 的反向。也是通用邏輯閘,只用 NOR 即可組合出所有其他邏輯。',
+    XOR:'兩輸入「不同」時為 1。常用於加法器、奇偶位元檢查。',
+    XNOR:'XOR 的反向——兩輸入「相同」時為 1。用於比較器(判斷兩輸入是否相等)。',
+  };
+
+  let cur = 'NAND';
+  let A = 0, B = 0;
+
+  function gateSvg(name, Y) {
+    const g = GATES[name];
+    const oneIn = g.oneIn;
+    const yLit = Y === 1 ? '#22C55E' : '#9CA3AF';
+    function shapeBuf() { return `<polygon points="120,40 120,120 200,80" fill="#fff" stroke="#1F2937" stroke-width="2.5"/>`; }
+    function shapeAnd() { return `<path d="M120 40 L160 40 A40 40 0 0 1 160 120 L120 120 Z" fill="#fff" stroke="#1F2937" stroke-width="2.5"/>`; }
+    function shapeOr()  { return `<path d="M115 40 Q145 50 200 80 Q145 110 115 120 Q135 80 115 40 Z" fill="#fff" stroke="#1F2937" stroke-width="2.5"/>`; }
+    function shapeXor() { return shapeOr() + `<path d="M108 40 Q128 80 108 120" stroke="#1F2937" stroke-width="2.5" fill="none"/>`; }
+    function inv() { return `<circle cx="208" cy="80" r="6" fill="#fff" stroke="#1F2937" stroke-width="2"/>`; }
+    let shape = '';
+    if (name === 'NOT') shape = shapeBuf() + inv();
+    else if (name === 'AND') shape = shapeAnd();
+    else if (name === 'NAND') shape = shapeAnd() + inv();
+    else if (name === 'OR') shape = shapeOr();
+    else if (name === 'NOR') shape = shapeOr() + inv();
+    else if (name === 'XOR') shape = shapeXor();
+    else if (name === 'XNOR') shape = shapeXor() + inv();
+    const inputs = oneIn
+      ? `<line x1="40" y1="80" x2="${name==='NOT'?120:115}" y2="80" stroke="${A?'#DC2626':'#1F2937'}" stroke-width="2.5"/>
+         <text x="30" y="85" font-size="13" font-weight="700" fill="${A?'#DC2626':'#1F2937'}">A=${A}</text>`
+      : `<line x1="40" y1="55" x2="${name.includes('X')||name==='OR'||name==='NOR'?125:120}" y2="55" stroke="${A?'#DC2626':'#1F2937'}" stroke-width="2.5"/>
+         <line x1="40" y1="105" x2="${name.includes('X')||name==='OR'||name==='NOR'?125:120}" y2="105" stroke="${B?'#DC2626':'#1F2937'}" stroke-width="2.5"/>
+         <text x="30" y="60" font-size="13" font-weight="700" fill="${A?'#DC2626':'#1F2937'}">A=${A}</text>
+         <text x="30" y="110" font-size="13" font-weight="700" fill="${B?'#DC2626':'#1F2937'}">B=${B}</text>`;
+    return `<g>${inputs}${shape}
+      <line x1="${name==='NOT'||name.endsWith('AND')||name.endsWith('OR')||name.endsWith('NAND')||name.endsWith('NOR')||name.endsWith('XOR')||name.endsWith('XNOR') ? 214 : 200}" y1="80" x2="280" y2="80" stroke="${yLit}" stroke-width="3"/>
+      <text x="265" y="68" text-anchor="middle" font-size="14" font-weight="700" fill="${yLit}">Y=${Y}</text>
+      <circle cx="280" cy="80" r="6" fill="${yLit}"/>
+      <text x="160" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#1F2937">${g.sym} 閘 ・ Y = ${g.fmt}</text>
+    </g>`;
+  }
+
+  function truth(name) {
+    const g = GATES[name];
+    if (g.oneIn) {
+      return `<thead><tr><th>A</th><th>Y</th></tr></thead><tbody>
+        <tr class="${A===0?'hl':''}"><td>0</td><td>${g.fn(0)}</td></tr>
+        <tr class="${A===1?'hl':''}"><td>1</td><td>${g.fn(1)}</td></tr></tbody>`;
+    }
+    const rows = [[0,0],[0,1],[1,0],[1,1]];
+    return `<thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody>` +
+      rows.map(([a,b])=>`<tr class="${a===A&&b===B?'hl':''}"><td>${a}</td><td>${b}</td><td>${g.fn(a,b)}</td></tr>`).join('') +
+      `</tbody>`;
+  }
+
+  function render() {
+    const g = GATES[cur];
+    const Y = g.oneIn ? g.fn(A) : g.fn(A, B);
+    svg.innerHTML = gateSvg(cur, Y);
+    truthEl.innerHTML = truth(cur);
+    infoEl.innerHTML = `<strong>${g.sym}(${g.fmt})</strong>:${NOTES[cur]}`;
+    bBtn.style.display = g.oneIn ? 'none' : 'inline-block';
+    [...gatesEl.querySelectorAll('button')].forEach(b => b.classList.toggle('on', b.dataset.g === cur));
+  }
+
+  /* Gate selector buttons */
+  Object.keys(GATES).forEach(name => {
+    const b = document.createElement('button');
+    b.dataset.g = name;
+    b.textContent = name;
+    b.style.cssText = 'font-weight:700;font-size:12.5px;padding:6px 11px;border-radius:7px;border:2px solid var(--border-strong);background:#fff;cursor:pointer;color:var(--text);';
+    b.addEventListener('click', () => { cur = name; render(); });
+    b.addEventListener('mouseover', () => { if (!b.classList.contains('on')) b.style.background='var(--bg-soft)'; });
+    b.addEventListener('mouseout',  () => { if (!b.classList.contains('on')) b.style.background='#fff'; });
+    gatesEl.appendChild(b);
+  });
+  /* On-state styling via class toggle */
+  const styleEl = document.createElement('style');
+  styleEl.textContent = '#lgxGates button.on{background:var(--theme)!important;color:#fff!important;border-color:var(--theme)!important}';
+  document.head.appendChild(styleEl);
+
+  aBtn.addEventListener('click', () => {
+    A ^= 1;
+    aBtn.textContent = 'A = ' + A;
+    aBtn.style.background = A ? 'var(--theme)' : '#fff';
+    aBtn.style.color = A ? '#fff' : 'var(--theme)';
+    render();
+  });
+  bBtn.addEventListener('click', () => {
+    B ^= 1;
+    bBtn.textContent = 'B = ' + B;
+    bBtn.style.background = B ? 'var(--theme)' : '#fff';
+    bBtn.style.color = B ? '#fff' : 'var(--theme)';
+    render();
+  });
+  render();
+})();

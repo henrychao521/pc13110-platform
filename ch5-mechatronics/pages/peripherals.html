@@ -20,6 +20,33 @@
   .sensor-card b { font-size:13.5px; }
   .sensor-card p { font-size:12px; color:var(--text-soft); margin-top:3px; }
   @media(max-width:680px){ .sensor-grid{grid-template-columns:1fr;} }
+
+  /* 動手接線:感測器接到 ESP32 */
+  .wire-tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
+  .wire-tabs button { font-size:13px; font-weight:700; padding:7px 14px; border-radius:8px;
+    border:2px solid var(--border-strong); background:#fff; cursor:pointer; color:var(--text); }
+  .wire-tabs button.active { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .wire-tabs button:hover:not(.active) { background:var(--bg-soft); }
+  .wire-stage { border:1px solid var(--border); border-radius:10px; background:#F8FAFC;
+    padding:6px; overflow:hidden; }
+  .wire-stage svg { display:block; width:100%; height:auto; max-height:380px; }
+  .wire-wire { fill:none; stroke-width:3; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:800; stroke-dashoffset:800; transition:stroke-dashoffset 1.4s ease-out; }
+  .wire-wire.show { stroke-dashoffset:0; }
+  .wire-pin { fill:#fff; stroke:#0b0b18; stroke-width:1.5; }
+  .wire-pin.lit { fill:#FDE047; }
+  .wire-label { font-size:10px; font-family:var(--font-mono); fill:#475569; }
+  .wire-go-btn { background:var(--theme); color:#fff; border:none; padding:9px 18px;
+    border-radius:8px; font-weight:700; cursor:pointer; margin-top:8px; }
+  .wire-go-btn:disabled { background:var(--border-strong); cursor:default; }
+  .wire-go-btn:hover:not(:disabled) { filter:brightness(1.1); }
+  .wire-ctrl-row { display:flex; align-items:center; gap:12px; margin-top:8px; font-size:13px; font-weight:700; }
+  .wire-ctrl-row input[type=range] { flex:1; accent-color:var(--theme); }
+  .wire-ctrl-row .wcl { min-width:110px; }
+  .wire-ctrl-row .wcv { font-family:var(--font-mono); font-size:14px; font-weight:700; color:var(--theme); min-width:70px; text-align:right; }
+  .wire-btn-toggle { background:#fff; border:2px solid var(--theme); color:var(--theme);
+    padding:7px 16px; border-radius:8px; font-weight:700; cursor:pointer; }
+  .wire-btn-toggle.on { background:var(--theme); color:#fff; }
 </style>
 </head>
 <body class="ch5">
@@ -127,6 +154,28 @@
       </figure>
     </div>
   </section>
+
+  <!-- 互動:感測器接到 ESP32 — 接線 + 即時讀值 -->
+  <div class="activity-box">
+    <span class="ab-label">🔌 動手接線:感測器接到 ESP32</span>
+    <h3 style="margin-bottom:4px">虛擬接線實驗 + 即時讀值</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      認識感測器後,實際看看它怎麼「接到」ESP32 的哪幾隻腳。選一個感測器,點「▶ 接線通電」看完整接線動畫,
+      再拖動環境變數(亮度、距離等),觀察 ESP32 即時讀到的值並印在序列埠監控視窗。
+    </p>
+    <div class="wire-tabs" id="wireTabs">
+      <button data-s="ldr" class="active">💡 光敏電阻 LDR</button>
+      <button data-s="btn">👆 按鈕</button>
+      <button data-s="hcsr04">📏 超音波 HC-SR04</button>
+    </div>
+    <div class="wire-stage">
+      <svg id="wireSvg" viewBox="0 0 720 360" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <button class="wire-go-btn" id="wireGo">▶ 接線通電</button>
+    <div id="wireCtrls" style="margin-top:6px"></div>
+    <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-top:8px">📟 序列埠監控視窗(Serial Monitor)</div>
+    <div class="serial-mon" id="wireSerial"></div>
+  </div>
 
   <section class="content-section">
     <h2>序列埠通訊(Serial)</h2>

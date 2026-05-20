@@ -29,6 +29,29 @@
   .bb-hole.hl { background:var(--theme); box-shadow:0 0 0 2px var(--theme-light); }
   .bb-groove { height:14px; }
   @media(max-width:680px){ .tool-grid{grid-template-columns:1fr;} }
+
+  /* 虛擬三用電表 */
+  .dmm-stage { display:grid; grid-template-columns:1.1fr 1fr; gap:14px; align-items:start; }
+  .dmm-body { background:#FACC15; border:3px solid #92400E; border-radius:14px; padding:14px; box-shadow:var(--shadow-sm); }
+  .dmm-disp { background:#1F2937; color:#22D3EE; font-family:var(--font-mono); font-weight:700;
+    font-size:30px; text-align:right; padding:14px 16px; border-radius:8px; letter-spacing:1px; }
+  .dmm-unit { font-size:14px; color:#FCD34D; margin-left:6px; }
+  .dmm-mode { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 4px; }
+  .dmm-mode button { font-weight:700; font-size:13px; padding:6px 12px; border-radius:8px; border:2px solid #92400E;
+    background:#fff; cursor:pointer; }
+  .dmm-mode button.on { background:#92400E; color:#fff; }
+  .dmm-probe { display:flex; gap:8px; align-items:center; margin:6px 0; font-size:13px; }
+  .dmm-probe .pl { width:90px; font-weight:700; }
+  .dmm-probe .pr { display:flex; gap:5px; }
+  .dmm-probe .pr button { font-size:13px; font-weight:700; padding:5px 10px; border-radius:6px;
+    border:2px solid var(--border-strong); background:#fff; cursor:pointer; min-width:34px; }
+  .dmm-probe.red .pr button.on { background:#DC2626; color:#fff; border-color:#7F1D1D; }
+  .dmm-probe.black .pr button.on { background:#1F2937; color:#fff; border-color:#0b0b18; }
+  .dmm-circuit { border:1px solid var(--border); border-radius:10px; background:#F8FAFC; padding:6px; }
+  .dmm-circuit svg { display:block; width:100%; max-height:260px; }
+  .dmm-note { font-size:13px; color:var(--text-soft); margin-top:10px; padding:8px 12px;
+    background:var(--bg-soft); border-radius:8px; line-height:1.7; }
+  @media(max-width:680px){ .dmm-stage{grid-template-columns:1fr;} }
 </style>
 </head>
 <body class="ch4">
@@ -129,6 +152,43 @@
       </ul>
     </div>
   </section>
+
+  <!-- 互動:虛擬三用電表 -->
+  <div class="activity-box">
+    <span class="ab-label">🔢 動手操作:虛擬三用電表</span>
+    <h3 style="margin-bottom:4px">用三用電表量測電壓、電阻、電流</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      右側有一個簡單電路(9V 電池 + 4.7kΩ + 10kΩ 串聯,中間有節點 A、B、C)。
+      選擇電表檔位、把紅黑探棒放到不同節點,看電表讀數。<strong>挑戰</strong>:用電壓檔分別測 R1 與 R2 兩端電壓,
+      確認加總是否等於電池電壓(克希荷夫電壓定律)。
+    </p>
+    <div class="dmm-stage">
+      <div class="dmm-body">
+        <div class="dmm-disp"><span id="dmmRead">0.00</span><span class="dmm-unit" id="dmmUnit">V</span></div>
+        <div class="dmm-mode" id="dmmMode">
+          <button data-m="V" class="on">⚡ V 電壓</button>
+          <button data-m="R">Ω 電阻</button>
+          <button data-m="A">A 電流</button>
+        </div>
+        <div class="dmm-probe red">
+          <span class="pl">🔴 紅探棒(+)</span>
+          <span class="pr" id="probeR">
+            <button data-n="A" class="on">A</button><button data-n="B">B</button><button data-n="C">C</button>
+          </span>
+        </div>
+        <div class="dmm-probe black">
+          <span class="pl">⚫ 黑探棒(−)</span>
+          <span class="pr" id="probeB">
+            <button data-n="A">A</button><button data-n="B">B</button><button data-n="C" class="on">C</button>
+          </span>
+        </div>
+      </div>
+      <div class="dmm-circuit">
+        <svg id="dmmSvg" viewBox="0 0 380 240" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+    </div>
+    <div class="dmm-note" id="dmmNote">把紅探棒接到節點 A、黑探棒接到 C,V 檔讀數就是整個迴路的電壓 9V。</div>
+  </div>
 
   <!-- 互動:麵包板連通 -->
   <div class="activity-box">
