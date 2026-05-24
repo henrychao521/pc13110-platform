@@ -3,3 +3,7 @@
 **/._*
 *.swp
 node_modules/
+
+# 暫存 / 內部用 HTML（以 _ 開頭）— 如審查頁、決策中介頁
+# 想 commit 特定一個的話用：git add -f _filename.html
+_*.html
