@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AR 齒輪機構實境體驗 ｜ 第 3 章</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/svg-effects.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🥽%3C/text%3E%3C/svg%3E">
+<script type="module" src="../../vendor/model-viewer/model-viewer.min.js"></script>
+<style>
+  model-viewer {
+    width: 100%; height: 420px; display: block;
+    border: 1px solid var(--border); border-radius: 10px;
+    background: linear-gradient(180deg, #F1F5F9, #E2E8F0);
+    --poster-color: transparent;
+  }
+  model-viewer::part(default-ar-button) { bottom: 14px; right: 14px; }
+  .ar-hint { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+  .ar-hint .panel-soft { flex: 1; min-width: 200px; font-size: 12.5px; }
+  #mvStatus { font-size: 12.5px; color: var(--text-muted); margin-top: 6px; }
+</style>
+</head>
+<body class="ch3">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・3-2 AR 齒輪機構實境體驗</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../../index.html">首頁</a>
+    <a href="../index.html">第 3 章</a>
+  </nav>
+</header>
+
+<main class="module-page">
+  <div class="crumb">
+    <a href="../../index.html">首頁</a><span class="sep">›</span>
+    <a href="../index.html">第 3 章</a><span class="sep">›</span>
+    <span>AR 齒輪機構實境體驗</span>
+  </div>
+
+  <div class="module-head">
+    <div class="mh-tag">MODULE 3-2・AR 擴增實境</div>
+    <h1>AR 齒輪機構實境體驗</h1>
+    <p>上一個模組在「螢幕裡」看機構動畫;這個模組要把一組正在嚙合運轉的齒輪,用擴增實境(AR)以 1:1 真實尺寸「擺到你的桌上」,繞著它走一圈,從任何角度觀察。</p>
+  </div>
+
+  <section class="content-section">
+    <h2>AR:把模擬從螢幕帶進現實</h2>
+    <p>
+      <strong>擴增實境(Augmented Reality, AR)</strong>是把電腦產生的 3D 物件即時疊加到鏡頭畫面中的技術。
+      手機透過鏡頭與動態感測器辨識出桌面、地板等平面,把虛擬模型「釘」在該處——你移動,它不動,就像真的放了一個物體。
+    </p>
+    <p>
+      對工程設計而言,AR 不只是炫:設計圖與模擬永遠是「縮小投影在螢幕上」,
+      而 AR 能用<strong>真實尺寸</strong>檢視還沒做出來的零件——裝得進機殼嗎?手搆得到把手嗎?
+      這正是第 1 章工程設計流程中「建模與分析」到「原型製作」之間,成本最低的一次實物感驗證。
+    </p>
+    <table class="data">
+      <thead><tr><th>觀看方式</th><th>裝置</th><th>使用的模型格式</th></tr></thead>
+      <tbody>
+        <tr><td><strong>網頁 3D 檢視</strong>(拖曳旋轉)</td><td>任何電腦/手機瀏覽器</td><td>glTF / GLB</td></tr>
+        <tr><td><strong>AR Quick Look</strong></td><td>iPhone / iPad(Safari)</td><td><strong>USDZ</strong></td></tr>
+        <tr><td><strong>Scene Viewer AR</strong></td><td>Android(Chrome,需 HTTPS)</td><td>GLB</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 互動:AR 齒輪組 -->
+  <div class="activity-box">
+    <span class="ab-label">🥽 動手操作:把齒輪組擺上你的桌面</span>
+    <h3 style="margin-bottom:4px">16 齒 × 8 齒嚙合齒輪組(齒數比 2:1)</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
+      先在下方 3D 視窗拖曳旋轉、滾輪縮放;用 <strong>iPhone/iPad 的 Safari</strong> 開啟本頁時,
+      點模型右下角的 <strong>AR 按鈕</strong>,對著桌面緩慢移動鏡頭,齒輪組就會以真實尺寸(寬約 15 公分)出現在桌上。
+    </p>
+    <model-viewer id="gearViewer"
+      src="../../assets/models/gear-train.glb"
+      ios-src="../../assets/models/gear-train.usdz"
+      alt="嚙合運轉中的 16 齒與 8 齒齒輪組,齒數比 2:1"
+      ar ar-modes="quick-look webxr scene-viewer"
+      loading="eager" camera-controls auto-rotate autoplay
+      shadow-intensity="1" exposure="1.1"
+      camera-orbit="30deg 65deg 0.42m" min-camera-orbit="auto auto 0.15m" max-camera-orbit="auto auto 1.2m">
+      <div slot="progress-bar"></div>
+    </model-viewer>
+    <div id="mvStatus">模型載入中…</div>
+    <div class="ar-hint">
+      <div class="panel-soft">📱 <strong>iPhone / iPad</strong>:Safari 開本頁 → 點 AR 鈕 → 掃描桌面 → 放置(可雙指縮放、單指拖移)。</div>
+      <div class="panel-soft">🤖 <strong>Android</strong>:Chrome 開本頁可看 3D;AR 模式需以 HTTPS 連線(如部署到 GitHub Pages)。</div>
+      <div class="panel-soft">💻 <strong>電腦</strong>:拖曳旋轉、滾輪縮放,觀察兩輪的嚙合與轉向。</div>
+    </div>
+  </div>
+
+  <div class="verify-box">
+    <span class="vb-label">🔍 觀察任務(AR 或 3D 視窗皆可)</span>
+    <ul>
+      <li>盯著大齒輪(鋼灰色,16 齒)轉<strong>一整圈</strong>,數一數小齒輪(黃銅色,8 齒)轉了幾圈?</li>
+      <li>兩個齒輪的<strong>轉向</strong>相同還是相反?</li>
+      <li>把視角拉近嚙合處:大齒輪的「齒」進入的,是不是恰好是小齒輪的「齒槽」?</li>
+    </ul>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">💡 知識小百科</span>
+    <h4>齒數比=轉速的槓桿</h4>
+    <p>
+      兩齒輪嚙合時,單位時間內通過接觸點的齒數必相等:<strong>n₁ × z₁ = n₂ × z₂</strong>
+      (n=轉速、z=齒數)。本模型 z₁=16、z₂=8,所以小齒輪轉速恰為大齒輪的
+      <strong>16 ÷ 8 = 2 倍</strong>,且外嚙合的兩輪<strong>轉向必相反</strong>。
+      想同向就再加一顆惰輪,想更大減速比就把多組齒輪串成齒輪系——這就是第 3-2 節「旋轉 → 旋轉」運動轉換的核心。
+    </p>
+    <p>
+      這個模型的動畫正是按照物理關係製作:大齒輪 8 秒轉 +360°,小齒輪同時轉 −720°,
+      兩輪的齒在接觸點永遠互相咬合、不穿模。
+    </p>
+  </div>
+
+  <div class="knowledge-box">
+    <span class="kb-label">🛠 工程現場</span>
+    <h4>同一份 3D 資產,從網頁到 App</h4>
+    <p>
+      你看到的齒輪組是用程式直接產生幾何(見本 repo <code>tools/generate_gear_model.py</code>),
+      一次輸出兩種格式:<strong>GLB</strong> 給網頁與 Android、<strong>USDZ</strong> 給 Apple 的 AR Quick Look。
+      未來把平台做成 iPad App 時,同一批 USDZ 可直接被 RealityKit 載入——資產零浪費,
+      這也是「先 WebAR 驗證內容、後原生 App 上架」開發策略的基礎。
+    </p>
+  </div>
+
+  <div class="activity-box">
+    <span class="ab-label">🧠 觀念檢核</span>
+    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <div id="quizArea"></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>
+  <div class="resource-grid">
+    <a class="resource-card" href="https://modelviewer.dev" target="_blank" rel="noopener">
+      <span class="rc-icon">🧊</span>
+      <span><span class="rc-title">&lt;model-viewer&gt;</span>
+      <span class="rc-src">modelviewer.dev</span>
+      <span class="rc-desc">Google 開源的網頁 3D/AR 元件(Apache-2.0),本頁即以它呈現模型。</span></span>
+    </a>
+    <a class="resource-card" href="https://developer.apple.com/augmented-reality/quick-look/" target="_blank" rel="noopener">
+      <span class="rc-icon">🍎</span>
+      <span><span class="rc-title">Apple AR Quick Look</span>
+      <span class="rc-src">developer.apple.com</span>
+      <span class="rc-desc">官方 USDZ 模型藝廊,用 iPhone 開啟即可體驗各種 AR 物件。</span></span>
+    </a>
+    <a class="resource-card" href="https://openusd.org" target="_blank" rel="noopener">
+      <span class="rc-icon">🎬</span>
+      <span><span class="rc-title">OpenUSD</span>
+      <span class="rc-src">openusd.org</span>
+      <span class="rc-desc">皮克斯開源的 USD 場景格式——USDZ 就是它的封裝版,已成 3D 內容交換標準。</span></span>
+    </a>
+  </div>
+
+  <div class="module-nav">
+    <a class="btn btn-ghost" href="mechanism.html">← 機構類型與運動</a>
+    <a class="btn btn-primary" href="ai-analysis.html" id="nextBtn">下一個:AI 輔助的機構結構分析 →</a>
+  </div>
+</main>
+
+<script src="../../js/main.js"></script>
+<script src="../../js/audio.js"></script>
+<script src="../../js/interactions.js"></script>
+<script src="../js/ar-gear.js"></script>
+</body>
+</html>

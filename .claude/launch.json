@@ -4,7 +4,7 @@
     {
       "name": "pc13110",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8731"],
+      "runtimeArgs": ["tools/serve.py", "8731"],
       "port": 8731
     }
   ]
