@@ -105,16 +105,27 @@ function lineChart(canvas, { labels, values, yMax, unit, color = THEME, mileston
     if (anim < 1) { anim = Math.min(1, anim + 0.045); requestAnimationFrame(draw); }
   }
 
-  canvas.addEventListener('mousemove', e => {
+  // pointer events：滑鼠 hover 與平板「點一下」都能看數值
+  let lastTick = 0;
+  function setHover(e) {
     const r = canvas.getBoundingClientRect();
     const x = e.clientX - r.left;
     const plotW = r.width - PAD.l - PAD.r;
     const step = plotW / (labels.length - 1);
     const idx = Math.round((x - PAD.l) / step);
     const ni = (idx >= 0 && idx < labels.length) ? idx : -1;
-    if (ni !== hoverIdx) { hoverIdx = ni; if (ni >= 0 && typeof SoundFX !== 'undefined') SoundFX.tick(); draw(); }
-  });
-  canvas.addEventListener('mouseleave', () => { hoverIdx = -1; draw(); });
+    if (ni !== hoverIdx) {
+      hoverIdx = ni;
+      // tick 音僅滑鼠播放並節流，避免掃過時連環響
+      if (ni >= 0 && e.pointerType === 'mouse' && performance.now() - lastTick > 120 && typeof SoundFX !== 'undefined') {
+        SoundFX.tick(); lastTick = performance.now();
+      }
+      draw();
+    }
+  }
+  canvas.addEventListener('pointermove', setHover);
+  canvas.addEventListener('pointerdown', setHover);
+  canvas.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; hoverIdx = -1; draw(); });
 
   return { redraw: () => { anim = 1; draw(); }, animate: () => { anim = 0; draw(); } };
 }
@@ -162,15 +173,17 @@ function barChart(canvas, { labels, values, unit, colors, yMax }) {
     if (anim < 1) { anim = Math.min(1, anim + 0.05); requestAnimationFrame(draw); }
   }
 
-  canvas.addEventListener('mousemove', e => {
+  function setHover(e) {
     const r = canvas.getBoundingClientRect();
     const plotW = r.width - PAD.l - PAD.r;
     const slot = plotW / values.length;
     const idx = Math.floor((e.clientX - r.left - PAD.l) / slot);
     const ni = (idx >= 0 && idx < values.length) ? idx : -1;
     if (ni !== hoverIdx) { hoverIdx = ni; draw(); }
-  });
-  canvas.addEventListener('mouseleave', () => { hoverIdx = -1; draw(); });
+  }
+  canvas.addEventListener('pointermove', setHover);
+  canvas.addEventListener('pointerdown', setHover);
+  canvas.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; hoverIdx = -1; draw(); });
 
   return { animate: () => { anim = 0; draw(); }, redraw: () => { anim = 1; draw(); } };
 }
@@ -202,12 +215,12 @@ function multiLineChart(canvas, { labels, series, yMax, unit }) {
 
     series.forEach((s, si) => {
       ctx.beginPath();
-      s.values.forEach((v, i) => { const x = px(i), y = py(v * anim + yMax * (1 - anim) * 0); i ? ctx.lineTo(x, py(v)) : ctx.moveTo(x, py(v)); });
+      s.values.forEach((v, i) => { const x = px(i), y = py(v * anim); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
       ctx.strokeStyle = s.color; ctx.lineWidth = hover === si ? 4 : 2.6;
       ctx.lineJoin = 'round'; ctx.globalAlpha = (hover === -1 || hover === si) ? 1 : 0.3;
       ctx.stroke();
       s.values.forEach((v, i) => {
-        ctx.beginPath(); ctx.arc(px(i), py(v), 4, 0, Math.PI * 2);
+        ctx.beginPath(); ctx.arc(px(i), py(v * anim), 4, 0, Math.PI * 2);
         ctx.fillStyle = s.color; ctx.fill();
       });
       /* 圖例 */
@@ -222,14 +235,16 @@ function multiLineChart(canvas, { labels, series, yMax, unit }) {
     ctx.globalAlpha = 1;
     if (anim < 1) { anim = Math.min(1, anim + 0.05); requestAnimationFrame(draw); }
   }
-  canvas.addEventListener('mousemove', e => {
+  function setHover(e) {
     const r = canvas.getBoundingClientRect();
     const ly = e.clientY - r.top - PAD.t;
     const idx = Math.floor(ly / 24);
     const ni = (e.clientX - r.left > r.width - PAD.r && idx >= 0 && idx < series.length) ? idx : -1;
     if (ni !== hover) { hover = ni; draw(); }
-  });
-  canvas.addEventListener('mouseleave', () => { hover = -1; draw(); });
+  }
+  canvas.addEventListener('pointermove', setHover);
+  canvas.addEventListener('pointerdown', setHover);
+  canvas.addEventListener('pointerleave', e => { if (e.pointerType !== 'mouse') return; hover = -1; draw(); });
   return { animate: () => { anim = 0; draw(); }, redraw: () => { anim = 1; draw(); } };
 }
 

@@ -99,11 +99,14 @@ function draw() {
   /* 統計 */
   const stat = document.getElementById('beamStat');
   if (overload) {
-    if (typeof SoundFX !== 'undefined') SoundFX.warn();
+    // 只在「剛跨過載門檻」時響一次，拖曳滑桿時不連環鳴叫
+    if (!draw._wasOverload && typeof SoundFX !== 'undefined') SoundFX.warn();
+    draw._wasOverload = true;
     stat.innerHTML = `<div style="background:var(--danger-light);color:#a72d2d;padding:8px 12px;border-radius:8px;border-left:3px solid var(--danger)">
       ⚠ <strong>變形過大!</strong>這樣的載重對「${['細','中','粗'][thick-1]}梁」太重了,結構恐失效。
       可<strong>換用更粗的梁</strong>或<strong>減少載重</strong>——這正是模擬要先告訴我們的事。</div>`;
   } else {
+    draw._wasOverload = false;
     stat.innerHTML = `<div style="font-size:13px;color:var(--text-soft)">
       目前變形量:<b style="font-family:var(--font-mono)">${maxDefl.toFixed(1)}</b>　|
       梁愈粗,剛度愈大（與厚度的<strong>三次方</strong>成正比),同樣載重下變形愈小。</div>`;

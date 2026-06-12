@@ -78,9 +78,39 @@ function resize() {
 window.addEventListener('resize', resize);
 
 let dragging = false, lx = 0, ly = 0;
-canvas.addEventListener('pointerdown', e => { dragging = true; lx = e.clientX; ly = e.clientY; });
-window.addEventListener('pointerup', () => { dragging = false; });
+const touches = new Map(); // 進行中的指針（雙指＝pinch 縮放）
+let pinchDist = 0;
+canvas.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+  if (touches.size === 2) {
+    const [a, b] = [...touches.values()];
+    pinchDist = Math.hypot(a.x - b.x, a.y - b.y);
+    dragging = false; // 進入雙指縮放就停止旋轉
+  } else {
+    dragging = true; lx = e.clientX; ly = e.clientY;
+  }
+});
+const endPointer = e => {
+  touches.delete(e.pointerId);
+  if (touches.size < 2) pinchDist = 0;
+  if (touches.size === 0) dragging = false;
+};
+window.addEventListener('pointerup', endPointer);
+window.addEventListener('pointercancel', endPointer);
 window.addEventListener('pointermove', e => {
+  if (touches.has(e.pointerId)) touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (touches.size === 2) {
+    const [a, b] = [...touches.values()];
+    const d = Math.hypot(a.x - b.x, a.y - b.y);
+    if (pinchDist > 0 && d > 0) {
+      rad = Math.min(500, Math.max(70, rad * (pinchDist / d)));
+      updateCam();
+    }
+    pinchDist = d;
+    return;
+  }
   if (!dragging) return;
   az -= (e.clientX - lx) * 0.01;
   pol = Math.min(1.45, Math.max(0.2, pol - (e.clientY - ly) * 0.01));

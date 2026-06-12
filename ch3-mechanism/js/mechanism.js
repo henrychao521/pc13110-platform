@@ -151,13 +151,18 @@ function drawGeneva(ctx, w, h) {
 
 const DRAW = { '曲柄滑塊': drawCrankSlider, '凸輪從動件': drawCam, '齒輪系': drawGears, '日內瓦機構': drawGeneva };
 
+let needsDraw = true; // 暫停時不必每幀全幅重繪，只有狀態變了才畫
 function frame() {
-  const { ctx, w, h } = setup();
-  (DRAW[curMech] || drawCrankSlider)(ctx, w, h);
-  if (running) theta += 0.03 * speed;
+  if (running || needsDraw) {
+    needsDraw = false;
+    const { ctx, w, h } = setup();
+    (DRAW[curMech] || drawCrankSlider)(ctx, w, h);
+    if (running) theta += 0.03 * speed;
+  }
   requestAnimationFrame(frame);
 }
 frame();
+window.addEventListener('resize', () => { needsDraw = true; });
 
 (function buildSeg() {
   const wrap = document.getElementById('mechSeg');
@@ -168,7 +173,7 @@ frame();
     b.addEventListener('click', () => {
       wrap.querySelectorAll('button').forEach(x => x.classList.remove('on'));
       b.classList.add('on');
-      curMech = name; theta = 0;
+      curMech = name; theta = 0; needsDraw = true;
       document.getElementById('mechNote').textContent = '💡 ' + MECHS[name];
       if (typeof SoundFX !== 'undefined') SoundFX.click();
     });

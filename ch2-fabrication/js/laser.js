@@ -83,6 +83,11 @@ function seg(id, opts, cur, fmt, onPick, dangerVal) {
     if (o === cur) b.classList.add('on');
     if (dangerVal !== undefined && o === dangerVal) b.classList.add('danger-opt');
     b.addEventListener('click', () => {
+      // 加工進行中鎖定參數，避免動畫進度被 drawPreview 整片擦掉、結果文案錯置
+      if (running) {
+        if (typeof showToast === 'function') showToast('加工中，請等本次完成', 'warn');
+        return;
+      }
       wrap.querySelectorAll('button').forEach(x => x.classList.remove('on'));
       b.classList.add('on');
       onPick(o);
