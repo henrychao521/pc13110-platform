@@ -612,6 +612,21 @@ const PHASES = [
       '驗證:preview 實測 7 頁全部 200、各 SVG/Canvas 互動正常、所有切換/讀值/答題流程通過、無新 console 錯誤',
     ],
   },
+  {
+    tag: '段落 44',
+    date: '2026-06-12',
+    title: '全站操作模擬優化:平板觸控、執行鎖定、十餘項互動修正(與 livingtech-tools 同步)',
+    verbatim: '幫我檢查PC13110 工程設計學習平台以及生活科技互動教具系列,上面有很多特殊的操作模擬,你看看是否可以將他們優化?包含操作、頁面等內容進行優化設計。',
+    verbatim2: '（確認後)你幫我處理並且push上去吧',
+    context: '對本平台 33 頁與 livingtech-tools 21 工具做全面盤點(程式碼掃描 + 瀏覽器實測,含模擬觸控事件)。最大發現是「滑鼠思維」:拖曳類互動在教室最常見的 iPad 上會壞掉或退化——排序拼圖用 HTML5 拖放(iOS 不支援)、3D 檢視器缺 touch-action 一拖就捲頁、圖表 tooltip 只綁滑鼠。本平台據此修復:① 共用排序拼圖(interactions.js,兩平台同一份檔案)改 Pointer Events 拖曳把手 + ▲▼ 按鈕;② 程式化建模/三視圖兩個 three.js 檢視器補 touch-action:none 並實作雙指 pinch 縮放;③ 趨勢圖表三種圖全改指針事件,平板點一下看數值,修多線圖失效的進場動畫與 hover tick 連環音;④ 雷射/CNC 加工進行中鎖定參數(原本中途改參數會把切割動畫整片擦掉、結果文案錯置);⑤ 十餘項互動 bug:邏輯閘輸出線 14px 斷縫(AND/OR/XOR 誤用反相閘的起點)、桁架計算器空欄出 NaN、懸臂梁過載時拖滑桿警告音轟炸(改跨門檻才響一次)、創意思考列印後分頁不還原、「界定問題」答錯也算過關(改答錯重出題)、元件頁完成條件矛盾(統一為檢核+4.7kΩ 色碼都要完成)、電容充電條亂數重繪抖動、ESP32 接線動畫不能重播(加「↻ 重新接線」)、腳位點擊目標 12px 過小(加大至 28px 隱形觸控墊)、機構頁暫停時仍 60fps 全幅重繪(改 dirty-flag)。',
+    decisions: ['拖曳互動一律 Pointer Events(滑鼠/觸控/觸控筆同一套),不再用 HTML5 DnD', '3D 檢視器縮放:桌機滾輪 + 平板雙指 pinch 並存', '加工模擬執行中鎖參數並 toast 提示,不打斷動畫', '檢核 gating 從寬轉嚴:答錯重試、雙條件完成,不再答錯也過關', '與 livingtech-tools 的共用 interactions.js 保持同檔同步', '優化先 cherry-pick 到 master 上線,AR 齒輪模組留在分支待驗收'],
+    outputs: [
+      '18 檔 +235/−76:interactions.js、modeling/orthographic(js+html)、trends、laser、cnc、simulation、truss、fea、mechanism、logic、components、boards、peripherals、process、thinking',
+      'livingtech-tools 同步優化 21 檔 +317/−95(電烙鐵觸控+送錫鈕、共用層三 bug、教師後台 6→20 工具等)',
+      '驗證:兩站巡檢頁面 console 全零錯誤;觸控實測通過(排序拖曳重排、3D pinch、圖表點擊 tooltip、雷射鎖定 toast、接線重播)',
+      'commit 204f7d2(分支)→ cherry-pick c24ff16(master)已部署;livingtech-tools a99c98a(main)已部署',
+    ],
+  },
 ];
 
 /* ============================================================
