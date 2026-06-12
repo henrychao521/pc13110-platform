@@ -117,7 +117,10 @@ function updateResistor() {
   document.getElementById('resNote').innerHTML = target
     ? '🎉 答對了!黃-紫-紅-金 正好是 4.7 kΩ ±5% 的常見電阻。'
     : '目前阻值:' + fmtOhm(val) + '。試著調出 4.7 kΩ(黃-紫-紅)。';
-  if (target && !Progress.isDone('ch4-components') && quizDone) finishModule();
+  if (target && !Progress.isDone('ch4-components')) {
+    if (quizDone) finishModule();
+    else if (!resistorTarget && typeof showToast === 'function') showToast('色碼正確!完成下方檢核即可過關', '');
+  }
   resistorTarget = target;
 }
 let resistorTarget = false, quizDone = false;
@@ -174,7 +177,10 @@ QUIZ.forEach((q, i) => {
       answered++;
       if (answered === QUIZ.length) {
         quizDone = true;
-        if (!Progress.isDone('ch4-components')) finishModule();
+        // 完成條件統一：檢核 + 4.7kΩ 色碼挑戰都要完成（原本檢核單獨就過關，挑戰形同裝飾）
+        if (Progress.isDone('ch4-components')) return;
+        if (resistorTarget) finishModule();
+        else if (typeof showToast === 'function') showToast('檢核完成!再把色碼調出 4.7 kΩ 就過關', '');
       }
     },
   });
@@ -340,11 +346,17 @@ QUIZ.forEach((q, i) => {
             setMode('charge');
           },
           tick() {
+            // 充電條每變化 5% 重繪一次（原本用亂數機率重繪，會抖動）
             let needRedraw = false;
             if (mode === 'charge') {
-              if (charge < 1) { charge = Math.min(1, charge + 0.006); needRedraw = Math.random() < 0.06; }
+              if (charge < 1) charge = Math.min(1, charge + 0.006);
             } else if (mode === 'discharge') {
-              if (charge > 0) { charge = Math.max(0, charge - 0.012); needRedraw = Math.random() < 0.08; }
+              if (charge > 0) charge = Math.max(0, charge - 0.012);
+            }
+            if (this._drawn === undefined) this._drawn = -1;
+            if (Math.abs(charge - this._drawn) >= 0.05 || ((charge === 0 || charge === 1) && this._drawn !== charge)) {
+              needRedraw = true;
+              this._drawn = charge;
             }
             if (needRedraw) grp = draw();
             if (grp) stepDots(grp, mode === 'discharge' ? 0.014 : 0.012);

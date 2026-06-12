@@ -136,9 +136,16 @@ draw();
 
 /* ---- 靜定計算器 ---- */
 document.getElementById('calcBtn').addEventListener('click', () => {
-  const b = +document.getElementById('bIn').value;
-  const r = +document.getElementById('rIn').value;
-  const j = +document.getElementById('jIn').value;
+  const bRaw = document.getElementById('bIn').value.trim();
+  const rRaw = document.getElementById('rIn').value.trim();
+  const jRaw = document.getElementById('jIn').value.trim();
+  const b = +bRaw, r = +rRaw, j = +jRaw;
+  if (!bRaw || !rRaw || !jRaw || !Number.isFinite(b) || !Number.isFinite(r) || !Number.isFinite(j)) {
+    document.getElementById('calcResult').innerHTML =
+      `<div style="background:var(--danger-light);color:#a72d2d;border-radius:8px;padding:10px 12px;margin-top:6px">請先填入 b（桿件數）、r（反力數）、j（節點數）三個數字。</div>`;
+    if (typeof SoundFX !== 'undefined') SoundFX.error();
+    return;
+  }
   const n = b + r - 2 * j;
   let verdict, color;
   if (n < 0) { verdict = `不穩定結構(桿件不足,會垮掉)`; color = 'var(--danger)'; }

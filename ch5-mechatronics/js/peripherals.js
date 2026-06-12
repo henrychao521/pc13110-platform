@@ -341,10 +341,10 @@ QUIZ.forEach((q, i) => {
   }
 
   function goWire() {
-    if (wired) return;
+    if (wired) render(cur); // 重新接線：先重置畫面與序列埠，再重播一次
     wired = true;
     goBtn.disabled = true;
-    goBtn.textContent = '✓ 已通電';
+    goBtn.textContent = '⏳ 接線中…';
     const paths = [...svg.querySelectorAll('.wire-wire')];
     paths.forEach((p, i) => setTimeout(() => p.classList.add('show'), i * 350));
     setTimeout(() => svg.querySelectorAll('.wire-pin').forEach(c => c.classList.add('lit')),
@@ -356,6 +356,7 @@ QUIZ.forEach((q, i) => {
       const ctl = sc.init();
       wmon.innerHTML = '';
       const update = () => {
+        if (document.hidden) return; // 分頁在背景時不累積序列埠輸出
         const line = ctl.read();
         const d = document.createElement('div');
         d.textContent = '> ' + line;
@@ -366,6 +367,8 @@ QUIZ.forEach((q, i) => {
       ctl.listen(update);
       update();
       tickT = setInterval(update, 900);
+      goBtn.disabled = false;
+      goBtn.textContent = '↻ 重新接線';
     }, paths.length * 350 + 1000);
   }
 

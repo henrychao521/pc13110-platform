@@ -13,7 +13,7 @@
 <style>
   .ortho-stage { display:grid; grid-template-columns:1.3fr 1fr; gap:14px; }
   #orthoView { width:100%; height:300px; border:1px solid var(--border);
-    border-radius:10px; background:#F1F5F9; cursor:grab; }
+    border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; }
   #orthoView:active { cursor:grabbing; }
   .views-col { display:flex; flex-direction:column; gap:8px; }
   .view-box { background:#fff; border:1px solid var(--border); border-radius:10px; padding:8px; }
@@ -28,7 +28,7 @@
   .opt-grid .opt canvas { display:block; }
   .opt-grid .opt .opt-label { font-size:11px; font-weight:700; color:var(--text-muted); }
   #chView { width:100%; height:230px; border:1px solid var(--border);
-    border-radius:10px; background:#F1F5F9; cursor:grab; }
+    border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; }
   #chView:active { cursor:grabbing; }
   .lvl-badge { display:inline-block; font-size:11px; font-weight:800; color:#fff;
     padding:2px 9px; border-radius:999px; }

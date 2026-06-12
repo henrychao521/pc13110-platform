@@ -48,6 +48,11 @@ function seg(id, opts, cur, fmt, onPick) {
     b.textContent = fmt(o);
     if (o === cur) b.classList.add('on');
     b.addEventListener('click', () => {
+      // 切削進行中鎖定參數，避免動畫與統計脫鉤
+      if (running) {
+        if (typeof showToast === 'function') showToast('切削中，請等本次完成', 'warn');
+        return;
+      }
       wrap.querySelectorAll('button').forEach(x => x.classList.remove('on'));
       b.classList.add('on');
       onPick(o);

@@ -113,21 +113,33 @@ function checkDone() {
 }
 
 /* ---- 動動腦 1：界定問題 ---- */
-Interactions.DiagnosisQuiz({
-  container: '#defineQuiz',
-  question: '情境：「學校走廊的盆栽常因忘記澆水而枯死。」下列哪一個是「界定良好」的工程問題敘述?',
-  options: [
-    { text: '我想讓走廊的植物變漂亮。', correct: false,
-      explain: '太模糊——沒有具體、可衡量的目標,也沒有限制條件。' },
-    { text: '設計一個裝置,在土壤濕度低於設定值時自動提醒澆水;成本需低於 300 元、體積不超過手掌大小。', correct: true,
-      explain: '正確!具體（自動提醒）、可衡量（濕度設定值）、有明確限制（成本、體積）——這才是好的問題界定。' },
-    { text: '植物為什麼會枯死?', correct: false,
-      explain: '這是一個「疑問」,屬於研究調查階段,還不是工程問題敘述。' },
-    { text: '直接買一批新的盆栽來換。', correct: false,
-      explain: '這是跳到「解決方案」了。界定問題階段應先把問題講清楚,而不是急著給答案。' },
-  ],
-  onAnswer: (correct) => { if (correct) { defineOK = true; checkDone(); } else { defineOK = true; checkDone(); } },
-});
+// 答錯時看完解說後重出題，答對才算通過（原本答錯也直接過關，檢核形同虛設）
+function renderDefineQuiz() {
+  Interactions.DiagnosisQuiz({
+    container: '#defineQuiz',
+    question: '情境：「學校走廊的盆栽常因忘記澆水而枯死。」下列哪一個是「界定良好」的工程問題敘述?',
+    options: [
+      { text: '我想讓走廊的植物變漂亮。', correct: false,
+        explain: '太模糊——沒有具體、可衡量的目標,也沒有限制條件。' },
+      { text: '設計一個裝置,在土壤濕度低於設定值時自動提醒澆水;成本需低於 300 元、體積不超過手掌大小。', correct: true,
+        explain: '正確!具體（自動提醒）、可衡量（濕度設定值）、有明確限制（成本、體積）——這才是好的問題界定。' },
+      { text: '植物為什麼會枯死?', correct: false,
+        explain: '這是一個「疑問」,屬於研究調查階段,還不是工程問題敘述。' },
+      { text: '直接買一批新的盆栽來換。', correct: false,
+        explain: '這是跳到「解決方案」了。界定問題階段應先把問題講清楚,而不是急著給答案。' },
+    ],
+    onAnswer: (correct) => {
+      if (correct) {
+        defineOK = true;
+        checkDone();
+      } else {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(renderDefineQuiz, 3500);
+      }
+    },
+  });
+}
+renderDefineQuiz();
 
 /* ---- 動動腦 2：流程排序 ---- */
 Interactions.SequencePuzzle({

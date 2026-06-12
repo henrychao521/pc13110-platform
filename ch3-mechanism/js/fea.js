@@ -149,7 +149,9 @@ Interactions.SequencePuzzle({
     '⑤ 施加負載:加上實際承受的力',
     '⑥ 求解與判讀:執行運算,觀察應力雲圖',
   ],
-  onComplete: () => {},
+  onComplete: () => {
+    if (typeof showToast === 'function') showToast('✓ FEA 模擬流程排序正確!', 'success');
+  },
 });
 
 /* ---- 檢核 ---- */

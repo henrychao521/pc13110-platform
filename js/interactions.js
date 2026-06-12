@@ -31,7 +31,7 @@ window.Interactions = (function() {
           <h4 style="margin:0;font-size:16px">🧩 ${title}</h4>
           <button class="sp-shuffle" style="background:#fff;border:1px solid var(--border);padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-family:var(--font-sans)">↻ 重新洗牌</button>
         </div>
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">拖曳卡片上下移動 → 排成正確順序後點「檢查答案」。</p>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">按住 ⋮⋮ 上下拖曳（滑鼠、手指都可以），或點 ▲▼ 移動 → 排成正確順序後點「檢查答案」。</p>
         <ol class="sp-list" style="list-style:none;padding:0;margin:0"></ol>
         <div style="display:flex;gap:10px;margin-top:14px;justify-content:space-between">
           <div class="sp-feedback" style="flex:1;font-size:13px;display:flex;align-items:center"></div>
@@ -45,36 +45,56 @@ window.Interactions = (function() {
 
     function renderList() {
       listEl.innerHTML = userOrder.map((origIdx, displayIdx) => `
-        <li class="sp-item" draggable="true" data-orig="${origIdx}" style="background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;cursor:grab;user-select:none;display:flex;align-items:center;gap:12px;transition:all .15s">
-          <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);min-width:28px">${displayIdx + 1}.</span>
+        <li class="sp-item" data-orig="${origIdx}" style="background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:8px 10px 8px 14px;margin-bottom:8px;user-select:none;-webkit-user-select:none;display:flex;align-items:center;gap:10px;transition:background .15s,border-color .15s">
+          <span style="font-size:11px;color:var(--text-muted);font-family:var(--font-mono);min-width:24px">${displayIdx + 1}.</span>
           <span style="flex:1;font-size:14px">${items[origIdx]}</span>
-          <span style="color:var(--text-light)">⋮⋮</span>
+          <span class="sp-arrows" style="display:flex;flex-direction:column;gap:3px">
+            <button type="button" class="sp-up" aria-label="上移一格" ${displayIdx === 0 ? 'disabled' : ''}>▲</button>
+            <button type="button" class="sp-down" aria-label="下移一格" ${displayIdx === userOrder.length - 1 ? 'disabled' : ''}>▼</button>
+          </span>
+          <span class="sp-handle" title="按住拖曳" aria-hidden="true">⋮⋮</span>
         </li>
       `).join('');
 
-      // 拖曳邏輯
-      let dragged = null;
+      // 排序邏輯：▲▼ 按鈕（點按、鍵盤皆可）＋ ⋮⋮ 指針拖曳（滑鼠與觸控通用）
       listEl.querySelectorAll('.sp-item').forEach(li => {
-        li.addEventListener('dragstart', e => { dragged = li; li.style.opacity = '.4'; });
-        li.addEventListener('dragend', () => { if (dragged) dragged.style.opacity = '1'; dragged = null; });
-        li.addEventListener('dragover', e => { e.preventDefault(); li.style.borderColor = 'var(--primary)'; });
-        li.addEventListener('dragleave', () => { li.style.borderColor = 'var(--border)'; });
-        li.addEventListener('drop', e => {
-          e.preventDefault();
-          li.style.borderColor = 'var(--border)';
-          if (!dragged || dragged === li) return;
-          const draggedIdx = userOrder.indexOf(parseInt(dragged.dataset.orig));
-          const targetIdx = userOrder.indexOf(parseInt(li.dataset.orig));
-          userOrder.splice(targetIdx, 0, userOrder.splice(draggedIdx, 1)[0]);
+        const idxOf = () => userOrder.indexOf(parseInt(li.dataset.orig));
+        const swap = (i, j) => {
+          [userOrder[i], userOrder[j]] = [userOrder[j], userOrder[i]];
           renderList();
-        });
-        // 觸控簡易支援：點擊上下箭頭
-        li.addEventListener('dblclick', () => {
-          const idx = userOrder.indexOf(parseInt(li.dataset.orig));
-          if (idx > 0) {
-            [userOrder[idx - 1], userOrder[idx]] = [userOrder[idx], userOrder[idx - 1]];
+          if (typeof SoundFX !== 'undefined') SoundFX.click();
+        };
+        li.querySelector('.sp-up').addEventListener('click', () => { const i = idxOf(); if (i > 0) swap(i, i - 1); });
+        li.querySelector('.sp-down').addEventListener('click', () => { const i = idxOf(); if (i < userOrder.length - 1) swap(i, i + 1); });
+
+        const handle = li.querySelector('.sp-handle');
+        handle.addEventListener('pointerdown', e => {
+          e.preventDefault();
+          li.classList.add('sp-dragging');
+          try { handle.setPointerCapture(e.pointerId); } catch (_) {}
+
+          const move = ev => {
+            for (const other of listEl.querySelectorAll('.sp-item')) {
+              if (other === li) continue;
+              const r = other.getBoundingClientRect();
+              if (ev.clientY > r.top && ev.clientY < r.bottom) {
+                listEl.insertBefore(li, ev.clientY > r.top + r.height / 2 ? other.nextSibling : other);
+                break;
+              }
+            }
+          };
+          const up = () => {
+            handle.removeEventListener('pointermove', move);
+            handle.removeEventListener('pointerup', up);
+            handle.removeEventListener('pointercancel', up);
+            // 以 DOM 目前順序回寫 userOrder，再重繪編號
+            const newOrder = [...listEl.querySelectorAll('.sp-item')].map(el => parseInt(el.dataset.orig));
+            userOrder.splice(0, userOrder.length, ...newOrder);
             renderList();
-          }
+          };
+          handle.addEventListener('pointermove', move);
+          handle.addEventListener('pointerup', up);
+          handle.addEventListener('pointercancel', up);
         });
       });
     }
@@ -257,8 +277,14 @@ if (!document.getElementById('interactions-style')) {
   style.id = 'interactions-style';
   style.textContent = `
     @keyframes fadeOut { from { opacity: .9; transform: translate(-50%,-50%) scale(1); } to { opacity: 0; transform: translate(-50%,-50%) scale(2); } }
-    .sp-item:active { cursor: grabbing; }
-    .hh-dot:focus { outline: none; }
+    .sp-handle { cursor: grab; touch-action: none; padding: 10px 8px; color: var(--text-light); font-size: 16px; line-height: 1; }
+    .sp-item.sp-dragging { opacity: .5; border-color: var(--primary) !important; cursor: grabbing; }
+    .sp-item.sp-dragging .sp-handle { cursor: grabbing; }
+    .sp-arrows button { border: 1px solid var(--border); background: var(--bg-soft); border-radius: 6px; min-width: 30px; min-height: 22px; font-size: 9px; cursor: pointer; color: var(--text-muted); padding: 0; }
+    .sp-arrows button:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+    .sp-arrows button:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .sp-arrows button:disabled { opacity: .25; cursor: default; }
+    .hh-dot:focus-visible { outline: 2px dashed var(--primary); outline-offset: 2px; }
   `;
   document.head.appendChild(style);
 }

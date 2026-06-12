@@ -152,6 +152,7 @@ QUIZ.forEach((q, i) => {
       const tx = right ? x - 10 : x + 10;
       const anchor = right ? 'end' : 'start';
       return `<g class="pin-clickable" data-pi="${idx}" style="cursor:pointer">
+        <rect x="${x-14}" y="${y-13}" width="28" height="26" fill="transparent"/>
         <rect x="${x-6}" y="${y-6}" width="12" height="12" rx="2" fill="${p.color}" stroke="#0b0b18" stroke-width="1"/>
         <text x="${tx}" y="${y+3}" text-anchor="${anchor}" font-size="11" font-family="JetBrains Mono" font-weight="700" fill="#E0E7FF">${p.name}</text>
       </g>`;

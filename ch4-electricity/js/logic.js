@@ -205,7 +205,7 @@ QUIZ.forEach((q, i) => {
          <text x="30" y="60" font-size="13" font-weight="700" fill="${A?'#DC2626':'#1F2937'}">A=${A}</text>
          <text x="30" y="110" font-size="13" font-weight="700" fill="${B?'#DC2626':'#1F2937'}">B=${B}</text>`;
     return `<g>${inputs}${shape}
-      <line x1="${name==='NOT'||name.endsWith('AND')||name.endsWith('OR')||name.endsWith('NAND')||name.endsWith('NOR')||name.endsWith('XOR')||name.endsWith('XNOR') ? 214 : 200}" y1="80" x2="280" y2="80" stroke="${yLit}" stroke-width="3"/>
+      <line x1="${['NOT','NAND','NOR','XNOR'].includes(name) ? 214 : 200}" y1="80" x2="280" y2="80" stroke="${yLit}" stroke-width="3"/>
       <text x="265" y="68" text-anchor="middle" font-size="14" font-weight="700" fill="${yLit}">Y=${Y}</text>
       <circle cx="280" cy="80" r="6" fill="${yLit}"/>
       <text x="160" y="150" text-anchor="middle" font-size="13" font-weight="700" fill="#1F2937">${g.sym} 閘 ・ Y = ${g.fmt}</text>

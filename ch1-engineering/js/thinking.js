@@ -143,8 +143,11 @@ document.getElementById('doneBtn').addEventListener('click', () => {
 });
 
 document.getElementById('printBtn').addEventListener('click', () => {
+  // 列印時三套工具全部展開，印完還原原本的分頁狀態
+  const activePanel = document.querySelector('.tab-panel.active');
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('active'));
   window.print();
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p === activePanel));
 });
 
 echoTopic();
