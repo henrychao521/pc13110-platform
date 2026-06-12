@@ -143,6 +143,8 @@ const MODULES = [
   { id:'ch5-peripherals',ch:'ch5', tag:'5-2',     icon:'⚙️', title:'機電整合的電子周邊',   link:'ch5-mechatronics/pages/peripherals.html',hours:2, obj:'操作伺服馬達與感測器，並觀察序列埠資料' },
   { id:'ch5-esp32',      ch:'ch5', tag:'5-3',     icon:'🔷', title:'認識 ESP32 與實作',    link:'ch5-mechatronics/pages/esp32.html',      hours:3, obj:'認識 ESP32 腳位，並以 Wokwi 模擬程式燒錄' },
   { id:'ch5-project',    ch:'ch5', tag:'統整',    icon:'🏆', title:'機電整合統整專題',     link:'ch5-mechatronics/pages/project.html',    hours:2, obj:'整合「感測—控制—致動」完成機電整合專題規劃' },
+  // 位元遮罩索引依序往後加,勿插入中間(見上方說明)
+  { id:'ch3-ar',         ch:'ch3', tag:'3-2',     icon:'🥽', title:'AR 齒輪機構實境體驗',  link:'ch3-mechanism/pages/ar-gear.html',       hours:1, obj:'以 AR 將嚙合齒輪組以真實尺寸投放到桌面,驗證齒數比與轉向關係' },
 ];
 
 /* ---- 模組查詢輔助 ---- */
