@@ -196,8 +196,24 @@ glTF→USDZ 轉檔不需 Reality Converter／Blender，改用 `pip install usd-c
 - 已驗證：頁面載入、模型 eager 載入、spin 動畫播放、嚙合無穿模（俯視特寫）、
   quiz → `celebrateModule` → 章節卡「已完成」全流程、MIME 標頭。
 
+### 7.1 補記（2026-06-12）：Xcode 已裝，模擬器驗證完成
+
+- **Xcode 26.5**（App Store）✅、iOS 26.5 模擬器 runtime ✅（注意：系統 `xcode-select` 仍指向 CLT，
+  指令需帶 `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`；或自行
+  `sudo xcode-select -s` 切換）。
+- **iPhone 17 Pro 模擬器 Safari 實測**：頁面載入 ✅、GLB WebGL 渲染與動畫 ✅、
+  AR 按鈕出現（`canActivateAR=true`）✅、按下後出現原生「要在 AR 中檢視嗎」對話框並啟動
+  Quick Look ✅。
+- **模擬器限制**：Quick Look 內的 USDZ 3D／AR 渲染需要實機 GPU，模擬器僅顯示檔案佔位頁
+  （Apple 已知限制，非檔案問題）。
+- **USDZ 改以 SceneKit 離屏渲染驗證**（一次性 swift 腳本）：節點樹（GearTrain/Base/GearA/GearB）、
+  網格頂點數、材質、1:1 尺寸（0.146×0.04×0.092 m）全部正確。
+- **自動化備忘**：本機 AnyDesk 的透明覆蓋層會讓畫面點擊自動化誤判被擋；
+  模擬器互動改用 **idb**（`brew install idb-companion` + `pip install fb-idb`），
+  以 `idb ui describe-all` 取得元件精確座標、`idb ui tap x y` 點擊（裝置點座標）。
+
 **待辦（下一棒）**：
-1. **iPhone 實機驗收 AR**：`python3 tools/serve.py 8080` → iPhone Safari 開區網網址
+1. **iPhone 實機驗收 AR**（唯一剩餘項）：`python3 tools/serve.py 8080` → iPhone Safari 開區網網址
    → 第 3 章 → AR 齒輪機構 → 點模型右下 AR 鈕。
 2. 部署 GitHub Pages 可讓 Android 也能 AR（Scene Viewer 需 HTTPS），Pages 對 usdz 的 MIME 也正確。
 3. 內容擴充：依 §2「主力三」為第 2／3 章更多單元產模型（桁架、曲柄滑塊…），
