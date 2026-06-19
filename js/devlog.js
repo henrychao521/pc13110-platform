@@ -656,6 +656,20 @@ const PHASES = [
       '本次完整 session transcript 另備份至 claude-session-logs 私有 repo',
     ],
   },
+  {
+    tag: '段落 47',
+    date: '2026-06-19',
+    title: '導入 AI 寫實 3D 互動模型(Tripo,跨平台 9 工具)',
+    verbatim: '我剛剛另外登入了 tripo ai，你看看有沒有需要 3D 生成的東西？其他有需要生成的部分也逐一生成。',
+    context: '用 Tripo AI(文字生成 3D)為 livingtech-tools 的實體機台/裝置產出可旋轉、可 AR 的寫實 3D 模型，補足原本只有 2D/SVG 的「認識」階段。先撞到 Tripo 免費版「能生成預覽、但下載 glb 需付費」與 HuggingFace 開源 3D(TRELLIS)的 ZeroGPU 每日額度上限，最後採付費 Tripo→下載。每支匯出約 60MB(180–200 萬面),一律用 gltf-transform 做減面+Draco+webp 壓到 2–3MB 才上網。嵌入用 Web Components 的 model-viewer:solder 工具本就預留 glb 槽,其餘工具在 module1 自動插入 model-viewer 面板,與既有 three.js/OpenSCAD/SVG 內容並存(寫實外觀＋結構標註互補)。骨架(rigging)留待下一階段,將用於安全穿著(PPE)與加工安全操作示範。',
+    decisions: ['3D 只做單一實體裝置(機台/板/橋);「N 種…」集合與抽象概念維持既有 SVG/多項內容', 'AI 模型一律標註「示意模型」,精確規格仍以教具/課本為準', 'Tripo 匯出必經 gltf-transform 壓縮(60MB→2–3MB)再嵌,並以 model-viewer 載入', '原始高模與優化版、影片統一歸檔本機素材庫並打包備份(視為付費資產)'],
+    outputs: [
+      'livingtech-tools 9 工具「認識」加入寫實 3D 模型:電烙鐵/線鋸機/手電鑽/鑽床/砂磨機/3D印表機/麵包板/微控制器(Arduino)/橋樑(鋼桁架)',
+      'commit 93b222f(電烙鐵)、bb7761d(5 機台)、781ca9b(麵包板/微控制器/橋樑)push main 上線,線上實測 model-viewer 皆 loaded',
+      '建立本機素材庫 AI素材庫_教學平台/(9 支原始高模＋9 優化版＋3 概念影片＋README,並打包 zip 備份)',
+      '骨架/吉祥物、AR 放置模型、workshop 點雲場景換真 3D 列為下一階段',
+    ],
+  },
 ];
 
 /* ============================================================
