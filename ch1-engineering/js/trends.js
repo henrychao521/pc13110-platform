@@ -47,8 +47,12 @@ function lineChart(canvas, { labels, values, yMax, unit, color = THEME, mileston
     labels.forEach((lb, i) => {
       if (labels.length > 12 && i % 2 !== 0 && i !== labels.length - 1) return;
       ctx.fillStyle = '#94A3B8';
-      ctx.fillText(lb, PAD.l + step * i, h - PAD.b + 8);
+      // 最右邊的標籤改右對齊，避免超出畫布被截掉
+      ctx.textAlign = (i === labels.length - 1) ? 'right' : 'center';
+      const lx = (i === labels.length - 1) ? w - 2 : PAD.l + step * i;
+      ctx.fillText(lb, lx, h - PAD.b + 8);
     });
+    ctx.textAlign = 'center';
 
     const px = i => PAD.l + step * i;
     const py = v => PAD.t + plotH * (1 - v / yMax);
@@ -84,7 +88,10 @@ function lineChart(canvas, { labels, values, yMax, unit, color = THEME, mileston
         ctx.fillStyle = '#DC2626';
         ctx.font = '700 10px "Noto Sans TC"';
         ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-        ctx.fillText(milestones[i], px(i), py(values[i]) - 10);
+        // 夾在繪圖區內，避免第一/最後一點的標籤壓到 Y 軸數字或被截掉
+        const mw = ctx.measureText(milestones[i]).width;
+        const mx = Math.max(PAD.l + mw / 2 + 2, Math.min(px(i), w - PAD.r - mw / 2 - 2));
+        ctx.fillText(milestones[i], mx, py(values[i]) - 10);
       }
     }
 
