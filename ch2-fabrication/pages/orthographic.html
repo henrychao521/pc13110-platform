@@ -15,7 +15,12 @@
   #orthoView { width:100%; height:300px; border:1px solid var(--border);
     border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; }
   #orthoView:active { cursor:grabbing; }
-  .views-col { display:flex; flex-direction:column; gap:8px; }
+  /* 第三角法標準配置:俯視在正視正上方、側視在正視右方(田字缺右上) */
+  .views-col { display:grid; grid-template-areas:"top note" "front side"; grid-template-columns:auto auto;
+    gap:8px; justify-content:start; align-content:start; }
+  .views-col .view-box { width:fit-content; }
+  .va-note { font-size:11px; color:var(--text-muted); line-height:1.8; align-self:end; padding:0 0 8px 4px; }
+  @media(max-width:680px){ .views-col{grid-template-areas:"top" "front" "side" "note"; grid-template-columns:1fr;} }
   .view-box { background:#fff; border:1px solid var(--border); border-radius:10px; padding:8px; }
   .view-box .vb-t { font-size:12px; font-weight:800; color:var(--theme-dark); margin-bottom:4px; }
   .view-box canvas { display:block; background:#F8FAFC; border-radius:6px; }
@@ -109,9 +114,10 @@
         <div style="font-size:11px;color:var(--text-muted);margin-top:4px">🖱️ 拖曳旋轉・滾輪縮放</div>
       </div>
       <div class="views-col">
-        <div class="view-box"><div class="vb-t">▣ 前視圖（從正前方看)</div><canvas id="viewFront"></canvas></div>
-        <div class="view-box"><div class="vb-t">▣ 上視圖（從正上方看）</div><canvas id="viewTop"></canvas></div>
-        <div class="view-box"><div class="vb-t">▣ 側視圖（從右側方看）</div><canvas id="viewSide"></canvas></div>
+        <div class="view-box" style="grid-area:top"><div class="vb-t">▣ 上視圖（從正上方看）</div><canvas id="viewTop"></canvas></div>
+        <div class="view-box" style="grid-area:front"><div class="vb-t">▣ 前視圖（從正前方看）</div><canvas id="viewFront"></canvas></div>
+        <div class="view-box" style="grid-area:side"><div class="vb-t">▣ 側視圖（從右側方看）</div><canvas id="viewSide"></canvas></div>
+        <div class="va-note" style="grid-area:note">CNS 第三角法排列:<br>俯視在上・側視在右<br>——視圖的<strong>相對位置</strong><br>本身就是規範的一部分</div>
       </div>
     </div>
   </div>

@@ -39,6 +39,21 @@
   .flow-legend { font-size:12.5px; color:var(--text-soft); margin-top:8px; line-height:1.7;
     padding:8px 12px; background:var(--bg-soft); border-radius:8px; }
   .flow-legend strong { color:var(--theme-dark); }
+
+  /* 失敗路徑小卡 */
+  .fail-path { border:2px dashed #FCA5A5; border-radius:var(--radius); background:#FFF7F7;
+    padding:14px 16px; }
+  .fp-label { display:inline-block; font-size:12px; font-weight:800; color:#B91C1C;
+    background:#FEE2E2; border-radius:6px; padding:3px 10px; margin-bottom:8px; }
+  .fp-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:4px; }
+  .fp-step { background:#fff; border:1px solid var(--border); border-radius:10px; padding:10px 12px; }
+  .fp-step b { display:block; font-size:12.5px; margin-bottom:4px; }
+  .fp-step p { font-size:12.5px; color:var(--text-soft); margin:0; line-height:1.65; }
+  .fp-step.try b { color:#B45309; }
+  .fp-step.fail b { color:#B91C1C; }
+  .fp-step.fix b { color:#0369A1; }
+  .fp-step.learn b { color:#15803D; }
+  @media(max-width:680px){ .fp-steps{grid-template-columns:1fr 1fr;} }
 </style>
 </head>
 <body class="ch5">
@@ -138,6 +153,27 @@
       <li><strong>有迭代空間</strong>:第一版能動就好,留意測試後可以怎麼改進。</li>
     </ul>
   </div>
+
+  <section class="content-section">
+    <h2>失敗路徑:一個真實的踩雷故事</h2>
+    <p>
+      工程設計的路上,失敗不是意外,而是必經的路標。下面是機電整合專題最常見的一次「翻車」——
+      先看懂它,你的第一版原型就能少燒一塊板子。
+    </p>
+    <div class="fail-path">
+      <span class="fp-label">💥 失敗路徑:直流馬達直接接 GPIO</span>
+      <div class="fp-steps">
+        <div class="fp-step try"><b>🔧 嘗試</b>
+          <p>想讓小車動起來,把小直流馬達的兩條線直接接上 ESP32 的 GPIO 與 GND,digitalWrite(HIGH) 送電。</p></div>
+        <div class="fp-step fail"><b>💥 失敗</b>
+          <p>馬達抖一下就停,板子不斷重新啟動;再試幾次之後,那支腳位燒毀,從此輸出不了任何訊號。</p></div>
+        <div class="fp-step fix"><b>🔁 改用</b>
+          <p>改用 NPN 電晶體(或馬達驅動板)當開關:馬達改吃外部 5V 電源,GPIO 只送控制訊號,並把兩個電源的 GND 接在一起(共地)。</p></div>
+        <div class="fp-step learn"><b>💡 學到</b>
+          <p>GPIO 是「訊號腳」不是「電源腳」——它只供得起十幾 mA,馬達動輒數百 mA。大電流一律交給外部電源與開關元件。</p></div>
+      </div>
+    </div>
+  </section>
 
   <section class="content-section">
     <h2>結語:從學習者到創造者</h2>

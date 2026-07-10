@@ -239,3 +239,40 @@ function finish(outcome) {
 document.getElementById('goBtn').addEventListener('click', run);
 window.addEventListener('resize', () => { if (!running) drawPreview(); });
 drawPreview();
+
+/* ============================================================
+ * kerf 補償計算器
+ * ============================================================ */
+(function kerfCalc() {
+  const $ = id => document.getElementById(id);
+  const thick = $('kerfThick');
+  if (!thick) return;
+  const k = $('kerfK');
+
+  function update() {
+    const t = parseFloat(thick.value);
+    const kv = parseFloat(k.value);
+    $('kerfThickVal').textContent = t.toFixed(1);
+    $('kerfKVal').textContent = kv.toFixed(2);
+    // 不補償:圖面畫 t,雷射兩側各吃 kv/2 → 實際槽寬 t + kv
+    const naiveActual = t + kv;
+    // 補償:圖面畫 t − kv → 實際槽寬 (t − kv) + kv = t,與板厚密合
+    const comp = t - kv;
+    $('kerfNaive').textContent = t.toFixed(2) + ' mm';
+    $('kerfActual').textContent = naiveActual.toFixed(2) + ' mm';
+    $('kerfVerdict1').textContent = `鬆動(大了 ${kv.toFixed(2)} mm)`;
+    $('kerfVerdict1').style.color = '#DC2626';
+    $('kerfComp').textContent = comp.toFixed(2) + ' mm';
+    $('kerfCompActual').textContent = t.toFixed(2) + ' mm';
+    $('kerfVerdict2').textContent = '密合 ✓';
+    $('kerfVerdict2').style.color = '#16A34A';
+    // SVG:槽寬與 kerf 光束示意(視覺化,槽 60px 代表板厚,光束寬依 kerf 比例縮放)
+    const beamW = Math.max(2, kv / 0.3 * 8);
+    const bl = $('kerfBeamL'), br = $('kerfBeamR');
+    bl.setAttribute('width', beamW); br.setAttribute('width', beamW);
+    bl.setAttribute('x', 120 - beamW); br.setAttribute('x', 180);
+  }
+  thick.addEventListener('input', update);
+  k.addEventListener('input', update);
+  update();
+})();

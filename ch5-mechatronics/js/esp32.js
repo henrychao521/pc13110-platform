@@ -61,6 +61,84 @@ Interactions.SequencePuzzle({
   onComplete: () => {},
 });
 
+/* ============================================================
+ * PWM 占空比模擬 — 方波繪製 + LED 亮度 + 平均電壓
+ * ============================================================ */
+(function pwmSim() {
+  const canvas = document.getElementById('pwmCanvas');
+  if (!canvas) return;
+  const slider = document.getElementById('dutySlider');
+  const dutyVal = document.getElementById('dutyVal');
+  const led = document.getElementById('pwmLed');
+  const volt = document.getElementById('pwmVolt');
+
+  function draw() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.clientWidth, h = 190;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    const duty = +slider.value / 100;
+    const padL = 44, padR = 14, yHi = 38, yLo = h - 44;
+
+    /* 3.3V / 0V 參考線與標籤 */
+    ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath(); ctx.moveTo(padL, yHi); ctx.lineTo(w - padR, yHi); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(padL, yLo); ctx.lineTo(w - padR, yLo); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#94A3B8'; ctx.font = '10px "JetBrains Mono"'; ctx.textAlign = 'right';
+    ctx.fillText('3.3V', padL - 6, yHi + 3);
+    ctx.fillText('0V', padL - 6, yLo + 3);
+
+    /* 平均電壓虛線 */
+    const yAvg = yLo - (yLo - yHi) * duty;
+    ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 1.5; ctx.setLineDash([6, 4]);
+    ctx.beginPath(); ctx.moveTo(padL, yAvg); ctx.lineTo(w - padR, yAvg); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#F59E0B'; ctx.textAlign = 'left';
+    ctx.fillText('平均 ' + (3.3 * duty).toFixed(2) + 'V', padL + 4, yAvg - 5);
+
+    /* 方波:4 個週期,高電位比例 = duty */
+    const periods = 4, pw = (w - padL - padR) / periods;
+    ctx.strokeStyle = '#4ADE80'; ctx.lineWidth = 2.5;
+    ctx.lineJoin = 'miter'; ctx.lineCap = 'butt';
+    ctx.beginPath();
+    ctx.moveTo(padL, duty > 0 ? yHi : yLo);
+    for (let i = 0; i < periods; i++) {
+      const x0 = padL + i * pw, xMid = x0 + pw * duty, x1 = x0 + pw;
+      if (duty > 0) { ctx.lineTo(x0, yHi); ctx.lineTo(xMid, yHi); }
+      if (duty < 1) { ctx.lineTo(xMid, yLo); ctx.lineTo(x1, yLo); }
+    }
+    if (duty >= 1) ctx.lineTo(w - padR, yHi);
+    ctx.stroke();
+
+    /* 週期標註(頻率固定 1kHz → 1ms) */
+    ctx.strokeStyle = '#475569'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(padL, h - 24); ctx.lineTo(padL + pw, h - 24);
+    ctx.moveTo(padL, h - 28); ctx.lineTo(padL, h - 20);
+    ctx.moveTo(padL + pw, h - 28); ctx.lineTo(padL + pw, h - 20);
+    ctx.stroke();
+    ctx.fillStyle = '#94A3B8'; ctx.textAlign = 'center';
+    ctx.fillText('1 週期 = 1 ms(1 kHz)', padL + pw / 2, h - 8);
+    ctx.fillText('duty ' + Math.round(duty * 100) + '%', w - padR - 44, 20);
+  }
+
+  function update() {
+    const d = +slider.value;
+    dutyVal.textContent = d + '%';
+    led.style.opacity = (d / 100).toFixed(2);
+    volt.textContent = (3.3 * d / 100).toFixed(2) + ' V';
+    draw();
+  }
+  slider.addEventListener('input', update);
+  window.addEventListener('resize', draw);
+  update();
+})();
+
 /* ---- 檢核 ---- */
 const QUIZ = [
   { question: 'ESP32 相較於一般 Arduino Uno,最大的優勢是什麼?',
@@ -83,6 +161,15 @@ const QUIZ = [
         explain: '正確。恆亮/恆滅是一次設定;閃爍要不斷切換狀態,所以必須放在持續執行的迴圈中。' },
       { text: '因為迴圈裡的程式比較漂亮', correct: false },
       { text: '因為這樣比較省電', correct: false },
+    ] },
+  { question: 'ESP32 以 PWM 輸出(高電位 3.3V),占空比 25% 時,腳位的「平均電壓」約是多少?',
+    options: [
+      { text: '約 0.825V(3.3V × 0.25)', correct: true,
+        explain: '正確。平均電壓 = 高電位電壓 × 占空比 = 3.3V × 0.25 = 0.825V,LED 看起來就是「約四分之一亮」。' },
+      { text: '3.3V,因為高電位本來就是 3.3V', correct: false,
+        explain: '3.3V 只是「高電位瞬間」的電壓。PWM 有 75% 的時間在低電位,平均要乘上占空比。' },
+      { text: '0V,因為大部分時間都在低電位', correct: false,
+        explain: '雖然低電位時間較長,但仍有 25% 時間輸出 3.3V,平均電壓是 3.3 × 0.25 = 0.825V。' },
     ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）

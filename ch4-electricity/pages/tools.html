@@ -52,6 +52,18 @@
   .dmm-note { font-size:13px; color:var(--text-soft); margin-top:10px; padding:8px 12px;
     background:var(--bg-soft); border-radius:8px; line-height:1.7; }
   @media(max-width:680px){ .dmm-stage{grid-template-columns:1fr;} }
+
+  /* 電流檔接法對照圖 */
+  .amp-cmp { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+  .amp-card { border:1.5px solid var(--border); border-radius:10px; background:#F8FAFC; padding:10px; }
+  .amp-card svg { display:block; width:100%; max-height:220px; }
+  .amp-card .ac-t { font-size:13.5px; font-weight:800; text-align:center; margin-bottom:6px; }
+  .amp-card.bad { border-color:#FCA5A5; }
+  .amp-card.bad .ac-t { color:#B91C1C; }
+  .amp-card.good { border-color:#86EFAC; }
+  .amp-card.good .ac-t { color:#15803D; }
+  .amp-card .ac-note { font-size:12.5px; color:var(--text-soft); margin-top:6px; text-align:center; }
+  @media(max-width:680px){ .amp-cmp{grid-template-columns:1fr;} }
 </style>
 </head>
 <body class="ch4">
@@ -150,6 +162,61 @@
         <li>這樣能避免量測值超過範圍而<strong>損壞電表</strong>。</li>
         <li>測電壓用 V 檔、測電阻用 Ω 檔、測電流用 A 檔——選錯檔位可能燒毀電表。</li>
       </ul>
+    </div>
+
+    <!-- 電流檔正確接法對照圖 -->
+    <div class="amp-cmp">
+      <div class="amp-card bad">
+        <div class="ac-t">❌ 錯誤:電表並接電池兩端</div>
+        <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="錯誤示範:電流表直接並接在電池兩端">
+          <!-- 電池符號:長板=正極(上)、短板=負極(下) -->
+          <g transform="translate(60,110)">
+            <line x1="0" y1="-12" x2="0" y2="-5" stroke="#1F2937" stroke-width="3"/>
+            <line x1="-14" y1="-5" x2="14" y2="-5" stroke="#1F2937" stroke-width="3"/>
+            <line x1="-7" y1="5" x2="7" y2="5" stroke="#1F2937" stroke-width="3"/>
+            <line x1="0" y1="5" x2="0" y2="12" stroke="#1F2937" stroke-width="3"/>
+            <text x="-18" y="-8" text-anchor="end" font-size="13" font-weight="700" fill="#1F2937">+</text>
+            <text x="-18" y="13" text-anchor="end" font-size="13" font-weight="700" fill="#6B7280">−</text>
+            <text x="0" y="34" text-anchor="middle" font-size="11" fill="#6B7280">9V 電池</text>
+          </g>
+          <!-- 電流表直接跨接電池兩端 -->
+          <path d="M60 98 L60 40 L230 40 L230 88" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+          <path d="M230 132 L230 180 L60 180 L60 122" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+          <circle cx="230" cy="110" r="22" fill="#fff" stroke="#1F2937" stroke-width="2.5"/>
+          <text x="230" y="116" text-anchor="middle" font-size="16" font-weight="800" fill="#1F2937">A</text>
+          <text x="230" y="150" text-anchor="middle" font-size="11" fill="#6B7280">電流表(內阻極小)</text>
+          <!-- 警示 -->
+          <text x="262" y="86" font-size="16" fill="#B91C1C">⚡</text>
+          <text x="160" y="208" text-anchor="middle" font-size="12.5" font-weight="700" fill="#B91C1C">近乎短路 → 大電流灌入 → 燒保險絲</text>
+        </svg>
+        <div class="ac-note">電流表內阻極小,直接跨接電池兩端等於把電池短路。</div>
+      </div>
+      <div class="amp-card good">
+        <div class="ac-t">✓ 正確:打開迴路、電表串聯接入</div>
+        <svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="正確示範:打開迴路,把電流表串聯接入電池、電阻的迴路中">
+          <!-- 電池符號:長板=正極(上)、短板=負極(下) -->
+          <g transform="translate(50,110)">
+            <line x1="0" y1="-12" x2="0" y2="-5" stroke="#1F2937" stroke-width="3"/>
+            <line x1="-14" y1="-5" x2="14" y2="-5" stroke="#1F2937" stroke-width="3"/>
+            <line x1="-7" y1="5" x2="7" y2="5" stroke="#1F2937" stroke-width="3"/>
+            <line x1="0" y1="5" x2="0" y2="12" stroke="#1F2937" stroke-width="3"/>
+            <text x="-18" y="-8" text-anchor="end" font-size="13" font-weight="700" fill="#1F2937">+</text>
+            <text x="-18" y="13" text-anchor="end" font-size="13" font-weight="700" fill="#6B7280">−</text>
+            <text x="0" y="34" text-anchor="middle" font-size="11" fill="#6B7280">9V 電池</text>
+          </g>
+          <!-- 串聯迴路:電池 → 電流表 → 電阻 → 回電池 -->
+          <path d="M50 98 L50 40 L120 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+          <circle cx="140" cy="40" r="20" fill="#fff" stroke="#1F2937" stroke-width="2.5"/>
+          <text x="140" y="46" text-anchor="middle" font-size="15" font-weight="800" fill="#1F2937">A</text>
+          <text x="140" y="14" text-anchor="middle" font-size="11" fill="#15803D" font-weight="700">電表串聯接入</text>
+          <path d="M160 40 L208 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+          <rect x="208" y="33" width="44" height="14" rx="3" fill="#FBBF24" stroke="#92400E" stroke-width="1.5"/>
+          <text x="230" y="26" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">R 負載</text>
+          <path d="M252 40 L285 40 L285 180 L50 180 L50 122" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+          <text x="160" y="208" text-anchor="middle" font-size="12.5" font-weight="700" fill="#15803D">電流全部流過電表,讀值才正確又安全</text>
+        </svg>
+        <div class="ac-note">先打開迴路,把電流表當成「一段導線」串進去,再接回電源。</div>
+      </div>
     </div>
   </section>
 

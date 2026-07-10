@@ -165,6 +165,13 @@ const QUIZ = [
         explain: '正確。47 × 100 = 4700 Ω = 4.7 kΩ,金環代表 ±5% 誤差。' },
       { text: '470 kΩ ±10%', correct: false },
     ] },
+  { question: '一顆紅色 LED(順向電壓 2V)要接 9V 電源,想讓電流是 10 mA。依歐姆定律,該串多大的限流電阻?',
+    options: [
+      { text: '90 Ω', correct: false },
+      { text: '700 Ω', correct: true,
+        explain: '正確。電阻分到的電壓 = 9 − 2 = 7V,R = V ÷ I = 7 ÷ 0.01 = 700 Ω。' },
+      { text: '4.5 kΩ', correct: false },
+    ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
 const quizCorrect = new Set();
@@ -492,5 +499,80 @@ function renderQuizQ(i, box) {
   });
   render('led');
   loop();
+})();
+
+/* ============================================================
+ * 歐姆定律 — LED 限流電阻計算器
+ * R = (Vs − Vf) / I,並從 E12 系列挑「不小於計算值」的最近標準電阻
+ * ============================================================ */
+(function ohmCalc() {
+  const out = document.getElementById('ohmOut');
+  if (!out) return;
+  const vsEl = document.getElementById('ohmVs');
+  const vfEl = document.getElementById('ohmVf');
+  const iEl = document.getElementById('ohmI');
+  const iVal = document.getElementById('ohmIVal');
+  const E12 = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82];
+  const GOLD = '#C9A227';
+
+  /* 從 E12 系列(×10^n)挑「不小於 r」的最近標準值 */
+  function e12AtLeast(r) {
+    for (let n = -1; n <= 6; n++) {
+      for (const b of E12) {
+        const v = b * Math.pow(10, n);
+        if (v >= r - 1e-9) return { v, d1: Math.floor(b / 10), d2: b % 10, n };
+      }
+    }
+    return null;
+  }
+
+  /* 四環色碼電阻 SVG(前兩環有效數字、第三環乘冪、第四環誤差) */
+  function bandSvg(colors) {
+    const bx = [78, 100, 122, 158];
+    return `<svg viewBox="0 0 260 56" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="電阻四環色碼示意圖">
+      <line x1="8" y1="28" x2="55" y2="28" stroke="#9CA3AF" stroke-width="3"/>
+      <line x1="205" y1="28" x2="252" y2="28" stroke="#9CA3AF" stroke-width="3"/>
+      <rect x="55" y="9" width="150" height="38" rx="17" fill="#E8D9B5" stroke="#B8A67E" stroke-width="1.5"/>
+      ${colors.map((c, i) => `<rect x="${bx[i]}" y="10" width="12" height="36" rx="2" fill="${c}"/>`).join('')}
+    </svg>`;
+  }
+
+  function update() {
+    const Vs = parseFloat(vsEl.value);
+    const Vf = parseFloat(vfEl.value);
+    const ImA = parseInt(iEl.value, 10);
+    iVal.textContent = ImA;
+    if (!isFinite(Vs) || Vs <= 0) {
+      out.innerHTML = '<div style="font-size:13px;color:#B91C1C">⚠ 請輸入有效的電源電壓 Vs。</div>';
+      return;
+    }
+    if (Vs <= Vf) {
+      out.innerHTML = `
+        <div class="oo-f">Vs = ${Vs}V ≤ Vf = ${Vf}V</div>
+        <div style="font-size:13px;color:#B91C1C;margin-top:4px">
+          ⚠ 電源電壓必須大於 LED 的順向電壓,LED 才會亮。請把 Vs 調高,或換順向電壓較低的 LED。</div>`;
+      return;
+    }
+    const R = (Vs - Vf) / (ImA / 1000);
+    const std = e12AtLeast(R);
+    const multName = std.n >= 0 ? DIGIT_COLORS[std.n][0] : '金';
+    const multColor = std.n >= 0 ? DIGIT_COLORS[std.n][1] : GOLD;
+    const colors = [DIGIT_COLORS[std.d1][1], DIGIT_COLORS[std.d2][1], multColor, GOLD];
+    const names = `${DIGIT_COLORS[std.d1][0]}-${DIGIT_COLORS[std.d2][0]}-${multName}-金`;
+    const iReal = (Vs - Vf) / std.v * 1000;
+    out.innerHTML = `
+      <div class="oo-f">R = (${Vs} − ${Vf}) V ÷ ${(ImA / 1000).toFixed(3)} A = ${fmtOhm(R)}</div>
+      <div class="oo-e12">建議選用 E12 標準值(不小於計算值):<b>${fmtOhm(std.v)}</b>
+        <span style="color:var(--text-soft)">・四環色碼:${names}(±5%)</span></div>
+      ${bandSvg(colors)}
+      <div style="font-size:12.5px;color:var(--text-soft);margin-top:6px;text-align:center">
+        用 ${fmtOhm(std.v)} 時實際電流 ≈ (${Vs} − ${Vf}) ÷ ${fmtOhm(std.v)} ≈ ${iReal.toFixed(1)} mA,
+        略小於目標值,對 LED 更安全。</div>`;
+  }
+
+  vsEl.addEventListener('input', update);
+  vfEl.addEventListener('change', () => { update(); if (typeof SoundFX !== 'undefined') SoundFX.click(); });
+  iEl.addEventListener('input', update);
+  update();
 })();
 

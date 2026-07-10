@@ -31,13 +31,42 @@ const MODELS = {
     return g; },
 };
 
+/* ---- 翻轉 90°(側躺)版本:同一個物件換個方向擺,懸空條件跟著改變 ----
+ * 各模型用「該物件側躺後的正視剖面」預先定義(任務允許以兩組視圖切換實現),
+ * 統計(懸空格數/支撐量/時間)一律由格子重新計算,數字會跟著變。 */
+const MODELS_ROTATED = {
+  '方塊': () => { const g = emptyGrid();             /* 側躺後仍是實心方塊 */
+    for (let r = 0; r < 24; r++) for (let c = 10; c < 38; c++) g[r][c] = 1;
+    return g; },
+  '金字塔': () => { const g = emptyGrid();           /* 側躺:尖端朝左,斜面下方大量懸空 */
+    for (let r = 0; r < 33; r++) for (let x = 0; x < 30; x++)
+      if (Math.abs(r - 16) <= 1.5 + x / 2) g[r][x + 9] = 1;
+    return g; },
+  '筆筒': () => { const g = emptyGrid();             /* 側躺:開口朝左,筒身上壁懸空 */
+    for (let r = 0; r < 26; r++) for (let c = 35; c < 39; c++) g[r][c] = 1;   /* 筒底(立起) */
+    for (let c = 9; c < 35; c++) {
+      for (let r = 0; r < 5; r++) g[r][c] = 1;       /* 下壁(貼平台) */
+      for (let r = 21; r < 26; r++) g[r][c] = 1;     /* 上壁(懸空) */
+    }
+    return g; },
+  '拱橋': () => { const g = emptyGrid();             /* 側躺:橋的側面平貼平台,拱洞朝上下方向,正視只剩橋身厚度 */
+    for (let r = 0; r < 19; r++) for (let c = 8; c < 41; c++) g[r][c] = 1;
+    return g; },
+};
+
 /* ---- 參數 ---- */
 const PARAMS = {
   model: '方塊',
   layer: 0.2,      /* mm */
   infill: 25,      /* % */
   support: false,
+  orient: '直立',  /* 列印方向:直立 / 翻轉(側躺) */
 };
+
+/* 依目前列印方向取得模型格子 */
+function modelGrid() {
+  return (PARAMS.orient === '翻轉' ? MODELS_ROTATED : MODELS)[PARAMS.model]();
+}
 const LAYER_OPTS = [0.3, 0.2, 0.1];
 const INFILL_OPTS = [10, 25, 50, 100];
 
@@ -67,7 +96,7 @@ function analyze(g) {
 
 /* ---- 統計 ---- */
 function computeStats() {
-  const g = MODELS[PARAMS.model]();
+  const g = modelGrid();
   const a = analyze(g);
   let shellN = 0, innerN = 0, supportN = 0, topRow = 0, overhangN = 0;
   for (let r = 0; r < GH; r++) for (let c = 0; c < GW; c++) {
@@ -107,6 +136,7 @@ buildSeg('segModel', Object.keys(MODELS), PARAMS.model, x => x, v => PARAMS.mode
 buildSeg('segLayer', LAYER_OPTS, PARAMS.layer, x => x + ' mm', v => PARAMS.layer = v);
 buildSeg('segInfill', INFILL_OPTS, PARAMS.infill, x => x + '%', v => PARAMS.infill = v);
 buildSeg('segSupport', [false, true], false, x => x ? '開啟' : '關閉', v => PARAMS.support = v);
+buildSeg('segOrient', ['直立', '翻轉'], PARAMS.orient, x => x === '翻轉' ? '翻轉 90°' : x, v => PARAMS.orient = v);
 
 function refreshStats() {
   const s = computeStats();
@@ -220,6 +250,9 @@ function finishPrint(failed, s) {
     let extra = '';
     if (PARAMS.support && s.overhangN === 0) {
       extra = '<br>💡 提示:這個模型沒有懸空,其實<strong>不需要支撐</strong>——你白白多花了材料與時間。';
+    }
+    if (PARAMS.model === '拱橋' && PARAMS.orient === '翻轉' && !PARAMS.support) {
+      extra += '<br>💡 <strong>DFM 實戰:</strong>你讓拱橋翻轉 90° 側躺,懸空消失,不開支撐也一次印成——比直立開支撐更省料省時。';
     }
     res.innerHTML = `<div style="background:var(--success-light);color:#15803d;padding:10px 12px;border-radius:8px;border-left:3px solid var(--success)">
       ✓ <strong>列印成功!</strong>共 ${s.layers} 層,耗時約 ${s.time.toFixed(0)} 分鐘、用料約 ${s.material.toFixed(1)} 公克。${extra}</div>`;

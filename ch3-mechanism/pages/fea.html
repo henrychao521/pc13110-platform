@@ -24,6 +24,27 @@
   .fea-stat { background:var(--bg-soft); border-radius:10px; padding:10px 12px; font-size:13px; margin-top:8px; }
   .fea-stat .fs-row { display:flex; justify-content:space-between; margin:3px 0; }
   .fea-stat b { font-family:var(--font-mono); }
+  /* 失敗路徑小卡 */
+  .fail-path { background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:var(--radius);
+    padding:18px 20px; margin:22px 0; }
+  .fail-path .fp-label { font-size:12px; font-weight:800; color:#B45309; letter-spacing:1px; }
+  .fail-path h3 { font-size:16px; font-weight:800; margin:8px 0 2px; }
+  .fail-path .fp-lead { font-size:13px; color:var(--text-soft); margin:4px 0 0; }
+  .fp-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:14px; }
+  .fp-stage { background:#fff; border:1px solid var(--border); border-radius:10px;
+    padding:12px 13px; position:relative; }
+  .fp-stage .fp-tag { display:inline-block; font-size:11px; font-weight:800;
+    border-radius:999px; padding:2px 10px; margin-bottom:6px; }
+  .fp-stage p { font-size:12.5px; color:var(--text-soft); margin:0; line-height:1.8; }
+  .fp-grid .fp-stage:not(:last-child)::after { content:'→'; position:absolute; right:-15px;
+    top:50%; transform:translateY(-50%); color:#D97706; font-weight:800; font-size:15px; }
+  @media (max-width:760px) {
+    .fp-grid { grid-template-columns:1fr; }
+    .fp-grid .fp-stage:not(:last-child)::after { content:'↓'; right:auto; left:50%; top:auto;
+      bottom:-17px; transform:translateX(-50%); }
+  }
+  .fp-take { margin-top:14px; background:var(--success-light); border-radius:10px;
+    padding:10px 14px; font-size:13px; color:#166534; }
 </style>
 </head>
 <body class="ch3">
@@ -170,6 +191,35 @@
     <p style="font-size:12px;color:var(--text-muted);margin-top:10px">
       ※ 詳細圖文教學可參閱 FreeCAD 官方 <a href="https://wiki.freecad.org/FEM_tutorial" target="_blank" rel="noopener">FEM Tutorial wiki</a>。學校電腦若沒安裝權限,可改用免安裝的可攜版(FreeCAD AppImage / Portable)。
     </p>
+  </div>
+
+  <div class="fail-path">
+    <span class="fp-label">🧗 失敗路徑:從卡住的電腦學到的事</span>
+    <h3>網格切太細,電腦跑不動了</h3>
+    <p class="fp-lead">
+      失敗不是繞路,而是課程的一部分。下面是做 FEA 時幾乎人人都會踩一次的坑——先看別人怎麼踩,你可以少等半小時。
+    </p>
+    <div class="fp-grid">
+      <div class="fp-stage">
+        <span class="fp-tag" style="background:var(--brand-light);color:#1D4ED8">嘗試</span>
+        <p>想要「最精準」的結果,一開始就把<strong>整個模型</strong>的網格切到最細,元素尺寸調到最小。</p>
+      </div>
+      <div class="fp-stage">
+        <span class="fp-tag" style="background:var(--danger-light);color:var(--danger)">失敗</span>
+        <p>元素數暴增到幾十萬個,電腦風扇狂轉、畫面卡死,等了<strong>半小時</strong>還沒算完,甚至直接當掉。</p>
+      </div>
+      <div class="fp-stage">
+        <span class="fp-tag" style="background:var(--warning-light);color:#B45309">改用</span>
+        <p>先用<strong>粗網格</strong>快速跑一次(幾秒鐘),從雲圖找出<strong>應力集中區</strong>(紅色區域),只在該區域<strong>局部細化</strong>網格,再跑一次。</p>
+      </div>
+      <div class="fp-stage">
+        <span class="fp-tag" style="background:var(--success-light);color:#15803D">學到</span>
+        <p><strong>模擬精度與計算成本是取捨</strong>。網格不是越細越好——把計算資源花在刀口(應力集中區)上,又快又準。</p>
+      </div>
+    </div>
+    <div class="fp-take">
+      💡 這也呼應了前面的「模型淨化」:兩者都是同一件事——<strong>把計算力用在真正重要的地方</strong>。真正的工程師不是擁有最強的電腦,而是最會分配計算資源的人。
+    </div>
   </div>
 
   <div class="activity-box">

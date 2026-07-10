@@ -119,6 +119,100 @@
   </div>
 
   <section class="content-section">
+    <h2>致動器的供電安全:GPIO 是「訊號腳」不是「電源腳」</h2>
+    <p>
+      伺服馬達、直流馬達這些致動器「很耗電」,而控制板的 GPIO 腳位天生只是用來
+      <strong>傳遞訊號</strong>的——把馬達直接接上 GPIO,是機電整合最常見、也最傷板子的錯誤。
+      接上外部電源之前,先記住四個保命重點:
+    </p>
+    <div class="verify-box">
+      <span class="vb-label">⚡ 致動器供電的四個保命重點</span>
+      <ul>
+        <li><strong>① 電流上限</strong>:ESP32 每支 GPIO 建議輸出 <strong>≤12mA</strong>、絕對上限約 <strong>40mA</strong>;
+          小直流馬達動輒需要<strong>數百 mA 起跳</strong>(啟動瞬間更高)——<strong>絕不可用 GPIO 直接驅動馬達</strong>。</li>
+        <li><strong>② 一定要共地</strong>:改用外部電源供電時,外部電源的 GND 必須和 ESP32 的 GND
+          <strong>接在一起(共地)</strong>。沒有共同的參考點,高低電位就無從判斷,控制訊號與讀值都會亂跳。</li>
+        <li><strong>③ 用開關元件</strong>:讓 GPIO 只送「小訊號」,由 <strong>NPN 電晶體、MOSFET</strong>
+          或<strong>馬達驅動板(L298N、DRV8833)</strong>去開關馬達的大電流。</li>
+        <li><strong>④ 加飛輪二極體</strong>:馬達、繼電器等<strong>感性負載</strong>斷電瞬間會產生反電動勢(電壓尖波),
+          要<strong>反向並聯一顆二極體</strong>吸收它,保護電晶體與控制板。</li>
+      </ul>
+    </div>
+    <div class="wire-stage" style="margin-top:12px">
+      <svg viewBox="0 0 720 330" preserveAspectRatio="xMidYMid meet" role="img" aria-label="GPIO 直接驅動馬達與電晶體驅動的接線對照圖">
+        <!-- 左:錯誤接法 -->
+        <text x="180" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#DC2626">❌ GPIO 直接驅動馬達</text>
+        <rect x="12" y="36" width="336" height="278" rx="10" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5"/>
+        <rect x="45" y="115" width="78" height="125" rx="6" fill="#0C4A6E"/>
+        <text x="84" y="145" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">ESP32</text>
+        <text x="115" y="178" text-anchor="end" font-size="9" font-family="JetBrains Mono" fill="#BFDBFE">GPIO 5</text>
+        <text x="115" y="223" text-anchor="end" font-size="9" font-family="JetBrains Mono" fill="#BFDBFE">GND</text>
+        <circle cx="123" cy="175" r="4" class="wire-pin"/>
+        <circle cx="123" cy="220" r="4" class="wire-pin"/>
+        <path d="M127 175 L241 175" stroke="#EAB308" stroke-width="2.5" fill="none"/>
+        <path d="M127 220 L145 220 L145 235 L265 235 L265 199" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+        <circle cx="265" cy="175" r="24" fill="#E5E7EB" stroke="#475569" stroke-width="2"/>
+        <text x="265" y="180" text-anchor="middle" font-size="14" font-weight="700" fill="#1F2937">M</text>
+        <line x1="168" y1="159" x2="200" y2="191" stroke="#DC2626" stroke-width="5" stroke-linecap="round"/>
+        <line x1="200" y1="159" x2="168" y2="191" stroke="#DC2626" stroke-width="5" stroke-linecap="round"/>
+        <text x="184" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#DC2626">⚠ 過流燒腳位!</text>
+        <text x="180" y="274" text-anchor="middle" font-size="11" font-weight="700" fill="#B91C1C">馬達動輒數百 mA,遠超過腳位上限</text>
+        <text x="180" y="292" text-anchor="middle" font-size="11" font-weight="700" fill="#B91C1C">→ 腳位燒毀、板子不斷重啟</text>
+        <!-- 右:正確接法 -->
+        <text x="540" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#15803D">✓ 電晶體開關 + 外部電源 + 共地</text>
+        <rect x="372" y="36" width="336" height="278" rx="10" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+        <rect x="390" y="115" width="78" height="125" rx="6" fill="#0C4A6E"/>
+        <text x="429" y="145" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">ESP32</text>
+        <text x="460" y="178" text-anchor="end" font-size="9" font-family="JetBrains Mono" fill="#BFDBFE">GPIO 5</text>
+        <text x="460" y="223" text-anchor="end" font-size="9" font-family="JetBrains Mono" fill="#BFDBFE">GND</text>
+        <circle cx="468" cy="175" r="4" class="wire-pin"/>
+        <circle cx="468" cy="220" r="4" class="wire-pin"/>
+        <!-- 外部 5V 電源軌 + 馬達 -->
+        <line x1="540" y1="62" x2="700" y2="62" stroke="#DC2626" stroke-width="2.5"/>
+        <text x="620" y="52" text-anchor="middle" font-size="11" font-weight="700" fill="#DC2626">外部電源 +5V</text>
+        <text x="566" y="76" text-anchor="middle" font-size="9" font-family="JetBrains Mono" fill="#DC2626">大電流</text>
+        <path d="M600 62 L600 82" stroke="#DC2626" stroke-width="2.5" fill="none"/>
+        <circle cx="600" cy="102" r="20" fill="#E5E7EB" stroke="#475569" stroke-width="2"/>
+        <text x="600" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="#1F2937">M</text>
+        <path d="M600 122 L600 145" stroke="#475569" stroke-width="2" fill="none"/>
+        <!-- 飛輪二極體(反向並聯馬達) -->
+        <path d="M600 70 L652 70 L652 134 L600 134" stroke="#475569" stroke-width="1.8" fill="none"/>
+        <circle cx="600" cy="70" r="2.5" fill="#475569"/>
+        <circle cx="600" cy="134" r="2.5" fill="#475569"/>
+        <polygon points="645,110 659,110 652,96" fill="#475569"/>
+        <line x1="645" y1="96" x2="659" y2="96" stroke="#475569" stroke-width="2.5"/>
+        <text x="652" y="152" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#475569">飛輪二極體</text>
+        <!-- NPN 電晶體 -->
+        <circle cx="600" cy="165" r="20" fill="#fff" stroke="#475569" stroke-width="2"/>
+        <text x="600" y="169" text-anchor="middle" font-size="9" font-weight="700" fill="#1F2937">NPN</text>
+        <text x="611" y="152" font-size="8" font-family="JetBrains Mono" fill="#475569">C</text>
+        <text x="576" y="160" font-size="8" font-family="JetBrains Mono" fill="#475569">B</text>
+        <text x="611" y="188" font-size="8" font-family="JetBrains Mono" fill="#475569">E</text>
+        <!-- GPIO → 電阻 → 基極 -->
+        <path d="M472 175 L488 175 L488 165 L502 165" stroke="#EAB308" stroke-width="2.5" fill="none"/>
+        <rect x="502" y="158" width="38" height="14" rx="2" fill="#FDE68A" stroke="#92400E" stroke-width="1.5"/>
+        <text x="521" y="152" text-anchor="middle" font-size="9" font-family="JetBrains Mono" fill="#92400E">1kΩ</text>
+        <path d="M540 165 L580 165" stroke="#EAB308" stroke-width="2.5" fill="none"/>
+        <text x="514" y="198" text-anchor="middle" font-size="9" font-family="JetBrains Mono" fill="#475569">GPIO 只送小訊號</text>
+        <!-- 共地 GND 軌 -->
+        <path d="M600 185 L600 255" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+        <path d="M472 220 L488 220 L488 255" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+        <line x1="410" y1="255" x2="695" y2="255" stroke="#1F2937" stroke-width="2.5"/>
+        <circle cx="488" cy="255" r="2.5" fill="#1F2937"/>
+        <circle cx="600" cy="255" r="2.5" fill="#1F2937"/>
+        <line x1="672" y1="260" x2="688" y2="260" stroke="#1F2937" stroke-width="2"/>
+        <line x1="675" y1="265" x2="685" y2="265" stroke="#1F2937" stroke-width="2"/>
+        <line x1="678" y1="270" x2="682" y2="270" stroke="#1F2937" stroke-width="2"/>
+        <text x="545" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#15803D">兩個電源的 GND 接在一起(共地)</text>
+      </svg>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-muted);margin-top:8px">
+      圖:左為錯誤接法——GPIO 直接推馬達會過流燒腳位;右為正確接法——GPIO 經電阻控制 NPN 電晶體的基極,
+      馬達由外部 5V 供電接在集極端,並反向並聯飛輪二極體,兩個電源的 GND 相連(共地)。
+    </p>
+  </section>
+
+  <section class="content-section">
     <h2>常見的感測器</h2>
     <p>感測器是系統的「感官」,把物理世界的變化轉成電訊號。常見的有:</p>
     <div class="sensor-grid">
@@ -200,7 +294,7 @@
 
   <div class="activity-box">
     <span class="ab-label">🧠 觀念檢核</span>
-    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <h3 style="margin-bottom:6px">完成下方 4 題即可完成本模組</h3>
     <div id="quizArea"></div>
   </div>
 

@@ -158,6 +158,116 @@ document.getElementById('calcBtn').addEventListener('click', () => {
   if (typeof SoundFX !== 'undefined') SoundFX.success();
 });
 
+/* ---- 節點法逐步解算 ----
+ * 幾何自我驗算:斜桿長 = √(2² + 1.5²) = 2.5 m → sinθ = 1.5/2.5 = 0.6、cosθ = 2/2.5 = 0.8
+ * ΣFy = 0:50 + F_AB·0.6 = 0 → F_AB = −83.33 kN(負 → 壓力)
+ * ΣFx = 0:F_AB·0.8 + F_BC = 0 → F_BC = +66.67 kN(正 → 張力)
+ */
+(() => {
+  if (!document.getElementById('mjStep1')) return;
+  const SIN = 0.6, COS = 0.8;
+  const ANS_AB = 50 / SIN;        /* 83.33 kN,壓力 */
+  const ANS_BC = ANS_AB * COS;    /* 66.67 kN,張力 */
+  const TOL = 2;
+  const choice = { 2: null, 3: null };
+
+  function bindChoice(id, key) {
+    const wrap = document.getElementById(id);
+    wrap.querySelectorAll('button').forEach(b => {
+      b.addEventListener('click', () => {
+        wrap.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+        b.classList.add('on');
+        choice[key] = b.dataset.tc;
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+      });
+    });
+  }
+  bindChoice('mjTc2', 2);
+  bindChoice('mjTc3', 3);
+
+  function feedback(id, ok, html) {
+    const el = document.getElementById(id);
+    el.className = 'mj-fb ' + (ok ? 'good' : 'bad');
+    el.innerHTML = html;
+    if (typeof SoundFX !== 'undefined') (ok ? SoundFX.success() : SoundFX.error());
+  }
+  function unlock(id) {
+    const el = document.getElementById(id);
+    el.classList.remove('locked');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function lockStep(stepId, inputId, tcId, checkId) {
+    document.getElementById(stepId).classList.add('ok');
+    document.getElementById(inputId).disabled = true;
+    document.getElementById(checkId).disabled = true;
+    document.getElementById(tcId).querySelectorAll('button').forEach(b => { b.disabled = true; });
+  }
+
+  document.getElementById('mjNext1').addEventListener('click', () => {
+    document.getElementById('mjStep1').classList.add('ok');
+    document.getElementById('mjNext1').disabled = true;
+    if (typeof SoundFX !== 'undefined') SoundFX.pop();
+    unlock('mjStep2');
+  });
+
+  document.getElementById('mjCheck2').addEventListener('click', () => {
+    const raw = document.getElementById('mjIn2').value.trim();
+    const v = Math.abs(parseFloat(raw));
+    if (!raw || !Number.isFinite(v)) {
+      feedback('mjFb2', false, '請先填入 F<sub>AB</sub> 的大小(kN)。'); return;
+    }
+    const numOK = Math.abs(v - ANS_AB) <= TOL;
+    if (!numOK) {
+      feedback('mjFb2', false,
+        `再算一次——由 50 + F<sub>AB</sub> × 0.6 = 0,把 F<sub>AB</sub> 移項解出來:F<sub>AB</sub> = −50 ÷ 0.6。大小取絕對值填入。`);
+      return;
+    }
+    if (!choice[2]) {
+      feedback('mjFb2', false, '數值正確!還要選它是「張力」還是「壓力」——想想解出來的正負號代表什麼。'); return;
+    }
+    if (choice[2] !== 'C') {
+      feedback('mjFb2', false,
+        `數值對了,但方向再想想:解出 F<sub>AB</sub> = <strong>−83.3 kN</strong> 是「負值」,
+        代表實際方向與我們的「張力假設」相反——所以它其實是?`);
+      return;
+    }
+    feedback('mjFb2', true,
+      `✓ 正確!ΣF<sub>y</sub> = 0:50 + F<sub>AB</sub> × 0.6 = 0 → F<sub>AB</sub> = −50 ÷ 0.6 = <strong>−83.3 kN</strong>。
+      負號代表與張力假設相反 → 斜桿 AB 承受 <strong>83.3 kN 的壓力</strong>。`);
+    lockStep('mjStep2', 'mjIn2', 'mjTc2', 'mjCheck2');
+    unlock('mjStep3');
+  });
+
+  document.getElementById('mjCheck3').addEventListener('click', () => {
+    const raw = document.getElementById('mjIn3').value.trim();
+    const v = Math.abs(parseFloat(raw));
+    if (!raw || !Number.isFinite(v)) {
+      feedback('mjFb3', false, '請先填入 F<sub>BC</sub> 的大小(kN)。'); return;
+    }
+    const numOK = Math.abs(v - ANS_BC) <= TOL;
+    if (!numOK) {
+      feedback('mjFb3', false,
+        `再算一次——把 F<sub>AB</sub> = −83.3 代入 F<sub>AB</sub> × 0.8 + F<sub>BC</sub> = 0,
+        得 F<sub>BC</sub> = 83.3 × 0.8。`);
+      return;
+    }
+    if (!choice[3]) {
+      feedback('mjFb3', false, '數值正確!還要選它是「張力」還是「壓力」——這次解出來是正值還是負值?'); return;
+    }
+    if (choice[3] !== 'T') {
+      feedback('mjFb3', false,
+        `數值對了,但方向再想想:F<sub>BC</sub> = +66.7 kN 是「正值」,代表與張力假設<strong>相同</strong>——所以它是?`);
+      return;
+    }
+    feedback('mjFb3', true,
+      `✓ 正確!ΣF<sub>x</sub> = 0:(−83.3) × 0.8 + F<sub>BC</sub> = 0 → F<sub>BC</sub> = <strong>+66.7 kN</strong>。
+      正號代表與張力假設相同 → 下弦桿 BC 承受 <strong>66.7 kN 的張力</strong>。`);
+    lockStep('mjStep3', 'mjIn3', 'mjTc3', 'mjCheck3');
+    unlock('mjDone');
+    if (typeof SoundFX !== 'undefined') setTimeout(() => SoundFX.win(), 400);
+  });
+})();
+
 /* ---- 檢核 ---- */
 const QUIZ = [
   { question: '桁架為什麼特別穩固?核心關鍵是什麼形狀?',

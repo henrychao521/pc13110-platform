@@ -45,6 +45,77 @@
 
 <section class="module-grid" id="moduleGrid"></section>
 
+<!-- 數位加工共通安全檢核表 -->
+<section class="safety-check">
+  <div class="sc-card">
+    <h3>🦺 開機前 60 秒安全檢查</h3>
+    <p>3D 列印、雷射切割、CNC 雕銑共用的行前檢核——實際到教室操作機具前,把八項都勾起來。</p>
+    <div class="sc-list" id="scList"></div>
+    <div class="sc-result" id="scResult"></div>
+  </div>
+</section>
+<style>
+  .safety-check { max-width: 1080px; margin: 0 auto 32px; padding: 0 20px; }
+  .sc-card { background:#fff; border:1.5px solid var(--border-strong); border-radius:var(--radius); padding:20px 22px; }
+  .sc-card h3 { font-size:17px; font-weight:900; margin-bottom:4px; }
+  .sc-card > p { font-size:13.5px; color:var(--text-soft); margin-bottom:12px; }
+  .sc-list { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:8px; }
+  .sc-item { display:flex; gap:10px; align-items:flex-start; font-size:13.5px; padding:9px 12px;
+    border:1px solid var(--border); border-radius:10px; cursor:pointer; user-select:none; line-height:1.5; }
+  .sc-item input { margin-top:3px; accent-color:var(--theme); }
+  .sc-item.on { background:var(--success-light, #DCFCE7); border-color:#86EFAC; }
+  .sc-result { margin-top:12px; font-size:14px; font-weight:800; min-height:22px; }
+</style>
+<script>
+(function safetyChecklist() {
+  const ITEMS = [
+    '戴好護目鏡',
+    '綁好長髮、收緊袖口與飾品',
+    '確認材料種類正確並夾持穩固',
+    '知道緊急停止鈕的位置',
+    '集塵或排煙設備已開啟',
+    '工作區淨空,無雜物與他人',
+    '已預覽加工路徑或切片結果',
+    '已取得老師同意再開機',
+  ];
+  const KEY = 'pc13110_ch2_safety';
+  let state;
+  try { state = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { state = []; }
+  if (!Array.isArray(state) || state.length !== ITEMS.length) state = ITEMS.map(() => false);
+
+  const list = document.getElementById('scList');
+  const result = document.getElementById('scResult');
+
+  function render() {
+    const allOn = state.every(Boolean);
+    if (allOn) {
+      result.innerHTML = '<span style="color:#15803D">✅ 八項全數確認——可以開機!(每次實作前都要重新檢查一遍)</span>';
+    } else {
+      const missing = state.filter(v => !v).length;
+      result.innerHTML = `<span style="color:var(--text-muted)">還有 ${missing} 項未確認</span>`;
+    }
+  }
+  ITEMS.forEach((txt, i) => {
+    const label = document.createElement('label');
+    label.className = 'sc-item' + (state[i] ? ' on' : '');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.checked = state[i];
+    cb.addEventListener('change', () => {
+      state[i] = cb.checked;
+      label.classList.toggle('on', cb.checked);
+      localStorage.setItem(KEY, JSON.stringify(state));
+      if (state.every(Boolean) && typeof SoundFX !== 'undefined') SoundFX.win();
+      render();
+    });
+    const span = document.createElement('span');
+    span.textContent = txt;
+    label.append(cb, span);
+    list.appendChild(label);
+  });
+  render();
+})();
+</script>
+
 <script src="../js/main.js"></script>
 <script src="../js/audio.js"></script>
 <script>

@@ -27,6 +27,13 @@
   .truth th { background:var(--theme); color:#fff; }
   .truth tr.cur td { background:var(--theme-light); font-weight:700; }
   #skyCanvas { width:100%; height:240px; border:1px solid var(--border); border-radius:10px; }
+  /* NAND 萬用閘拼接 */
+  .nubopt { font-weight:700; font-size:13px; padding:7px 12px; border-radius:8px;
+    border:2px solid var(--border-strong); background:#fff; cursor:pointer; color:var(--text); }
+  .nubopt.on { background:var(--theme); color:#fff; border-color:var(--theme); }
+  .nubopt:hover:not(.on) { background:var(--bg-soft); }
+  .nub-th { font-size:12.5px; font-weight:800; margin-bottom:4px; color:var(--text-soft); text-align:center; }
+  .truth tr.bad td { background:#FEE2E2; color:#991B1B; font-weight:700; }
 </style>
 </head>
 <body class="ch4">
@@ -114,6 +121,28 @@
         <div id="lgxInfo" style="font-size:13px;color:var(--text-soft);margin-top:10px;padding:8px 12px;background:var(--bg-soft);border-radius:8px;line-height:1.7"></div>
       </div>
     </div>
+  </div>
+
+  <!-- 互動①.6:NAND 萬用閘拼接 -->
+  <div class="activity-box">
+    <span class="ab-label">🧩 動手拼接:用兩個 NAND 組出 AND</span>
+    <h3 style="margin-bottom:4px">第二個 NAND 該怎麼接?</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      接續上面的挑戰:第一個 NAND 已經接好輸入 A、B,輸出 M = ¬(A·B)。
+      要讓整體等效 AND,第二個 NAND 該怎麼接?點選一種接法,接線圖會即時重繪,
+      再把「你的接法」的真值表與標準 AND 逐列比對。
+    </p>
+    <div id="nubOpts" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+      <button class="nubopt" data-o="inv" type="button">A. 兩輸入接在一起(反相器)</button>
+      <button class="nubopt" data-o="dup" type="button">B. 兩輸入照舊接 A、B</button>
+      <button class="nubopt" data-o="zero" type="button">C. 一腳接 M、一腳接 0</button>
+    </div>
+    <svg id="nubSvg" viewBox="0 0 560 210" style="display:block;width:100%;max-height:240px;background:#F8FAFC;border:1px solid var(--border);border-radius:8px"></svg>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+      <div><div class="nub-th">你的接法(A,B → Y)</div><table class="truth" id="nubTruth"></table></div>
+      <div><div class="nub-th">標準 AND(Y = A · B)</div><table class="truth" id="nubAnd"></table></div>
+    </div>
+    <div id="nubInfo" style="font-size:13px;color:var(--text-soft);margin-top:10px;padding:8px 12px;background:var(--bg-soft);border-radius:8px;line-height:1.7"></div>
   </div>
 
   <section class="content-section">

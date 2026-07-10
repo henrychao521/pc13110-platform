@@ -97,6 +97,15 @@ const QUIZ = [
       { text: '加大電壓', correct: false },
       { text: '把開關拆掉', correct: false },
     ] },
+  { question: '馬達已改用外部電源供電,但 ESP32 一下指令,馬達動作就亂跳、感測讀值也不穩。最可能的原因是?',
+    options: [
+      { text: '外部電源的 GND 沒有和 ESP32 的 GND 接在一起(沒有共地)', correct: true,
+        explain: '正確。兩個電源沒有共地,訊號就沒有共同參考點,高低電位無從判斷,控制與讀值自然亂跳。' },
+      { text: '馬達的線顏色接反了,紅線一定要接紅色腳位', correct: false,
+        explain: '線的顏色只是慣例標示,真正的關鍵是電路的參考點——沒有共地,訊號就沒有基準。' },
+      { text: 'ESP32 要先連上 WiFi 才能穩定控制馬達', correct: false,
+        explain: '馬達控制走的是 GPIO 訊號,與 WiFi 無關。訊號亂跳的典型原因是「沒有共地」。' },
+    ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
 const quizCorrect = new Set();

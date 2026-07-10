@@ -23,6 +23,11 @@
   .seg button.on { background:var(--theme); color:#fff; border-color:var(--theme); }
   .seg button.danger-opt.on { background:var(--danger); border-color:var(--danger); }
   @media(max-width:680px){ .laser-sim{grid-template-columns:1fr;} }
+  .kerf-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:14px; align-items:start; }
+  .kerf-grid .stat-box { background:var(--bg-soft); border-radius:10px; padding:10px 12px; font-size:13px; }
+  .kerf-grid .sb-row { display:flex; justify-content:space-between; margin:3px 0; }
+  .kerf-grid .sb-row b { font-family:var(--font-mono); }
+  @media(max-width:680px){ .kerf-grid{grid-template-columns:1fr;} }
 </style>
 </head>
 <body class="ch2">
@@ -140,6 +145,51 @@
         <li><strong>不明塑膠、ABS</strong>:成分不明者勿雷切,可能釋出有毒煙霧。</li>
         <li>務必確認材料安全後再加工——這是雷射切割的第一守則。</li>
       </ul>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2>切縫(kerf)補償:卡榫密合的關鍵</h2>
+    <p>
+      雷射光束有寬度,切過的地方會「吃掉」一圈材料——這條被燒掉的縫叫 <strong>切縫(kerf)</strong>,
+      一般約 0.1–0.2 mm。結果是:<strong>切出來的孔會比圖面大、切下來的零件會比圖面小</strong>。
+      做卡榫、盒子接合時,如果照板厚 1:1 畫插槽,實際切出來會鬆鬆的——必須把 kerf 補償回去。
+    </p>
+    <div class="activity-box">
+      <span class="ab-label">🧮 動手算:kerf 補償計算器</span>
+      <h3 style="margin-bottom:4px">插槽要畫多寬,卡榫才會剛好密合?</h3>
+      <div class="kerf-grid">
+        <div>
+          <div class="ctrl-row">
+            <label>板厚(mm):<b id="kerfThickVal" style="font-family:var(--font-mono)">3.0</b></label>
+            <input type="range" id="kerfThick" min="2" max="6" step="0.5" value="3" style="width:100%">
+          </div>
+          <div class="ctrl-row">
+            <label>kerf 切縫寬(mm):<b id="kerfKVal" style="font-family:var(--font-mono)">0.15</b></label>
+            <input type="range" id="kerfK" min="0.05" max="0.3" step="0.05" value="0.15" style="width:100%">
+          </div>
+          <svg id="kerfSvg" viewBox="0 0 300 120" style="width:100%;border:1px solid var(--border);border-radius:8px;background:#F8FAFC">
+            <rect x="20" y="30" width="260" height="40" fill="#D6BE9A" stroke="#92703F"/>
+            <rect id="kerfBeamL" x="118" y="20" width="4" height="60" fill="#EF4444" opacity="0.75"/>
+            <rect id="kerfBeamR" x="178" y="20" width="4" height="60" fill="#EF4444" opacity="0.75"/>
+            <text x="150" y="95" text-anchor="middle" font-size="10" fill="#991B1B">紅色=雷射燒掉的 kerf,插槽兩側各吃半條</text>
+            <text x="150" y="15" text-anchor="middle" font-size="10" fill="#334155">圖面畫的槽寬 ↔ 實際切出的槽寬</text>
+          </svg>
+        </div>
+        <div class="stat-box">
+          <div class="sb-row"><span>照板厚畫(不補償)</span><b id="kerfNaive">—</b></div>
+          <div class="sb-row"><span>實際切出的槽寬</span><b id="kerfActual">—</b></div>
+          <div class="sb-row"><span>結果</span><b id="kerfVerdict1">—</b></div>
+          <div style="border-top:1px dashed var(--border);margin:8px 0"></div>
+          <div class="sb-row"><span>補償後圖面槽寬</span><b id="kerfComp">—</b></div>
+          <div class="sb-row"><span>實際切出的槽寬</span><b id="kerfCompActual">—</b></div>
+          <div class="sb-row"><span>結果</span><b id="kerfVerdict2">—</b></div>
+          <p style="font-size:12px;color:var(--text-muted);margin-top:8px">
+            公式:內孔/插槽在圖面上要<strong>縮小一個 kerf</strong>(兩側各半條),
+            外輪廓零件要<strong>放大一個 kerf</strong>。
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 

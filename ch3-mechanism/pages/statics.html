@@ -19,6 +19,24 @@
   .rxn { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
   .rxn div { background:var(--theme-light); border-radius:10px; padding:10px 14px; text-align:center; }
   .rxn b { font-family:var(--font-mono); font-size:20px; color:var(--theme-dark); }
+  /* 支承類型小卡 */
+  .support-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px; }
+  @media (max-width:720px) { .support-cards { grid-template-columns:1fr; } }
+  .support-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+    padding:12px 14px 14px; box-shadow:var(--shadow-xs); }
+  .support-card svg { width:100%; height:auto; display:block; background:var(--bg-soft); border-radius:8px; }
+  .support-card h4 { font-size:14.5px; font-weight:800; margin:10px 0 2px; display:flex;
+    align-items:center; justify-content:space-between; gap:6px; }
+  .support-card .sc-r { font-family:var(--font-mono); font-size:12px; font-weight:700;
+    color:var(--theme-dark); background:var(--theme-light); border-radius:999px; padding:2px 10px; white-space:nowrap; }
+  .support-card p { font-size:12.5px; color:var(--text-soft); margin:6px 0 0; line-height:1.75; }
+  .support-card p strong { color:var(--text); }
+  /* r 小測驗 */
+  .rq-btns { display:flex; gap:8px; margin:10px 0 4px; }
+  .rq-btns button { flex:1; padding:9px; font-size:16px; font-weight:700; font-family:var(--font-mono);
+    border:1.5px solid var(--border-strong); background:#fff; border-radius:8px; cursor:pointer; }
+  .rq-btns button.good { background:var(--success); color:#fff; border-color:var(--success); }
+  .rq-btns button.bad { background:var(--danger-light); color:var(--danger); border-color:var(--danger); }
 </style>
 </head>
 <body class="ch3">
@@ -77,6 +95,125 @@
       </p>
     </div>
   </section>
+
+  <section class="content-section" id="support-types">
+    <h2>支承類型與反力數</h2>
+    <p>
+      畫自由體圖時,支撐點要「拿掉、換成反作用力」。但要畫<strong>幾個</strong>反力分量?
+      這取決於<strong>支承類型</strong>——支承限制了幾個運動方向,就提供幾個反力分量。
+      下面三張小卡是工程圖上最常見的三種支承符號:
+    </p>
+    <div class="support-cards">
+      <!-- 滾支承 r=1 -->
+      <div class="support-card">
+        <svg viewBox="0 0 160 120" role="img" aria-label="滾支承符號:三角形下方加圓滾,只提供垂直反力">
+          <line x1="52" y1="10" x2="108" y2="10" stroke="#94A3B8" stroke-width="1.5"/>
+          <path d="M52 10 l7 -3.5 v7 Z" fill="#94A3B8"/>
+          <path d="M108 10 l-7 -3.5 v7 Z" fill="#94A3B8"/>
+          <rect x="20" y="18" width="120" height="9" rx="2" fill="#94A3B8"/>
+          <circle cx="80" cy="27" r="4" fill="#334155"/>
+          <path d="M80 27 L64 55 L96 55 Z" fill="none" stroke="#C026D3" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="70" cy="62" r="6" fill="none" stroke="#C026D3" stroke-width="2.5"/>
+          <circle cx="90" cy="62" r="6" fill="none" stroke="#C026D3" stroke-width="2.5"/>
+          <line x1="40" y1="69" x2="120" y2="69" stroke="#334155" stroke-width="2"/>
+          <path d="M50 69 l-7 8 M63 69 l-7 8 M76 69 l-7 8 M89 69 l-7 8 M102 69 l-7 8 M115 69 l-7 8"
+            stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+          <line x1="80" y1="108" x2="80" y2="86" stroke="#16A34A" stroke-width="2.5"/>
+          <path d="M80 82 l-5 9 h10 Z" fill="#16A34A"/>
+          <text x="90" y="102" font-size="11" font-weight="700" fill="#16A34A">R<tspan dy="3" font-size="8">y</tspan></text>
+        </svg>
+        <h4>滾支承(Roller)<span class="sc-r">r = 1</span></h4>
+        <p>
+          <strong>允許</strong>:水平滑動、旋轉。<br>
+          <strong>限制</strong>:垂直移動。<br>
+          反力分量只有 <strong>1 個</strong>:垂直反力 R<sub>y</sub>(與滾動面垂直)。
+        </p>
+      </div>
+      <!-- 鉸支承 r=2 -->
+      <div class="support-card">
+        <svg viewBox="0 0 160 120" role="img" aria-label="鉸支承符號:三角形直接接斜線地面,提供水平與垂直反力">
+          <rect x="20" y="18" width="120" height="9" rx="2" fill="#94A3B8"/>
+          <circle cx="80" cy="27" r="4" fill="#334155"/>
+          <path d="M80 27 L64 57 L96 57 Z" fill="none" stroke="#C026D3" stroke-width="2.5" stroke-linejoin="round"/>
+          <line x1="40" y1="57" x2="120" y2="57" stroke="#334155" stroke-width="2"/>
+          <path d="M50 57 l-7 8 M63 57 l-7 8 M76 57 l-7 8 M89 57 l-7 8 M102 57 l-7 8 M115 57 l-7 8"
+            stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+          <line x1="80" y1="108" x2="80" y2="86" stroke="#16A34A" stroke-width="2.5"/>
+          <path d="M80 82 l-5 9 h10 Z" fill="#16A34A"/>
+          <text x="88" y="106" font-size="11" font-weight="700" fill="#16A34A">R<tspan dy="3" font-size="8">y</tspan></text>
+          <line x1="18" y1="76" x2="42" y2="76" stroke="#16A34A" stroke-width="2.5"/>
+          <path d="M46 76 l-9 -5 v10 Z" fill="#16A34A"/>
+          <text x="14" y="93" font-size="11" font-weight="700" fill="#16A34A">R<tspan dy="3" font-size="8">x</tspan></text>
+        </svg>
+        <h4>鉸支承(Pin)<span class="sc-r">r = 2</span></h4>
+        <p>
+          <strong>允許</strong>:旋轉。<br>
+          <strong>限制</strong>:水平移動、垂直移動。<br>
+          反力分量有 <strong>2 個</strong>:水平 R<sub>x</sub> + 垂直 R<sub>y</sub>。
+        </p>
+      </div>
+      <!-- 固定端 r=3 -->
+      <div class="support-card">
+        <svg viewBox="0 0 160 120" role="img" aria-label="固定端符號:桿件插入斜線牆面,提供水平、垂直反力與反力矩">
+          <line x1="44" y1="14" x2="44" y2="92" stroke="#334155" stroke-width="2.5"/>
+          <path d="M44 22 l-12 -8 M44 36 l-12 -8 M44 50 l-12 -8 M44 64 l-12 -8 M44 78 l-12 -8 M44 92 l-12 -8"
+            stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+          <rect x="44" y="44" width="96" height="9" rx="2" fill="#94A3B8"/>
+          <line x1="66" y1="34" x2="66" y2="14" stroke="#16A34A" stroke-width="2.5"/>
+          <path d="M66 10 l-5 9 h10 Z" fill="#16A34A"/>
+          <text x="73" y="22" font-size="11" font-weight="700" fill="#16A34A">R<tspan dy="3" font-size="8">y</tspan></text>
+          <line x1="90" y1="66" x2="66" y2="66" stroke="#16A34A" stroke-width="2.5"/>
+          <path d="M62 66 l9 -5 v10 Z" fill="#16A34A"/>
+          <text x="94" y="70" font-size="11" font-weight="700" fill="#16A34A">R<tspan dy="3" font-size="8">x</tspan></text>
+          <path d="M118 62 A 15 15 0 1 1 133 47" fill="none" stroke="#16A34A" stroke-width="2.5"/>
+          <path d="M133 41 l-6 8 10 2 Z" fill="#16A34A"/>
+          <text x="113" y="86" font-size="11" font-weight="700" fill="#16A34A">M</text>
+        </svg>
+        <h4>固定端(Fixed)<span class="sc-r">r = 3</span></h4>
+        <p>
+          <strong>允許</strong>:無(完全固定)。<br>
+          <strong>限制</strong>:水平、垂直移動與旋轉。<br>
+          反力分量有 <strong>3 個</strong>:R<sub>x</sub> + R<sub>y</sub> + 反力矩 M。
+        </p>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--text-muted);margin-top:10px">
+      這裡的 r 就是桁架靜定公式 <strong>n = b + r − 2j</strong> 裡的「反力數」——把每個支承的反力分量加總即可。
+    </p>
+  </section>
+
+  <!-- 小互動:數一數 r -->
+  <div class="activity-box">
+    <span class="ab-label">🧠 小試身手:數一數 r</span>
+    <h3 style="margin-bottom:4px">這支簡支梁的總反力數 r = ?</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      下圖是一支<strong>簡支梁</strong>:左端 A 是鉸支承、右端 B 是滾支承。
+      對照上方小卡,算算看整支梁總共有幾個反力分量。
+    </p>
+    <svg viewBox="0 0 400 120" role="img" aria-label="簡支梁:左端鉸支承、右端滾支承,中央向下載重 P"
+      style="width:100%;height:auto;display:block;background:var(--bg-soft);border-radius:10px">
+      <rect x="60" y="46" width="280" height="10" rx="2" fill="#64748B"/>
+      <line x1="200" y1="12" x2="200" y2="40" stroke="#DC2626" stroke-width="3"/>
+      <path d="M200 44 l-6 -10 h12 Z" fill="#DC2626"/>
+      <text x="208" y="24" font-size="12" font-weight="700" fill="#DC2626">P</text>
+      <path d="M64 56 L50 82 L78 82 Z" fill="none" stroke="#C026D3" stroke-width="2.5" stroke-linejoin="round"/>
+      <line x1="38" y1="82" x2="90" y2="82" stroke="#334155" stroke-width="2"/>
+      <path d="M48 82 l-6 8 M60 82 l-6 8 M72 82 l-6 8 M84 82 l-6 8" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+      <text x="64" y="106" font-size="13" font-weight="700" fill="#334155" text-anchor="middle">A 鉸支承</text>
+      <path d="M336 56 L322 78 L350 78 Z" fill="none" stroke="#C026D3" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="329" cy="83" r="5" fill="none" stroke="#C026D3" stroke-width="2.5"/>
+      <circle cx="343" cy="83" r="5" fill="none" stroke="#C026D3" stroke-width="2.5"/>
+      <line x1="310" y1="89" x2="362" y2="89" stroke="#334155" stroke-width="2"/>
+      <path d="M320 89 l-6 8 M332 89 l-6 8 M344 89 l-6 8 M356 89 l-6 8" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+      <text x="336" y="112" font-size="13" font-weight="700" fill="#334155" text-anchor="middle">B 滾支承</text>
+    </svg>
+    <div class="rq-btns" id="rQuizBtns">
+      <button type="button" data-val="2">r = 2</button>
+      <button type="button" data-val="3">r = 3</button>
+      <button type="button" data-val="4">r = 4</button>
+    </div>
+    <div id="rQuizResult" style="font-size:13px;min-height:20px"></div>
+  </div>
 
   <!-- 互動:反力計算器 -->
   <div class="activity-box">

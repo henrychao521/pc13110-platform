@@ -20,6 +20,39 @@
   .mind-toolbar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
   .gantt-container .bar-progress { fill:var(--theme); }
   .gantt-container .bar-wrapper:hover .bar-progress { fill:var(--theme-dark); }
+  /* ---- 決策矩陣 ---- */
+  .dm-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); background:#fff; }
+  table.dm { width:100%; border-collapse:collapse; min-width:520px; font-size:13.5px; }
+  table.dm th, table.dm td { padding:8px 10px; border:1px solid var(--border); text-align:center; }
+  table.dm thead th { background:var(--bg-soft); font-weight:800; font-size:13px; }
+  table.dm input.dm-name { width:100%; min-width:72px; border:1px solid transparent; border-radius:6px;
+    padding:4px 6px; font:inherit; font-weight:700; text-align:center; background:transparent; }
+  table.dm input.dm-name:hover, table.dm input.dm-name:focus { border-color:var(--border-strong); background:#fff; outline:none; }
+  table.dm select { font:inherit; font-size:13px; padding:3px 4px; border:1px solid var(--border);
+    border-radius:6px; background:#fff; cursor:pointer; }
+  table.dm .dm-del { border:none; background:none; cursor:pointer; font-size:12px; color:var(--text-light);
+    padding:2px 4px; border-radius:4px; }
+  table.dm .dm-del:hover { color:#DC2626; background:#FEE2E2; }
+  table.dm tfoot td { font-weight:800; background:var(--bg-soft); }
+  table.dm .dm-best { background:#DCFCE7 !important; }
+  table.dm tfoot td.dm-best { color:#15803D; font-size:15px; }
+  /* ---- 失敗路徑 ---- */
+  .fail-path { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:12px; }
+  .fp-step { border:1px solid var(--border); border-radius:var(--radius); padding:14px; background:#fff; position:relative; }
+  .fp-step::after { content:'→'; position:absolute; right:-14px; top:50%; transform:translateY(-50%);
+    font-weight:900; color:var(--text-light); }
+  .fp-step:last-child::after { content:''; }
+  .fp-tag { display:inline-block; font-size:11px; font-weight:800; padding:3px 10px; border-radius:999px; margin-bottom:8px; }
+  .fp-try   { background:#DBEAFE; color:#1D4ED8; }
+  .fp-fail  { background:#FEE2E2; color:#B91C1C; }
+  .fp-pivot { background:#FEF3C7; color:#B45309; }
+  .fp-learn { background:#DCFCE7; color:#15803D; }
+  .fp-step p { font-size:13px; color:var(--text-soft); line-height:1.65; }
+  @media(max-width:760px){
+    .fail-path { grid-template-columns:1fr; }
+    .fp-step::after { content:'↓'; right:auto; left:50%; top:auto; bottom:-16px; transform:translateX(-50%); }
+    .fp-step:last-child::after { content:''; }
+  }
 </style>
 </head>
 <body class="ch1">
@@ -134,10 +167,58 @@
       （英文,介紹甘特圖、要徑等專案管理概念)。</span>
   </div>
 
+  <!-- 決策矩陣 -->
+  <section class="content-section" style="margin-top:22px">
+    <h2>決策矩陣：讓選擇有依據</h2>
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:12px">
+      決策矩陣用在<strong>創意發想收斂之後、動手做原型之前</strong>：把各方案依準則逐項評分、乘上權重加總,
+      讓「選哪個方案」有可比較的依據,而不是只憑直覺。
+    </p>
+    <div class="mind-toolbar">
+      <button class="btn btn-primary btn-sm" id="dmAddCrit">＋ 準則</button>
+      <button class="btn btn-primary btn-sm" id="dmAddOpt">＋ 方案</button>
+      <button class="btn btn-ghost btn-sm" id="dmSample">📋 載入範例</button>
+      <button class="btn btn-ghost btn-sm" id="dmReset">↻ 清空重設</button>
+    </div>
+    <div class="dm-wrap">
+      <table class="dm" id="dmTable"></table>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-top:8px">
+      加權總分 ＝ Σ（權重 × 評分）。總分最高的方案整欄會亮綠色並戴上 👑。
+      準則與方案名稱皆可直接點選改名,內容自動儲存於本機瀏覽器（上限 6 準則 × 5 方案）。
+    </p>
+  </section>
+
+  <!-- 失敗路徑 -->
+  <section class="content-section" style="margin-top:22px">
+    <h2>🧗 失敗路徑：直覺選方案的代價</h2>
+    <p style="font-size:14px;color:var(--text-soft)">
+      失敗不是繞路,而是學習的一部分。看看這個真實會發生的專題情境:
+    </p>
+    <div class="fail-path">
+      <div class="fp-step">
+        <span class="fp-tag fp-try">嘗試</span>
+        <p>專題小組只憑直覺,選了看起來<strong>最炫</strong>的方案,立刻動手開做。</p>
+      </div>
+      <div class="fp-step">
+        <span class="fp-tag fp-fail">失敗</span>
+        <p>做到一半才發現:材料費早已超出預算,加工時數也遠超過課堂能給的時間。</p>
+      </div>
+      <div class="fp-step">
+        <span class="fp-tag fp-pivot">改用</span>
+        <p>回頭用上方的<strong>決策矩陣</strong>,把成本、工時列為高權重準則重新評估,換成務實可完成的方案。</p>
+      </div>
+      <div class="fp-step">
+        <span class="fp-tag fp-learn">學到</span>
+        <p>收斂方案要有<strong>可比較的依據</strong>。直覺不必丟掉——把「吸引力」放進矩陣,變成其中一列準則就好。</p>
+      </div>
+    </div>
+  </section>
+
   <div class="activity-box">
     <span class="ab-label">✅ 完成本模組</span>
     <p style="font-size:13.5px;color:var(--text-soft)">
-      編輯心智圖（新增或修改節點）或調整甘特圖任務時程,即可完成本模組。內容會自動儲存於本機瀏覽器。
+      編輯心智圖（新增或修改節點）、調整甘特圖任務時程,或編輯決策矩陣,即可完成本模組。內容會自動儲存於本機瀏覽器。
     </p>
     <button class="btn btn-primary btn-sm" id="doneBtn" disabled style="margin-top:10px">完成專題規劃</button>
   </div>

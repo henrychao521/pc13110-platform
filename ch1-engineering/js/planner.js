@@ -175,6 +175,202 @@ document.querySelectorAll('#planTabs .tab').forEach(tab => {
   });
 });
 
+/* ============================================================
+ * 決策矩陣（Decision Matrix）
+ * 加權總分 = Σ(權重 × 評分)，最高分方案整欄亮綠 + 👑
+ * ============================================================ */
+const DM_KEY = 'pc13110_ch1_matrix';
+const DM_MAX_CRIT = 6, DM_MAX_OPT = 5;
+
+function defaultMatrix() {
+  return {
+    options: ['方案 A', '方案 B', '方案 C'],
+    criteria: [
+      { name: '成本',   weight: 3 },
+      { name: '可行性', weight: 3 },
+      { name: '創新性', weight: 3 },
+      { name: '效益',   weight: 3 },
+    ],
+    /* scores[準則][方案]，皆為 1–5 */
+    scores: [[3,3,3],[3,3,3],[3,3,3],[3,3,3]],
+  };
+}
+/* 範例：自走車底盤材料選擇
+ * 木板   = 5×5 + 4×5 + 2×2 + 3×3 = 58（最高）
+ * 壓克力 = 5×3 + 4×4 + 2×3 + 3×4 = 49
+ * 3D列印 = 5×2 + 4×3 + 2×5 + 3×4 = 44 */
+function sampleMatrix() {
+  return {
+    options: ['木板', '壓克力', '3D 列印'],
+    criteria: [
+      { name: '成本',   weight: 5 },
+      { name: '可行性', weight: 4 },
+      { name: '創新性', weight: 2 },
+      { name: '效益',   weight: 3 },
+    ],
+    scores: [
+      [5, 3, 2],   /* 成本：木板最省 */
+      [5, 4, 3],   /* 可行性：木工加工門檻最低 */
+      [2, 3, 5],   /* 創新性：3D 列印造型自由 */
+      [3, 4, 4],   /* 效益：壓克力/列印精度較佳 */
+    ],
+  };
+}
+
+function dmValid(m) {
+  return m && Array.isArray(m.options) && Array.isArray(m.criteria) && Array.isArray(m.scores)
+    && m.options.length > 0 && m.criteria.length > 0
+    && m.scores.length === m.criteria.length
+    && m.scores.every(row => Array.isArray(row) && row.length === m.options.length);
+}
+function dmLoad() {
+  try {
+    const m = JSON.parse(localStorage.getItem(DM_KEY));
+    if (dmValid(m)) return m;
+  } catch (e) {}
+  return defaultMatrix();
+}
+let dm = dmLoad();
+function dmSave() {
+  try { localStorage.setItem(DM_KEY, JSON.stringify(dm)); } catch (e) {}
+}
+function dmChanged() { dmSave(); markInteracted(); }
+
+function dmSelect(value, onChange) {
+  const s = document.createElement('select');
+  for (let v = 1; v <= 5; v++) {
+    const o = document.createElement('option');
+    o.value = v; o.textContent = v;
+    s.appendChild(o);
+  }
+  s.value = value;
+  s.addEventListener('change', () => {
+    onChange(parseInt(s.value, 10));
+    if (typeof SoundFX !== 'undefined') SoundFX.click();
+  });
+  return s;
+}
+function dmNameInput(value, onChange) {
+  const inp = document.createElement('input');
+  inp.type = 'text'; inp.className = 'dm-name';
+  inp.value = value; inp.maxLength = 12;
+  inp.addEventListener('change', () => onChange(inp.value.trim() || '（未命名）'));
+  return inp;
+}
+function dmDelBtn(title, onClick) {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'dm-del'; b.title = title; b.textContent = '✕';
+  b.addEventListener('click', onClick);
+  return b;
+}
+
+function dmTotals() {
+  return dm.options.map((_, oi) =>
+    dm.criteria.reduce((sum, c, ci) => sum + c.weight * dm.scores[ci][oi], 0));
+}
+
+function renderMatrix() {
+  const table = document.getElementById('dmTable');
+  table.innerHTML = '';
+  const totals = dmTotals();
+  const best = Math.max(...totals);
+
+  /* ---- 表頭：準則 | 權重 | 各方案 ---- */
+  const thead = document.createElement('thead');
+  const hr = document.createElement('tr');
+  ['準則', '權重'].forEach(t => {
+    const th = document.createElement('th');
+    th.textContent = t;
+    hr.appendChild(th);
+  });
+  dm.options.forEach((name, oi) => {
+    const th = document.createElement('th');
+    if (totals[oi] === best) th.className = 'dm-best';
+    th.appendChild(dmNameInput(name, v => { dm.options[oi] = v; dmChanged(); renderMatrix(); }));
+    if (dm.options.length > 1) {
+      th.appendChild(dmDelBtn('刪除此方案', () => {
+        dm.options.splice(oi, 1);
+        dm.scores.forEach(row => row.splice(oi, 1));
+        dmChanged(); renderMatrix();
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+      }));
+    }
+    hr.appendChild(th);
+  });
+  thead.appendChild(hr);
+  table.appendChild(thead);
+
+  /* ---- 各準則列 ---- */
+  const tbody = document.createElement('tbody');
+  dm.criteria.forEach((c, ci) => {
+    const tr = document.createElement('tr');
+    const tdName = document.createElement('td');
+    tdName.appendChild(dmNameInput(c.name, v => { dm.criteria[ci].name = v; dmChanged(); }));
+    if (dm.criteria.length > 1) {
+      tdName.appendChild(dmDelBtn('刪除此準則', () => {
+        dm.criteria.splice(ci, 1);
+        dm.scores.splice(ci, 1);
+        dmChanged(); renderMatrix();
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+      }));
+    }
+    tr.appendChild(tdName);
+    const tdW = document.createElement('td');
+    tdW.appendChild(dmSelect(c.weight, v => { dm.criteria[ci].weight = v; dmChanged(); renderMatrix(); }));
+    tr.appendChild(tdW);
+    dm.options.forEach((_, oi) => {
+      const td = document.createElement('td');
+      if (totals[oi] === best) td.className = 'dm-best';
+      td.appendChild(dmSelect(dm.scores[ci][oi], v => { dm.scores[ci][oi] = v; dmChanged(); renderMatrix(); }));
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  /* ---- 表尾：加權總分 ---- */
+  const tfoot = document.createElement('tfoot');
+  const fr = document.createElement('tr');
+  const fLabel = document.createElement('td');
+  fLabel.colSpan = 2; fLabel.textContent = '加權總分 Σ(權重×評分)';
+  fr.appendChild(fLabel);
+  totals.forEach(t => {
+    const td = document.createElement('td');
+    td.textContent = (t === best ? '👑 ' : '') + t;
+    if (t === best) td.className = 'dm-best';
+    fr.appendChild(td);
+  });
+  tfoot.appendChild(fr);
+  table.appendChild(tfoot);
+}
+renderMatrix();
+
+document.getElementById('dmAddCrit').addEventListener('click', () => {
+  if (dm.criteria.length >= DM_MAX_CRIT) { showToast(`準則最多 ${DM_MAX_CRIT} 個`, 'warning'); return; }
+  dm.criteria.push({ name: '新準則', weight: 3 });
+  dm.scores.push(dm.options.map(() => 3));
+  dmChanged(); renderMatrix();
+  if (typeof SoundFX !== 'undefined') SoundFX.click();
+});
+document.getElementById('dmAddOpt').addEventListener('click', () => {
+  if (dm.options.length >= DM_MAX_OPT) { showToast(`方案最多 ${DM_MAX_OPT} 個`, 'warning'); return; }
+  dm.options.push('方案 ' + String.fromCharCode(65 + dm.options.length));
+  dm.scores.forEach(row => row.push(3));
+  dmChanged(); renderMatrix();
+  if (typeof SoundFX !== 'undefined') SoundFX.click();
+});
+document.getElementById('dmSample').addEventListener('click', () => {
+  dm = sampleMatrix();
+  dmChanged(); renderMatrix();
+  showToast('已載入範例：自走車底盤材料選擇', 'success');
+});
+document.getElementById('dmReset').addEventListener('click', () => {
+  if (!confirm('清空決策矩陣、回到預設?目前的評分會消失。')) return;
+  localStorage.removeItem(DM_KEY);
+  dm = defaultMatrix();
+  renderMatrix();
+});
+
 /* ---- 完成 ---- */
 document.getElementById('doneBtn').addEventListener('click', () => {
   celebrateModule('ch1-planner', '專題規劃器');

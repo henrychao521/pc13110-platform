@@ -57,6 +57,31 @@
   .csim-ctrls input[type=range] { flex:1; accent-color:var(--theme); min-width:140px; }
   .csim-info { font-size:13px; color:var(--text-soft); margin-top:8px; line-height:1.7; min-height:42px; padding:8px 12px; background:var(--bg-soft); border-radius:8px; }
   .csim-info strong { color:var(--theme-dark); }
+
+  /* LED 限流電阻計算器 */
+  .ohm-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:10px; }
+  .ohm-field { display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:700; color:var(--text); }
+  .ohm-field input[type=number], .ohm-field select { font-family:var(--font-sans); font-size:14px;
+    padding:7px 9px; border:1.5px solid var(--border-strong); border-radius:8px; }
+  .ohm-field input[type=range] { accent-color:var(--theme); }
+  .ohm-out { background:#fff; border:1px solid var(--border); border-radius:10px; padding:12px 14px; }
+  .ohm-out .oo-f { font-family:var(--font-mono); font-size:15px; color:var(--theme-dark); font-weight:700; }
+  .ohm-out .oo-e12 { font-size:14px; margin-top:6px; }
+  .ohm-out .oo-e12 b { font-family:var(--font-mono); font-size:18px; color:var(--theme-dark); }
+  .ohm-out svg { display:block; max-width:280px; margin:8px auto 0; }
+  @media(max-width:680px){ .ohm-grid{grid-template-columns:1fr;} }
+
+  /* 失敗路徑 */
+  .fail-path { border:1.5px solid #FCA5A5; border-left:5px solid #DC2626; background:#FEF2F2;
+    border-radius:var(--radius); padding:14px 16px; margin:18px 0; }
+  .fail-path .fp-label { display:inline-block; font-size:12px; font-weight:800; color:#991B1B;
+    letter-spacing:1px; margin-bottom:8px; }
+  .fail-path .fp-step { font-size:13.5px; color:var(--text-soft); padding:6px 0 6px 10px;
+    border-left:3px solid var(--border); margin-left:4px; line-height:1.7; }
+  .fail-path .fp-step b { display:inline-block; font-size:11px; padding:2px 10px; border-radius:999px;
+    background:#E5E7EB; color:#374151; margin-right:8px; vertical-align:1px; }
+  .fail-path .fp-step.fp-bad b { background:#FEE2E2; color:#991B1B; }
+  .fail-path .fp-step.fp-good b { background:#DCFCE7; color:#166534; }
 </style>
 </head>
 <body class="ch4">
@@ -203,6 +228,46 @@
     <div class="csim-info" id="csimInfo"></div>
   </div>
 
+  <section class="content-section">
+    <h2>歐姆定律:V = I × R</h2>
+    <p>
+      電壓(V)、電流(I)、電阻(R)三者的關係,由<strong>歐姆定律</strong>描述:<strong>V = I × R</strong>。
+      用水流類比一句話說清楚:電壓像水壓、電流像水流量、電阻像水管的粗細——水壓越大流量越大,水管越細流量越小。<br>
+      同一條公式有三種變形,依想求的量選用:<br>
+      ・<strong>求電壓:V = I × R</strong>(已知電流與電阻)<br>
+      ・<strong>求電流:I = V ÷ R</strong>(已知電壓與電阻)<br>
+      ・<strong>求電阻:R = V ÷ I</strong>(已知電壓與電流)
+    </p>
+  </section>
+
+  <!-- 互動:LED 限流電阻計算器 -->
+  <div class="activity-box">
+    <span class="ab-label">🧮 動手計算:LED 限流電阻計算器</span>
+    <h3 style="margin-bottom:4px">用歐姆定律幫 LED 挑一顆限流電阻</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
+      上面的動畫看到了:LED 一定要串電阻限流,但阻值要多大?套用歐姆定律的「求電阻」變形:
+      <strong>R = (Vs − Vf) ÷ I</strong>——電阻分到的電壓是「電源電壓減掉 LED 順向電壓」,
+      再除以想要的電流。調整下面三個條件,平台即時算出答案與建議的標準電阻。
+    </p>
+    <div class="ohm-grid">
+      <label class="ohm-field">電源電壓 Vs(V)
+        <input type="number" id="ohmVs" value="9" min="1" max="24" step="0.5">
+      </label>
+      <label class="ohm-field">LED 順向電壓 Vf
+        <select id="ohmVf">
+          <option value="2.0" selected>紅色 2.0V</option>
+          <option value="2.1">黃色 2.1V</option>
+          <option value="2.2">綠色 2.2V</option>
+          <option value="3.2">藍/白色 3.2V</option>
+        </select>
+      </label>
+      <label class="ohm-field">目標電流 I:<span id="ohmIVal">15</span> mA
+        <input type="range" id="ohmI" min="5" max="20" value="15" step="1">
+      </label>
+    </div>
+    <div class="ohm-out" id="ohmOut"></div>
+  </div>
+
   <div class="knowledge-box">
     <span class="kb-label">💡 知識小百科</span>
     <h4>電阻色碼怎麼讀?</h4>
@@ -215,8 +280,17 @@
 
   <div class="activity-box">
     <span class="ab-label">🧠 觀念檢核</span>
-    <h3 style="margin-bottom:6px">完成下方 3 題即可完成本模組</h3>
+    <h3 style="margin-bottom:6px">完成下方 4 題即可完成本模組</h3>
     <div id="quizArea"></div>
+  </div>
+
+  <!-- 失敗路徑:嘗試 → 失敗 → 改用 → 學到 -->
+  <div class="fail-path">
+    <span class="fp-label">🧯 失敗路徑:LED 為什麼燒掉了?</span>
+    <div class="fp-step"><b>嘗試</b>想快點看到 LED 發光,直接把它接上 9V 電池,沒有串接任何電阻。</div>
+    <div class="fp-step fp-bad"><b>失敗</b>LED 閃了一下就再也不亮——瞬間過大的電流把它燒毀了。</div>
+    <div class="fp-step"><b>改用</b>換一顆新 LED,先串上 470Ω 限流電阻再接 9V 電池,LED 穩定點亮。</div>
+    <div class="fp-step fp-good"><b>學到</b>LED 是「電流元件」,本身幾乎不限制電流,一定要串電阻限流——阻值就用上面的計算器,以歐姆定律 R = (Vs − Vf) ÷ I 算出來。</div>
   </div>
 
   <h3 style="font-size:15px;font-weight:800;margin:18px 0 4px">🔗 延伸資源</h3>

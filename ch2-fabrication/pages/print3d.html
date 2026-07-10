@@ -26,6 +26,18 @@
   .stat-box .sb-row { display:flex; justify-content:space-between; margin:3px 0; }
   .stat-box .sb-row b { font-family:var(--font-mono); }
   @media(max-width:680px){ .printer-sim{grid-template-columns:1fr;} }
+
+  /* 失敗路徑 */
+  .fail-path { border:1.5px solid #FCA5A5; border-left:5px solid #DC2626; background:#FEF2F2;
+    border-radius:var(--radius); padding:14px 16px; margin:18px 0; }
+  .fail-path .fp-label { display:inline-block; font-size:12px; font-weight:800; color:#991B1B;
+    letter-spacing:1px; margin-bottom:8px; }
+  .fail-path .fp-step { font-size:13.5px; color:var(--text-soft); padding:6px 0 6px 10px;
+    border-left:3px solid var(--border); margin-left:4px; line-height:1.7; }
+  .fail-path .fp-step b { display:inline-block; font-size:11px; padding:2px 10px; border-radius:999px;
+    background:#E5E7EB; color:#374151; margin-right:8px; vertical-align:1px; }
+  .fail-path .fp-step.fp-bad b { background:#FEE2E2; color:#991B1B; }
+  .fail-path .fp-step.fp-good b { background:#DCFCE7; color:#166534; }
 </style>
 </head>
 <body class="ch2">
@@ -150,6 +162,10 @@
           <label>④ 支撐結構</label>
           <div class="seg" id="segSupport"></div>
         </div>
+        <div class="ctrl-row">
+          <label>⑤ 列印方向——換個方向印，常常比開支撐更省料省時（DFM：面向製造的設計）</label>
+          <div class="seg" id="segOrient"></div>
+        </div>
         <div class="stat-box" id="statBox"></div>
         <div style="display:flex;gap:8px;margin-top:10px">
           <button class="btn btn-primary btn-sm" id="printBtn" style="flex:1">▶ 開始列印</button>
@@ -235,6 +251,15 @@
       <span class="rc-src">help.prusa3d.com</span>
       <span class="rc-desc">業界公認最完整的 3D 列印知識庫(含切片觀念)。</span></span>
     </a>
+  </div>
+
+  <!-- 失敗路徑:嘗試 → 失敗 → 改用 → 學到 -->
+  <div class="fail-path">
+    <span class="fp-label">🧯 失敗路徑:拱橋為什麼印垮了?</span>
+    <div class="fp-step"><b>嘗試</b>把拱橋模型直立擺上平台就按下列印,想說形狀簡單應該沒問題。</div>
+    <div class="fp-step fp-bad"><b>失敗</b>印到拱洞上緣時,懸空處的熱融膠絲往下垂,整個拱頂垮成一團「麵條」。</div>
+    <div class="fp-step"><b>改用</b>回到切片軟體把模型翻轉 90° 側躺——橋的側面平貼平台,幾乎沒有懸空,不開支撐一次印成。</div>
+    <div class="fp-step fp-good"><b>學到</b>列印方向是「免費的支撐」:遇到懸空,先想能不能換方向,再考慮開支撐——這就是 DFM(面向製造的設計)的第一課。</div>
   </div>
 
   <div class="module-nav">

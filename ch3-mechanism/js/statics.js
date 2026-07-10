@@ -87,6 +87,38 @@ document.getElementById('aSlider').addEventListener('input', e => { aPct = +e.ta
 window.addEventListener('resize', draw);
 refresh();
 
+/* ---- 支承小卡:數一數 r 小測驗 ---- */
+(() => {
+  const wrap = document.getElementById('rQuizBtns');
+  if (!wrap) return;
+  const result = document.getElementById('rQuizResult');
+  let solved = false;
+  wrap.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (solved) return;
+      if (+btn.dataset.val === 3) {
+        solved = true;
+        btn.classList.add('good');
+        result.innerHTML =
+          `<div style="background:var(--success-light);color:#166534;border-radius:8px;padding:10px 12px;margin-top:4px">
+            ✓ 答對了!鉸支承提供 <strong>2</strong> 個反力分量(水平 R<sub>x</sub> + 垂直 R<sub>y</sub>),
+            滾支承提供 <strong>1</strong> 個(垂直 R<sub>y</sub>),所以 r = 2 + 1 = <strong>3</strong>。
+            平面上剛好有三條平衡方程式(ΣF<sub>x</sub>、ΣF<sub>y</sub>、ΣM),所以簡支梁是「靜定」的,手算就解得出來。
+          </div>`;
+        if (typeof SoundFX !== 'undefined') SoundFX.success();
+      } else {
+        btn.classList.add('bad');
+        setTimeout(() => btn.classList.remove('bad'), 900);
+        result.innerHTML =
+          `<div style="background:var(--danger-light);color:#a72d2d;border-radius:8px;padding:10px 12px;margin-top:4px">
+            再想想——對照上方小卡分開數:鉸支承有幾個分量?滾支承有幾個分量?再把兩者相加。
+          </div>`;
+        if (typeof SoundFX !== 'undefined') SoundFX.error();
+      }
+    });
+  });
+})();
+
 /* ---- 檢核 ---- */
 const QUIZ = [
   { question: '結構分析中,被描述為「第一步、也是最重要的一步」的是什麼?',

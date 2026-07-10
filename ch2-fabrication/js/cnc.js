@@ -37,7 +37,7 @@ const TASKS = {
   '星形輪廓': starPath(50, 50, 30, 13),
 };
 
-const P = { task: '方形凹槽', tool: 2, feed: 2, depth: 2 };
+const P = { task: '方形凹槽', tool: 2, feed: 2, depth: 2, rpm: 2 };
 let cncDone = false;
 
 function seg(id, opts, cur, fmt, onPick) {
@@ -66,6 +66,7 @@ seg('segTask', Object.keys(TASKS), P.task, x => x, v => P.task = v);
 seg('segTool', [1, 2, 3], P.tool, x => ['小', '中', '大'][x - 1], v => P.tool = v);
 seg('segFeed', [1, 2, 3], P.feed, x => ['慢', '中', '快'][x - 1], v => P.feed = v);
 seg('segDepth', [1, 2, 3], P.depth, x => ['淺', '中', '深'][x - 1], v => P.depth = v);
+seg('segRpm', [1, 2, 3], P.rpm, x => ['低速', '中速', '高速'][x - 1], v => P.rpm = v);
 
 /* ---- 負荷與時間 ---- */
 function breakRisk() { return P.feed + P.depth + (4 - P.tool); }
@@ -199,6 +200,18 @@ function finish(broke, s, lastPos, toolR) {
     res.innerHTML = `<div style="background:var(--danger-light);color:#a72d2d;padding:10px 12px;border-radius:8px;border-left:3px solid var(--danger)">
       💥 <strong>斷刀!</strong>刀具負荷指數 ${breakRisk()}/9,超過負荷而折斷。
       請<strong>放慢進給</strong>、<strong>切淺一點</strong>,或<strong>換用較粗的刀具</strong>。</div>`;
+  } else if (P.rpm === 3 && P.feed === 1) {
+    /* 轉速過高+進給過慢:同一點摩擦生熱 → 燒焦 */
+    if (typeof SoundFX !== 'undefined') SoundFX.error();
+    res.innerHTML = `<div style="background:#FEF3C7;color:#92400E;padding:10px 12px;border-radius:8px;border-left:3px solid #D97706">
+      🔥 <strong>邊緣燒焦!</strong>主軸高速空磨、進給又慢,熱量集中在同一點,木料邊緣焦黑冒煙。
+      請<strong>降低轉速</strong>或<strong>加快進給</strong>,讓每一刃都確實「切」下材料而不是「磨」它。</div>`;
+  } else if (P.rpm === 1 && P.feed === 3) {
+    /* 轉速過低+進給過快:每刃進給量過大 → 崩邊 */
+    if (typeof SoundFX !== 'undefined') SoundFX.error();
+    res.innerHTML = `<div style="background:#FEF3C7;color:#92400E;padding:10px 12px;border-radius:8px;border-left:3px solid #D97706">
+      🪓 <strong>邊緣崩裂!</strong>主軸轉太慢、進給又快,每一刃咬下的材料太多,邊緣被「撕」出毛邊與缺角。
+      請<strong>提高轉速</strong>或<strong>放慢進給</strong>——轉速與進給要成比例搭配(每刃進給量)。</div>`;
   } else {
     if (typeof SoundFX !== 'undefined') SoundFX.win();
     res.innerHTML = `<div style="background:var(--success-light);color:#15803d;padding:10px 12px;border-radius:8px;border-left:3px solid var(--success)">
