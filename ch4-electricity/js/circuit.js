@@ -10,11 +10,11 @@ const QUIZ = [
       { text: '因為法律規定一定要模擬', correct: false },
       { text: '為了讓電路圖比較好看', correct: false },
     ] },
-  { question: '電路模擬程式常被統稱為什麼?',
+  { question: '最具代表性、許多模擬軟體以它為核心的電路模擬程式是什麼?',
     options: [
       { text: 'CNC', correct: false },
       { text: 'SPICE', correct: true,
-        explain: '正確。SPICE 是專門用來模擬電路運作的程式。' },
+        explain: '正確。SPICE 是最具代表性的電路模擬程式,許多電路模擬軟體都以它為核心。' },
       { text: 'PCB', correct: false },
     ] },
   { question: '「模擬 → 麵包板 → PCB」這個流程的用意是什麼?',
@@ -25,22 +25,31 @@ const QUIZ = [
       { text: '因為麵包板比 PCB 更耐用', correct: false },
     ] },
 ];
-let answered = 0;
+// 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
+const quizCorrect = new Set();
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('quizArea').appendChild(box);
+  renderQuizQ(i, box);
+});
+function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
+    container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onAnswer: (correct) => {
+      if (!correct) {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(() => renderQuizQ(i, box), 3500);
+        return;
+      }
+      quizCorrect.add(i);
+      if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch4-circuit', '電路設計與模擬');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },
   });
-});
+}
 
 /* ============================================================
  * 引導式電路積木 — 步驟化建構 LED 點亮 / 分壓器
@@ -57,10 +66,13 @@ QUIZ.forEach((q, i) => {
 
   /* 共用元件繪製 */
   function battery(x, y) {
-    return `<g><line x1="${x-3}" y1="${y-12}" x2="${x-3}" y2="${y+12}" stroke="#1F2937" stroke-width="3"/>
-      <line x1="${x+3}" y1="${y-22}" x2="${x+3}" y2="${y+22}" stroke="#1F2937" stroke-width="3"/>
-      <text x="${x-10}" y="${y-28}" font-size="13" font-weight="700">+</text>
-      <text x="${x+12}" y="${y-28}" font-size="13" font-weight="700" fill="#6B7280">−</text>
+    // 電池符號:水平極板,長板在上=正極(+),短板在下=負極(−);導線自上下各接一極
+    return `<g><line x1="${x}" y1="${y-22}" x2="${x}" y2="${y-5}" stroke="#1F2937" stroke-width="3"/>
+      <line x1="${x-14}" y1="${y-5}" x2="${x+14}" y2="${y-5}" stroke="#1F2937" stroke-width="3"/>
+      <line x1="${x-7}" y1="${y+5}" x2="${x+7}" y2="${y+5}" stroke="#1F2937" stroke-width="3"/>
+      <line x1="${x}" y1="${y+5}" x2="${x}" y2="${y+22}" stroke="#1F2937" stroke-width="3"/>
+      <text x="${x-18}" y="${y-8}" text-anchor="end" font-size="13" font-weight="700">+</text>
+      <text x="${x-18}" y="${y+13}" text-anchor="end" font-size="13" font-weight="700" fill="#6B7280">−</text>
       <text x="${x}" y="${y+38}" text-anchor="middle" font-size="11" fill="#6B7280">9V</text></g>`;
   }
   function resistor(x, y, w, label) {

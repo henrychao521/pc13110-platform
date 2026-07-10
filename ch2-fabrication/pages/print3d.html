@@ -80,7 +80,7 @@
       <figure class="figure">
         <img src="../../assets/photos/pla-filament.jpg" alt="各色 3D 列印 PLA 線材" loading="lazy">
         <figcaption>
-          <span class="fc-t">3D 列印線材（PLA)</span>
+          <span class="fc-t">3D 列印線材（PLA）</span>
           FDM 使用的塑膠線材,捲繞成盤,有多種顏色。
           📷 Suit・CC BY-SA 4.0・<a href="https://commons.wikimedia.org/wiki/File:3D-Druck-Filament_in_verschiedenen_Farben.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>
         </figcaption>
@@ -103,7 +103,7 @@
       <div class="tl-item"><div class="tl-year">① 建模</div>
         <div class="tl-text">用 CAD 軟體設計 3D 模型,匯出成 <code>.stl</code> 等格式。</div></div>
       <div class="tl-item"><div class="tl-year">② 切片</div>
-        <div class="tl-text">用切片軟體（Slicer)把模型「切」成一層層,設定層高、填充、支撐,產生機器看得懂的 <code>G-code</code>。</div></div>
+        <div class="tl-text">用切片軟體（Slicer）把模型「切」成一層層,設定層高、填充、支撐,產生機器看得懂的 <code>G-code</code>。</div></div>
       <div class="tl-item"><div class="tl-year">③ 列印</div>
         <div class="tl-text">印表機讀取 G-code,控制噴頭與平台,逐層擠出材料堆疊成形。</div></div>
       <div class="tl-item"><div class="tl-year">④ 後處理</div>
@@ -113,7 +113,7 @@
       <span class="kb-label">💡 知識小百科</span>
       <h4>G-code:機器的語言</h4>
       <p>
-        <strong>G-code</strong> 是數位加工機具（3D 印表機、CNC)共通的控制指令碼。它由一行行指令組成,
+        <strong>G-code</strong> 是數位加工機具（3D 印表機、CNC）共通的控制指令碼。它由一行行指令組成,
         例如「移動到座標 (X,Y,Z)」「擠出多少材料」「噴頭加熱到幾度」。切片軟體的工作,
         就是把立體模型翻譯成這一長串 G-code。
       </p>
@@ -139,7 +139,7 @@
           <div class="seg" id="segModel"></div>
         </div>
         <div class="ctrl-row">
-          <label>② 層高（mm)——越小越精細、但越慢</label>
+          <label>② 層高（mm）——越小越精細、但越慢</label>
           <div class="seg" id="segLayer"></div>
         </div>
         <div class="ctrl-row">
@@ -174,7 +174,7 @@
     <div class="verify-box">
       <span class="vb-label">🔍 設計時就要想到的列印限制</span>
       <ul>
-        <li><strong>懸空（Overhang)</strong>:角度過大的懸空面需要支撐,否則材料會下垂。設計時盡量讓結構「自我支撐」。</li>
+        <li><strong>懸空（Overhang）</strong>:角度過大的懸空面需要支撐,否則材料會下垂。設計時盡量讓結構「自我支撐」。</li>
         <li><strong>壁厚</strong>:太薄的牆面印不出來或一碰就破,一般至少 2～3 條線寬。</li>
         <li><strong>底座附著力</strong>:與平台接觸面太小,列印中容易翹起失敗。</li>
       </ul>
@@ -187,7 +187,7 @@
       <span class="kb-label" style="color:#B45309">⚠️ 3D 列印安全須知</span>
       <p>
         ・<strong>高溫</strong>:噴頭可達 200℃ 以上、熱床約 60℃,列印中與剛結束時切勿徒手觸碰。<br>
-        ・<strong>通風</strong>:列印（尤其 ABS、樹脂)會逸散揮發性有機物與超細微粒,須在通風處操作。<br>
+        ・<strong>通風</strong>:列印（尤其 ABS、樹脂）會逸散揮發性有機物與超細微粒,須在通風處操作。<br>
         ・<strong>移動部件</strong>:噴頭與平台會快速移動,列印中勿將手伸入。<br>
         ・<strong>留意火源</strong>:長時間列印建議有人留意,避免無人看管過夜。
       </p>
@@ -199,9 +199,9 @@
     <table class="data">
       <thead><tr><th>機型</th><th>品牌／產地</th><th>特點</th></tr></thead>
       <tbody>
-        <tr><td>da Vinci 系列</td><td>XYZprinting（臺灣)</td><td>臺灣本土品牌,封閉式機型對學生較安全,學校採用率高。</td></tr>
-        <tr><td>A1／P1S 系列</td><td>Bambu Lab（深圳)</td><td>自動校準、高速列印,近年自造圈的人氣機種。</td></tr>
-        <tr><td>Ender-3 系列</td><td>Creality（深圳)</td><td>入門價格最親民、社群資源最豐富。</td></tr>
+        <tr><td>da Vinci 系列</td><td>XYZprinting（臺灣）</td><td>臺灣本土品牌,封閉式機型對學生較安全,學校採用率高。</td></tr>
+        <tr><td>A1／P1S 系列</td><td>Bambu Lab（深圳）</td><td>自動校準、高速列印,近年自造圈的人氣機種。</td></tr>
+        <tr><td>Ender-3 系列</td><td>Creality（深圳）</td><td>入門價格最親民、社群資源最豐富。</td></tr>
       </tbody>
     </table>
     <p style="font-size:12.5px;color:var(--text-muted)">

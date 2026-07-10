@@ -133,7 +133,7 @@ function paths() { return DESIGNS[P.design][P.mode === '切割' ? 'cut' : 'engra
 function drawPreview() {
   const s = setup();
   s.ctx.clearRect(0, 0, s.w, s.h);
-  /* 工作檯格線 */
+  /* 工作台格線 */
   s.ctx.strokeStyle = 'rgba(148,163,184,.2)';
   for (let i = 0; i <= 100; i += 10) {
     s.ctx.beginPath();

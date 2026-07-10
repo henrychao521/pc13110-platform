@@ -58,7 +58,7 @@
   <span>配對 <b id="pairs">0</b>/8</span>
   <span>最佳 <b id="best">—</b></span>
 </div>
-<div class="board" id="board"></div>
+<div class="board" id="board" role="group" aria-label="工程記憶配對遊戲盤面"></div>
 <div class="msg" id="msg">翻開兩張一樣的工程圖示就配對成功!</div>
 <button id="restart">重新洗牌</button>
 
@@ -90,6 +90,9 @@ function render() {
   cards.forEach((c, idx) => {
     const el = document.createElement('div');
     el.className = 'card ' + c.state;
+    el.setAttribute('role', 'button');
+    el.setAttribute('aria-label',
+      c.state === 'down' ? `第 ${idx + 1} 張卡片(蓋著)` : `第 ${idx + 1} 張卡片:${c.icon}`);
     el.innerHTML = c.state === 'down' ? '<span class="q">?</span>' : c.icon;
     el.addEventListener('click', () => flip(idx));
     board.appendChild(el);

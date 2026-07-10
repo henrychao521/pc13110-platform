@@ -34,7 +34,7 @@ const MODEL_NAMES = Object.keys(MODELS);
 function grid() { return Array.from({ length: N }, () => Array(N).fill(0)); }
 function projFront(vx) { const m = grid(); vx.forEach(([x,, z]) => m[z][x] = 1); return m; }
 function projTop(vx)   { const m = grid(); vx.forEach(([x, y]) => m[y][x] = 1); return m; }
-function projSide(vx)  { const m = grid(); vx.forEach(([, y, z]) => m[z][y] = 1); return m; }
+function projSide(vx)  { const m = grid(); vx.forEach(([, y, z]) => m[z][N - 1 - y] = 1); return m; }
 const PROJ = { top: projTop, front: projFront, side: projSide };
 const VIEW_LABEL = { top: '上視圖', front: '前視圖', side: '側視圖' };
 const VIEW_FLIP = { top: false, front: true, side: true };

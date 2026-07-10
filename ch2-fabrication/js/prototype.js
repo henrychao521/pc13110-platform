@@ -86,15 +86,27 @@ const MAT_QUIZ = [
       { text: '用積木堆出車身', correct: false },
     ] },
 ];
+// 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
 let mAnswered = 0;
 MAT_QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('matQuiz').appendChild(box);
-  Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => { mAnswered++; if (mAnswered === MAT_QUIZ.length) { matDone = true; checkComplete(); } },
-  });
+  function renderQ() {
+    Interactions.DiagnosisQuiz({
+      container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+      onAnswer: (correct) => {
+        if (correct) {
+          mAnswered++;
+          if (mAnswered === MAT_QUIZ.length) { matDone = true; checkComplete(); }
+        } else {
+          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+          setTimeout(renderQ, 3500);
+        }
+      },
+    });
+  }
+  renderQ();
 });
 
 /* ---- 外觀製作流程排序 ---- */

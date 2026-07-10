@@ -268,9 +268,9 @@ function buildChart(key) {
   if (key === 'ai') {
     charts.ai = lineChart(document.getElementById('chartChatGPT'), {
       labels: ['2023.1', '2023.5', '2023.9', '2024.1', '2024.5', '2024.9', '2025.1', '2025.5', '2025.9'],
-      values: [100, 180, 200, 250, 300, 400, 540, 800, 700],
+      values: [100, 180, 200, 250, 300, 400, 540, 650, 800],
       yMax: 900, unit: '百萬', color: '#2563EB',
-      milestones: { 0: '突破 1 億' },
+      milestones: { 0: '月活破 1 億' },
     });
     charts.ai.animate();
   }
@@ -343,11 +343,11 @@ const QUIZ = [
     ],
   },
   {
-    question: '台積電於 2023 年成功量產的先進製程晶片是幾奈米?',
+    question: '台積電於 2022 年底量產、2023 年放量的先進製程晶片是幾奈米?',
     options: [
       { text: '7 奈米', correct: false },
       { text: '5 奈米', correct: false },
-      { text: '3 奈米', correct: true, explain: '台積電 2023 年量產 3 奈米製程,使 AI 晶片效能提升至少 15%、節能達 30%。' },
+      { text: '3 奈米', correct: true, explain: '台積電 3 奈米製程於 2022 年底量產、2023 年放量,使 AI 晶片效能提升至少 15%、節能達 30%。' },
       { text: '1 奈米', correct: false },
     ],
   },
@@ -371,22 +371,31 @@ const QUIZ = [
   },
 ];
 
+// 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
 let answered = 0;
 const quizArea = document.getElementById('quizArea');
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   quizArea.appendChild(box);
-  Interactions.DiagnosisQuiz({
-    container: box,
-    question: `第 ${i + 1} 題　${q.question}`,
-    options: q.options,
-    onAnswer: (correct) => {
-      answered++;
-      if (answered === QUIZ.length) {
-        celebrateModule('ch1-trends', '科技趨勢儀表板');
-        document.getElementById('nextBtn').classList.add('pop-in');
-      }
-    },
-  });
+  function renderQ() {
+    Interactions.DiagnosisQuiz({
+      container: box,
+      question: `第 ${i + 1} 題　${q.question}`,
+      options: q.options,
+      onAnswer: (correct) => {
+        if (correct) {
+          answered++;
+          if (answered === QUIZ.length) {
+            celebrateModule('ch1-trends', '科技趨勢儀表板');
+            document.getElementById('nextBtn').classList.add('pop-in');
+          }
+        } else {
+          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+          setTimeout(renderQ, 3500);
+        }
+      },
+    });
+  }
+  renderQ();
 });

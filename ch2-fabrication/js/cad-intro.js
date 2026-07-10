@@ -227,7 +227,7 @@ function runTask(idx) {
     renderHand(frame, task);
     renderCAD(frame, task);
     /* 狀態文字 */
-    if (frame <= HAND_A) handT.textContent = '原圖（已存在)';
+    if (frame <= HAND_A) handT.textContent = '原圖（已存在）';
     else if (frame <= HAND_B) handT.textContent = '✏️ 擦拭中…';
     else if (frame < HAND_END) handT.textContent = '✏️ 重新描繪中…';
     else handT.textContent = `✓ 完成・耗時 ${task.handUnits} 單位`;
@@ -285,7 +285,7 @@ window.addEventListener('resize', () => {
 
 /* ---- CAD 應用領域圖鑑 ---- */
 const APPS = [
-  { icon: '🏛️', name: '建築業', detail: '住宅、商業大樓、橋梁與公共建設的規劃與設計。建築資訊模型（BIM)就是 CAD 的延伸應用。' },
+  { icon: '🏛️', name: '建築業', detail: '住宅、商業大樓、橋梁與公共建設的規劃與設計。建築資訊模型（BIM）就是 CAD 的延伸應用。' },
   { icon: '🚗', name: '製造業', detail: '汽車、飛機、船舶、機械設備、電子產品與家電的設計與開發,是 CAD 應用最深的領域。' },
   { icon: '🪑', name: '消費性產品', detail: '家具、玩具、運動器材到包裝設計,讓產品在量產前就能反覆驗證外觀與機能。' },
   { icon: '👗', name: '時尚產業', detail: '服裝打版與珠寶設計。3D 試衣與客製化珠寶,大幅縮短打樣的時間與成本。' },
@@ -326,7 +326,7 @@ function buildQuiz() {
         { text: 'CAD（電腦輔助設計)', correct: false },
         { text: 'CAE（電腦輔助工程)', correct: false },
         { text: 'CAM（電腦輔助製造)', correct: true, explain: '正確。CAM 負責產生 G-code、刀具路徑等加工指令。' },
-        { text: 'CPU（中央處理器)', correct: false },
+        { text: 'CPU（中央處理器）', correct: false },
       ] },
     { question: '從動畫中你觀察到:手繪修改後紙面留下痕跡,CAD 修改後乾淨如新。這說明 CAD 的什麼優勢?',
       options: [
@@ -337,20 +337,29 @@ function buildQuiz() {
         { text: '兩者其實沒有差別', correct: false },
       ] },
   ];
+  // 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
   let answered = 0;
   QUIZ.forEach((q, i) => {
     const box = document.createElement('div');
     box.style.marginBottom = '14px';
     document.getElementById('quizArea').appendChild(box);
-    Interactions.DiagnosisQuiz({
-      container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-      onAnswer: () => {
-        answered++;
-        if (answered === QUIZ.length) {
-          celebrateModule('ch2-cad', '為什麼需要 CAD?');
-          document.getElementById('nextBtn').classList.add('pop-in');
-        }
-      },
-    });
+    function renderQ() {
+      Interactions.DiagnosisQuiz({
+        container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+        onAnswer: (correct) => {
+          if (correct) {
+            answered++;
+            if (answered === QUIZ.length) {
+              celebrateModule('ch2-cad', '為什麼需要 CAD?');
+              document.getElementById('nextBtn').classList.add('pop-in');
+            }
+          } else {
+            if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+            setTimeout(renderQ, 3500);
+          }
+        },
+      });
+    }
+    renderQ();
   });
 }

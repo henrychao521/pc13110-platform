@@ -1,6 +1,6 @@
 /* ============================================================
  * PC13110 工程設計學習平台 — 教師後台
- * 4 個分頁:課程總覽 / 作業指派 / 學生進度 / 備課資源
+ * 5 個分頁:課程總覽 / 作業指派 / 學生進度 / 備課資源 / 班級實驗室
  * 純前端,無伺服器;進度以「學習紀錄代碼」由學生匯出、教師貼入彙整。
  * ============================================================ */
 
@@ -450,7 +450,7 @@ const CH_ORDER = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'];
       ${isHttps
         ? `<p class="tb-note" style="color:var(--danger);margin:0">
             這是線上版(GitHub Pages),無法連到本機伺服器。請改用老師電腦的本機網址開啟此頁
-            (例:<code>http://localhost:8731/teacher.html</code>),並先在終端機啟動
+            (例:<code>http://localhost:8080/teacher.html</code>),並先在終端機啟動
             <code>node server/server.js</code>。</p>`
         : `<div class="tb-out-btns" style="margin-bottom:12px">
             <button class="btn btn-primary btn-sm" id="clConnect">▶ 連線監看</button>

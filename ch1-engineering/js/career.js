@@ -18,7 +18,7 @@ const COMPETITIONS = [
   { name: '旺宏科學獎', cat: 'science',
     detail: '由旺宏教育基金會主辦,鼓勵高中職學生進行科學專題研究,培養探究與獨立研究的能力。',
     url: 'https://www.mxeduc.org.tw/scienceaward/', img: 'comp-site-mxic.jpg' },
-  { name: 'Intel ISEF 國際科技展覽會', cat: 'science',
+  { name: 'Regeneron ISEF（前稱 Intel ISEF）', cat: 'science',
     detail: '國際性的中學生科學與工程研究展覽會,匯聚世界各地的青少年研究者,是科展類的最高殿堂之一。',
     url: 'https://www.societyforscience.org/isef/', img: 'comp-site-isef.jpg' },
   { name: 'IEYI 世界青少年發明展', cat: 'invent',
@@ -128,23 +128,32 @@ const ETHICS = [
   },
 ];
 
+// 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
 let answered = 0;
 const wrap = document.getElementById('ethicsQuiz');
 ETHICS.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   wrap.appendChild(box);
-  Interactions.DiagnosisQuiz({
-    container: box,
-    question: `情境 ${i + 1}　${q.question}`,
-    options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === ETHICS.length) {
-        celebrateModule('ch1-career', '競賽與職涯倫理');
-        showToast('🎉 恭喜!你已完成第 1 章所有模組', 'success');
-        document.getElementById('nextBtn').classList.add('pop-in');
-      }
-    },
-  });
+  function renderQ() {
+    Interactions.DiagnosisQuiz({
+      container: box,
+      question: `情境 ${i + 1}　${q.question}`,
+      options: q.options,
+      onAnswer: (correct) => {
+        if (correct) {
+          answered++;
+          if (answered === ETHICS.length) {
+            celebrateModule('ch1-career', '競賽與職涯倫理');
+            showToast('🎉 恭喜!你已完成第 1 章所有模組', 'success');
+            document.getElementById('nextBtn').classList.add('pop-in');
+          }
+        } else {
+          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+          setTimeout(renderQ, 3500);
+        }
+      },
+    });
+  }
+  renderQ();
 });

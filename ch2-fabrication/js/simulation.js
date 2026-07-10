@@ -94,7 +94,7 @@ function draw() {
   /* 應力集中標示 */
   ctx.fillStyle = '#DC2626';
   ctx.font = '700 11px "Noto Sans TC"';
-  ctx.fillText('← 應力最大（最易斷裂)', wallX + 6, beamY - 10);
+  ctx.fillText('← 應力最大（最易斷裂）', wallX + 6, beamY - 10);
 
   /* 統計 */
   const stat = document.getElementById('beamStat');
@@ -120,7 +120,7 @@ const QUIZ = [
   { question: '為什麼工程師要在「製造前」先用電腦做虛擬模擬?',
     options: [
       { text: '為了讓設計圖比較好看', correct: false },
-      { text: '為了在投入材料與時間前,先預測並找出設計的問題（如會不會變形、斷裂)', correct: true,
+      { text: '為了在投入材料與時間前,先預測並找出設計的問題（如會不會變形、斷裂）', correct: true,
         explain: '正確。模擬能在製造前預先發現問題,避免浪費與危險。' },
       { text: '因為法律規定一定要模擬', correct: false },
     ] },
@@ -137,19 +137,28 @@ const quizWrap = document.createElement('div');
 quizWrap.className = 'activity-box';
 quizWrap.innerHTML = '<span class="ab-label">🧠 觀念檢核</span><h3 style="margin-bottom:10px">完成下方 2 題即可完成第 2 章</h3><div id="simQuiz"></div>';
 document.querySelector('.module-nav').before(quizWrap);
+// 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('simQuiz').appendChild(box);
-  Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
-        celebrateModule('ch2-sim', '虛擬模擬與分析入門');
-        showToast('🎉 恭喜!你已完成第 2 章所有模組', 'success');
-        document.getElementById('nextBtn').classList.add('pop-in');
-      }
-    },
-  });
+  function renderQ() {
+    Interactions.DiagnosisQuiz({
+      container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+      onAnswer: (correct) => {
+        if (correct) {
+          answered++;
+          if (answered === QUIZ.length) {
+            celebrateModule('ch2-sim', '虛擬模擬與分析入門');
+            showToast('🎉 恭喜!你已完成第 2 章所有模組', 'success');
+            document.getElementById('nextBtn').classList.add('pop-in');
+          }
+        } else {
+          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+          setTimeout(renderQ, 3500);
+        }
+      },
+    });
+  }
+  renderQ();
 });

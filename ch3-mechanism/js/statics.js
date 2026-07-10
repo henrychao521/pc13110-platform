@@ -110,19 +110,28 @@ const QUIZ = [
       { text: 'Rₐ 變小、Rᵦ 變大', correct: false },
     ] },
 ];
-let answered = 0;
+// 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
+const quizCorrect = new Set();
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('quizArea').appendChild(box);
+  renderQuizQ(i, box);
+});
+function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
+    container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onAnswer: (correct) => {
+      if (!correct) {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(() => renderQuizQ(i, box), 3500);
+        return;
+      }
+      quizCorrect.add(i);
+      if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-statics', '靜力學與自由體圖');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },
   });
-});
+}

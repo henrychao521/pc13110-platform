@@ -54,8 +54,10 @@ const groove = document.createElement('div');
 groove.className = 'bb-groove';
 board.appendChild(groove);
 board.appendChild(makeMainHalf('B'));
-const r1 = makeRail('bot+'); r1.style.marginTop = '8px'; r1.style.marginBottom = '0';
+const r1 = makeRail('bot+'); r1.style.marginTop = '8px';
 board.appendChild(r1);
+const r2 = makeRail('bot-'); r2.style.marginBottom = '0';
+board.appendChild(r2);
 document.getElementById('bbNote').textContent = '👆 點任一個孔試試看。';
 
 /* ---- 檢核 ---- */
@@ -82,22 +84,31 @@ const QUIZ = [
       { text: '麵包板的孔位之間完全不相通', correct: false },
     ] },
 ];
-let answered = 0;
+// 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
+const quizCorrect = new Set();
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('quizArea').appendChild(box);
+  renderQuizQ(i, box);
+});
+function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
+    container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onAnswer: (correct) => {
+      if (!correct) {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(() => renderQuizQ(i, box), 3500);
+        return;
+      }
+      quizCorrect.add(i);
+      if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch4-tools', '常用工具與量測');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },
   });
-});
+}
 
 /* ============================================================
  * 虛擬三用電表 — V / Ω / A 三檔 × 紅黑探棒在 A/B/C 節點
@@ -128,10 +139,13 @@ QUIZ.forEach((q, i) => {
   function draw() {
     svg.innerHTML = `
       <g transform="translate(40,120)">
-        <line x1="-3" y1="-12" x2="-3" y2="12" stroke="#1F2937" stroke-width="3"/>
-        <line x1="3"  y1="-22" x2="3"  y2="22" stroke="#1F2937" stroke-width="3"/>
-        <text x="-10" y="-28" font-size="13" font-weight="700" fill="#1F2937">+</text>
-        <text x="12"  y="-28" font-size="13" font-weight="700" fill="#6B7280">−</text>
+        <!-- 電池符號:長板在上=正極(接 A 節點 9V),短板在下=負極(接 C 節點 0V) -->
+        <line x1="0" y1="-12" x2="0" y2="-5" stroke="#1F2937" stroke-width="3"/>
+        <line x1="-14" y1="-5" x2="14" y2="-5" stroke="#1F2937" stroke-width="3"/>
+        <line x1="-7" y1="5" x2="7" y2="5" stroke="#1F2937" stroke-width="3"/>
+        <line x1="0" y1="5" x2="0" y2="12" stroke="#1F2937" stroke-width="3"/>
+        <text x="-18" y="-8" text-anchor="end" font-size="13" font-weight="700" fill="#1F2937">+</text>
+        <text x="-18" y="13" text-anchor="end" font-size="13" font-weight="700" fill="#6B7280">−</text>
         <text x="0" y="38" text-anchor="middle" font-size="11" fill="#6B7280">9V</text>
       </g>
       <path d="M40 108 L40 40 L130 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>
@@ -177,10 +191,10 @@ QUIZ.forEach((q, i) => {
       const series = (pR === 'A' && pB === 'C') || (pR === 'C' && pB === 'A');
       if (series) {
         raw = I_LOOP_mA * (pR === 'A' ? 1 : -1); unit = 'mA';
-        msg = `電流檔須<strong>串接</strong>進迴路。電流 I = 9V ÷ (4.7+10)kΩ = <strong>${Math.abs(raw).toFixed(3)} mA</strong>`;
+        msg = `電流檔須<strong>串接</strong>進迴路。電流 I = 9V ÷ (4.7+10)kΩ = <strong>${Math.abs(raw).toFixed(3)} mA</strong><br>⚠ 真實電表量電流須先打開迴路、把電表串接進去;切勿直接並接在電池兩端,會燒毀保險絲。`;
       } else {
         raw = 0; unit = 'mA';
-        msg = '⚠ 電流檔必須<strong>串接</strong>進迴路:把紅探棒放 A、黑探棒放 C(把電表當成導線串入)。';
+        msg = '⚠ 電流檔必須<strong>串接</strong>進迴路:把紅探棒放 A、黑探棒放 C(把電表當成導線串入)。真實電表量電流須先打開迴路再串入;切勿直接並接在電池兩端,會燒毀保險絲。';
       }
     }
     const [txt, u] = fmt(raw, unit);

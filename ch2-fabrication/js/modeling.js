@@ -197,7 +197,7 @@ function buildModel() {
   if (count >= 3 && !Progress.isDone('ch2-modeling')) {
     celebrateModule('ch2-modeling', '程式化 CAD 建模器');
     document.getElementById('nextBtn').classList.add('pop-in');
-    msg.innerHTML += ' 🎉 完成挑戰（3 個以上零件)!';
+    msg.innerHTML += ' 🎉 完成挑戰（3 個以上零件）!';
   }
   return count;
 }

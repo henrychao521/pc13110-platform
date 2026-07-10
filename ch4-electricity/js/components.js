@@ -166,16 +166,25 @@ const QUIZ = [
       { text: '470 kΩ ±10%', correct: false },
     ] },
 ];
-let answered = 0;
+// 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
+const quizCorrect = new Set();
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('quizArea').appendChild(box);
+  renderQuizQ(i, box);
+});
+function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
+    container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onAnswer: (correct) => {
+      if (!correct) {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(() => renderQuizQ(i, box), 3500);
+        return;
+      }
+      quizCorrect.add(i);
+      if (quizCorrect.size === QUIZ.length) {
         quizDone = true;
         // 完成條件統一：檢核 + 4.7kΩ 色碼挑戰都要完成（原本檢核單獨就過關，挑戰形同裝飾）
         if (Progress.isDone('ch4-components')) return;
@@ -184,7 +193,7 @@ QUIZ.forEach((q, i) => {
       }
     },
   });
-});
+}
 
 /* ============================================================
  * 元件運作動畫 — LED / 電容 / 二極體 / 電晶體
@@ -198,11 +207,15 @@ QUIZ.forEach((q, i) => {
   const infoEl = document.getElementById('csimInfo');
 
   function battery(x, y) {
+    // 電池符號:水平極板,長板在上=正極(+),短板在下=負極(−);導線自上下各接一極
+    const cx = x + 3; // 對齊既有導線的接點 x 座標
     return `<g>
-      <line x1="${x-3}" y1="${y-12}" x2="${x-3}" y2="${y+12}" stroke="#1F2937" stroke-width="3"/>
-      <line x1="${x+3}" y1="${y-22}" x2="${x+3}" y2="${y+22}" stroke="#1F2937" stroke-width="3"/>
-      <text x="${x-10}" y="${y-26}" font-size="13" font-weight="700" fill="#1F2937">+</text>
-      <text x="${x+10}" y="${y-26}" font-size="13" font-weight="700" fill="#6B7280">−</text>
+      <line x1="${cx}" y1="${y-22}" x2="${cx}" y2="${y-5}" stroke="#1F2937" stroke-width="3"/>
+      <line x1="${cx-14}" y1="${y-5}" x2="${cx+14}" y2="${y-5}" stroke="#1F2937" stroke-width="3"/>
+      <line x1="${cx-7}" y1="${y+5}" x2="${cx+7}" y2="${y+5}" stroke="#1F2937" stroke-width="3"/>
+      <line x1="${cx}" y1="${y+5}" x2="${cx}" y2="${y+22}" stroke="#1F2937" stroke-width="3"/>
+      <text x="${cx-18}" y="${y-8}" text-anchor="end" font-size="13" font-weight="700" fill="#1F2937">+</text>
+      <text x="${cx-18}" y="${y+13}" text-anchor="end" font-size="13" font-weight="700" fill="#6B7280">−</text>
       <text x="${x}" y="${y+40}" text-anchor="middle" font-size="11" fill="#6B7280">9V</text>
     </g>`;
   }
@@ -271,14 +284,14 @@ QUIZ.forEach((q, i) => {
           ctrls: `<button id="ledSw" class="on">⏻ 開關 ON</button>
             <button id="ledNoR" type="button">移除電阻會怎樣?</button>`,
           bind() {
-            infoEl.innerHTML = '✅ 接通:電池正極推動電子,經過<strong>電阻</strong>限流後到 LED,讓它發光。電流回到負極形成完整迴路。';
+            infoEl.innerHTML = '✅ 接通:(習慣上)電流由電池正極流出,經過<strong>電阻</strong>限流後到 LED,讓它發光,再回到負極形成完整迴路(電子實際上反向流動)。';
             document.getElementById('ledSw').addEventListener('click', () => {
               on = !on; grp = draw();
               const btn = document.getElementById('ledSw');
               btn.className = on?'on':'';
               btn.textContent = on?'⏻ 開關 ON':'⏻ 開關 OFF';
               infoEl.innerHTML = on
-                ? '✅ 接通:電池正極推動電子,經過<strong>電阻</strong>限流後到 LED,讓它發光。'
+                ? '✅ 接通:(習慣上)電流由電池正極流出,經過<strong>電阻</strong>限流後到 LED,讓它發光。'
                 : '❌ 斷開:迴路被切斷,沒有電流流動,LED 不亮。';
             });
             document.getElementById('ledNoR').addEventListener('click', () => {

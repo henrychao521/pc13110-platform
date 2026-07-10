@@ -46,7 +46,7 @@ function gearSVG(size, teeth, color, dir) {
       <span style="font-size:22px">⬇</span>
       <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);
         border:1px solid rgba(255,255,255,.25);padding:8px 18px;border-radius:999px;margin-left:8px">
-        <span style="font-size:22px">🛁</span>
+        <span style="font-size:22px">🛠️</span>
         <strong style="font-size:14px">產出：科技產品 Technology (T)</strong>
       </div>
     </div>`;

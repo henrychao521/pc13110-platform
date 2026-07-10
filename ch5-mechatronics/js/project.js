@@ -78,7 +78,7 @@ document.getElementById('printBtn').addEventListener('click', () => window.print
   /* 感測器 → 控制板:輸入訊號類型 */
   const SENSOR_SIG = {
     '💡 光感測器':   { type:'類比 0–3.3V', code:'analogRead()', color:'#22D3EE' },
-    '🌡️ 溫濕度感測器':{ type:'數位通訊(1-Wire)', code:'dht.read()',     color:'#A78BFA' },
+    '🌡️ 溫濕度感測器':{ type:'單線數位協定(single-wire,非 Dallas 1-Wire 標準)', code:'dht.read()',     color:'#A78BFA' },
     '📏 距離感測器': { type:'數位(回波脈寬)', code:'pulseIn()',     color:'#FBBF24' },
     '👆 觸控／按鈕': { type:'數位 HIGH/LOW',  code:'digitalRead()',   color:'#FBBF24' },
     '🔊 聲音感測器': { type:'類比 0–3.3V',    code:'analogRead()',    color:'#22D3EE' },

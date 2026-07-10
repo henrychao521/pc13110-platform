@@ -128,23 +128,32 @@ const QUIZ = [
       { text: '把光敏電阻加熱', correct: false },
     ] },
 ];
-let answered = 0;
+// 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
+const quizCorrect = new Set();
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('quizArea').appendChild(box);
+  renderQuizQ(i, box);
+});
+function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
+    container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onAnswer: (correct) => {
+      if (!correct) {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(() => renderQuizQ(i, box), 3500);
+        return;
+      }
+      quizCorrect.add(i);
+      if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch4-logic', '邏輯與感應電路');
         showToast('🎉 恭喜!你已完成第 4 章所有模組', 'success');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },
   });
-});
+}
 
 /* ============================================================
  * 進階邏輯閘擴充 — NOT / NAND / NOR / XOR / XNOR + AND + OR
@@ -216,12 +225,12 @@ QUIZ.forEach((q, i) => {
     const g = GATES[name];
     if (g.oneIn) {
       return `<thead><tr><th>A</th><th>Y</th></tr></thead><tbody>
-        <tr class="${A===0?'hl':''}"><td>0</td><td>${g.fn(0)}</td></tr>
-        <tr class="${A===1?'hl':''}"><td>1</td><td>${g.fn(1)}</td></tr></tbody>`;
+        <tr class="${A===0?'cur':''}"><td>0</td><td>${g.fn(0)}</td></tr>
+        <tr class="${A===1?'cur':''}"><td>1</td><td>${g.fn(1)}</td></tr></tbody>`;
     }
     const rows = [[0,0],[0,1],[1,0],[1,1]];
     return `<thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody>` +
-      rows.map(([a,b])=>`<tr class="${a===A&&b===B?'hl':''}"><td>${a}</td><td>${b}</td><td>${g.fn(a,b)}</td></tr>`).join('') +
+      rows.map(([a,b])=>`<tr class="${a===A&&b===B?'cur':''}"><td>${a}</td><td>${b}</td><td>${g.fn(a,b)}</td></tr>`).join('') +
       `</tbody>`;
   }
 

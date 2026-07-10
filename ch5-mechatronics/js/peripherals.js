@@ -98,22 +98,31 @@ const QUIZ = [
       { text: '把開關拆掉', correct: false },
     ] },
 ];
-let answered = 0;
+// 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
+const quizCorrect = new Set();
 QUIZ.forEach((q, i) => {
   const box = document.createElement('div');
   box.style.marginBottom = '14px';
   document.getElementById('quizArea').appendChild(box);
+  renderQuizQ(i, box);
+});
+function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
-    container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
-    onAnswer: () => {
-      answered++;
-      if (answered === QUIZ.length) {
+    container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onAnswer: (correct) => {
+      if (!correct) {
+        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
+        setTimeout(() => renderQuizQ(i, box), 3500);
+        return;
+      }
+      quizCorrect.add(i);
+      if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch5-peripherals', '機電整合的電子周邊');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },
   });
-});
+}
 
 /* ============================================================
  * 動手接線:感測器接到 ESP32 — LDR / 按鈕 / HC-SR04
@@ -292,7 +301,10 @@ QUIZ.forEach((q, i) => {
       ],
       ctrl: `<div class="wire-ctrl-row"><span class="wcl">📏 物體距離</span>
         <input type="range" id="hcDist" min="2" max="400" value="50" step="1">
-        <span class="wcv" id="hcDistV">50 cm</span></div>`,
+        <span class="wcv" id="hcDistV">50 cm</span></div>
+        <div style="font-size:12px;color:#B45309;margin-top:6px;line-height:1.6">
+          ⚠ HC-SR04 的 ECHO 為 5V 訊號,ESP32 腳位僅耐 3.3V——實作時 ECHO 須經分壓電阻(如 1kΩ/2kΩ)降壓,或改用 3.3V 相容模組。
+        </div>`,
       init() {
         const slider = document.getElementById('hcDist');
         const lv = document.getElementById('hcDistV');
