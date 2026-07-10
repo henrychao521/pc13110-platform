@@ -722,6 +722,18 @@ const PHASES = [
       'livingtech-tools 的 11 項建議為下一波',
     ],
   },
+  {
+    tag: '段落 52',
+    date: '2026-07-10',
+    title: '內容擴充第二波:livingtech-tools 13 項+測驗機制修復',
+    verbatim: '請繼續動工，並使每個部分都完美及完整(續)',
+    context: '姊妹平台 livingtech-tools 落地 13 項:scrollsaw 內挖切割步驟(9 步+穿鋸條動畫)、solder 拆焊教學(吸錫器/吸錫帶+RoHS)、sander 順木紋原則(順逆紋 SVG 對照)、drill 導孔對照表、breadboard 電路圖符號↔實體對應練習(4 題判讀+電路圖 SVG)、mechanism 齒輪比計算三題、hydraulic-arm 帕斯卡計算三題(新增測驗區)、physics 六支動畫各 2 題觀念測驗+完成徽章、microcontroller 用電安全專區(3.3V/5V+情境題)、structure 單位量感頁(1kN≈100kg 重)、FRC 中英術語 14 條、orthographic 尺寸標註判讀、design-process 三張可列印 A4 學習單、printer3d 列印微粒通風+模型著作權兩題(門檻改 12 題制)。重要發現:代理實測揪出既有測驗判分 bug——closest(\'div\') 停在 choice-grid 找不到 feedback-slot,點答案擲 TypeError、解析不顯示、進度不寫入;本 session 修 8 檔後,使用者由背景任務 chip 另開 session 修了 16 檔並先推上,以 rebase 取遠端版收斂(雙方修法相容,新題庫檔自動合併)。全部計算題經三遍驗算,22 頁 console 零錯誤。',
+    decisions: ['計算題答案一律代理+主線雙重驗算', '兩個 session 修同一 bug 時以已部署的遠端版為準,rebase 不強推', '新測驗全部沿用各工具既有樣式與進度機制,不另造輪子'],
+    outputs: [
+      'livingtech-tools commit 5e267fe(rebase 含 chip session 的 16 檔修復)',
+      '38 條建議至此全數處理:36 項落地、能源資料集中檔以逐檔標注年度替代、360° 素材待 X5 實拍',
+    ],
+  },
 ];
 
 /* ============================================================
