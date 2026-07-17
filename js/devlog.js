@@ -734,6 +734,18 @@ const PHASES = [
       '38 條建議至此全數處理:36 項落地、能源資料集中檔以逐檔標注年度替代、360° 素材待 X5 實拍',
     ],
   },
+  {
+    tag: '段落 53',
+    date: '2026-07-17',
+    title: '全站體檢:修復 3D 檢視器靜默失效與失效外部連結',
+    verbatim: '幫我搜尋這台電腦的專案、github上的專案、page等內容進行優化,並確認page上的每個分頁文章、內容都是正確的。',
+    context: '跨 16 個 GitHub Pages 站台的全面體檢(爬蟲連結檢查+console 掃描+四路內容審查代理)。本站發現一個平常不易察覺的關鍵問題:print3d、components、boards 三頁引用的 vendor/model-viewer/model-viewer.min.js 從未進版控,目錄根本不存在——model-viewer 自訂元素未註冊,「立體模型(可旋轉)」區塊整個靜默消失且無 console 錯誤(glb 模型檔本身都在)。改為與姊妹平台 livingtech-tools 相同的 Google CDN 載入(3.5.0),三頁一致。另修五個失效外部連結:NSPE 倫理頁改版新路徑、台積電舊 static 網址、jscad.app 去 www(www 子網域無 DNS)、SainSmart Genmitsu 支援頁改 collections、橋梁設計競賽 bridgedesigncontest.org 網域已死改 bridgecontest.org。內容抽核(史實、數據、五章互動元件)與 200 筆地景座標交叉比對均通過,無錯字。',
+    decisions: ['model-viewer 走 CDN 與 livingtech-tools 一致,不再依賴缺漏的 vendor 目錄', '外部連結一律先驗證替換網址 200 才改', '審查代理只回報不改檔,修正統一由主線落地'],
+    outputs: [
+      '3 頁 3D 檢視器復活(print3d/components/boards)',
+      '5 個失效外部連結更新(career/trends/modeling/cnc/truss)',
+    ],
+  },
 ];
 
 /* ============================================================
