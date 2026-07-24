@@ -56,8 +56,42 @@ const SoundFX = (() => {
       setTimeout(() => tone({ freq: 860, duration: 0.1, vol: 0.09, type: 'square' }), 150);
     },
     unlock() { chord([392, 523, 659, 784], { duration: 0.3, vol: 0.13, type: 'sine' }); },
+    prime() { ensureCtx(); },   // 在使用者手勢中呼叫,解鎖音訊
+    // 皮鞋踩硬地腳步聲（程式合成：濾波白噪「叩」+ 低頻「踏」+ 左右腳立體聲）
+    footstep({ vol = 0.14, pan = 0 } = {}) {
+      if (muted) return;
+      const c = ensureCtx(); if (!c) return;
+      const t = c.currentTime;
+      const dur = 0.085 + Math.random() * 0.03;
+      // 高頻「叩」：短促濾波白噪
+      const n = Math.floor(c.sampleRate * dur);
+      const buf = c.createBuffer(1, n, c.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / n);
+      const src = c.createBufferSource(); src.buffer = buf;
+      const bp = c.createBiquadFilter(); bp.type = 'bandpass';
+      bp.frequency.value = 1850 + Math.random() * 700; bp.Q.value = 0.9;
+      const hg = c.createGain();
+      hg.gain.setValueAtTime(vol, t);
+      hg.gain.exponentialRampToValueAtTime(0.0006, t + dur);
+      // 低頻「踏」：快速下滑正弦的腳跟重量
+      const osc = c.createOscillator(); osc.type = 'sine';
+      osc.frequency.setValueAtTime(175 + Math.random() * 35, t);
+      osc.frequency.exponentialRampToValueAtTime(85, t + 0.06);
+      const lg = c.createGain();
+      lg.gain.setValueAtTime(vol * 0.55, t);
+      lg.gain.exponentialRampToValueAtTime(0.0006, t + 0.07);
+      // 左右腳立體聲
+      let out = c.destination;
+      if (c.createStereoPanner) { const p = c.createStereoPanner(); p.pan.value = pan; p.connect(c.destination); out = p; }
+      src.connect(bp); bp.connect(hg); hg.connect(out);
+      osc.connect(lg); lg.connect(out);
+      src.start(t); src.stop(t + dur);
+      osc.start(t); osc.stop(t + 0.08);
+    },
   };
 })();
+window.SoundFX = SoundFX;   // 供 workshop.html 的 module script 取用
 
 /* 浮動的音效開關 */
 document.addEventListener('DOMContentLoaded', () => {
