@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../css/style.css">
 <link rel="stylesheet" href="../../css/svg-effects.css">
+<script type="module" src="../../vendor/model-viewer/model-viewer.min.js"></script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎛️%3C/text%3E%3C/svg%3E">
 <style>
   .board-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
@@ -88,6 +89,31 @@
       控制板的核心是一顆<strong>微控制器(Microcontroller)</strong>晶片。不同的控制板,
       在運算能力、通訊功能(WiFi／藍牙)、腳位數量、價格上各有取捨。
     </p>
+  </section>
+
+  <section class="content-section">
+    <h2>🔭 控制板立體模型(可旋轉,點名稱切換)</h2>
+    <p>旋轉觀察三款常見控制板的外形與腳位排列。模型由 OpenSCAD 參數化建模(原始檔開源,可改可印)。</p>
+    <div id="bd3d-tabs" style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0">
+      <button type="button" class="bd3d-btn" data-src="arduino.glb">Arduino Uno</button>
+      <button type="button" class="bd3d-btn" data-src="microbit.glb">micro:bit</button>
+      <button type="button" class="bd3d-btn" data-src="esp32.glb">ESP32</button>
+    </div>
+    <div style="background:#1e293b;border-radius:14px;overflow:hidden">
+      <model-viewer id="bd3d-viewer" src="../../assets/models/arduino.glb" loading="eager" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="22deg" environment-image="neutral" shadow-intensity="1" style="width:100%;height:340px;--poster-color:#1e293b"></model-viewer>
+    </div>
+    <p style="font-size:13px;color:#64748b;margin-top:6px">💡 OpenSCAD 原始碼與可列印 STL 見 livingtech-tools repo 的 <code>models/microcontroller/</code>。</p>
+    <script>
+    (function(){
+      var v=document.getElementById('bd3d-viewer'),tabs=document.querySelectorAll('#bd3d-tabs .bd3d-btn');
+      function sel(b){tabs.forEach(function(x){x.style.background=(x===b)?'#0ea5e9':'#e2e8f0';x.style.color=(x===b)?'#fff':'#0f172a';});}
+      tabs.forEach(function(b){
+        b.style.cssText='padding:6px 14px;border:none;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600';
+        b.addEventListener('click',function(){v.setAttribute('src','../../assets/models/'+b.dataset.src);sel(b);});
+      });
+      sel(tabs[0]);
+    })();
+    </script>
   </section>
 
   <section class="content-section">

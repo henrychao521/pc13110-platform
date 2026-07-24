@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>生活科技工坊 · 實地學習 ｜ PC13110</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pixel.css">
+<style>
+  /* 全螢幕 3DGS 走路 + 像素風 UI 疊層 */
+  html,body{margin:0;height:100%;background:#ececee;overflow:hidden;touch-action:none}
+  #c{position:fixed;inset:0;width:100%;height:100%;display:block}
+  /* 頂列(回大廳) */
+  .wk-top{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;gap:10px;
+          padding:8px 12px;background:rgba(11,11,24,.82);backdrop-filter:blur(8px);color:#e8e8f5;
+          font-family:"Noto Sans TC",sans-serif}
+  .wk-top a.back{color:#ffd34e;text-decoration:none;font-weight:700;font-size:14px;
+                 border:2px solid #ffd34e;border-radius:8px;padding:4px 10px}
+  .wk-top .ttl{font-family:"Press Start 2P",monospace;font-size:12px;color:#9fe8d0}
+  .wk-top .sub{font-size:12px;color:#b9c2d0}
+  .wk-top .learned{margin-left:auto;font-size:12px;background:#1d1b33;border:1px solid #34304f;
+                   border-radius:8px;padding:4px 10px;color:#ffd34e}
+  /* 接近機台提示(沿用 pixel.css .world-prompt 風格,這裡自訂定位) */
+  #mprompt{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:25;
+           background:rgba(11,11,24,.9);border:3px solid #ffd34e;border-radius:12px;
+           padding:10px 16px;text-align:center;font-family:"Noto Sans TC",sans-serif;
+           opacity:0;pointer-events:none;transition:opacity .15s;max-width:88vw}
+  #mprompt.on{opacity:1;pointer-events:auto;cursor:pointer}
+  #mprompt b{display:block;font-size:15px;color:#ffd34e}
+  #mprompt span{font-size:12px;color:#b9c2d0}
+  /* 學習教材彈窗 */
+  #lessonOverlay{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+                 background:rgba(6,6,16,.78);padding:16px}
+  #lessonOverlay.hidden{display:none}
+  .lesson-box{width:100%;max-width:600px;max-height:88vh;overflow:auto;background:#15132a;
+              border:4px solid #ffd34e;border-radius:16px;padding:18px 18px 20px;
+              box-shadow:8px 8px 0 rgba(0,0,0,.4);font-family:"Noto Sans TC",sans-serif}
+  .lesson-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+  .lesson-head .ic{font-size:24px}
+  .lesson-head .nm{font-size:18px;font-weight:900;color:#fff;flex:1}
+  .lesson-head .x{background:none;border:none;color:#b9c2d0;font-size:20px;cursor:pointer}
+  .lesson-tag{font-size:11px;color:#ff9f43;font-family:"Press Start 2P",monospace;margin-bottom:10px}
+  .lesson-brief{background:#2a1d12;border:1px solid #6b4a23;border-radius:10px;padding:10px 12px;margin-bottom:14px}
+  .lesson-brief .bh{font-size:13px;font-weight:900;color:#ffb454;margin-bottom:4px}
+  .lesson-brief ul{margin:0;padding-left:18px} .lesson-brief li{font-size:13px;color:#e8d9c4;line-height:1.7}
+  #lessonMount{--font-sans:"Noto Sans TC",sans-serif}
+  .lesson-done{margin-top:14px;text-align:center;display:none}
+  .lesson-done.show{display:block}
+  .lesson-done .msg{color:#9fe8d0;font-weight:700;margin-bottom:10px}
+  .lesson-done button{background:#ffd34e;border:none;border-radius:10px;padding:10px 22px;
+                      font-weight:900;cursor:pointer}
+  /* ====== 多段式學習模組 ====== */
+  .certbtn{margin-left:auto;background:#2a2444;border:1px solid #4a5e57;color:#ffd34e;border-radius:8px;
+           padding:5px 11px;font:700 12px "Noto Sans TC",sans-serif;cursor:pointer}
+  .wk-top .learned{margin-left:8px}
+  .lesson-prog{display:flex;align-items:center;gap:2px;flex-wrap:wrap;margin:4px 0 14px;font-size:12px}
+  .lesson-prog .ls-dot{color:#7a8290;padding:3px 9px;border-radius:20px;background:#221f3a;border:1px solid #322e50}
+  .lesson-prog .ls-dot.on{color:#15132a;background:#ffd34e;border-color:#ffd34e;font-weight:900}
+  .lesson-prog .ls-dot.done{color:#9fe8d0;border-color:#3a6b56}
+  .lesson-prog i{color:#4a4668;font-style:normal;padding:0 1px}
+  .ls-card{background:#1d1b33;border:1px solid #322e50;border-radius:12px;padding:14px 16px;margin-bottom:4px}
+  .ls-card.ls-warn{background:#2a1d12;border-color:#6b4a23}
+  .ls-ch{font-size:15px;font-weight:900;color:#fff;margin-bottom:8px}
+  .ls-model{font-size:12px;color:#9fe8d0;font-weight:700}
+  .ls-what{font-size:14px;color:#d8def0;line-height:1.85;margin:0 0 10px}
+  .ls-sub{font-size:12px;color:#ffb454;font-weight:700;margin:10px 0 3px}
+  .ls-ul{margin:0;padding-left:18px} .ls-ul li{font-size:13.5px;color:#cfd6e6;line-height:1.8}
+  .ls-card.ls-warn .ls-ul li{color:#e8d9c4}
+  .ls-note{font-size:12.5px;color:#9aa3b5;margin:0 0 10px}
+  .ls-vids{display:flex;flex-direction:column;gap:8px}
+  .ls-vid{display:block;background:#15233a;border:1px solid #2c4a6e;border-radius:9px;padding:10px 12px;
+          color:#7fc4ff;text-decoration:none;font-weight:700;font-size:13.5px}
+  .ls-vid:hover{background:#1b2c47}
+  .lesson-nav{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  .lesson-nav button{background:#2a2444;border:1px solid #4a4668;color:#e6edf3;border-radius:10px;
+        padding:10px 18px;font:700 14px "Noto Sans TC",sans-serif;cursor:pointer}
+  .lesson-nav button:disabled{opacity:.4;cursor:not-allowed}
+  .lesson-nav #lsNext{background:#ffd34e;color:#15132a;border-color:#ffd34e}
+  .lesson-nav #lsNext.cta{background:#3fb950;border-color:#3fb950;color:#fff}
+  .qz-h{font-size:14px;font-weight:900;color:#ffd34e;margin-bottom:10px}
+  .qz-q{margin-bottom:14px} .qz-qt{font-size:14px;color:#fff;font-weight:700;margin-bottom:7px}
+  .qz-opt{background:#15132a;border:1.5px solid #322e50;border-radius:9px;padding:9px 12px;margin-bottom:6px;
+          font-size:13.5px;color:#d8def0;cursor:pointer}
+  .qz-opt:hover{border-color:#5a5680} .qz-opt.sel{border-color:#ffd34e;background:#2a2615;color:#fff}
+  .qz-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px}
+  .qz-fb{font-size:13px;flex:1} .qz-fb .ok{color:#3fb950} .qz-fb .no{color:#f85149}
+  .qz-check{background:#ffd34e;border:none;border-radius:9px;padding:9px 18px;font-weight:900;cursor:pointer}
+  .qz-check:disabled{opacity:.5;cursor:default}
+  .ls-cert{text-align:center;padding:14px 6px}
+  .ls-cert-ic{font-size:46px} .ls-cert-h{font-size:18px;font-weight:900;color:#ffd34e;margin:8px 0 4px}
+  .ls-cert-sub{font-size:13.5px;color:#cfd6e6;margin-bottom:16px;line-height:1.7}
+  .ls-cert-btn{background:#3fb950;border:none;border-radius:10px;padding:11px 24px;font-weight:900;cursor:pointer;color:#fff}
+  #certPanel{position:fixed;inset:0;z-index:42;display:flex;align-items:center;justify-content:center;background:rgba(6,6,16,.78);padding:16px}
+  #certPanel.hidden{display:none}
+  .cert-box{width:100%;max-width:460px;background:#15132a;border:4px solid #ffd34e;border-radius:16px;
+            padding:16px 18px 18px;font-family:"Noto Sans TC",sans-serif;box-shadow:8px 8px 0 rgba(0,0,0,.4)}
+  .cert-who{font-size:14px;color:#cfd6e6;margin:2px 0 12px} .cert-who b{color:#fff}
+  .ct-row{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;color:#9aa3b5;padding:8px 10px;
+          border:1px solid #322e50;border-radius:8px;margin-bottom:6px}
+  .ct-row.ok{color:#9fe8d0;border-color:#3a6b56;background:#16241d}
+  .ct-right{display:flex;align-items:center;gap:8px} .ct-t{font-size:11.5px}
+  .ct-pass{background:#5db8ff;border:none;border-radius:7px;padding:4px 9px;font:800 11px "Noto Sans TC",sans-serif;cursor:pointer;color:#0b0b18}
+  .cert-foot{font-size:11.5px;color:#7a8290;margin-top:8px;text-align:center}
+  /* 個人通行證製作 */
+  #passOverlay{position:fixed;inset:0;z-index:44;display:flex;align-items:center;justify-content:center;background:rgba(6,6,16,.82);padding:16px}
+  #passOverlay.hidden{display:none}
+  .pass-box{width:100%;max-width:560px;background:#15132a;border:4px solid #5db8ff;border-radius:16px;
+            padding:16px 18px 18px;font-family:"Noto Sans TC",sans-serif;box-shadow:8px 8px 0 rgba(0,0,0,.4)}
+  #passVid{width:100%;max-height:44vh;border-radius:12px;background:#000;transform:scaleX(-1)}
+  .pass-cap-row{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+  .pass-btn{background:#5db8ff;border:none;border-radius:10px;padding:10px 20px;font:900 14px "Noto Sans TC",sans-serif;cursor:pointer;color:#0b0b18}
+  .pass-btn.ghost{background:#2a2444;color:#cfd6e6;border:1px solid #4a4668}
+  .pass-note{font-size:11.5px;color:#9aa3b5;text-align:center;margin-top:8px}
+  .pass-card-img{display:block;margin:2px auto 0;width:100%;max-width:520px;height:auto;border-radius:14px}
+  /* 小徽章 toast */
+  #wkToast{position:fixed;top:54px;left:50%;transform:translateX(-50%) translateY(-12px);z-index:50;
+           background:#1d1b33;border:2px solid #ffd34e;border-radius:10px;padding:8px 16px;
+           color:#ffd34e;font-weight:700;font-family:"Noto Sans TC",sans-serif;opacity:0;
+           transition:opacity .25s,transform .25s;pointer-events:none}
+  #wkToast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  /* 載入 / 進入 */
+  #start{position:fixed;inset:0;z-index:35;display:flex;align-items:center;justify-content:center;
+         background:rgba(6,6,16,.86);color:#fff;cursor:pointer;flex-direction:column;gap:10px;
+         font-family:"Noto Sans TC",sans-serif}
+  #start h2{margin:0;font-size:20px} #bar{width:min(420px,70vw);height:8px;background:#333;border-radius:4px;overflow:hidden}
+  #fill{height:100%;width:0%;background:#ffd34e;transition:width .15s} #pct{font-size:13px;color:#b9c2d0}
+  #hint{position:fixed;left:12px;bottom:12px;z-index:20;color:#1a1a1a;background:rgba(255,255,255,.82);
+        padding:8px 12px;border-radius:9px;font-size:12px;font-family:"Noto Sans TC",sans-serif}
+  /* 定位用即時座標(設好真實位置後會移除) */
+  #coordHud{position:fixed;left:12px;top:60px;z-index:22;background:rgba(11,11,24,.88);color:#9fe8d0;
+        font:700 14px ui-monospace,monospace;padding:7px 13px;border-radius:9px;border:1px solid #4a5e57}
+  /* 關閉教材後的「點畫面恢復視角」提示 */
+  #resumeHint{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:21;display:none;
+        background:rgba(11,11,24,.9);color:#ffd34e;border:2px solid #ffd34e;border-radius:12px;
+        padding:12px 20px;font:700 15px "Noto Sans TC",sans-serif;text-align:center;pointer-events:none}
+  @media (pointer:coarse){ #hint{display:none} }
+  .stick{position:fixed;left:24px;bottom:24px;width:110px;height:110px;border-radius:50%;
+         background:rgba(0,0,0,.12);border:2px solid rgba(0,0,0,.25);display:none;z-index:18}
+  .knob{position:absolute;left:50%;top:50%;width:48px;height:48px;border-radius:50%;
+        background:rgba(0,0,0,.28);transform:translate(-50%,-50%)}
+</style>
+</head>
+<body>
+<div class="wk-top">
+  <a class="back" href="lobby.html">← 回大廳</a>
+  <div><div class="ttl">WORKSHOP</div><div class="sub">生活科技工坊 · 走近機台學操作</div></div>
+  <button class="certbtn" id="certBtn">📋 我的通行證</button>
+  <div class="learned" id="learnedChip">🎫 已認證 0 / 6</div>
+</div>
+<canvas id="c"></canvas>
+<div id="hint">🖱 滑鼠視角｜WASD 行走｜走近機台按 <b>E</b> 學習｜Esc 釋放</div>
+<div id="coordHud">📍 X —　·　Z —</div>
+<div id="resumeHint">🖱 點一下畫面，恢復滑鼠視角<br>（WASD 仍可走動）</div>
+<div id="stickL" class="stick"><div class="knob" id="knobL"></div></div>
+
+<div id="mprompt"><b>—</b><span>按 E 學習</span></div>
+<div id="wkToast"></div>
+
+<div id="lessonOverlay" class="hidden">
+  <div class="lesson-box">
+    <div class="lesson-head"><span class="ic" id="lsIcon">🛠</span><span class="nm" id="lsName">—</span>
+      <button class="x" id="lsClose" aria-label="關閉">✕</button></div>
+    <div class="lesson-prog" id="lsProg"></div>
+    <div id="lsBody"></div>
+    <div class="lesson-nav"><button id="lsBack">← 上一步</button><button id="lsNext">下一步 →</button></div>
+  </div>
+</div>
+
+<div id="certPanel" class="hidden">
+  <div class="cert-box">
+    <div class="lesson-head"><span class="ic">🎫</span><span class="nm">我的工坊通行證</span>
+      <button class="x" id="certPanelClose" aria-label="關閉">✕</button></div>
+    <div class="cert-who">學生：<b id="certWho">—</b></div>
+    <div id="certList"></div>
+    <div class="cert-foot">可給老師看／截圖存證 · 跨裝置完整名單見設計文件</div>
+  </div>
+</div>
+
+<div id="passOverlay" class="hidden">
+  <div class="pass-box">
+    <div class="lesson-head"><span class="ic">🎫</span><span class="nm" id="passTitle">製作個人通行證</span>
+      <button class="x" id="passClose" aria-label="關閉">✕</button></div>
+    <div id="passStage"></div>
+  </div>
+</div>
+
+<div id="start">
+  <h2>🔧 生活科技工坊 · 實地學習</h2>
+  <div id="pct">準備下載工坊場景…</div>
+  <div id="bar"><div id="fill"></div></div>
+  <div id="enterTip" style="display:none">點擊進入（電腦：滑鼠+WASD；手機：左搖桿走、右半屏轉視角）<br>走近機台 → 跳出「學習操作」</div>
+</div>
+
+<script src="js/interactions.js?v=fs1"></script>
+<script src="js/workshop-content.js?v=fs1"></script>
+<script src="js/audio.js?v=fs1"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script type="module">
+import * as pc from 'https://cdn.jsdelivr.net/npm/playcanvas@2.10.1/build/playcanvas.mjs';
+
+// === 工坊 LiDAR 公尺校尺(與 x5-roomtour-viewer 行走版同參數) ===
+const XF = { scale:1.22484, quat:[0.90643,-0.03748,-0.41975,-0.02803], pos:[3.645,0.185,4.144] };
+const FLOOR_Y = -0.442, EYE = 1.0, RADIUS = 0.15, SPAWN = [6.52,7.37];
+const SPEED = 1.6, SPRINT = 2.8;
+// 3DGS 資產:同源跨 repo 由 x5-roomtour-viewer 載入(本機預覽亦由線上抓)
+const ASSET = 'https://henrychao521.github.io/x5-roomtour-viewer/assets/';
+
+// === 機台內容來自 js/workshop-content.js（老師可直接編輯該檔）===
+const MACHINES = window.WK_MACHINES;
+const CONTACT = window.WK_CONTACT;
+const POIS = [...MACHINES, CONTACT];
+
+const WK_KEY='pc13110_workshop_v1', LAB_KEY='pc13110_lab_v1', PLAYER_KEY='pc13110_player_v1';
+let store=(()=>{ try{return JSON.parse(localStorage.getItem(WK_KEY))||{};}catch(e){return {};} })();
+let learned = store.learned||{};   // 通過認證(完成步驟+測驗)的機台
+let passLog = store.passLog||{};   // 每台通過時間戳
+function player(){ try{return JSON.parse(localStorage.getItem(PLAYER_KEY))||{};}catch(e){return {};} }
+function learnedCount(){ return MACHINES.filter(m=>learned[m.id]).length; }
+function updateChip(){ document.getElementById('learnedChip').textContent=`🎫 已認證 ${learnedCount()} / ${MACHINES.length}`; }
+function saveLearned(){
+  const p=player();
+  localStorage.setItem(WK_KEY, JSON.stringify({learned, passLog, student:{name:p.name||'',room:p.room||''}, ts:Date.now()}));
+  try{ const lab=JSON.parse(localStorage.getItem(LAB_KEY))||{}; lab.visited=lab.visited||{}; lab.badges=lab.badges||{};
+       lab.visited.workshop=true; if(learnedCount()===MACHINES.length) lab.badges.workshop_master=true;
+       localStorage.setItem(LAB_KEY, JSON.stringify(lab)); }catch(e){}
+}
+updateChip();
+function toast(txt){ const t=document.getElementById('wkToast'); t.textContent=txt; t.classList.add('on');
+  setTimeout(()=>t.classList.remove('on'),2400); }
+
+// ---- PlayCanvas 場景 ----
+const canvas=document.getElementById('c');
+const app=new pc.Application(canvas,{mouse:new pc.Mouse(canvas),keyboard:new pc.Keyboard(window),
+  graphicsDeviceOptions:{antialias:false,xrCompatible:true,preserveDrawingBuffer:true}});
+app.setCanvasFillMode(pc.FILLMODE_FILL_WINDOW); app.setCanvasResolution(pc.RESOLUTION_AUTO);
+addEventListener('resize',()=>app.resizeCanvas()); app.start();
+
+const cam=new pc.Entity('cam');
+cam.addComponent('camera',{clearColor:new pc.Color(0.925,0.925,0.933),fov:75,nearClip:0.04,farClip:100});
+cam.setPosition(SPAWN[0],FLOOR_Y+EYE,SPAWN[1]); app.root.addChild(cam);
+
+// 佔據格(雙層碰撞)
+let legs=null,head=null,gridO=null,vox=0.15;
+fetch(ASSET+'lt4_lidar_occupancy.json').then(r=>r.json()).then(j=>{legs=j.occupied_legs;head=j.occupied_head;gridO=j.grid_origin;vox=j.voxel;});
+function cellHit(g,ox,oz){const ix=Math.floor((ox-gridO[0])/vox),iz=Math.floor((oz-gridO[2])/vox);
+  if(ix<0||iz<0||ix>=g.length||iz>=g[0].length)return true; return !!g[ix][iz];}
+function blocked(x,z){ if(!legs)return false;
+  for(const [dx,dz] of [[0,0],[RADIUS,0],[-RADIUS,0],[0,RADIUS],[0,-RADIUS]])
+    if(cellHit(legs,x+dx,z+dz)||cellHit(head,x+dx,z+dz))return true; return false;}
+
+// 串流下載場景
+const fill=document.getElementById('fill'),pct=document.getElementById('pct'),tip=document.getElementById('enterTip');
+async function loadScene(){
+  const res=await fetch(ASSET+'lt4_lidar_walk.compressed.ply');
+  const total=+res.headers.get('Content-Length')||18000000;
+  const reader=res.body.getReader(); const chunks=[]; let got=0;
+  while(true){const {done,value}=await reader.read(); if(done)break; chunks.push(value); got+=value.length;
+    const p=Math.min(100,Math.round(got/total*100)); fill.style.width=p+'%';
+    pct.textContent=`下載工坊場景 ${p}%（${(got/1048576).toFixed(1)} MB）`;}
+  const url=URL.createObjectURL(new Blob(chunks)); pct.textContent='解碼中…';
+  const asset=new pc.Asset('wk','gsplat',{url,filename:'walk.compressed.ply'});
+  asset.on('load',()=>{const e=new pc.Entity('splat'); e.addComponent('gsplat',{asset});
+    e.setLocalScale(XF.scale,XF.scale,XF.scale);
+    e.setLocalRotation(new pc.Quat(XF.quat[0],XF.quat[1],XF.quat[2],XF.quat[3]));
+    e.setLocalPosition(XF.pos[0],XF.pos[1],XF.pos[2]); app.root.addChild(e);
+    pct.textContent='完成'; tip.style.display='block';
+    if(navigator.userAgent.match(/Mobi|Android|iPhone|iPad/))document.getElementById('stickL').style.display='block';});
+  asset.on('error',err=>pct.textContent='載入失敗：'+err); app.assets.add(asset); app.assets.load(asset);
+}
+loadScene();
+
+// ---- 視角 + pointer lock ----
+let yaw=0,pitch=0,locked=false;
+const start=document.getElementById('start');
+const resumeHint=document.getElementById('resumeHint');
+const wantLook=()=>matchMedia('(pointer:fine)').matches;
+const sceneStarted=()=>start.style.display==='none';
+function updateResume(){ resumeHint.style.display=(sceneStarted()&&!lessonOpen&&!locked&&wantLook())?'block':'none'; }
+function relock(){ if(sceneStarted()&&!lessonOpen&&!locked&&wantLook()){ try{canvas.requestPointerLock();}catch(e){updateResume();} } }
+start.addEventListener('click',()=>{ if(tip.style.display==='none')return; start.style.display='none';
+  window.SoundFX&&window.SoundFX.prime();
+  if(wantLook())canvas.requestPointerLock();});
+canvas.addEventListener('pointerdown',()=>{ window.SoundFX&&window.SoundFX.prime(); },{once:true});
+document.addEventListener('pointerlockchange',()=>{ locked=document.pointerLockElement===canvas; updateResume(); });
+document.addEventListener('pointerlockerror',updateResume);
+canvas.addEventListener('click',relock);   // 關掉教材後點畫面即可恢復滑鼠視角
+document.addEventListener('mousemove',ev=>{ if(!locked)return;
+  yaw-=ev.movementX*0.12; pitch=Math.max(-85,Math.min(85,pitch-ev.movementY*0.12));});
+
+// ---- 手機:左搖桿走、右半屏轉視角 ----
+const stickEl=document.getElementById('stickL'),knob=document.getElementById('knobL');
+let stickVec=[0,0],stickId=null,lookId=null,lastLook=null;
+function placeStick(x,y){stickEl.style.left=(x-55)+'px';stickEl.style.top=(y-55)+'px';}
+canvas.addEventListener('touchstart',e=>{for(const t of e.changedTouches){
+  if(t.clientX<innerWidth/2&&stickId===null){stickId=t.identifier;placeStick(t.clientX,t.clientY);stickEl.style.display='block';}
+  else if(lookId===null){lookId=t.identifier;lastLook=[t.clientX,t.clientY];}}},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();for(const t of e.changedTouches){
+  if(t.identifier===stickId){const r=stickEl.getBoundingClientRect();let dx=t.clientX-(r.left+55),dy=t.clientY-(r.top+55);
+    const len=Math.hypot(dx,dy),max=42; if(len>max){dx*=max/len;dy*=max/len;}
+    knob.style.transform=`translate(calc(-50% + ${dx}px),calc(-50% + ${dy}px))`; stickVec=[dx/max,dy/max];}
+  else if(t.identifier===lookId&&lastLook){yaw-=(t.clientX-lastLook[0])*0.3;
+    pitch=Math.max(-85,Math.min(85,pitch-(t.clientY-lastLook[1])*0.3)); lastLook=[t.clientX,t.clientY];}}},{passive:false});
+canvas.addEventListener('touchend',e=>{for(const t of e.changedTouches){
+  if(t.identifier===stickId){stickId=null;stickVec=[0,0];knob.style.transform='translate(-50%,-50%)';}
+  if(t.identifier===lookId){lookId=null;lastLook=null;}}});
+
+// ---- 機台接近 + 多段式學習模組 ----
+const mprompt=document.getElementById('mprompt');
+const lessonOverlay=document.getElementById('lessonOverlay');
+let nearM=null, lessonOpen=false;
+let cur=null, page=0, stepsDone=false, quizPassed=false;
+const PAGES=['intro','safety','video','steps','quiz'];
+const PAGE_LABELS=['認識','安全','影片','步驟','認證'];
+
+function showPrompt(m){
+  mprompt.querySelector('b').textContent=`${m.icon} ${m.name}`;
+  if(m.id==='teacher') mprompt.querySelector('span').textContent='聯繫老師 · 按 E';
+  else mprompt.querySelector('span').textContent= learned[m.id]?'✓ 已認證 · 按 E 複習':'學習並通過認證才能操作 · 按 E';
+  mprompt.classList.add('on'); }
+function hidePrompt(){ mprompt.classList.remove('on'); }
+
+function introHTML(m){ const i=m.intro||{}; return `
+  <div class="ls-card"><div class="ls-ch">🔎 認識 ${m.name}${m.model?` <span class="ls-model">${m.model}</span>`:''}</div>
+    <p class="ls-what">${i.what||''}</p>
+    ${i.parts?`<div class="ls-sub">主要構造</div><ul class="ls-ul">${i.parts.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+    ${i.uses?`<div class="ls-sub">能做什麼</div><ul class="ls-ul">${i.uses.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}</div>`; }
+function safetyHTML(m){ return `
+  <div class="ls-card ls-warn"><div class="ls-ch">⚠️ 安全重點（務必遵守）</div>
+    <ul class="ls-ul">${(m.safety||[]).map(x=>`<li>${x}</li>`).join('')}</ul></div>`; }
+function videoHTML(m){ return `
+  <div class="ls-card"><div class="ls-ch">🎬 教學影片與資源</div>
+    <p class="ls-note">點開觀看操作與安全示範（新分頁開啟，挑清楚的影片看）。</p>
+    <div class="ls-vids">${(m.resources||[]).map(r=>`<a class="ls-vid" href="${r.url}" target="_blank" rel="noopener">${r.label} ↗</a>`).join('')}</div></div>`; }
+function mountSteps(m){
+  window.Interactions.SequencePuzzle({ container:'#lessonMount',
+    title:`把「${m.name}」的操作步驟排成正確順序`, items:m.steps,
+    onComplete:()=>{ stepsDone=true; renderNav(); toast('✓ 步驟排序正確'); }});
+}
+function mountQuiz(m){
+  const mount=document.getElementById('quizMount'); const qs=m.quiz||[]; const picks=new Array(qs.length).fill(-1);
+  function r(){
+    mount.innerHTML='<div class="qz-h">🎫 認證測驗 · 全部答對才能取得通行證</div>'+
+      qs.map((q,qi)=>`<div class="qz-q"><div class="qz-qt">${qi+1}. ${q.q}</div>`+
+        q.options.map((o,oi)=>`<div class="qz-opt${picks[qi]===oi?' sel':''}" data-q="${qi}" data-o="${oi}">${o}</div>`).join('')+`</div>`).join('')+
+      `<div class="qz-foot"><span class="qz-fb" id="qzFb"></span><button class="qz-check" id="qzCheck">檢查答案</button></div>`;
+    mount.querySelectorAll('.qz-opt').forEach(el=>el.onclick=()=>{ if(quizPassed)return; picks[+el.dataset.q]=+el.dataset.o; r(); });
+    mount.querySelector('#qzCheck').onclick=()=>{
+      if(picks.includes(-1)){ document.getElementById('qzFb').innerHTML='<b class="no">⚠️ 還有題目沒作答</b>'; return; }
+      const wrong=qs.reduce((a,q,qi)=>a+(picks[qi]!==q.answer?1:0),0);
+      if(wrong===0){ quizPassed=true; renderNav(); document.getElementById('qzCheck').disabled=true;
+        document.getElementById('qzFb').innerHTML='<b class="ok">✓ 全部答對！按右下「領取通行證」</b>'; }
+      else document.getElementById('qzFb').innerHTML=`<b class="no">還有 ${wrong} 題不正確，再看看安全重點</b>`;
+    };
+  }
+  r();
+}
+function renderProgress(){ document.getElementById('lsProg').innerHTML=
+  PAGES.map((p,i)=>`<span class="ls-dot${i===page?' on':''}${i<page?' done':''}">${PAGE_LABELS[i]}</span>`).join('<i>›</i>'); }
+function renderNav(){
+  const back=document.getElementById('lsBack'), next=document.getElementById('lsNext'), pg=PAGES[page];
+  back.style.visibility = page>0 ? 'visible':'hidden';
+  let ok=true, label='下一步 →';
+  if(pg==='steps') ok=stepsDone;
+  if(pg==='quiz'){ ok=quizPassed; label='🎫 領取機台通行證'; }
+  next.textContent=label; next.disabled=!ok; next.classList.toggle('cta', pg==='quiz'&&quizPassed); }
+function renderModule(){
+  document.getElementById('lsIcon').textContent=cur.icon;
+  document.getElementById('lsName').textContent=cur.name+(cur.model?` ${cur.model}`:'');
+  document.getElementById('lsProg').style.display='flex';
+  document.querySelector('.lesson-nav').style.display='flex';
+  renderProgress();
+  const body=document.getElementById('lsBody'), pg=PAGES[page];
+  if(pg==='intro') body.innerHTML=introHTML(cur);
+  else if(pg==='safety') body.innerHTML=safetyHTML(cur);
+  else if(pg==='video') body.innerHTML=videoHTML(cur);
+  else if(pg==='steps'){ body.innerHTML='<div id="lessonMount"></div>'; mountSteps(cur); }
+  else if(pg==='quiz'){ body.innerHTML='<div id="quizMount"></div>'; mountQuiz(cur); }
+  renderNav();
+}
+function openLesson(m){
+  if(lessonOpen)return; lessonOpen=true; cur=m; page=0; stepsDone=!!learned[m.id]; quizPassed=!!learned[m.id];
+  if(document.exitPointerLock)document.exitPointerLock();
+  renderModule(); lessonOverlay.classList.remove('hidden');
+}
+function nextPage(){ if(PAGES[page]==='quiz'){ certify(); return; } if(page<PAGES.length-1){ page++; renderModule(); } }
+function certify(){
+  if(!learned[cur.id]){ learned[cur.id]=true; passLog[cur.id]=Date.now(); saveLearned(); updateChip(); }
+  const all=learnedCount()===MACHINES.length;
+  document.getElementById('lsProg').style.display='none';
+  document.querySelector('.lesson-nav').style.display='none';
+  document.getElementById('lsBody').innerHTML=`<div class="ls-cert"><div class="ls-cert-ic">🎫</div>
+    <div class="ls-cert-h">取得「${cur.name}」操作通行證！</div>
+    <div class="ls-cert-sub">${all?'🎉 太強了，六台全數認證完成！':'已記錄到你的通行證，老師可在名單中看到。'}</div>
+    <button class="ls-cert-btn" id="lsMakePass" style="background:#5db8ff;color:#0b0b18;margin-bottom:10px">📸 製作個人通行證</button><br>
+    <button class="ls-cert-btn" id="lsCertClose">▸ 繼續探索工坊</button></div>`;
+  document.getElementById('lsMakePass').onclick=()=>openPassMaker(cur);
+  document.getElementById('lsCertClose').onclick=closeLesson;
+  toast(all?'🎉 工坊全機台認證達人！':`🎫 取得 ${cur.name} 通行證`);
+}
+function openContact(){
+  if(lessonOpen)return; lessonOpen=true; cur=CONTACT;
+  if(document.exitPointerLock)document.exitPointerLock();
+  document.getElementById('lsIcon').textContent='📋';
+  document.getElementById('lsName').textContent='聯繫老師';
+  document.getElementById('lsProg').style.display='none';
+  document.querySelector('.lesson-nav').style.display='none';
+  document.getElementById('lsBody').innerHTML=`<div class="ls-card"><div class="ls-ch">📋 聯繫老師</div>
+    <ul class="ls-ul"><li>要操作機具前，請先找老師確認</li><li>課堂中：舉手，或到講桌找趙珩宇老師</li>
+    <li>線上：在平台留言給老師（之後可接 email／訊息）</li></ul>
+    <button class="ls-cert-btn" id="lsContactClose" style="margin-top:12px;background:#ffd34e;color:#15132a">▸ 關閉</button></div>`;
+  document.getElementById('lsContactClose').onclick=closeLesson;
+  lessonOverlay.classList.remove('hidden');
+}
+function closeLesson(){ lessonOpen=false; lessonOverlay.classList.add('hidden');
+  document.getElementById('lsBody').innerHTML=''; relock(); updateResume(); }
+document.getElementById('lsClose').addEventListener('click',closeLesson);
+document.getElementById('lsBack').addEventListener('click',()=>{ if(page>0){page--; renderModule();} });
+document.getElementById('lsNext').addEventListener('click',nextPage);
+function trigger(){ if(!nearM||lessonOpen)return; nearM.id==='teacher'?openContact():openLesson(nearM); }
+mprompt.addEventListener('click',trigger);
+window.addEventListener('keydown',e=>{ const k=e.key.toLowerCase();
+  if(k==='e')trigger();
+  if(k==='escape'&&lessonOpen)closeLesson(); });
+
+// 我的通行證面板
+document.getElementById('certBtn').addEventListener('click',()=>{
+  const p=player();
+  document.getElementById('certWho').textContent=`${p.name||'（未命名，先回大廳建立角色）'}${p.room?' · '+p.room+' 班':''}`;
+  document.getElementById('certList').innerHTML=MACHINES.map(m=>{
+    const ok=!!learned[m.id]; const t=passLog[m.id]?new Date(passLog[m.id]).toLocaleString('zh-TW',{hour12:false}):'';
+    return `<div class="ct-row ${ok?'ok':''}"><span>${m.icon} ${m.name}</span><span class="ct-right">${ok?`<span class="ct-t">🎫 ${t}</span><button class="ct-pass" data-m="${m.id}">📸 通行證</button>`:'— 未認證'}</span></div>`;
+  }).join('');
+  document.getElementById('certList').querySelectorAll('.ct-pass').forEach(b=>b.onclick=()=>{
+    document.getElementById('certPanel').classList.add('hidden');
+    openPassMaker(MACHINES.find(x=>x.id===b.dataset.m)); });
+  document.getElementById('certPanel').classList.remove('hidden');
+});
+document.getElementById('certPanelClose').addEventListener('click',()=>document.getElementById('certPanel').classList.add('hidden'));
+
+// ===== 個人機台通行證(今日版:自拍邊緣徽章 + QR,未簽章) =====
+let passStream=null;
+function stopCam(){ if(passStream){ passStream.getTracks().forEach(t=>t.stop()); passStream=null; } }
+document.getElementById('passClose').onclick=()=>{ stopCam(); document.getElementById('passOverlay').classList.add('hidden'); };
+function hashStr(s){ let h=2166136261; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
+function roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+function cropSquare(ctx,src,size){ const sw=src.videoWidth||src.width, sh=src.videoHeight||src.height;
+  const s=Math.min(sw,sh); ctx.drawImage(src,(sw-s)/2,(sh-s)/2,s,s,0,0,size,size); }
+// 自拍 → Sobel 邊緣 → 深底金邊「數位徽章」(只留線條,不留原始照片)
+function edgeBadge(src){
+  const S=240, c=document.createElement('canvas'); c.width=c.height=S; const ctx=c.getContext('2d');
+  cropSquare(ctx,src,S); const d=ctx.getImageData(0,0,S,S).data; const g=new Float32Array(S*S);
+  for(let i=0;i<S*S;i++) g[i]=0.299*d[i*4]+0.587*d[i*4+1]+0.114*d[i*4+2];
+  const out=ctx.createImageData(S,S), o=out.data;
+  for(let i=0;i<S*S;i++){ o[i*4+3]=255; o[i*4]=14; o[i*4+1]=19; o[i*4+2]=32; }   // 底:深藍
+  for(let y=1;y<S-1;y++)for(let x=1;x<S-1;x++){ const i=y*S+x;
+    const gx=-g[i-S-1]-2*g[i-1]-g[i+S-1]+g[i-S+1]+2*g[i+1]+g[i+S+1];
+    const gy=-g[i-S-1]-2*g[i-S]-g[i-S+1]+g[i+S-1]+2*g[i+S]+g[i+S+1];
+    let m=Math.sqrt(gx*gx+gy*gy); m=m>90?255:m*0.6; const k=i*4;
+    o[k]=Math.min(255,14+m); o[k+1]=Math.min(255,19+m*0.82); o[k+2]=Math.min(255,32+m*0.30); }
+  ctx.putImageData(out,0,0); return c;
+}
+// 無相機:用 學號+機台 生成對稱圖樣徽章
+function identiconBadge(m){
+  const S=240, c=document.createElement('canvas'); c.width=c.height=S; const ctx=c.getContext('2d');
+  ctx.fillStyle='#0e1320'; ctx.fillRect(0,0,S,S); const p=player();
+  let h=hashStr((p.name||'?')+'|'+m.id); const cells=6, cs=S/cells; ctx.fillStyle='#ffd34e';
+  for(let y=0;y<cells;y++)for(let x=0;x<Math.ceil(cells/2);x++){ h=(Math.imul(h,1103515245)+12345)>>>0;
+    if(h&8){ ctx.fillRect(x*cs,y*cs,cs+0.5,cs+0.5); ctx.fillRect((cells-1-x)*cs,y*cs,cs+0.5,cs+0.5);} }
+  return c;
+}
+async function openPassMaker(m){
+  const ov=document.getElementById('passOverlay'); ov.classList.remove('hidden');
+  document.getElementById('passTitle').textContent=`製作「${m.name}」個人通行證`;
+  const stage=document.getElementById('passStage'); stage.innerHTML='<div class="pass-note">啟用相機中…（可略過）</div>';
+  let cam=false;
+  try{ if(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia){
+        passStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}); cam=true; } }catch(e){ cam=false; }
+  if(cam){
+    stage.innerHTML='<video id="passVid" autoplay playsinline muted></video>'+
+      '<div class="pass-cap-row"><button id="passSnap" class="pass-btn">📸 拍照</button>'+
+      '<button id="passSkip" class="pass-btn ghost">略過(用圖樣)</button></div>'+
+      '<div class="pass-note">只擷取「邊緣線條」做徽章，<b>不儲存原始照片</b>。</div>';
+    const v=document.getElementById('passVid'); v.srcObject=passStream;
+    document.getElementById('passSnap').onclick=()=>{ const b=edgeBadge(v); stopCam(); buildPass(m,b); };
+    document.getElementById('passSkip').onclick=()=>{ stopCam(); buildPass(m,identiconBadge(m)); };
+  } else { buildPass(m,identiconBadge(m)); }
+}
+function buildPass(m,badge){
+  const p=player(), sid=p.name||'（未命名）', room=p.room||'';
+  const ts=passLog[m.id]||Date.now(), tstr=new Date(ts).toLocaleString('zh-TW',{hour12:false});
+  const payload=JSON.stringify({t:'wkpass',sid,room,m:m.id,mn:m.name,ts});
+  const W=520,H=300, c=document.createElement('canvas'); c.width=W;c.height=H; const ctx=c.getContext('2d');
+  roundRect(ctx,0,0,W,H,18); ctx.fillStyle='#15132a'; ctx.fill();
+  ctx.lineWidth=4; ctx.strokeStyle='#ffd34e'; roundRect(ctx,2,2,W-4,H-4,16); ctx.stroke();
+  ctx.fillStyle='#ffd34e'; ctx.font='900 21px "Noto Sans TC",sans-serif'; ctx.textBaseline='alphabetic';
+  ctx.fillText('🎫 工坊機台通行證', 22, 40);
+  const bs=180; ctx.save(); roundRect(ctx,22,58,bs,bs,12); ctx.clip(); ctx.drawImage(badge,22,58,bs,bs); ctx.restore();
+  ctx.strokeStyle='#4a5e57'; ctx.lineWidth=2; roundRect(ctx,22,58,bs,bs,12); ctx.stroke();
+  let rx=222, ry=80;
+  ctx.fillStyle='#fff'; ctx.font='800 20px "Noto Sans TC",sans-serif'; ctx.fillText(`${m.icon} ${m.name}`, rx, ry); ry+=32;
+  ctx.fillStyle='#cfd6e6'; ctx.font='600 15px "Noto Sans TC",sans-serif';
+  ctx.fillText(`學生：${sid}`, rx, ry); ry+=24; if(room){ ctx.fillText(`班級：${room}`, rx, ry); ry+=24; }
+  ctx.fillStyle='#9fe8d0'; ctx.fillText(`通過：${tstr}`, rx, ry);
+  const qr=window.qrcode(0,'M'); qr.addData(payload); qr.make();
+  const im=new Image();
+  im.onload=()=>{ ctx.drawImage(im, W-150, H-150, 132,132);
+    ctx.fillStyle='#7a8290'; ctx.font='500 11px "Noto Sans TC",sans-serif';
+    ctx.fillText('掃碼驗證 · 今日版（未簽章）', 222, H-30);
+    showPassResult(c,sid,m); };
+  im.src=qr.createDataURL(4,10);
+}
+function showPassResult(card,sid,m){
+  const stage=document.getElementById('passStage'); stage.innerHTML='';
+  card.className='pass-card-img'; stage.appendChild(card);
+  const row=document.createElement('div'); row.className='pass-cap-row';
+  row.innerHTML='<button id="passDl" class="pass-btn">⬇️ 下載通行證</button>'+
+    '<button id="passRetry" class="pass-btn ghost">重做</button>';
+  stage.appendChild(row);
+  const note=document.createElement('div'); note.className='pass-note';
+  note.innerHTML='給老師看或截圖存證。QR 含 學號/機台/時間（<b>今日版未加密簽章</b>，接後端後即可防偽掃描驗證）。';
+  stage.appendChild(note);
+  document.getElementById('passDl').onclick=()=>card.toBlob(b=>{ const a=document.createElement('a');
+    a.href=URL.createObjectURL(b); a.download=`通行證_${sid}_${m.name}.png`; a.click(); });
+  document.getElementById('passRetry').onclick=()=>openPassMaker(m);
+}
+
+// ---- 移動 + head bob + 機台偵測 + 皮鞋腳步聲 ----
+let vel=[0,0],bobT=0;
+let stepAccum=0, footL=false; const STEP_LEN=0.62;   // 每走 0.62m 一步
+app.on('update',dt=>{
+  cam.setEulerAngles(pitch,yaw,0);
+  const p=cam.getPosition();
+  document.getElementById('coordHud').textContent=`📍 X ${p.x.toFixed(2)}　·　Z ${p.z.toFixed(2)}`;
+  // 機台接近偵測
+  let best=null,bd=1e9;
+  for(const m of POIS){const d=Math.hypot(p.x-m.pos[0],p.z-m.pos[1]); if(d<m.r&&d<bd){bd=d;best=m;}}
+  nearM=best; if(best&&!lessonOpen)showPrompt(best); else hidePrompt();
+  if(lessonOpen)return;   // 學習中暫停移動
+  const kb=app.keyboard; let fx=stickVec[0],fz=-stickVec[1];
+  if(kb.isPressed(pc.KEY_W)||kb.isPressed(pc.KEY_UP))fz+=1;
+  if(kb.isPressed(pc.KEY_S)||kb.isPressed(pc.KEY_DOWN))fz-=1;
+  if(kb.isPressed(pc.KEY_A)||kb.isPressed(pc.KEY_LEFT))fx-=1;
+  if(kb.isPressed(pc.KEY_D)||kb.isPressed(pc.KEY_RIGHT))fx+=1;
+  const sp=kb.isPressed(pc.KEY_SHIFT)?SPRINT:SPEED;
+  const fwd=cam.forward,right=cam.right;
+  let tx=fwd.x*fz+right.x*fx,tz=fwd.z*fz+right.z*fx; const tl=Math.hypot(tx,tz);
+  if(tl>0){tx=tx/tl*sp;tz=tz/tl*sp;}
+  const k=(tl>0?8:10)*dt; vel[0]+=(tx-vel[0])*Math.min(1,k); vel[1]+=(tz-vel[1])*Math.min(1,k);
+  const mx=vel[0]*dt,mz=vel[1]*dt; if(Math.abs(mx)+Math.abs(mz)<1e-6)return;
+  let nx=p.x,nz=p.z;
+  if(!blocked(p.x+mx,p.z+mz)){nx=p.x+mx;nz=p.z+mz;}
+  else if(!blocked(p.x+mx,p.z)){nx=p.x+mx;vel[1]=0;}
+  else if(!blocked(p.x,p.z+mz)){nz=p.z+mz;vel[0]=0;}
+  else {vel=[0,0];}
+  const moving=Math.hypot(vel[0],vel[1]); bobT+=dt*(moving>0.1?moving*5.5:0);
+  const bob=moving>0.1?Math.sin(bobT)*0.018:0; cam.setPosition(nx,FLOOR_Y+EYE+bob,nz);
+  // 皮鞋腳步聲:以實際位移累積,每 STEP_LEN 觸發一步、左右腳交替
+  stepAccum+=Math.hypot(nx-p.x,nz-p.z);
+  if(stepAccum>=STEP_LEN && moving>0.35){ stepAccum=0; footL=!footL;
+    window.SoundFX&&window.SoundFX.footstep({vol:0.12+Math.random()*0.03, pan:footL?-0.25:0.25}); }
+});
+
+// QA 用:可從 console 傳送到機台旁、列出已學狀態
+window.__wk={ app, cam, MACHINES, learned,
+  tp:(x,z)=>cam.setPosition(x,FLOOR_Y+EYE,z),
+  toMachine:(i)=>cam.setPosition(MACHINES[i].pos[0],FLOOR_Y+EYE,MACHINES[i].pos[1]),
+  openPass:(i)=>openPassMaker(MACHINES[i]) };
+</script>
+</body>
+</html>
