@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教學講義｜PC13110 工程設計學習平台</title>
+<meta name="description" content="PC13110 生活科技全書 16 節教學講義（HTML 互動版）：含課本圖表重製、延伸影片、外部資源 QR code 與課堂討論題。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📘%3C/text%3E%3C/svg%3E">
+<style>
+.ho-hero{max-width:960px;margin:0 auto;padding:48px 20px 8px;text-align:center}
+.ho-hero .badge{display:inline-block;background:var(--brand-light);color:var(--brand-dark);font-size:13px;font-weight:700;padding:6px 16px;border-radius:999px}
+.ho-hero h2{font-size:clamp(1.7rem,4vw,2.6rem);margin:16px 0 10px;line-height:1.25}
+.ho-hero p{color:var(--text-muted);max-width:660px;margin:0 auto;font-size:15px;line-height:1.85}
+.ho-stats{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin:26px 0 6px}
+.ho-stats div{text-align:center}
+.ho-stats b{display:block;font-size:1.9rem;font-weight:800;color:var(--brand);line-height:1.1}
+.ho-stats span{font-size:12.5px;color:var(--text-muted)}
+.ho-wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}
+.ho-chapter{margin-bottom:38px}
+.ho-chead{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.ho-cnum{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;color:#fff;flex:none}
+.ho-ctitle{font-size:1.25rem;font-weight:800;color:var(--text)}
+.ho-csub{font-size:12.5px;color:var(--text-muted);margin-left:58px;margin-bottom:14px}
+.ho-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
+.ho-card{display:block;background:var(--bg-card);border:1px solid #E2E8F0;border-left-width:4px;border-radius:12px;padding:16px 18px;text-decoration:none;transition:transform .15s,box-shadow .15s,border-color .15s}
+.ho-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,23,42,.09)}
+.ho-sec{font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:700;letter-spacing:.04em}
+.ho-name{font-size:15.5px;font-weight:700;color:var(--text);margin:5px 0 9px;line-height:1.45}
+.ho-meta{display:flex;gap:8px;flex-wrap:wrap}
+.ho-tag{font-size:11px;color:var(--text-muted);background:var(--bg-soft);border-radius:999px;padding:3px 9px}
+.ho-note{background:#FFFBEB;border-left:4px solid var(--warning);border-radius:0 10px 10px 0;padding:14px 18px;margin:0 0 30px;font-size:13.5px;color:var(--text-soft);line-height:1.8}
+.ho-note b{color:var(--text)}
+.ho-how{max-width:1120px;margin:0 auto 46px;padding:0 20px}
+.ho-how h3{font-size:1.15rem;margin-bottom:12px}
+.ho-howgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.ho-howcard{background:var(--bg-card);border:1px solid #E2E8F0;border-radius:12px;padding:16px 18px}
+.ho-howcard h4{font-size:14.5px;margin-bottom:6px;color:var(--brand-dark)}
+.ho-howcard p{font-size:12.5px;color:var(--text-muted);line-height:1.8;margin:0}
+@media print{.topbar,.ho-how{display:none}}
+</style>
+</head>
+<body class="hub">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">⚙️</div>
+    <div class="brand-text">
+      <h1>工程設計學習平台</h1>
+      <div class="subtitle">PC13110・教學講義</div>
+    </div>
+  </div>
+  <nav class="topnav">
+    <a href="../index.html">← 回首頁</a>
+    <a href="../index.html#chapters">五大主題</a>
+    <a href="../lobby.html">像素工程實驗室</a>
+    <a href="../manual.html">操作手冊</a>
+    <a href="../teacher.html">教師後台</a>
+  </nav>
+</header>
+
+<section class="ho-hero">
+  <span class="badge">全書 16 節・HTML 互動版</span>
+  <h2>教學講義</h2>
+  <p>對應課本每一節的完整教學講義，可直接在課堂投影或指定學生自學。內含課本圖表重製、延伸影片點播、外部資源 QR code、課堂討論題與考點對應表。</p>
+  <div class="ho-stats">
+    <div><b>16</b><span>節次</span></div>
+    <div><b>242</b><span>簡報頁數</span></div>
+    <div><b>5</b><span>章・五種視覺風格</span></div>
+  </div>
+</section>
+
+<div class="ho-wrap">
+
+<div class="ho-note">
+  <b>使用說明</b><br>
+  每份講義都是<b>單一 HTML 檔</b>，圖片已內嵌，開啟後不需連網也能閱讀（影片與外部連結除外）。點擊影片縮圖可直接播放；QR code 供學生手機掃描。瀏覽器按 <b>Ctrl/⌘ + P</b> 可列印成講義。<br>
+  另有對應的 <b>PowerPoint 與 PDF 簡報</b>（每頁附講者備忘稿），由授課教師另行取得。
+</div>
+
+<!-- Chapter 1 -->
+<section class="ho-chapter">
+  <div class="ho-chead">
+    <div class="ho-cnum" style="background:var(--c1)">1</div>
+    <div class="ho-ctitle">加速發展的科技與工程</div>
+  </div>
+  <div class="ho-csub">工程設計流程是全書主軸——本章建立觀念地基｜視覺風格：瑞士國際</div>
+  <div class="ho-grid">
+    <a class="ho-card" style="border-left-color:var(--c1)" href="1-1.html">
+      <div class="ho-sec" style="color:var(--c1)">1-1</div>
+      <div class="ho-name">科技加速發展的時代</div>
+      <div class="ho-meta"><span class="ho-tag">15 頁</span><span class="ho-tag">AI・量子・生醫・能源</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c1)" href="1-2.html">
+      <div class="ho-sec" style="color:var(--c1)">1-2</div>
+      <div class="ho-name">工程設計流程</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">九步驟・創意思考法</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c1)" href="1-3.html">
+      <div class="ho-sec" style="color:var(--c1)">1-3</div>
+      <div class="ho-name">科技與工程的專題與競賽</div>
+      <div class="ho-meta"><span class="ho-tag">14 頁</span><span class="ho-tag">FRC・智慧鐵人・科展</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c1)" href="1-4.html">
+      <div class="ho-sec" style="color:var(--c1)">1-4</div>
+      <div class="ho-name">科技與工程的發展議題與職涯</div>
+      <div class="ho-meta"><span class="ho-tag">15 頁</span><span class="ho-tag">倫理・永續・職涯</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- Chapter 2 -->
+<section class="ho-chapter">
+  <div class="ho-chead">
+    <div class="ho-cnum" style="background:var(--c2)">2</div>
+    <div class="ho-ctitle">數位加工到機構實作</div>
+  </div>
+  <div class="ho-csub">從「做得出來」到「做之前就知道行不行」｜視覺風格：工程藍圖</div>
+  <div class="ho-grid">
+    <a class="ho-card" style="border-left-color:var(--c2)" href="2-1.html">
+      <div class="ho-sec" style="color:var(--c2)">2-1</div>
+      <div class="ho-name">電腦輔助設計</div>
+      <div class="ho-meta"><span class="ho-tag">14 頁</span><span class="ho-tag">CAD 四大助益・淡江大橋</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c2)" href="2-2.html">
+      <div class="ho-sec" style="color:var(--c2)">2-2</div>
+      <div class="ho-name">實體模型的製作與加工技巧</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">原型・材料・麵包板</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c2)" href="2-3.html">
+      <div class="ho-sec" style="color:var(--c2)">2-3</div>
+      <div class="ho-name">電腦建模工具與虛擬組裝</div>
+      <div class="ho-meta"><span class="ho-tag">18 頁</span><span class="ho-tag">Onshape・雷切・桁架 CAE</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- Chapter 3 -->
+<section class="ho-chapter">
+  <div class="ho-chead">
+    <div class="ho-cnum" style="background:var(--c3)">3</div>
+    <div class="ho-ctitle">機構與結構的深化探究</div>
+  </div>
+  <div class="ho-csub">從手算分析到電腦模擬實戰｜視覺風格：Bento Grid</div>
+  <div class="ho-grid">
+    <a class="ho-card" style="border-left-color:var(--c3)" href="3-1.html">
+      <div class="ho-sec" style="color:var(--c3)">3-1</div>
+      <div class="ho-name">結構的深化分析與模擬</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">FBD・平衡方程式・FEA</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c3)" href="3-2.html">
+      <div class="ho-sec" style="color:var(--c3)">3-2</div>
+      <div class="ho-name">機構的類型、分析與模擬</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">連桿・凸輪・Grashof</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c3)" href="3-3.html">
+      <div class="ho-sec" style="color:var(--c3)">3-3</div>
+      <div class="ho-name">AI 輔助的機構結構分析</div>
+      <div class="ho-meta"><span class="ho-tag">15 頁</span><span class="ho-tag">衍生式設計・LLM 的界線</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- Chapter 4 -->
+<section class="ho-chapter">
+  <div class="ho-chead">
+    <div class="ho-cnum" style="background:var(--c4)">4</div>
+    <div class="ho-ctitle">日常生活中的電</div>
+  </div>
+  <div class="ho-csub">從元件認識到電路模擬與實作｜視覺風格：終端機</div>
+  <div class="ho-grid">
+    <a class="ho-card" style="border-left-color:var(--c4)" href="4-1.html">
+      <div class="ho-sec" style="color:var(--c4)">4-1</div>
+      <div class="ho-name">常用的基本電子元件</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">色碼・電晶體・繼電器</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c4)" href="4-2.html">
+      <div class="ho-sec" style="color:var(--c4)">4-2</div>
+      <div class="ho-name">常用工具介紹</div>
+      <div class="ho-meta"><span class="ho-tag">11 頁</span><span class="ho-tag">三用電表・麵包板</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c4)" href="4-3.html">
+      <div class="ho-sec" style="color:var(--c4)">4-3</div>
+      <div class="ho-name">電路設計軟體介紹與練習</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">Tinkercad・光感路燈・PIR</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- Chapter 5 -->
+<section class="ho-chapter">
+  <div class="ho-chead">
+    <div class="ho-cnum" style="background:var(--c5)">5</div>
+    <div class="ho-ctitle">機電整合的工程設計</div>
+  </div>
+  <div class="ho-csub">全書收官：把五章的縱貫線收攏成一個專題｜視覺風格：霓虹玻璃</div>
+  <div class="ho-grid">
+    <a class="ho-card" style="border-left-color:var(--c5)" href="5-1.html">
+      <div class="ho-sec" style="color:var(--c5)">5-1</div>
+      <div class="ho-name">市面上常見控制板</div>
+      <div class="ho-meta"><span class="ho-tag">14 頁</span><span class="ho-tag">MCU・ADC/PWM・四板比較</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c5)" href="5-2.html">
+      <div class="ho-sec" style="color:var(--c5)">5-2</div>
+      <div class="ho-name">機電整合的電子周邊元件</div>
+      <div class="ho-meta"><span class="ho-tag">14 頁</span><span class="ho-tag">感測器・馬達・HMI</span></div>
+    </a>
+    <a class="ho-card" style="border-left-color:var(--c5)" href="5-3.html">
+      <div class="ho-sec" style="color:var(--c5)">5-3</div>
+      <div class="ho-name">認識 ESP32 控制板與實作</div>
+      <div class="ho-meta"><span class="ho-tag">16 頁</span><span class="ho-tag">腳位・藍牙・智慧門鎖</span></div>
+    </a>
+  </div>
+</section>
+
+</div>
+
+<div class="ho-how">
+  <h3>怎麼用這些講義？</h3>
+  <div class="ho-howgrid">
+    <div class="ho-howcard"><h4>課堂投影</h4><p>直接開啟全螢幕，依段落捲動講解；影片縮圖點下去就播，不必切換分頁。</p></div>
+    <div class="ho-howcard"><h4>指定自學</h4><p>把單節網址或 QR code 給學生，課前預習或課後複習皆可，手機也能讀。</p></div>
+    <div class="ho-howcard"><h4>列印成講義</h4><p>Ctrl/⌘ + P 直接列印；已針對列印調整版面，導覽列不會印出來。</p></div>
+    <div class="ho-howcard"><h4>搭配互動模組</h4><p>每節講義都附對應的平台互動模組連結，講完觀念可立刻讓學生動手操作。</p></div>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
