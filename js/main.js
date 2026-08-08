@@ -113,6 +113,7 @@ const CHAPTER_INFO = {
   ch3: { name: '機構與結構的深化探究', short: '機構與結構', cls: 'cc-c3', cvar: '--c3', hub: 'ch3-mechanism/index.html' },
   ch4: { name: '日常生活中的電', short: '日常的電', cls: 'cc-c4', cvar: '--c4', hub: 'ch4-electricity/index.html' },
   ch5: { name: '機電整合的工程設計', short: '機電整合', cls: 'cc-c5', cvar: '--c5', hub: 'ch5-mechatronics/index.html' },
+  workshop: { name: '生活科技工坊', short: '工坊', cls: 'cc-c2', cvar: '--c2', hub: 'workshop.html' },
 };
 
 const MODULES = [

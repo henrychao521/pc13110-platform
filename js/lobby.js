@@ -183,14 +183,21 @@ const STAGE_META = {
   ch3: { icon: '⚙️', color: '#e879f9' },
   ch4: { icon: '⚡', color: '#ff6b6b' },
   ch5: { icon: '🤖', color: '#a98bff' },
+  workshop: { icon: '🔧', color: '#ff9f43' },
 };
-/* 5 個傳送門(關卡入口),座標為格子中心 */
+/* 工坊已學機台數(來自 workshop.html 寫回的 localStorage) */
+function wkLearnedCount() {
+  try { const w = JSON.parse(localStorage.getItem('pc13110_workshop_v1')) || {};
+    return Object.values(w.learned || {}).filter(Boolean).length; } catch (e) { return 0; }
+}
+/* 6 個傳送門(關卡入口 + 工坊實地),座標為格子中心 */
 const PORTALS = [
   { id: 'ch1', col: 4,  row: 3 },
   { id: 'ch2', col: 9,  row: 3 },
   { id: 'ch3', col: 14, row: 3 },
   { id: 'ch4', col: 6,  row: 9 },
   { id: 'ch5', col: 12, row: 9 },
+  { id: 'workshop', col: 14, row: 11 },
 ].map(p => ({ ...p, x: (p.col + 0.5) * TILE, y: (p.row + 0.5) * TILE }));
 
 /* ---- 互動實體:NPC 導師與布告欄 ---- */
@@ -627,14 +634,15 @@ function startWorld() {
     ctx.font = '22px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     ctx.fillText(m.icon, p.x, p.y - 20 - pulse * 3);
     /* 招牌 */
-    const pc = Progress.chapterPercent(p.id);
+    const isWk = p.id === 'workshop';
+    const pc = isWk ? wkLearnedCount() + ' / 6' : Progress.chapterPercent(p.id) + '%';
     ctx.fillStyle = near ? '#ffd34e' : '#14132b';
     ctx.fillRect(p.x - 40, p.y - 58, 80, 20);
     ctx.fillStyle = '#0b0b18'; ctx.lineWidth = 2;
     ctx.strokeStyle = '#0b0b18'; ctx.strokeRect(p.x - 40, p.y - 58, 80, 20);
     ctx.fillStyle = near ? '#14132b' : '#e8e8f5';
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
-    ctx.fillText('第 ' + p.id.slice(2) + ' 章 ・ ' + pc + '%', p.x, p.y - 48);
+    ctx.fillText(isWk ? '工坊 ・ ' + pc : '第 ' + p.id.slice(2) + ' 章 ・ ' + pc, p.x, p.y - 48);
   }
   function drawName(x, y, name, kind) {
     ctx.font = '700 11px "Noto Sans TC",sans-serif';
