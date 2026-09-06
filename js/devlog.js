@@ -765,6 +765,26 @@ const PHASES = [
       'commit 838496b',
     ],
   },
+  {
+    tag: '段落 55',
+    commit: '9bfed12',
+    date: '2026-09-07',
+    title: '首頁改版「開源教科書」風：跨站台去除 AI 模板感',
+    verbatim: '我今天在研習分享的時候，很多老師反應我的 https://henrychao521.github.io/ 以及他往下層的網站看起來都很像claude的模板網站，覺得了無新意。可以和Antigravity共同討論看看，要如何修正嗎？',
+    verbatim2: '都開始執行，三種方案分別依據不同的網站主題內容進行套用，讓網站增加多樣性。',
+    context: '研習現場的回饋是所有站台共用同一套骨架（置中大標→統計數字方塊→圓角卡片格＋藥丸標籤→全大寫英文小標＋漸層字）。與 Antigravity（Gemini 3.1 Pro）獨立交叉診斷後定出三個承重系統：A 工程圖紙、B 真實工坊、C 開源教科書，依各站主題分配。本平台是作者自己編的教科書，採 C：首頁改成書名頁（前言 00＋明體大標＋旁註）、五章改成目次列（章號＋章名＋點線＋進度）、工程設計流程環改成七步時間軸、去掉全部 emoji／漸層／圓角卡片。改版由 Antigravity 依規格產出，Claude 以機器探針驗收：原檔所有 id／href／script src 必須保留（hub.js 掛勾）、禁用清單零命中、圓角 ≤4px；第一回合因遺失 svg-effects.css 與 .modal-close／.modal-code 掛勾被退回，第二回合通過。其他頁面（各章模組、教師後台、講義）沿用原本 css/style.css 未動。',
+    decisions: [
+      '只改首頁與新增 css/home-textbook.css，用 body.hub 前綴覆蓋，不動共用 style.css',
+      '章節卡片改目次列：這是教科書平台，版面就該像一本書的目次',
+      '首屏照片用 assets/photos/drafting-tools.jpg（CC BY-SA，出處已列 LICENSE_IMAGES.md）',
+      '驗收交給機器探針而不是「看起來不錯」：id/href/script 回歸、禁用 regex、圓角上限',
+    ],
+    outputs: [
+      'index.html 重寫、css/home-textbook.css 新增',
+      'hub.js 動態渲染（章節目次、七步流程、進度、匯出/重設）功能保留，本機實測 console 零錯誤',
+      '同批改版：個人站主站（B＋C）、台灣工程地景（A）、格狀鉸鏈計算器（A）、servo-arm（A）、livingtech-tools（B）、ESP32 相機導覽頁（B）',
+    ],
+  },
 ];
 
 /* ============================================================

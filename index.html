@@ -7,16 +7,19 @@
 <meta name="description" content="對應普通型高中生活科技教科書（PC13110）的互動學習平台：工程設計流程、數位建模、結構模擬、電路與 ESP32 實作。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800;900&family=Noto+Serif+TC:wght@700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/svg-effects.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/home-textbook.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%232f5d3a' stroke-width='8'/%3E%3C/svg%3E">
 </head>
 <body class="hub">
 
 <header class="topbar">
   <div class="brand">
-    <div class="logo">⚙️</div>
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    </div>
     <div class="brand-text">
       <h1>工程設計學習平台</h1>
       <div class="subtitle">PC13110・普通型高中生活科技</div>
@@ -34,58 +37,81 @@
   </nav>
 </header>
 
-<!-- ===== Hero ===== -->
-<section class="hub-hero">
-  <span class="badge">對應 108 課綱・科技領域生活科技</span>
-  <h2>把課本變成<br><span class="grad">可以動手操作的工程實驗室</span></h2>
-  <p>
-    這不只是電子書。從 AI 趨勢、CAD 建模、結構模擬，到電路設計與 ESP32 程式燒錄——
-    每一章都讓你在瀏覽器內，用真實的開源工具完整走過一次工程設計流程。
-  </p>
-  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
-    <a class="btn btn-primary" href="ch1-engineering/index.html">▶ 從第 1 章開始</a>
-    <a class="btn btn-ghost" href="lobby.html">🎮 進入像素工程實驗室</a>
-    <a class="btn btn-ghost" href="#process">了解工程設計流程</a>
-  </div>
-</section>
-
-<!-- ===== 工程設計流程環 ===== -->
-<section class="process-ring" id="process">
-  <h3>工程設計流程（ENGINEERING DESIGN PROCESS）— 貫穿全書的學習主軸</h3>
-  <p style="text-align:center;font-size:13px;color:var(--text-muted);max-width:620px;margin:6px auto 0">
-    點擊任一階段，看看它對應到課本哪一章、平台用什麼工具讓你練習。
-  </p>
-  <div class="ring-track" id="ringTrack"></div>
-  <div id="ringDetail" style="max-width:760px;margin:18px auto 0"></div>
-</section>
-
-<!-- ===== 整體進度 ===== -->
-<section class="hub-progress" style="margin-top:34px">
-  <div class="hub-progress-inner">
-    <div style="font-size:30px">🚀</div>
-    <div>
-      <div style="font-size:12.5px;color:var(--text-muted);font-weight:700">我的學習進度</div>
-      <div id="overallText" style="font-size:17px;font-weight:800;color:var(--brand-dark)">尚未開始</div>
+<main class="textbook-container">
+  <!-- ===== Hero ===== -->
+  <section class="hub-hero">
+    <div class="hero-layout">
+      <div class="hero-num">00</div>
+      <div class="hero-content">
+        <h2>前言　把課本變成可以動手操作的工程實驗室</h2>
+        <p>
+          這不只是電子書。從人工智慧趨勢、電腦輔助設計建模、結構模擬，到電路設計與 ESP32 程式燒錄——
+          每一章都讓你在瀏覽器內，用真實的開源工具完整走過一次工程設計流程。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="ch1-engineering/index.html">閱讀第一章</a>
+          <a class="btn btn-ghost" href="lobby.html">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            進入像素工程實驗室
+          </a>
+          <a class="btn btn-ghost" href="#process">了解工程設計流程</a>
+        </div>
+      </div>
+      <aside class="hero-margin-note">
+        本平台對應 PC13110 教科書五章，所有模擬器皆為作者自製，開源。
+      </aside>
     </div>
-    <div style="flex:1;min-width:160px;max-width:340px">
-      <div style="height:9px;background:var(--bg-soft);border-radius:999px;overflow:hidden;border:1px solid var(--border)">
-        <div id="overallBar" style="height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand-cyan));transition:width .6s"></div>
+    
+    <div class="hero-figure">
+      <img src="assets/photos/drafting-tools.jpg" alt="製圖工具">
+      <div class="figure-caption">
+        <span class="fig-num">圖 0.1</span>
+        <span class="fig-desc">工程設計中常用的基礎製圖與量測工具。</span>
       </div>
     </div>
-    <button class="btn btn-ghost btn-sm" id="exportBtn">📤 匯出學習紀錄</button>
-    <button class="btn btn-ghost btn-sm" id="resetBtn">重設進度</button>
-  </div>
-</section>
+  </section>
 
-<!-- ===== 老師指派的作業（?a= 參數時顯示） ===== -->
-<div id="assignBanner"></div>
+  <!-- ===== 工程設計流程環 ===== -->
+  <section class="process-ring" id="process">
+    <h3 class="section-title">工程設計流程</h3>
+    <p class="section-desc">
+      貫穿全書的學習主軸。點擊任一階段，檢視其對應的課本章節與平台互動工具。
+    </p>
+    <div class="ring-track" id="ringTrack"></div>
+    <div id="ringDetail"></div>
+  </section>
 
-<!-- ===== 五大主題章節 ===== -->
-<section class="hub-chapters" id="chapters">
-  <div class="section-title">五大主題</div>
-  <div class="section-sub">依課本五章編排，五章全部開放，循序從觀念走到實作。</div>
-  <div class="chapter-grid" id="chapterGrid"></div>
-</section>
+  <!-- ===== 五大主題章節 (目次) ===== -->
+  <section class="hub-chapters" id="chapters">
+    <h3 class="section-title">目次</h3>
+    <p class="section-desc">依課本五章編排，循序從觀念走到實作。</p>
+    <div class="chapter-grid" id="chapterGrid"></div>
+  </section>
+
+  <!-- ===== 整體進度 ===== -->
+  <section class="hub-progress">
+    <div class="hub-progress-inner">
+      <div class="progress-info">
+        <div class="progress-label">我的學習進度</div>
+        <div id="overallText" class="progress-val">尚未開始</div>
+      </div>
+      <div class="progress-bar-container">
+        <div id="overallBar" class="progress-bar-line"></div>
+      </div>
+      <div class="progress-actions">
+        <button class="btn btn-ghost btn-sm" id="exportBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          匯出學習紀錄
+        </button>
+        <button class="btn btn-ghost btn-sm" id="resetBtn">重設進度</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 老師指派的作業（?a= 參數時顯示） ===== -->
+  <div id="assignBanner"></div>
+
+</main>
 
 <script src="js/main.js"></script>
 <script src="js/audio.js"></script>
