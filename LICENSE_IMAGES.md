@@ -24,6 +24,7 @@
 | `cardboard.jpg` | 厚紙板 | CC BY-SA 3.0 | Richard Wheeler (Zephyris) | File:Corrugated Cardboard.JPG |
 | `pu-foam.jpg` | PU 泡綿 | CC BY-SA 3.0 | Silverchemist | File:Molded polyurethane foam.JPG |
 | `wood-filler.jpg` | 補土／木材填料 | CC BY-SA 4.0 | Rlsheehan | File:Tubs of wood filler or putty.jpg |
+| `own-sketch-geometry.jpg` | 手繪幾何草圖（首頁圖 0.1） | 作者自攝，CC BY 4.0 | 趙珩宇 | 本專案 |
 | `drafting-tools.jpg` | 傳統製圖工具 | CC BY-SA 4.0 | Michael Holley (Swtpc6800) | File:Drafting board with T square and drawingtools.jpg |
 | `fdm-printer.jpg` | FDM 3D 印表機 | CC BY-SA 3.0 | Jonathan Juursema | File:Felix 3D Printer - Printing Set-up With Examples.JPG |
 | `pla-filament.jpg` | 3D 列印線材 | CC BY-SA 4.0 | Suit | File:3D-Druck-Filament in verschiedenen Farben.jpg |
