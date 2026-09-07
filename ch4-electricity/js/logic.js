@@ -90,7 +90,8 @@ function drawSky() {
 
 function refreshLight() {
   const r = drawSky();
-  const label = bright > 66 ? '白天' : bright > 33 ? '黃昏' : '夜晚';
+  // 門檻對齊實際的關燈點（Vo 在 bright=70 越過 2.5V），否則 67–69 會標「白天」卻還亮著
+  const label = bright >= 70 ? '白天' : bright > 33 ? '黃昏' : '夜晚';
   document.getElementById('brightVal').textContent = label;
   document.getElementById('lightStat').innerHTML = `
     光敏電阻阻值:<b style="font-family:var(--font-mono)">${r.Rcds.toFixed(1)} kΩ</b>

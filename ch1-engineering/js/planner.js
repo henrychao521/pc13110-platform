@@ -97,10 +97,16 @@ document.getElementById('mReset').addEventListener('click', () => {
 /* ============================================================
  * Frappe Gantt 甘特圖
  * ============================================================ */
+// 甘特圖的日期一律用「當地日期」字串，不能經過 toISOString()：
+// 它輸出的是 UTC，台北（UTC+8）在當地 00:00–07:59 之間會退回前一天，
+// 早自習排出來的專案會整份提早一天，拖曳也會被存成前一天。
+function ymd(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
 function addDays(base, n) {
   const d = new Date(base);
   d.setDate(d.getDate() + n);
-  return d.toISOString().slice(0, 10);
+  return ymd(d);
 }
 function defaultTasks() {
   const t0 = new Date();
@@ -132,8 +138,8 @@ function renderGantt() {
     readonly_progress: false,
     on_date_change: (task, start, end) => {
       const t = ganttTasks.find(x => x.id === task.id);
-      if (t) { t.start = (start.toISOString ? start.toISOString() : start).slice(0, 10);
-               t.end = (end.toISOString ? end.toISOString() : end).slice(0, 10); }
+      if (t) { t.start = start instanceof Date ? ymd(start) : String(start).slice(0, 10);
+               t.end = end instanceof Date ? ymd(end) : String(end).slice(0, 10); }
       saveTasks(ganttTasks); markInteracted();
       showToast('已更新「' + task.name + '」時程', 'success');
     },

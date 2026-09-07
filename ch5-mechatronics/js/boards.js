@@ -116,7 +116,7 @@ function renderQuizQ(i, box) {
     },
     {
       title:'💡 接光敏電阻(分壓電路)',
-      desc:'光敏電阻 + 固定電阻組成<strong>分壓電路</strong>,中間點電壓會隨光線變化。要讀這個類比電壓,得選一隻 <strong>ADC1</strong> 腳(GPIO 32/33/34/35/36/39)——ADC2 在 WiFi 啟用時不穩。',
+      desc:'光敏電阻 + 固定電阻組成<strong>分壓電路</strong>,中間點電壓會隨光線變化。要讀這個類比電壓,得選一隻 <strong>ADC1</strong> 腳——ADC2 在 WiFi 啟用時不穩。本板引出的 ADC1 腳是 GPIO 32/33/34/35/39。',
       slots:[
         { label:'分壓中點 → ADC 腳', need:'ADC1', hint:'選 ADC1:GPIO 32、33、34、35、39。藍色或灰色標示的腳位' },
         { label:'LDR 一端 →',         need:'POW3V3', hint:'接 3V3' },
