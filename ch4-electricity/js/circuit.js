@@ -136,7 +136,7 @@ function renderQuizQ(i, box) {
         let elements = '';
         if (step >= 1) elements += battery(60, 140);
         if (step >= 2) elements += wire('M60 118 L60 60 L160 60') + resistor(200, 60, 50, 'R1 4.7kΩ');
-        if (step >= 3) elements += wire('M225 60 L300 60 L300 100') + resistor(300, 130, 30, '').replace('330Ω','') +
+        if (step >= 3) elements += wire('M225 60 L300 60 L300 100') +
           `<rect x="288" y="105" width="24" height="50" rx="3" fill="#FBBF24" stroke="#92400E"/>
            <text x="320" y="135" font-size="11" font-weight="700" fill="#92400E">R2 10kΩ</text>` +
           wire('M300 160 L300 200 L60 200 L60 162');
