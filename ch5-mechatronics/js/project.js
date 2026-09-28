@@ -117,7 +117,7 @@ document.getElementById('printBtn').addEventListener('click', () => window.print
       const has = !!sig;
       const color = has ? sig.color : '#94A3B8';
       return `<g>
-        <path id="${ax}_${bx}_arr" d="M${ax} ${y} L${bx} ${y}" stroke="${color}" stroke-width="3" fill="none"/>
+        <path id="arr_${ax}_${bx}" d="M${ax} ${y} L${bx} ${y}" stroke="${color}" stroke-width="3" fill="none"/>
         <polygon points="${bx-8},${y-6} ${bx},${y} ${bx-8},${y+6}" fill="${color}"/>
         <rect x="${mx-70}" y="${y-32}" width="140" height="22" rx="6" fill="${has?'#fff':'#E5E7EB'}" stroke="${color}" stroke-width="1.5"/>
         <text x="${mx}" y="${y-17}" text-anchor="middle" font-size="11" font-weight="700" fill="${has?'#1F2937':'#6B7280'}">${has?sig.type:'(待選擇)'}</text>
@@ -135,8 +135,8 @@ document.getElementById('printBtn').addEventListener('click', () => window.print
 
     /* 動畫流動點:依照已選元件加 dots */
     activeDotsGroups = [];
-    if (ss) activeDotsGroups.push(makeDots(`${x1+78}_${x2-78}_arr`, 4));
-    if (as) activeDotsGroups.push(makeDots(`${x2+78}_${x3-78}_arr`, 4));
+    if (ss) activeDotsGroups.push(makeDots(`arr_${x1+78}_${x2-78}`, 4));
+    if (as) activeDotsGroups.push(makeDots(`arr_${x2+78}_${x3-78}`, 4));
 
     /* 圖例 */
     if (ss && as) {
