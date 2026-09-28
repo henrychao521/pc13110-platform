@@ -304,7 +304,7 @@ footer b{color:var(--sub)}
 <div class="stat p"><b>0.81 mV</b><span>ESP32 每階</span><small>12 bit / 3.3V:0–4095,共 4096 階<br>3.3V ÷ 4096 = 0.81 mV</small></div>
 <div class="stat m"><b>2ⁿ</b><span>位元數變了,公式不變</span><small>解析度 = 滿刻度電壓 ÷ 2ⁿ<br>讀值 = Vin ÷ V滿 × (2ⁿ − 1)</small></div></div>
 <div class="callout p"><b>超綱補充|習題考的是 9 bit!</b>課本只示範 10 bit 與 12 bit,課後習題卻用 <b>9 bit</b>——所以一定要教通式,不要背數字。<br>
-9 bit → 讀值範圍 <b>0~511</b>(共 512 階,習題 Q5);若 Vin = 2V、滿刻度 5V:<b>2 ÷ 5 × 511 ≈ 204.4 → 讀值約 204</b>(習題 Q6;若改用 × 2ⁿ = 512 計算得 204.8 ≈ 205,兩者只差 1 階,對答案時以課本解答採用的公式為準)。</div>
+9 bit → 讀值範圍 <b>0~511</b>(共 512 階,習題 Q5);若 Vin = 2V、滿刻度 5V,<b>答案:讀值 204</b>(習題 Q6)。<br><b>詳解|兩種算法為什麼會差 1:</b><br>(a) <b>課本採用</b>:讀值 = Vin ÷ Vref × (2ⁿ − 1) = 2 ÷ 5 × 511 ≈ 204.4 → <b>204</b>。把「滿刻度 5V」對應到最大讀值 511,也就是 0V→0、5V→511 兩端點連成直線。<br>(b) <b>另一種常見寫法</b>:讀值 = Vin ÷ Vref × 2ⁿ = 2 ÷ 5 × 512 = 204.8 → 205(四捨五入)。微控制器原廠資料表多用這一式,例如 Microchip ATmega328P(Arduino Uno 的晶片)資料表第 24.7 節「ADC Conversion Result」寫 ADC = Vin × 1024 ÷ Vref,並註明最大值 0x3FF(1023)代表「Vref 減 1 個 LSB」;Arduino 官方 analogRead() 說明也用「5 V ÷ 1024 階 ≈ 4.9 mV」當每階大小。<br>差異來源在 <b>LSB(最小一階)怎麼定義</b>:(b) 把 Vref 切成 2ⁿ 等份,1 LSB = Vref ÷ 2ⁿ,所以最大讀值 2ⁿ − 1 對應的是 Vref − 1 LSB,Vref 本身「讀不到」;(a) 則讓最大讀值恰好等於 Vref,等於把 1 LSB 當成 Vref ÷ (2ⁿ − 1)。兩式只差約 0.2%,結果最多差 1 階;實際 ADC 還會截去小數而不是四捨五入(204.8 在晶片裡會存成 204)。本講義與課本一致,答案以 <b>204</b> 為準;看到 205 的算法時,要能說出它用的是 × 2ⁿ。<br><span class="src">出處:Microchip,<a href="https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATmega48A-PA-88A-PA-168A-PA-328-P-DS-DS40002061B.pdf" target="_blank" rel="noopener">ATmega48A/PA/88A/PA/168A/PA/328/P 資料表(DS40002061B)</a> §24.7;Arduino,<a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/" target="_blank" rel="noopener">analogRead() 官方說明</a>。</span></div>
 <div class="note"><b>比喻:</b>同一支尺,一支只有公分刻度、一支有公釐刻度——量的是同一段長度,但看得清楚的程度差很多。位元數就是尺上的刻度密度。</div></section>
 
 <section id="pwm"><h2><span class="pill">重點</span>PWM:用開關的節奏假裝類比</h2>
@@ -425,7 +425,7 @@ footer b{color:var(--sub)}
 <tr><td>Q1・Q2</td><td>四次工業革命</td><td>第四次影響=推動數位經濟;工業 4.0 主軸=<b>智慧化</b></td><td>工業 4.0</td></tr>
 <tr><td>Q3</td><td>MCU 六大單元</td><td>算術邏輯運算單元 = <b>ALU</b></td><td>MCU</td></tr>
 <tr><td>Q4</td><td>數位訊號辨識</td><td>開關、按鈕、<b>日曆</b>共 3 個(日曆最常漏)</td><td>類比與數位</td></tr>
-<tr class="hl"><td>Q5・Q6</td><td>ADC 範圍與換算(超綱)</td><td>9 bit → 0~511;2/5 × 511 = 204.4 ≈ <b>204</b>(× 512 則 ≈ 205)。位元數變了公式不變</td><td>ADC 解析度</td></tr>
+<tr class="hl"><td>Q5・Q6</td><td>ADC 範圍與換算(超綱)</td><td>9 bit → 0~511;答 <b>204</b>(課本式 2/5 × 511 = 204.4 → 204;原廠資料表式 × 512 = 204.8 → 205,差在 LSB 定義,見 ADC 段詳解)。位元數變了公式不變</td><td>ADC 解析度</td></tr>
 <tr><td>Q9</td><td>脈波頻率換算</td><td>75ms + 25ms = 100ms → <b>10 Hz</b>(頻率 = 1 ÷ 週期)</td><td>PWM</td></tr>
 <tr><td>Q7・Q8</td><td>Arduino 程式基礎</td><td><code>pinMode(4, OUTPUT)</code>;Reset 後先執行 <b>setup()</b></td><td>LED 實作</td></tr>
 </table></div></section>
