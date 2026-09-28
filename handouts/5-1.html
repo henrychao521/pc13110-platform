@@ -304,7 +304,7 @@ footer b{color:var(--sub)}
 <div class="stat p"><b>0.81 mV</b><span>ESP32 每階</span><small>12 bit / 3.3V:0–4095,共 4096 階<br>3.3V ÷ 4096 = 0.81 mV</small></div>
 <div class="stat m"><b>2ⁿ</b><span>位元數變了,公式不變</span><small>解析度 = 滿刻度電壓 ÷ 2ⁿ<br>讀值 = Vin ÷ V滿 × (2ⁿ − 1)</small></div></div>
 <div class="callout p"><b>超綱補充|習題考的是 9 bit!</b>課本只示範 10 bit 與 12 bit,課後習題卻用 <b>9 bit</b>——所以一定要教通式,不要背數字。<br>
-9 bit → 讀值範圍 <b>0~511</b>(共 512 階,習題 Q5);若 Vin = 2V、滿刻度 5V:<b>2 ÷ 5 × 511 ≈ 204.4 → 讀值約 205</b>(習題 Q6)。</div>
+9 bit → 讀值範圍 <b>0~511</b>(共 512 階,習題 Q5);若 Vin = 2V、滿刻度 5V:<b>2 ÷ 5 × 511 ≈ 204.4 → 讀值約 204</b>(習題 Q6;若改用 × 2ⁿ = 512 計算得 204.8 ≈ 205,兩者只差 1 階,對答案時以課本解答採用的公式為準)。</div>
 <div class="note"><b>比喻:</b>同一支尺,一支只有公分刻度、一支有公釐刻度——量的是同一段長度,但看得清楚的程度差很多。位元數就是尺上的刻度密度。</div></section>
 
 <section id="pwm"><h2><span class="pill">重點</span>PWM:用開關的節奏假裝類比</h2>
@@ -425,7 +425,7 @@ footer b{color:var(--sub)}
 <tr><td>Q1・Q2</td><td>四次工業革命</td><td>第四次影響=推動數位經濟;工業 4.0 主軸=<b>智慧化</b></td><td>工業 4.0</td></tr>
 <tr><td>Q3</td><td>MCU 六大單元</td><td>算術邏輯運算單元 = <b>ALU</b></td><td>MCU</td></tr>
 <tr><td>Q4</td><td>數位訊號辨識</td><td>開關、按鈕、<b>日曆</b>共 3 個(日曆最常漏)</td><td>類比與數位</td></tr>
-<tr class="hl"><td>Q5・Q6</td><td>ADC 範圍與換算(超綱)</td><td>9 bit → 0~511;2/5 × 511 ≈ <b>205</b>。位元數變了公式不變</td><td>ADC 解析度</td></tr>
+<tr class="hl"><td>Q5・Q6</td><td>ADC 範圍與換算(超綱)</td><td>9 bit → 0~511;2/5 × 511 = 204.4 ≈ <b>204</b>(× 512 則 ≈ 205)。位元數變了公式不變</td><td>ADC 解析度</td></tr>
 <tr><td>Q9</td><td>脈波頻率換算</td><td>75ms + 25ms = 100ms → <b>10 Hz</b>(頻率 = 1 ÷ 週期)</td><td>PWM</td></tr>
 <tr><td>Q7・Q8</td><td>Arduino 程式基礎</td><td><code>pinMode(4, OUTPUT)</code>;Reset 後先執行 <b>setup()</b></td><td>LED 實作</td></tr>
 </table></div></section>
