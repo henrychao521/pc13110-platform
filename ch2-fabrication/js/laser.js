@@ -161,7 +161,7 @@ function run() {
   if (outcome === 'danger') {
     if (typeof SoundFX !== 'undefined') SoundFX.error();
     resEl.innerHTML = `<div style="background:var(--danger-light);color:#a72d2d;padding:10px 12px;border-radius:8px;border-left:3px solid var(--danger)">
-      ☠️ <strong>危險!立即停止!</strong>PVC 含氯,雷射切割會產生<strong>有毒氯氣</strong>,
+      ☠️ <strong>危險!立即停止!</strong>PVC 含氯,雷射切割會產生<strong>有毒的氯化氫（HCl）氣體</strong>,
       會傷害人體並腐蝕機器。請更換為安全材料。</div>`;
     return;
   }
