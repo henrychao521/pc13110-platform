@@ -338,6 +338,8 @@ body.hub {
   position: relative; z-index: 2;
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
 }
+/* 模組卡片由 JS 產生;產生前先預留高度,避免首幀後下方區塊被整段往下推(CLS) */
+.module-grid:empty { min-height: 100vh; }
 .module-card {
   background: #fff; border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 26px;
