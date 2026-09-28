@@ -95,7 +95,9 @@ document.getElementById('printBtn').addEventListener('click', () => window.print
     const s = (typeof state !== 'undefined' && state.sensor) || '';
     const b = (typeof state !== 'undefined' && state.board) || '';
     const a = (typeof state !== 'undefined' && state.actuator) || '';
-    const ss = SENSOR_SIG[s];
+    let ss = SENSOR_SIG[s];
+    /* 類比輸入範圍依控制板而定:Arduino Uno 為 5V 邏輯(0–5V),ESP32／micro:bit 為 3.3V */
+    if (ss && b === 'Arduino Uno') ss = Object.assign({}, ss, { type: ss.type.replace('0–3.3V', '0–5V') });
     const as = ACTUATOR_SIG[a];
 
     const x1 = 80,  x2 = 360, x3 = 640;
