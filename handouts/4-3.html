@@ -212,8 +212,8 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 <section id="pir"><h2><span class="prompt">$ man pir</span><span class="pill blue">元件</span>PIR 人體紅外線感測器 HC-SR501</h2>
 <div class="g2">
 <div class="b grn"><h3>PRINCIPLE</h3>
-<p class="wt">外殼多層鍍膜,只讓「人體」的紅外線通過</p>
-<p>約 36.5℃ 體溫、波長約 9.4μm 的紅外線才會被偵測到,所以它不會被燈光或牆壁誤觸發。</p></div>
+<p class="wt">濾光窗只讓約 8–14μm 的中紅外線通過,人體約 36.5℃、輻射峰值約 9.4μm 正好落在這個範圍</p>
+<p>牆壁、暖氣也會發出這個波段;它不被靜止的牆壁觸發,是因為雙元件熱釋電感測器只對紅外線的「變化」有反應。暖氣出風、陽光直射、氣流仍可能造成誤觸發。</p></div>
 <div class="b blu"><h3>PINOUT</h3>
 <p><span style="color:#FF6B6B;font-weight:700" class="mono">VCC</span> 電源(5V)｜<span class="gt mono">OUT</span> 訊號:1 = 有人移動、0 = 無人｜<span class="wt mono">GND</span> 接地</p>
 <p style="color:var(--dim)">模組上另有 VR 可調延遲時間與偵測距離。</p></div></div>
