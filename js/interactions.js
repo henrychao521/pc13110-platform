@@ -20,8 +20,17 @@ window.Interactions = (function() {
     const root = typeof container === 'string' ? document.querySelector(container) : container;
     if (!root) return;
 
-    // 打亂步驟
-    const shuffled = [...items.keys()].sort(() => Math.random() - 0.5);
+    // 打亂步驟（Fisher–Yates；兩項以上時避免洗出與正解相同的順序）
+    function shuffleInPlace(arr) {
+      do {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+      } while (arr.length > 1 && arr.every((v, i) => v === i));
+      return arr;
+    }
+    const shuffled = shuffleInPlace([...items.keys()]);
     const userOrder = shuffled.slice();
     let solved = false;
 
@@ -101,7 +110,7 @@ window.Interactions = (function() {
     renderList();
 
     root.querySelector('.sp-shuffle').addEventListener('click', () => {
-      userOrder.sort(() => Math.random() - 0.5);
+      shuffleInPlace(userOrder);
       renderList();
       feedbackEl.innerHTML = '';
       solved = false;
