@@ -2,16 +2,20 @@
  * Hub 首頁互動：工程設計流程環、章節卡片、整體進度
  * ============================================================ */
 
-/* ---- 工程設計流程 7 階段 ---- */
+/* ---- 工程設計流程 9 步驟（課本圖 1-7） ---- */
 const PROCESS_STEPS = [
   { icon: '🎯', name: '界定問題', en: 'Identify', book: '第 1 章 1-2 節',
     tool: '工程設計流程互動圖、創意思考工具箱', desc: '從真實情境中找出真正要解決的問題與限制。', link: 'ch1-engineering/index.html' },
   { icon: '🔍', name: '研究與背景調查', en: 'Research', book: '第 1 章 1-1 / 1-3 節',
     tool: '科技趨勢儀表板、競賽圖鑑', desc: '蒐集科技趨勢、案例與既有方案,建立背景知識。', link: 'ch1-engineering/pages/trends.html' },
+  { icon: '📋', name: '定義需求與限制', en: 'Criteria', book: '第 1 章 1-2 節',
+    tool: '專題規劃器', desc: '寫下可檢驗的需求,並列出成本、時間、資源等限制條件。', link: 'ch1-engineering/pages/planner.html' },
   { icon: '💡', name: '構思解決方案', en: 'Brainstorm', book: '第 1 章 1-2 節',
     tool: '六頂思考帽 / SCAMPER / 曼陀羅九宮格', desc: '用創意思考法激發多元、不受框架限制的點子。', link: 'ch1-engineering/pages/thinking.html' },
   { icon: '⚖️', name: '選擇最佳方案', en: 'Select', book: '第 1 章・第 3 章',
     tool: '決策評估、結構分析比較', desc: '依成本、強度、可行性等指標,評估並選出最佳解。', link: 'ch1-engineering/index.html' },
+  { icon: '🧮', name: '預測分析', en: 'Predict', book: '第 1 章 1-2 節・第 3 章',
+    tool: '桁架解算、FEA 應力分析', desc: '動手前先算:用數學模型與電腦模擬預測方案表現。', link: 'ch3-mechanism/index.html' },
   { icon: '🔧', name: '建構原型', en: 'Prototype', book: '第 2 章・第 5 章',
     tool: 'CAD 建模器、ESP32 模擬', desc: '把方案做成可測試的實體或數位原型。', link: 'ch1-engineering/index.html' },
   { icon: '📊', name: '測試與評估', en: 'Test', book: '第 3 章・第 4 章',

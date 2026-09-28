@@ -25,7 +25,7 @@
   .gear-label small { display:block; font-weight:500; font-size:10px; opacity:.7; font-family:var(--font-mono); }
 
   /* 流程環 */
-  .edp-ring { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .edp-ring { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
   .edp-node { background:#fff; border:2px solid var(--border); border-radius:var(--radius);
     padding:16px 12px; text-align:center; cursor:pointer; transition:all .22s var(--easing); position:relative; }
   .edp-node:hover { border-color:var(--theme); transform:translateY(-3px); box-shadow:var(--shadow-md); }
@@ -103,7 +103,7 @@
 
   <!-- 工程設計流程環 -->
   <section class="content-section">
-    <h2>工程設計流程：七個階段</h2>
+    <h2>工程設計流程：九個步驟</h2>
     <p>工程設計流程<strong>不是線性、不可逆的</strong>——它強調迭代與持續優化,可依實際情況調整步驟順序。點擊任一階段,看看它在做什麼。</p>
     <div class="edp-ring" id="edpRing"></div>
     <div id="edpDetail" style="margin-top:14px"></div>
@@ -112,14 +112,14 @@
   <section class="content-section">
     <h2>工程設計流程不只一種版本</h2>
     <p>
-      課本介紹的七階段流程是常見的一種寫法。但在不同領域、不同機構,
+      課本介紹的九步驟流程（課本圖 1-7）是常見的一種寫法。但在不同領域、不同機構,
       工程設計流程會被整理成不同的模型。它們<strong>精神相通</strong>——都強調界定問題、發想、
       建構原型、測試、迭代——只是切分的粗細與用詞不同。
     </p>
     <table class="data">
       <thead><tr><th>模型</th><th>階段（簡述）</th><th>常見領域</th></tr></thead>
       <tbody>
-        <tr><td>本課程七階段</td><td>界定問題 → 研究 → 構思 → 選擇 → 原型 → 測試 → 改進</td><td>中學工程教育</td></tr>
+        <tr><td>本課程九步驟</td><td>界定問題 → 研究 → 定義需求與限制 → 構思 → 選擇 → 預測分析 → 原型 → 測試 → 改進</td><td>中學工程教育</td></tr>
         <tr><td>CDIO</td><td>Conceive 構思 → Design 設計 → Implement 執行 → Operate 運作</td><td>工程高等教育</td></tr>
         <tr><td>設計思考雙鑽石<br>(Double Diamond)</td><td>探索 → 定義 → 發展 → 交付（兩次「發散—收斂」）</td><td>產品／服務設計</td></tr>
         <tr><td>系統工程 V 模型</td><td>由需求逐層往下設計,再逐層往上驗證測試</td><td>航太、大型系統（如 NASA）</td></tr>

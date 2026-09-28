@@ -60,17 +60,21 @@ document.getElementById('gearBtn').addEventListener('click', e => {
 });
 
 /* ============================================================
- * 工程設計流程七階段
+ * 工程設計流程九步驟（課本圖 1-7）
  * ============================================================ */
 const EDP = [
   { icon: '🎯', name: '界定問題', en: 'Identify the Problem',
     detail: '從真實情境中找出「真正要解決的問題」,並寫出具體、可衡量的問題敘述與限制條件（如預算、尺寸、時間）。這是整個流程最關鍵的第一步。' },
   { icon: '🔍', name: '研究與背景調查', en: 'Research',
     detail: '蒐集相關資料、了解既有解決方案與使用者需求,避免「重新發明輪子」,也為後續構思打下知識基礎。' },
+  { icon: '📋', name: '定義需求與限制', en: 'Define Criteria & Constraints',
+    detail: '把「做到什麼程度才算成功」寫成可檢驗的需求（功能、尺寸、效能),並列出成本、時間、材料與資源等限制條件,作為後面評選與測試的標準。' },
   { icon: '💡', name: '構思解決方案', en: 'Brainstorm Solutions',
     detail: '運用六頂思考帽、SCAMPER、心智圖等創意思考法,盡量發想多元、不受框架限制的可能方案。' },
   { icon: '⚖️', name: '選擇最佳方案', en: 'Select the Best Solution',
     detail: '依成本、強度、可行性、安全性等指標,評估各方案的優缺點,選出最合適的一個（可用決策矩陣輔助）。' },
+  { icon: '🧮', name: '預測分析', en: 'Predictive Analytics',
+    detail: '動手做之前先算:用數學模型計算或電腦模擬預測方案的表現（例如受力、耗電、尺寸配合),提早發現問題,減少做錯重來的成本。' },
   { icon: '🔧', name: '開發與建構原型', en: 'Develop & Build Prototype',
     detail: '把選定的方案做成可實際測試的原型——可以是木材、積木等實體模型,也可以是 CAD 數位模型。' },
   { icon: '📊', name: '測試與評估', en: 'Test & Evaluate',

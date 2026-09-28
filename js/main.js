@@ -118,7 +118,7 @@ const CHAPTER_INFO = {
 
 const MODULES = [
   { id:'ch1-trends',     ch:'ch1', tag:'1-1',     icon:'📈', title:'科技趨勢儀表板',       link:'ch1-engineering/pages/trends.html',      hours:1, obj:'判讀 AI、量子半導體、生醫、再生能源四大趨勢的數據與社會影響' },
-  { id:'ch1-process',    ch:'ch1', tag:'1-2',     icon:'🔄', title:'工程設計流程互動',     link:'ch1-engineering/pages/process.html',     hours:1, obj:'說明工程設計流程七階段，並理解 STEM／CDIO 的跨域整合' },
+  { id:'ch1-process',    ch:'ch1', tag:'1-2',     icon:'🔄', title:'工程設計流程互動',     link:'ch1-engineering/pages/process.html',     hours:1, obj:'說明工程設計流程九步驟，並理解 STEM／CDIO 的跨域整合' },
   { id:'ch1-thinking',   ch:'ch1', tag:'1-2',     icon:'💡', title:'創意思考工具箱',       link:'ch1-engineering/pages/thinking.html',    hours:2, obj:'運用六頂思考帽、SCAMPER、曼陀羅法產生並收斂設計構想' },
   { id:'ch1-planner',    ch:'ch1', tag:'1-3',     icon:'🗂️', title:'專題規劃器',           link:'ch1-engineering/pages/planner.html',     hours:1, obj:'用心智圖梳理專題架構、用甘特圖排定時程' },
   { id:'ch1-career',     ch:'ch1', tag:'1-3/1-4', icon:'🏆', title:'競賽與職涯倫理',       link:'ch1-engineering/pages/career.html',      hours:1, obj:'認識科技競賽管道，並思辨工程倫理情境' },
