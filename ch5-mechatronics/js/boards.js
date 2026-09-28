@@ -125,7 +125,7 @@ function renderQuizQ(i, box) {
     },
     {
       title:'🔧 接 SG90 伺服馬達',
-      desc:'伺服需要 PWM 訊號控制角度、外加電源與接地。SG90 的 VCC 接 <strong>5V</strong>(用 VIN 引腳取得),控制線選任一支援 PWM 的數位 I/O 腳。',
+      desc:'伺服需要 PWM 訊號控制角度、外加電源與接地。SG90 的 VCC 接 <strong>5V</strong>(用 VIN 腳位取得),控制線選任一支援 PWM 的數位 I/O 腳。<br>⚠️ 從 VIN 取電只限<strong>單顆 SG90 桌上輕負載測試</strong>;多顆伺服、會帶負載或 MG996R 這類大伺服,一律改用外部 5V 電源(降壓模組)並與開發板<strong>共地</strong>,否則電流突波會讓開發板重新開機。',
       slots:[
         { label:'訊號線 (橘) →',   need:'PWM',  hint:'任一可 PWM 的數位 I/O 腳(GPIO 34–39 不行)' },
         { label:'紅色電源 →',      need:'POW5V', hint:'接 VIN/5V(不要接 3V3)' },
