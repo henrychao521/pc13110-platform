@@ -149,12 +149,20 @@ function makeVoxelViewer(canvas, autoRotate) {
   }
   resize(); updateCam();
   window.addEventListener('resize', resize);
+  let alive = true;
   (function loop() {
+    if (!alive) return;
     requestAnimationFrame(loop);
     if (autoRotate && !drag) { az += 0.006; updateCam(); }
     renderer.render(scene, camera);
   })();
-  return { show, resize };
+  function dispose() {
+    alive = false;
+    window.removeEventListener('resize', resize);
+    renderer.dispose();
+    if (renderer.forceContextLoss) renderer.forceContextLoss();
+  }
+  return { show, resize, dispose };
 }
 
 /* ============================================================
@@ -261,9 +269,26 @@ function nextBtn(label) {
   return nb;
 }
 
+const PASS_SCORE = 4;   /* 六題至少答對 4 題才算完成(與其他模組「答對才算完成」一致) */
 function renderQuestion() {
   if (qIdx >= QUESTIONS.length) {
-    const lv = score >= 5 ? '太厲害了' : score >= 3 ? '表現不錯' : '再多練習';
+    if (chViewer) { chViewer.dispose(); chViewer = null; }
+    if (score < PASS_SCORE) {
+      document.getElementById('challengeArea').innerHTML = `
+      <div class="panel" style="text-align:center;border:2px solid var(--warning)">
+        <div style="font-size:30px">💪</div>
+        <strong style="font-size:16px">你答對 ${score} / ${QUESTIONS.length} 題——再多練習!</strong>
+        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">至少答對 ${PASS_SCORE} 題才算完成本模組。先回到上方主檢視器多轉幾個模型對照三視圖,再挑戰一次。</p>
+        <button class="btn btn-primary btn-sm" id="chRetry" style="margin-top:8px">↻ 重新挑戰</button>
+      </div>`;
+      document.getElementById('chRetry').addEventListener('click', () => {
+        qIdx = 0; score = 0;
+        buildShell();
+        renderQuestion();
+      });
+      return;
+    }
+    const lv = score >= 5 ? '太厲害了' : '表現不錯';
     document.getElementById('challengeArea').innerHTML = `
       <div class="panel" style="text-align:center;border:2px solid var(--success)">
         <div style="font-size:30px">🎉</div>
