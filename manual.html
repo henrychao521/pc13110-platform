@@ -86,7 +86,7 @@
 
   .gc-shot { display:block; margin:9px 0 3px; border-radius:10px; overflow:hidden;
     border:1px solid var(--border); max-height:250px; box-shadow:var(--shadow-xs); }
-  .gc-shot img { width:100%; display:block; }
+  .gc-shot img { width:100%; display:block; aspect-ratio:1000/672; height:auto; } /* 截圖皆 1000×672;先預留高度,lazy 載入時下方文字才不會被推動 */
   .gc-shot:hover { border-color:var(--theme); }
   .man-shot { display:block; margin:12px 0 6px; border-radius:10px; overflow:hidden;
     border:1px solid var(--border); max-height:420px; box-shadow:var(--shadow-sm); }

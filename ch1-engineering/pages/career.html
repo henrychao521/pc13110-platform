@@ -18,6 +18,8 @@
   .comp-filter:hover { border-color:var(--theme); }
   .comp-filter.active { background:var(--theme); color:#fff; border-color:var(--theme); }
   .comp-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+  /* 卡片由 JS 產生;產生前先預留高度,避免首幀後下方內容被整段往下推(CLS) */
+  .comp-grid:empty { min-height:100vh; }
   .comp-card { border:1px solid var(--border); border-radius:var(--radius); padding:18px;
     background:#fff; cursor:pointer; transition:all .22s var(--easing); }
   .comp-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--theme); }
