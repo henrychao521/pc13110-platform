@@ -18,8 +18,8 @@ function makeHole(group) {
     if (typeof SoundFX !== 'undefined') SoundFX.click();
     if (!exploredSet.has(group)) { exploredSet.add(group); exploredHoles++; }
     let msg;
-    if (group.startsWith('rail')) msg = '這是<strong>電源軌</strong>——整條橫向相通,通常接正電源或接地。';
-    else msg = '這是<strong>中間區的一直行</strong>——縱向 5 個孔相通;左右兩半被中央溝槽隔開,互不相通。';
+    if (group.startsWith('rail')) msg = '這是<strong>電源軌</strong>——橫向相通,通常接正電源或接地(有些麵包板的電源軌在中間斷成兩段,紅藍線中斷處要拉跳線跨接)。';
+    else msg = '這是<strong>中間區的一直行</strong>——縱向 5 個孔相通;上下兩半(a–e 與 f–j)被中央溝槽隔開,互不相通。';
     document.getElementById('bbNote').innerHTML = '🔆 已標亮相通的孔。' + msg;
   });
   return h;
@@ -78,8 +78,8 @@ const QUIZ = [
     ] },
   { question: '關於麵包板的連通,下列何者正確?',
     options: [
-      { text: '中間區每一直行的 5 個孔縱向相通,左右兩半互不相通', correct: true,
-        explain: '正確。中間區縱向 5 孔一組相通;電源軌則是整條橫向相通。' },
+      { text: '中間區每一直行的 5 個孔縱向相通,上下兩半(a–e 與 f–j)互不相通', correct: true,
+        explain: '正確。中間區縱向 5 孔一組相通;電源軌則是橫向相通(部分麵包板在中間斷開)。' },
       { text: '整塊麵包板的所有孔全部相通', correct: false },
       { text: '麵包板的孔位之間完全不相通', correct: false },
     ] },
