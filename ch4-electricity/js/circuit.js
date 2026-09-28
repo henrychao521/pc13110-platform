@@ -102,11 +102,11 @@ function renderQuizQ(i, box) {
   /* === 場景 === */
   const SC = {
     led: {
-      title: '目標:LED 點亮電路(9V + 330Ω + LED)',
+      title: '目標:LED 點亮電路(9V + 470Ω + LED)',
       steps: [
         '放一顆 9V 電池',
         '從正極拉一條線到頂部',
-        '串接一顆 330Ω 限流電阻',
+        '串接一顆 470Ω 限流電阻(9V 時電流約 15 mA)',
         '接上 LED(三角形朝右)',
         '回到電池負極,形成完整迴路',
         '通電 → 看電流流動,LED 點亮',
@@ -115,7 +115,7 @@ function renderQuizQ(i, box) {
         let elements = '';
         if (step >= 1) elements += battery(60, 140);
         if (step >= 2) elements += wire('M60 118 L60 60 L160 60');
-        if (step >= 3) elements += resistor(200, 60, 50, '330Ω') + wire('M225 60 L260 60');
+        if (step >= 3) elements += resistor(200, 60, 50, '470Ω') + wire('M225 60 L260 60');
         if (step >= 4) elements += led(300, 60, step >= 6) + wire('M260 60 L288 60') + wire('M308 60 L320 60 L320 200');
         if (step >= 5) elements += wire('M60 162 L60 200 L320 200');
         svg.innerHTML = `<g>${elements}<path id="ledLoop" d="M60 118 L60 60 L320 60 L320 200 L60 200 L60 162" fill="none" stroke="none"/></g>`;
