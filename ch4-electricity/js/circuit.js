@@ -22,7 +22,7 @@ const QUIZ = [
   { question: '「模擬 → 麵包板 → PCB」這個流程的用意是什麼?',
     options: [
       { text: '逐步驗證,把出錯與零件損壞的風險降到最低', correct: true,
-        explain: '正確。先模擬、再用免銲的麵包板測試、最後才轉成正式的 PCB。' },
+        explain: '正確。先模擬、再用免焊的麵包板測試、最後才轉成正式的 PCB。' },
       { text: '故意讓流程變複雜', correct: false },
       { text: '因為麵包板比 PCB 更耐用', correct: false },
     ] },
