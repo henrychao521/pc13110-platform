@@ -56,8 +56,8 @@ const TOL_COLORS = [
 ];
 
 let bandMode = 4;
-/* 預設:黃 紫 紅 金 → 4.7kΩ ±5% */
-let sel = { d: [4, 7, 2], mult: 2, tol: 5 };  /* mult index, tol index */
+/* 預設:棕 黑 紅 金 → 1kΩ ±5%(不可直接等於挑戰目標 4.7kΩ,否則一載入就過關) */
+let sel = { d: [1, 0, 0], mult: 2, tol: 5 };  /* mult index, tol index */
 
 function buildBandPickers() {
   const row = document.getElementById('bandRow');
