@@ -21,7 +21,7 @@ const TRUSSES = {
     ],
     note: 'Pratt:斜桿朝中央傾斜。受力時<strong>斜桿全為張力(紅)、直桿全為壓力(藍)</strong>。較長的斜桿承受張力,最能發揮鋼材的抗拉特性,是鋼橋最常見的形式。',
   },
-  'Howe 豪威': {
+  'Howe 豪氏': {
     joints: [bottom(0),bottom(1),bottom(2),bottom(3),bottom(4),
              topPt(0),topPt(1),topPt(2),topPt(3),topPt(4)],
     members: [
