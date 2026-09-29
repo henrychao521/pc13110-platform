@@ -22,7 +22,7 @@ const MATERIALS = [
     img: 'foam-board.jpg', credit: 'Sweetie candykim・CC0', file: 'Foamboard.JPG',
     feat: '防潮、質地輕、好切割,可用美工刀加工。',
     use: '建築與室內設計模型,做出牆面、直立物件,甚至彎折出曲面。',
-    note: '風扣板由「Fome Board」音譯而來,即發泡板。' },
+    note: '風扣板即發泡板(Foam Board/Foam Core),「風扣」是 Foam Core 的音譯。' },
   { emoji: '🧽', name: 'PU 泡綿',
     img: 'pu-foam.jpg', credit: 'Silverchemist・CC BY-SA 3.0', file: 'Molded_polyurethane_foam.JPG',
     feat: '質地軟、好塑形,可手工鋸切並用砂紙磨出外型。',
