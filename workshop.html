@@ -189,7 +189,7 @@
   <h2>🔧 生活科技工坊 · 實地學習</h2>
   <div id="pct">準備下載工坊場景…</div>
   <div id="bar"><div id="fill"></div></div>
-  <div id="enterTip" style="display:none">點擊進入（電腦：滑鼠+WASD；手機：左搖桿走、右半屏轉視角）<br>走近機台 → 跳出「學習操作」</div>
+  <div id="enterTip" style="display:none">點擊進入（電腦：滑鼠+WASD；手機：左搖桿走、右半邊螢幕轉視角）<br>走近機台 → 跳出「學習操作」</div>
 </div>
 
 <script src="js/interactions.js?v=fs1"></script>
@@ -288,7 +288,7 @@ canvas.addEventListener('click',relock);   // 關掉教材後點畫面即可恢�
 document.addEventListener('mousemove',ev=>{ if(!locked)return;
   yaw-=ev.movementX*0.12; pitch=Math.max(-85,Math.min(85,pitch-ev.movementY*0.12));});
 
-// ---- 手機:左搖桿走、右半屏轉視角 ----
+// ---- 手機:左搖桿走、右半邊螢幕轉視角 ----
 const stickEl=document.getElementById('stickL'),knob=document.getElementById('knobL');
 let stickVec=[0,0],stickId=null,lookId=null,lastLook=null;
 function placeStick(x,y){stickEl.style.left=(x-55)+'px';stickEl.style.top=(y-55)+'px';}
