@@ -7,7 +7,7 @@ const COMPETITIONS = [
     detail: '被譽為「機器人界的奧運」。參賽隊伍須在約 6 週的有限時間內,打造一台工業等級的機器人,強調工程管理與團隊合作。',
     url: 'https://www.firstinspires.org/robotics/frc', img: 'comp-site-frc.jpg' },
   { name: 'MakeX 世界機器人挑戰賽', cat: 'robot',
-    detail: '由中國深圳科技公司 Makeblock 創辦的國際性機器人競賽平台,旨在推廣 STEAM 教育,鼓勵青少年透過機器人競賽培養創新與跨學科整合能力。',
+    detail: '由中國深圳科技公司 Makeblock 創辦的國際性機器人競賽平台,旨在推廣 STEAM 教育,鼓勵青少年透過機器人競賽培養創新與跨領域整合能力。',
     url: 'https://www.makex.cc' },
   { name: '智慧鐵人創意競賽（IICC）', cat: 'creative',
     detail: '由教育部主辦,結合科學、人文、藝術與生活常識的創意競賽,考驗團隊臨場解決問題與跨域整合的能力。',
