@@ -198,7 +198,7 @@ window.Interactions = (function() {
         if (typeof SoundFX !== 'undefined') SoundFX.success();
         if (found.size === hotspots.length) {
           if (typeof SoundFX !== 'undefined') SoundFX.win();
-          feedbackEl.innerHTML = `<div style="background:var(--success-light);color:#15803d;padding:12px;border-radius:8px;border-left:4px solid var(--success);font-weight:700">🏆 全部找到！你掌握了找出問題的能力。</div>`;
+          feedbackEl.innerHTML += `<div style="margin-top:8px;background:var(--success-light);color:#15803d;padding:12px;border-radius:8px;border-left:4px solid var(--success);font-weight:700">🏆 全部找到！你掌握了找出問題的能力。</div>`;
           if (onAllFound) onAllFound();
         }
       });

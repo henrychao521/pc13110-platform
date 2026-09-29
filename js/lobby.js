@@ -206,7 +206,7 @@ const ENTITIES = [
     look: { skin: 1, hair: 0, shirt: 0, hairStyle: 0, acc: 3 },
     name: '實驗室主任', lines: [
       '歡迎來到工程設計實驗室!我是這裡的主任。',
-      '這裡有五道傳送門,每一道通往課本的一章。走到門口按 E 就能進入那一關。',
+      '這裡有五道章節傳送門,每一道通往課本的一章;另外還有一道通往生活科技工坊。走到門口按 E 就能進入。',
       '完成模組會累積你的「總進度」,也會解鎖成就徽章 —— 點右上角的「🏅 成就」看看吧!',
     ] },
   { id: 'npc-senior', kind: 'npc', col: 13, row: 6,
@@ -239,7 +239,7 @@ const BADGES = [
     check: () => true },
   { id: 'first',   icon: '🚪', name: '初次出發', desc: '完成任一個學習模組',
     check: () => Progress.overallPercent() > 0 },
-  { id: 'chat',    icon: '💬', name: '不恥下問', desc: '和實驗室裡的 NPC 對話',
+  { id: 'chat',    icon: '💬', name: '勇於發問', desc: '和實驗室裡的 NPC 對話',
     check: (lab) => Object.keys(lab.talked || {}).length >= 1 },
   { id: 'explore', icon: '🗺️', name: '實驗室探險家', desc: '走訪全部 5 個章節傳送門',
     check: (lab) => ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'].every(id => (lab.visited || {})[id]) },
