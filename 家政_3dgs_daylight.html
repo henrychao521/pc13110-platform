@@ -116,7 +116,7 @@ function render(){
   $('sum').innerHTML=`太陽 仰角 <b>${el.toFixed(0)}°</b>·方位 <b>${az.toFixed(0)}°</b>（${dn(az)}） · ${el<=0?'<b>夜間</b>':enters?'<b style="color:#ffd34e">直射陽光☀</b>':'漫射'} · 室外≈<b>${Egh.toFixed(0)}</b>klux · 色溫≈<b>${(day?cct:3000).toFixed(0)}</b>K`;
 }
 let timer=null;
-function setNow(){const n=new Date();$('date').value=n.toISOString().slice(0,10);$('time').value=n.getHours()*60+n.getMinutes();render();}
+function setNow(){const n=new Date();/* 用本地日期(toISOString 是 UTC,台灣清晨會變成前一天) */$('date').value=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');$('time').value=n.getHours()*60+n.getMinutes();render();}
 ['time','bear','wx','date'].forEach(id=>$(id).addEventListener('input',render));
 $('nowBtn').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('playBtn').textContent='▶ 一日';}setNow();};
 $('playBtn').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('playBtn').textContent='▶ 一日';return;}
