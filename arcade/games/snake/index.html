@@ -161,7 +161,7 @@ function turn(d) {
   const map = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
   const nd = map[d];
   if (!nd) return;
-  if (state !== 'play') { start(); return; }
+  if (state !== 'play') start();   /* 起步時按的方向也要生效(與初始方向相反者除外) */
   if (nd.x === -dir.x && nd.y === -dir.y) return;   /* 不能回頭 */
   nextDir = nd;
 }

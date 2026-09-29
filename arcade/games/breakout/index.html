@@ -81,8 +81,8 @@ function syncHud() {
   document.getElementById('lives').textContent = lives;
 }
 function tick() {
+  if (ball.stuck) ball.x = paddle.x + PADW / 2;   /* 準備發射時球黏在底板上跟著移動 */
   if (state !== 'play') return;
-  if (ball.stuck) { ball.x = paddle.x + PADW / 2; return; }
   ball.x += ball.vx; ball.y += ball.vy;
   /* 牆 */
   if (ball.x - ball.r < 0) { ball.x = ball.r; ball.vx *= -1; }
@@ -180,11 +180,18 @@ window.addEventListener('keydown', e => {
 });
 window.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
 
-let last = 0;
+/* 固定時間步長(每步 1/60 秒):120/144Hz 螢幕上球速與 60Hz 相同 */
+const STEP = 1000 / 60;
+let last = 0, acc = 0;
 function loop(t) {
-  if (keys['arrowleft'] || keys['a']) movePaddle(paddle.x + PADW / 2 - 7);
-  if (keys['arrowright'] || keys['d']) movePaddle(paddle.x + PADW / 2 + 7);
-  tick();
+  acc += last ? Math.min(t - last, 100) : STEP;
+  last = t;
+  while (acc >= STEP) {
+    if (keys['arrowleft'] || keys['a']) movePaddle(paddle.x + PADW / 2 - 7);
+    if (keys['arrowright'] || keys['d']) movePaddle(paddle.x + PADW / 2 + 7);
+    tick();
+    acc -= STEP;
+  }
   draw();
   requestAnimationFrame(loop);
 }

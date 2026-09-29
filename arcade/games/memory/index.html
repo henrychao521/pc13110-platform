@@ -86,17 +86,24 @@ function reset() {
   render();
 }
 function render() {
+  /* 重繪前記住鍵盤焦點所在的卡片,重繪後放回原位 */
+  const focusIdx = board.contains(document.activeElement) ? [...board.children].indexOf(document.activeElement) : -1;
   board.innerHTML = '';
   cards.forEach((c, idx) => {
     const el = document.createElement('div');
     el.className = 'card ' + c.state;
     el.setAttribute('role', 'button');
+    el.tabIndex = 0;
     el.setAttribute('aria-label',
       c.state === 'down' ? `第 ${idx + 1} 張卡片(蓋著)` : `第 ${idx + 1} 張卡片:${c.icon}`);
     el.innerHTML = c.state === 'down' ? '<span class="q">?</span>' : c.icon;
     el.addEventListener('click', () => flip(idx));
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(idx); }
+    });
     board.appendChild(el);
   });
+  if (focusIdx >= 0 && board.children[focusIdx]) board.children[focusIdx].focus();
 }
 function flip(idx) {
   const c = cards[idx];
