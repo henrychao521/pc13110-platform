@@ -183,9 +183,9 @@
       <ul>
         <li><span class="tagk">第 1 章 加速發展的科技與工程</span> — 5 模組:科技趨勢、工程設計流程、創意思考、專題規劃、競賽與職涯倫理。</li>
         <li><span class="tagk">第 2 章 數位加工到機構實作</span> — 9 模組:CAD 概念與建模、三視圖、3D 列印 / 雷射 / CNC 操作、新興設備、虛擬模擬。</li>
-        <li><span class="tagk">第 3 章 機構與結構的深化探究</span> — 5 模組:靜力學、桁架、機構運動、有限元素分析、AI 輔助分析。</li>
-        <li><span class="tagk">第 4 章 日常生活中的電</span> — 4 模組:電子元件、電路設計與模擬、邏輯與感應電路、工具與量測。</li>
-        <li><span class="tagk">第 5 章 機電整合的工程設計</span> — 4 模組:控制板、ESP32、電子周邊、統整專題。</li>
+        <li><span class="tagk">第 3 章 機構與結構的深化探究</span> — 5 模組:靜力學、桁架、有限元素分析、機構運動、AI 輔助分析。</li>
+        <li><span class="tagk">第 4 章 日常生活中的電</span> — 4 模組:電子元件、工具與量測、電路設計與模擬、邏輯與感應電路。</li>
+        <li><span class="tagk">第 5 章 機電整合的工程設計</span> — 4 模組:控制板、電子周邊、ESP32、統整專題。</li>
       </ul>
     </div>
     <div class="info-card">
@@ -194,7 +194,7 @@
         <li><span class="tagk">入口頁</span>:經典首頁、像素工程實驗室。</li>
         <li><span class="tagk">章 Hub</span>:每章一個,列出該章模組卡片與完成進度。</li>
         <li><span class="tagk">教學模組</span>:27 個,本手冊逐頁說明(第五～九節)。</li>
-        <li><span class="tagk">輔助頁</span>:下課遊樂區、互動交誼廳(課堂調劑用)。</li>
+        <li><span class="tagk">輔助頁</span>:生活科技工坊(3D 實景機台學習與通行證)、下課遊樂區、互動交誼廳(課堂調劑用)。</li>
         <li><span class="tagk">教師工具</span>:教師後台、開發紀錄。</li>
       </ul>
     </div>
@@ -409,7 +409,7 @@
         <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解雷射切割(2D 減法加工)原理、材料與參數對照、切割 vs 雕刻的差別。</span></div>
         <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作雷射切割模擬器:路徑加工、依功率 / 速度 / 材料判定加工結果。</span></div>
         <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">帶學生比較「切割」與「雕刻」是同一台機器的兩種任務(差在功率 / 速度)。強調材料安全——並非所有材料都能雷射加工。</span></div>
-        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">可與三視圖模組連動:雷射切割只吃平面 2D 線條。加工進行中參數會鎖定(對應真實機台「運轉中勿動設定」的習慣),要改參數請等本次完成。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">可與三視圖模組連動:雷射切割只吃平面 2D 向量線條(掃描雕刻則可用點陣圖片)。加工進行中參數會鎖定(對應真實機台「運轉中勿動設定」的習慣),要改參數請等本次完成。</span></div>
       </div>
     </div>
 
@@ -488,6 +488,19 @@
     </div>
 
     <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">3-1</span><h4>電腦輔助結構分析 FEA</h4>
+        <a class="gc-link" href="ch3-mechanism/pages/fea.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:3-1 從手算到電腦模擬</div>
+      <a class="gc-shot" href="ch3-mechanism/pages/fea.html" target="_blank" rel="noopener"><img src="assets/manual/m-fea.jpg" loading="lazy" alt="3-1 電腦輔助結構分析 FEA頁面截圖"></a>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解有限元素分析(FEA)如何把物體切成大量小元素逐一計算,並認識模擬操作步驟。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作互動找出結構最脆弱的地方;進階學生可跟著本頁「🖥 上機實作」步驟,用開源 <strong>FreeCAD + FEM Workbench(CalculiX)</strong> 自己跑一次 L 型支架 FEA。完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">承接靜力學「手算的局限」,說明複雜結構為何需要 FEA。FreeCAD 上機段適合電腦課時段——LGPL/GPL 完全免費,Windows/macOS/Linux 皆可裝。可請學生比較自己跑出的雲圖與模組互動的脆弱處是否一致。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">FreeCAD 約 500 MB,事先請學生在家或集中安裝。學校電腦若無安裝權限,Windows 可用免安裝的可攜版(Portable),Linux 可用 AppImage。呼應第 2 章「虛擬模擬入門」。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
       <div class="gc-head"><span class="gc-no">3-2</span><h4>機構類型與運動</h4>
         <a class="gc-link" href="ch3-mechanism/pages/mechanism.html">開啟頁面 ↗</a></div>
       <div class="gc-corr">對應課本:3-2 駕馭運動的藝術</div>
@@ -497,19 +510,6 @@
         <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">先觀察四種機構的運動轉換動畫;接著在嵌入的 <strong>PMKS+ 連桿機構模擬器</strong>(Oregon State Univ.,MIT 開源)拖曳節點自己設計四連桿、曲柄滑塊,看即時的運動軌跡。完成 3 題檢核。</span></div>
         <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">「Grashof 定則」與「死點」配合 PMKS+ 設計挑戰最有感:讓學生先做一個曲柄搖桿(輸入曲柄整圈旋轉、輸出搖桿擺動),再故意把最短桿加長到不滿足定則,觀察輸入曲柄也轉不了整圈、整個機構變成雙搖桿——這就是定則的具象化。</span></div>
         <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">PMKS+ iframe 需要網路;若校園網路擋外連,可改點延伸資源直連或在新分頁開啟。本模組是第 5 章機電整合(用馬達驅動機構)的重要前置。</span></div>
-      </div>
-    </div>
-
-    <div class="guide-card">
-      <div class="gc-head"><span class="gc-no">3-1</span><h4>電腦輔助結構分析 FEA</h4>
-        <a class="gc-link" href="ch3-mechanism/pages/fea.html">開啟頁面 ↗</a></div>
-      <div class="gc-corr">對應課本:3-1 從手算到電腦模擬</div>
-      <a class="gc-shot" href="ch3-mechanism/pages/fea.html" target="_blank" rel="noopener"><img src="assets/manual/m-fea.jpg" loading="lazy" alt="3-1 電腦輔助結構分析 FEA頁面截圖"></a>
-      <div class="gc-body">
-        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">理解有限元素分析(FEA)如何把物體切成大量小元素逐一計算,並認識模擬操作步驟。</span></div>
-        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">操作互動找出結構最脆弱的地方;進階學生可跟著本頁「🖥 上機實作」步驟,用開源 <strong>FreeCAD + FEM Workbench(CalculiX)</strong> 自己跑一次 L 型支架 FEA。完成 3 題檢核。</span></div>
-        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">承接靜力學「手算的局限」,說明複雜結構為何需要 FEA。FreeCAD 上機段適合電腦課時段——LGPL/GPL 完全免費,Windows/macOS/Linux 皆可裝。可請學生比較自己跑出的雲圖與模組互動的脆弱處是否一致。</span></div>
-        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">FreeCAD 約 500 MB,事先請學生在家或集中安裝。學校電腦若無安裝權限,可用 AppImage / 可攜版。呼應第 2 章「虛擬模擬入門」。</span></div>
       </div>
     </div>
 
@@ -549,6 +549,18 @@
     </div>
 
     <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">4-2</span><h4>常用工具與量測</h4>
+        <a class="gc-link" href="ch4-electricity/pages/tools.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:4-2 常用工具介紹</div>
+      <a class="gc-shot" href="ch4-electricity/pages/tools.html" target="_blank" rel="noopener"><img src="assets/manual/m-tools.jpg" loading="lazy" alt="4-2 常用工具與量測頁面截圖"></a>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識常見手工具、三用電表的使用,並理解麵包板的連通規則。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">用「🔢 虛擬三用電表」切換 V/Ω/A 三檔位,把紅黑探棒放到測試電路的 A/B/C 節點,看讀數;再點麵包板探索連通規則。完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">三用電表的「檔位選錯會燒掉」是真實風險;虛擬電表讓學生先反覆練習選檔與探棒位置。挑戰任務:用 V 檔分別測 R1、R2,驗證 V_R1+V_R2 = 9V(克希荷夫電壓定律)。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">若教室有實體三用電表與麵包板,搭配本模組做實機對照效果最好。</span></div>
+      </div>
+    </div>
+    <div class="guide-card">
       <div class="gc-head"><span class="gc-no">4-3</span><h4>電路設計與模擬</h4>
         <a class="gc-link" href="ch4-electricity/pages/circuit.html">開啟頁面 ↗</a></div>
       <div class="gc-corr">對應課本:4-3 電路設計軟體介紹與練習</div>
@@ -574,18 +586,6 @@
       </div>
     </div>
 
-    <div class="guide-card">
-      <div class="gc-head"><span class="gc-no">4-2</span><h4>常用工具與量測</h4>
-        <a class="gc-link" href="ch4-electricity/pages/tools.html">開啟頁面 ↗</a></div>
-      <div class="gc-corr">對應課本:4-2 常用工具介紹</div>
-      <a class="gc-shot" href="ch4-electricity/pages/tools.html" target="_blank" rel="noopener"><img src="assets/manual/m-tools.jpg" loading="lazy" alt="4-2 常用工具與量測頁面截圖"></a>
-      <div class="gc-body">
-        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識常見手工具、三用電表的使用,並理解麵包板的連通規則。</span></div>
-        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">用「🔢 虛擬三用電表」切換 V/Ω/A 三檔位,把紅黑探棒放到測試電路的 A/B/C 節點,看讀數;再點麵包板探索連通規則。完成 3 題檢核。</span></div>
-        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">三用電表的「檔位選錯會燒掉」是真實風險;虛擬電表讓學生先反覆練習選檔與探棒位置。挑戰任務:用 V 檔分別測 R1、R2,驗證 V_R1+V_R2 = 9V(克希荷夫電壓定律)。</span></div>
-        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">若教室有實體三用電表與麵包板,搭配本模組做實機對照效果最好。</span></div>
-      </div>
-    </div>
     <a class="back-top" href="#top">↑ 回目錄</a>
   </section>
 
@@ -610,19 +610,6 @@
     </div>
 
     <div class="guide-card">
-      <div class="gc-head"><span class="gc-no">5-3</span><h4>認識 ESP32 與實作</h4>
-        <a class="gc-link" href="ch5-mechatronics/pages/esp32.html">開啟頁面 ↗</a></div>
-      <div class="gc-corr">對應課本:5-3 認識 ESP32 控制板與實作</div>
-      <a class="gc-shot" href="ch5-mechatronics/pages/esp32.html" target="_blank" rel="noopener"><img src="assets/manual/m-esp32.jpg" loading="lazy" alt="5-3 認識 ESP32 與實作頁面截圖"></a>
-      <div class="gc-body">
-        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識 ESP32 的特色、在 Arduino IDE 的開發流程,並完成「序列埠控制 LED」隨堂實作。</span></div>
-        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">點選腳位認識其功能;沒有硬體時用 Wokwi 線上模擬器實作。完成 3 題檢核。</span></div>
-        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">有實體 ESP32 的班級可直接燒錄;沒有的班級用 Wokwi 模擬,全班都能動手。帶過「程式燒錄與下載模式」。</span></div>
-        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v"><strong>Wokwi 模擬需網路連線</strong>;實體燒錄則需在電腦端安裝 Arduino IDE 與驅動。</span></div>
-      </div>
-    </div>
-
-    <div class="guide-card">
       <div class="gc-head"><span class="gc-no">5-2</span><h4>機電整合的電子周邊</h4>
         <a class="gc-link" href="ch5-mechatronics/pages/peripherals.html">開啟頁面 ↗</a></div>
       <div class="gc-corr">對應課本:5-2 機電整合的電子周邊元件</div>
@@ -632,6 +619,19 @@
         <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">先做伺服馬達角度控制;進到「🔌 動手接線」分頁切換 LDR/按鈕/HC-SR04 三種感測器,點「接線通電」看完整接線動畫,再拖動環境變數(亮度、距離)觀察 ESP32 即時讀值印在序列埠監控視窗;按「↻ 重新接線」可重播動畫。完成 3 題檢核。</span></div>
         <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">接線動畫 + 即時讀值是本章最有感的補強——把「感知 → 處理」具象化。可比較 LDR(類比 analogRead)、按鈕(數位 digitalRead)、HC-SR04(脈寬 pulseIn)三種讀值方式的差異。</span></div>
         <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v">本模組結合第 3 章機構觀念與第 4 章電路觀念。先做完 boards 的腳位挑戰再來,銜接更順。</span></div>
+      </div>
+    </div>
+
+    <div class="guide-card">
+      <div class="gc-head"><span class="gc-no">5-3</span><h4>認識 ESP32 與實作</h4>
+        <a class="gc-link" href="ch5-mechatronics/pages/esp32.html">開啟頁面 ↗</a></div>
+      <div class="gc-corr">對應課本:5-3 認識 ESP32 控制板與實作</div>
+      <a class="gc-shot" href="ch5-mechatronics/pages/esp32.html" target="_blank" rel="noopener"><img src="assets/manual/m-esp32.jpg" loading="lazy" alt="5-3 認識 ESP32 與實作頁面截圖"></a>
+      <div class="gc-body">
+        <div class="gc-row"><span class="gc-k">🎯 教學目標</span><span class="gc-v">認識 ESP32 的特色、在 Arduino IDE 的開發流程,並完成「序列埠控制 LED」隨堂實作。</span></div>
+        <div class="gc-row"><span class="gc-k">🖱 學生操作</span><span class="gc-v">點選腳位認識其功能;沒有硬體時用 Wokwi 線上模擬器實作。完成 3 題檢核。</span></div>
+        <div class="gc-row"><span class="gc-k">👩‍🏫 課堂指引</span><span class="gc-v">有實體 ESP32 的班級可直接燒錄;沒有的班級用 Wokwi 模擬,全班都能動手。帶過「程式燒錄與下載模式」。</span></div>
+        <div class="gc-row"><span class="gc-k">💡 提醒</span><span class="gc-v"><strong>Wokwi 模擬需網路連線</strong>;實體燒錄則需在電腦端安裝 Arduino IDE 與驅動。</span></div>
       </div>
     </div>
 
@@ -665,11 +665,17 @@
     <div class="info-card">
       <h3>🕹 像素工程實驗室(lobby.html)</h3>
       <a class="man-shot" href="lobby.html" target="_blank" rel="noopener"><img src="assets/manual/m-lobby.jpg" loading="lazy" alt="像素工程實驗室——進入時的角色建立畫面"></a>
-      <p>第二入口,一個可走動的像素世界。學生先建立個人角色(暱稱、外觀),走到 5 個傳送門進入對應章節;
+      <p>第二入口,一個可走動的像素世界。學生先建立個人角色(暱稱、外觀),走到 5 個章節傳送門進入對應章節(另有一道通往生活科技工坊);
         內含 NPC 導師、布告欄、成就徽章。桌機用鍵盤、手機用虛擬搖桿。<strong>支援多人連線</strong>——同班級代碼的學生
         會在同一個實驗室、可鄰近聊天。</p>
       <div class="note">多人連線需另外啟動連線伺服器(<span class="tagk">node server/server.js</span>,埠 8732)。
         未啟動伺服器或在 https 線上版,會自動退回單人模式,教學內容不受影響。正式上課前建議先小規模(5–10 台)實測。</div>
+    </div>
+    <div class="info-card">
+      <h3>🛠 生活科技工坊(workshop.html)</h3>
+      <p>以 3D 實景掃描重建的生科教室,走近機台(雷射切割機、線鋸機、鑽床、帶鋸機、電烙鐵、手工具)即可開啟學習:
+        認識機台 → 安全重點 → 操作影片 → 步驟排序 → 認證測驗,全部答對可領取該機台的<strong>通行證</strong>。
+        可從首頁導覽列或像素實驗室的工坊傳送門進入。</p>
     </div>
     <div class="info-card">
       <h3>🎮 下課遊樂區(arcade.html)</h3>
