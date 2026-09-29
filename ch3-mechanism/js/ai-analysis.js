@@ -138,7 +138,7 @@ function renderQuizQ(i, box) {
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-ai', 'AI 輔助的機構結構分析');
-        showToast('🎉 恭喜!你已完成第 3 章所有模組', 'success');
+        chapterDoneToast('ch3');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },

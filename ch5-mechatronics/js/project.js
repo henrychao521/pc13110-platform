@@ -61,7 +61,8 @@ refresh();
 document.getElementById('doneBtn').addEventListener('click', () => {
   const b = document.getElementById('doneBtn');
   celebrateModule('ch5-project', '機電整合統整專題');
-  showToast('🎉 恭喜!你已完成第 5 章與全部五章課程!', 'success');
+  if (Progress.overallPercent() === 100) showToast('🎉 恭喜!你已完成第 5 章與全部五章課程!', 'success');
+  else chapterDoneToast('ch5');
   b.textContent = '✓ 已完成'; b.disabled = true;
   document.getElementById('nextBtn').classList.add('pop-in');
 });

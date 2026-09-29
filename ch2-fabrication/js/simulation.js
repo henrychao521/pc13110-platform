@@ -150,7 +150,7 @@ QUIZ.forEach((q, i) => {
           answered++;
           if (answered === QUIZ.length) {
             celebrateModule('ch2-sim', '虛擬模擬與分析入門');
-            showToast('🎉 恭喜!你已完成第 2 章所有模組', 'success');
+            chapterDoneToast('ch2');
             document.getElementById('nextBtn').classList.add('pop-in');
           }
         } else {

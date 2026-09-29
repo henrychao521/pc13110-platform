@@ -149,7 +149,7 @@ function renderQuizQ(i, box) {
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch4-logic', '邏輯與感應電路');
-        showToast('🎉 恭喜!你已完成第 4 章所有模組', 'success');
+        chapterDoneToast('ch4');
         document.getElementById('nextBtn').classList.add('pop-in');
       }
     },

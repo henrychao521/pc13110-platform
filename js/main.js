@@ -75,6 +75,7 @@ function rootPrefix() {
   let depth = 0;
   if (location.pathname.includes('/pages/')) depth++;
   if (/\/ch[1-5]-[a-z]+\//.test(location.pathname)) depth++;
+  if (location.pathname.includes('/handouts/')) depth++;
   return '../'.repeat(depth);
 }
 
@@ -95,6 +96,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(footer);
   }
 });
+
+/* ---- 章末模組完成時：依實際進度判斷整章是否完成(不再一律宣告完成) ---- */
+function chapterDoneToast(ch) {
+  const ids = CHAPTER_MAP[ch] || [];
+  const left = ids.filter(id => !Progress.isDone(id)).length;
+  const n = ch.replace('ch', '');
+  if (left === 0) showToast(`🎉 恭喜!你已完成第 ${n} 章所有模組`, 'success');
+  else showToast(`✓ 本模組完成!第 ${n} 章還有 ${left} 個模組沒完成,回章節首頁看看`, 'success');
+}
 
 /* ---- 完成模組的共用慶祝流程 ---- */
 function celebrateModule(id, label, score) {

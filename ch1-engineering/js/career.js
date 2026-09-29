@@ -151,7 +151,7 @@ ETHICS.forEach((q, i) => {
           answered++;
           if (answered === ETHICS.length) {
             celebrateModule('ch1-career', '競賽與職涯倫理');
-            showToast('🎉 恭喜!你已完成第 1 章所有模組', 'success');
+            chapterDoneToast('ch1');
             document.getElementById('nextBtn').classList.add('pop-in');
           }
         } else {
