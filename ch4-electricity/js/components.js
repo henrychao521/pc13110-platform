@@ -232,14 +232,20 @@ function renderQuizQ(i, box) {
       <text x="${x}" y="${y-12}" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">${label||'R'}</text>
     </g>`;
   }
-  function led(x, y, lit, color) {
+  // rot:LED 符號的朝向(度)。0 = 三角形指向右(陽極在左、陰極在右),電流向右流;
+  // 依所在導線的電流方向旋轉,讓三角形箭頭與電流同向
+  function led(x, y, lit, color, rot) {
     color = color || '#EF4444';
+    rot = rot || 0;
     const glow = lit ? `<circle cx="${x}" cy="${y}" r="20" fill="${color}" opacity="0.3"/>` : '';
     const body = lit ? color : '#9CA3AF';
+    const lx = rot === 90 || rot === 270 ? x + 30 : x, ly = rot === 90 || rot === 270 ? y + 4 : y + 30;
     return `<g>${glow}
-      <polygon points="${x-12},${y} ${x+8},${y-12} ${x+8},${y+12}" fill="${body}" stroke="#1F2937" stroke-width="1.5"/>
-      <rect x="${x+8}" y="${y-12}" width="3" height="24" fill="#1F2937"/>
-      <text x="${x}" y="${y+30}" text-anchor="middle" font-size="11" fill="#1F2937">LED</text>
+      <g transform="rotate(${rot} ${x} ${y})">
+        <polygon points="${x-10},${y-12} ${x-10},${y+12} ${x+8},${y}" fill="${body}" stroke="#1F2937" stroke-width="1.5"/>
+        <rect x="${x+8}" y="${y-12}" width="3" height="24" fill="#1F2937"/>
+      </g>
+      <text x="${lx}" y="${ly}" text-anchor="middle" font-size="11" fill="#1F2937">LED</text>
     </g>`;
   }
   function makeDots(pathId, n) {
@@ -277,7 +283,7 @@ function renderQuizQ(i, box) {
             <path id="loopPath" class="csim-wire ${on?'live':''}"
               d="M83 118 L83 70 L640 70 L640 140 L580 140 L580 200 L83 200 L83 162"/>
             ${resistor(300, 70, '330Ω')}
-            ${led(580, 140, on, '#DC2626')}
+            ${led(610, 140, on, '#DC2626', 180)}
             <g transform="translate(500,70)">
               <circle r="6" fill="#0EA5E9" stroke="#0b0b18" stroke-width="1.5"/>
               <line x1="-6" y1="-6" x2="${on?6:-14}" y2="${on?-6:-18}" stroke="#1F2937" stroke-width="3"/>
@@ -313,6 +319,9 @@ function renderQuizQ(i, box) {
       init() {
         let mode = 'charge';
         let charge = 0;
+        let drawnKey = '';
+        // 只有「哪條線有電流、LED 亮不亮」改變時才整張重繪;充電量只更新屬性,電流點才不會每 5% 跳回起點
+        const stateKey = () => mode + '|' + (mode === 'charge' && charge < 0.99) + '|' + (mode === 'discharge' && charge > 0.05);
         const draw = () => {
           const f = charge;
           svg.innerHTML = `
@@ -320,21 +329,22 @@ function renderQuizQ(i, box) {
             <path id="capCh" class="csim-wire ${mode==='charge'?'live':''}"
               d="M83 118 L83 70 L300 70 L300 130"/>
             <path id="capDi" class="csim-wire ${mode==='discharge'?'live':''}"
-              d="M300 150 L300 220 L500 220 L500 158"/>
+              d="M500 152 L500 220 L300 220 L300 150"/>
             <path class="csim-wire" d="M83 162 L83 220 L260 220"/>
-            <path class="csim-wire" d="M340 70 L500 70 L500 128"/>
+            <path class="csim-wire" d="M300 70 L500 70 L500 128"/>
             <line x1="280" y1="130" x2="320" y2="130" stroke="#1F2937" stroke-width="3"/>
             <line x1="280" y1="150" x2="320" y2="150" stroke="#1F2937" stroke-width="3"/>
-            <rect x="280" y="118" width="40" height="10" fill="#FCD34D" opacity="${f}"/>
+            <rect id="capFill" x="280" y="118" width="40" height="10" fill="#FCD34D" opacity="${f}"/>
             <text x="300" y="170" text-anchor="middle" font-size="11" fill="#6B7280">電容 C</text>
             ${resistor(180, 70, '1kΩ')}
-            ${led(500, 140, mode==='discharge' && f>0.05, '#22C55E')}
+            ${led(500, 140, mode==='discharge' && f>0.05, '#22C55E', 90)}
             <g transform="translate(640,40)">
               <rect width="20" height="200" fill="none" stroke="#1F2937" stroke-width="2" rx="3"/>
-              <rect x="2" y="${202 - f*200}" width="16" height="${f*200}" fill="#3B82F6"/>
+              <rect id="capBar" x="2" y="${202 - f*200}" width="16" height="${f*200}" fill="#3B82F6"/>
               <text x="10" y="-6" text-anchor="middle" font-size="10" fill="#6B7280">充電量</text>
-              <text x="10" y="220" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#1E3A8A">${Math.round(f*100)}%</text>
+              <text id="capPct" x="10" y="220" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#1E3A8A">${Math.round(f*100)}%</text>
             </g>`;
+          drawnKey = stateKey();
           if (mode === 'charge' && f < 0.99) return makeDots('capCh', 6);
           if (mode === 'discharge' && f > 0.05) return makeDots('capDi', 6);
           return null;
@@ -366,19 +376,18 @@ function renderQuizQ(i, box) {
             setMode('charge');
           },
           tick() {
-            // 充電條每變化 5% 重繪一次（原本用亂數機率重繪，會抖動）
-            let needRedraw = false;
             if (mode === 'charge') {
               if (charge < 1) charge = Math.min(1, charge + 0.006);
             } else if (mode === 'discharge') {
               if (charge > 0) charge = Math.max(0, charge - 0.012);
             }
-            if (this._drawn === undefined) this._drawn = -1;
-            if (Math.abs(charge - this._drawn) >= 0.05 || ((charge === 0 || charge === 1) && this._drawn !== charge)) {
-              needRedraw = true;
-              this._drawn = charge;
+            if (stateKey() !== drawnKey) grp = draw();
+            else {
+              const fill = svg.querySelector('#capFill'), bar = svg.querySelector('#capBar'), pct = svg.querySelector('#capPct');
+              if (fill) fill.setAttribute('opacity', charge);
+              if (bar) { bar.setAttribute('y', 202 - charge * 200); bar.setAttribute('height', charge * 200); }
+              if (pct) pct.textContent = Math.round(charge * 100) + '%';
             }
-            if (needRedraw) grp = draw();
             if (grp) stepDots(grp, mode === 'discharge' ? 0.014 : 0.012);
           },
         };
@@ -403,7 +412,7 @@ function renderQuizQ(i, box) {
               <text y="-18" text-anchor="middle" font-size="11" font-weight="700" fill="#1F2937">二極體</text>
               <text y="28" text-anchor="middle" font-size="9" fill="#6B7280">${fwd?'→ 順向(導通)':'← 逆向(阻擋)'}</text>
             </g>
-            ${led(fwd?580:140, 200, fwd, '#EAB308')}
+            ${led(fwd?580:140, 200, fwd, '#EAB308', fwd?180:0)}
             ${fwd?'':'<text x="480" y="50" text-anchor="middle" font-size="14" font-weight="700" fill="#DC2626">⛔ 電流被擋下</text>'}`;
           return fwd ? makeDots('dPath', 12) : null;
         };
@@ -431,17 +440,17 @@ function renderQuizQ(i, box) {
           svg.innerHTML = `
             ${battery(80, 80)}
             <path id="cPath" class="csim-wire ${base?'live':''}"
-              d="M83 58 L83 30 L640 30 L640 130 L500 130 L500 110"/>
-            <path class="csim-wire" d="M500 150 L500 200 L83 200 L83 102"/>
+              d="M83 58 L83 30 L640 30 L640 70 L464 70 L464 102"/>
+            <path class="csim-wire" d="M464 178 L464 250 L40 250 L40 102 L83 102"/>
             ${resistor(300, 30, '220Ω')}
-            ${led(640, 80, base, '#DC2626')}
+            ${led(560, 70, base, '#DC2626', 180)}
             <text x="180" y="22" font-size="11" fill="#6B7280">主迴路(大電流)</text>
             ${battery(80, 220)}
             <path id="bPath" class="csim-wire ${base?'live':''}"
-              d="M83 198 L83 175 L380 175 L380 145"/>
-            <path class="csim-wire" d="M380 235 L380 250 L83 250 L83 242"/>
+              d="M83 198 L83 175 L380 175 L380 140 L400 140"/>
+            <path class="csim-wire" d="M83 242 L83 250"/>
             ${resistor(220, 175, '10kΩ')}
-            <text x="280" y="262" font-size="11" fill="#6B7280">基極小電流(透過 10kΩ 限流)</text>
+            <text x="280" y="266" font-size="11" fill="#6B7280">基極小電流(透過 10kΩ 限流);兩迴路共地</text>
             <g transform="translate(450,140)">
               <circle r="28" fill="none" stroke="#1F2937" stroke-width="2"/>
               <line x1="-12" y1="-18" x2="-12" y2="18" stroke="#1F2937" stroke-width="3"/>
