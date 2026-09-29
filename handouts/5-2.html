@@ -339,7 +339,7 @@ Servo SG90;               <span class="c">// 物件實體化</span>
     <span class="k">else if</span> (angle &lt;= <span class="n">0</span>) { angle = <span class="n">0</span>;  increment = <span class="n">45</span>; }
     Serial.println(angle);   <span class="c">// 序列埠輸出角度</span>
     SG90.write(angle);
-    delay(<span class="n">20</span>);               <span class="c">// 短暫等待(SG90 轉 45° 約需 0.1 秒,下一行等放開按鈕時會繼續轉到位)</span>
+    delay(<span class="n">20</span>);               <span class="c">// 轉到位需約 0.1 秒</span>
     <span class="k">while</span> (digitalRead(buttonPin) == LOW);  <span class="c">// 等放開</span>
     delay(<span class="n">20</span>);               <span class="c">// 防止開關彈跳</span>
   }
