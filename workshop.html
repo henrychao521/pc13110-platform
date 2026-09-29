@@ -339,16 +339,19 @@ function mountSteps(m){
 }
 function mountQuiz(m){
   const mount=document.getElementById('quizMount'); const qs=m.quiz||[]; const picks=new Array(qs.length).fill(-1);
+  /* 選項每次開啟隨機排列（原始正解多集中在第二個選項）；picks 仍記原始選項索引 */
+  const orders=qs.map(q=>{ const a=q.options.map((_,i)=>i); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; });
+  let locked=false;   /* 本次作答全對後才鎖定；已認證者複習時仍可重新作答 */
   function r(){
     mount.innerHTML='<div class="qz-h">🎫 認證測驗 · 全部答對才能取得通行證</div>'+
       qs.map((q,qi)=>`<div class="qz-q"><div class="qz-qt">${qi+1}. ${q.q}</div>`+
-        q.options.map((o,oi)=>`<div class="qz-opt${picks[qi]===oi?' sel':''}" data-q="${qi}" data-o="${oi}">${o}</div>`).join('')+`</div>`).join('')+
+        orders[qi].map(oi=>`<div class="qz-opt${picks[qi]===oi?' sel':''}" data-q="${qi}" data-o="${oi}">${q.options[oi]}</div>`).join('')+`</div>`).join('')+
       `<div class="qz-foot"><span class="qz-fb" id="qzFb"></span><button class="qz-check" id="qzCheck">檢查答案</button></div>`;
-    mount.querySelectorAll('.qz-opt').forEach(el=>el.onclick=()=>{ if(quizPassed)return; picks[+el.dataset.q]=+el.dataset.o; r(); });
+    mount.querySelectorAll('.qz-opt').forEach(el=>el.onclick=()=>{ if(locked)return; picks[+el.dataset.q]=+el.dataset.o; r(); });
     mount.querySelector('#qzCheck').onclick=()=>{
       if(picks.includes(-1)){ document.getElementById('qzFb').innerHTML='<b class="no">⚠️ 還有題目沒作答</b>'; return; }
       const wrong=qs.reduce((a,q,qi)=>a+(picks[qi]!==q.answer?1:0),0);
-      if(wrong===0){ quizPassed=true; renderNav(); document.getElementById('qzCheck').disabled=true;
+      if(wrong===0){ quizPassed=true; locked=true; renderNav(); document.getElementById('qzCheck').disabled=true;
         document.getElementById('qzFb').innerHTML='<b class="ok">✓ 全部答對！按右下「領取通行證」</b>'; }
       else document.getElementById('qzFb').innerHTML=`<b class="no">還有 ${wrong} 題不正確，再看看安全重點</b>`;
     };
