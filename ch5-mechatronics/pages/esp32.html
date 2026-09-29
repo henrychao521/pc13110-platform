@@ -83,7 +83,7 @@
   <section class="content-section">
     <h2>ESP32 的特色</h2>
     <p>
-      ESP32 內建 <strong>WiFi 與低功耗藍牙(BLE)</strong>,可用腳位約 34 支,約半數腳位兼具
+      ESP32 內建 <strong>WiFi 與低功耗藍牙(BLE)</strong>,晶片共有 34 支 GPIO(其中 GPIO6–11 接內部快閃記憶體不能用、34–39 只能輸入),約半數腳位兼具
       類比輸入(ADC)功能,核心採用時脈高達 240 MHz 的<strong>雙核心 CPU</strong>,內建觸控感測器,
       並支援 SPI、I2C、UART 等通訊介面,價格也具競爭力。
     </p>
@@ -174,23 +174,24 @@
       讓腳位以極快的速度反覆開關,輸出一列<strong>方波</strong>。
     </p>
     <p>
-      一個週期中「高電位所占的時間比例」稱為<strong>占空比(Duty Cycle)</strong>。
-      占空比越大,平均送出的功率就越高:對 LED 來說,開關快到人眼跟不上,只會感覺「亮度改變」;
+      一個週期中「高電位所占的時間比例」稱為<strong>工作週期(Duty Cycle)</strong>。
+      工作週期越大,平均送出的功率就越高:對 LED 來說,開關快到人眼跟不上,只會感覺「亮度改變」;
       對直流馬達來說,平均電壓改變就是「轉速改變」;伺服馬達更是靠特定脈寬(約 1~2 ms)來決定轉到幾度。
       LED 調光、馬達調速、伺服定角度——背後都是同一招 PWM。
     </p>
     <p>ESP32 用內建的 LEDC 硬體產生 PWM,程式只需要兩個函式:</p>
     <div class="code-blk">const int LED_PIN = 2;
+<span class="cmt">// ESP32 Arduino 核心 3.X 版寫法(2.X 舊版要改用 ledcSetup + ledcAttachPin,並以通道編號呼叫 ledcWrite)</span>
 void setup() { <span class="fn">ledcAttach</span>(LED_PIN, 5000, 8); }  <span class="cmt">// 腳位、頻率 5kHz、8 位元解析度</span>
-void loop()  { <span class="fn">ledcWrite</span>(LED_PIN, 64); }         <span class="cmt">// 64/255 ≈ 25% 占空比 → 約 1/4 亮</span></div>
+void loop()  { <span class="fn">ledcWrite</span>(LED_PIN, 64); }         <span class="cmt">// 64/255 ≈ 25% 工作週期 → 約 1/4 亮</span></div>
   </section>
 
-  <!-- 互動③:PWM 占空比模擬 -->
+  <!-- 互動③:PWM 工作週期模擬 -->
   <div class="activity-box">
-    <span class="ab-label">🧪 動手操作:占空比 × 方波 × 平均電壓</span>
-    <h3 style="margin-bottom:4px">拖動占空比,看方波、亮度與平均電壓怎麼變</h3>
+    <span class="ab-label">🧪 動手操作:工作週期 × 方波 × 平均電壓</span>
+    <h3 style="margin-bottom:4px">拖動工作週期,看方波、亮度與平均電壓怎麼變</h3>
     <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
-      下方方波中<strong>高電位所占的比例</strong>就是占空比。本模擬的頻率固定為 <strong>1 kHz</strong>
+      下方方波中<strong>高電位所占的比例</strong>就是工作週期。本模擬的頻率固定為 <strong>1 kHz</strong>
       (每 1 ms 一個週期)——開關快到人眼與馬達都「感覺不到閃爍」,只感覺得到平均值。
     </p>
     <div class="pwm-wrap">
@@ -201,14 +202,14 @@ void loop()  { <span class="fn">ledcWrite</span>(LED_PIN, 64); }         <span c
           <small>LED 亮度</small>
         </div>
         <div class="pwm-volt">
-          <small>平均電壓 = 3.3V × 占空比</small>
+          <small>平均電壓 = 3.3V × 工作週期</small>
           <b id="pwmVolt">1.65 V</b>
         </div>
       </div>
     </div>
     <div style="margin-top:10px">
       <label style="font-size:13px;font-weight:700;display:flex;justify-content:space-between">
-        占空比 Duty Cycle<span id="dutyVal">50%</span></label>
+        工作週期 Duty Cycle<span id="dutyVal">50%</span></label>
       <input type="range" id="dutySlider" min="0" max="100" value="50"
         style="width:100%;accent-color:var(--theme);margin-top:4px">
     </div>

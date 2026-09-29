@@ -302,6 +302,11 @@ function renderQuizQ(i, box) {
         <line id="hcWall" x1="380" y1="100" x2="380" y2="160" stroke="#475569" stroke-width="5" opacity="0.6"/>
         <text id="hcWallT" x="380" y="225" text-anchor="middle" font-size="10" fill="#475569" font-family="JetBrains Mono">物體 ← 50 cm</text>
       </g>`,
+      /* 在 ECHO 腳(5V 訊號)旁標出須經分壓電阻,與下方文字警告一致 */
+      overlaySvg: () => `<g>
+        <rect x="526" y="214" width="88" height="18" rx="4" fill="#FFF7ED" stroke="#F97316" stroke-width="1.5"/>
+        <text x="570" y="227" text-anchor="middle" font-size="10" font-weight="700" fill="#B45309">須經分壓 1k/2kΩ</text>
+      </g>`,
       wires: [
         { d: curve(170, 95,  475, 190), c: COL.red },
         { d: curve(170, 230, 510, 190), c: COL.green },
@@ -357,7 +362,7 @@ function renderQuizQ(i, box) {
     const sc = S[s];
     const wiresSvg = sc.wires.map((w, i) =>
       `<path d="${w.d}" class="wire-wire" stroke="${w.c}"/>`).join('');
-    svg.innerHTML = esp32Svg() + sc.sensorSvg() + wiresSvg;
+    svg.innerHTML = esp32Svg() + sc.sensorSvg() + wiresSvg + (sc.overlaySvg ? sc.overlaySvg() : '');
     [...tabs.querySelectorAll('button')].forEach(b => b.classList.toggle('active', b.dataset.s === s));
   }
 
