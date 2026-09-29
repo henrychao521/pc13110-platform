@@ -198,7 +198,7 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 <div class="b amb" style="margin-top:.9rem"><h3>元件標注</h3>
 <p><span class="at mono">VR 100k</span> 調靈敏度(決定「多暗」才開燈)</p>
 <p><span class="at mono">D1 1N4001</span> 飛輪二極體,吸收線圈斷電瞬間的反電動勢,保護電晶體</p></div></div></div>
-<div class="callout"><b>模擬要領:</b>先用萬用表電阻模式量出光敏電阻的明、暗阻值,再拖動 VR 找出燈亮 / 燈滅的臨界點。<br>
+<div class="callout"><b>模擬要領:</b>先用三用電表電阻檔量出光敏電阻的明、暗阻值,再拖動 VR 找出燈亮 / 燈滅的臨界點。<br>
 <span style="color:var(--dim)">0.7V 是矽 BJT 的導通門檻。這一頁把 4-1 的電晶體、繼電器與本節的分壓全部串起來——這就是「元件 → 系統」。課本 p.115 附自我評量 9 項,可轉成學習單。</span></div></section>
 
 <section id="visitor"><h2><span class="prompt">$ ./visitor-light --pipeline</span><span class="pill amber">牛刀小試</span>訪客燈光指示電路:九步驟</h2>
@@ -304,9 +304,14 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 </main>
 <script>
 document.querySelectorAll('.yt').forEach(function(el){
-  el.addEventListener('click', function(){
+  function play(){
+    if (el.querySelector('iframe')) return;
     var vid = el.dataset.vid;
     el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  }
+  el.addEventListener('click', play);
+  el.addEventListener('keydown', function(e){   /* 鍵盤操作:Tab 到影片後按 Enter 或空白鍵播放 */
+    if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); play(); }
   });
 });
 </script>

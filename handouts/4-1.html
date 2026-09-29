@@ -147,7 +147,7 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 <span class="v" style="font-size:1.35rem">[47kΩ ±5% = 47kΩJ]</span>
 </div>
 <div class="b"><h3>五環與誤差碼</h3>
-<p class="mono">五環例:紅紅黃 ×10¹ 棕 → 224×10¹ = <span class="gt">2.24kΩ ±1%</span>(F)</p>
+<p class="mono">五環例:紅紅黃 棕(×10¹) 棕(±1%) → 224×10¹ = <span class="gt">2.24kΩ ±1%</span>(F)</p>
 <p class="mono" style="color:var(--blu)">誤差碼:F±1&nbsp;&nbsp;G±2&nbsp;&nbsp;J±5&nbsp;&nbsp;K±10&nbsp;&nbsp;M±20</p></div></div></div>
 <div class="callout amber"><b>課堂搶答:</b>
 <span class="chip">Q1 棕黑紅金 = ?</span> 答:1kΩ±5%&nbsp;&nbsp;
@@ -179,7 +179,7 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 <p class="bt" style="margin-top:.4rem">補充:升壓或降壓由「初級圈:次級圈」的匝數比決定。</p></div>
 <div class="b blu"><h3>diode</h3>
 <p class="wt">單向導通的閘門</p>
-<ul><li>整流:AC → 脈動 DC</li><li>開關:切換速度約 4ns</li>
+<ul><li>整流:AC → 脈動 DC</li><li>開關:切換速度快(高速開關二極體如 1N4148 約 4ns;一般整流二極體慢得多)</li>
 <li>LED:省電、壽命長、可組成數字顯示裝置</li></ul></div></div>
 <div class="callout amber"><b>小百科｜AC vs DC:</b><br>
 <span class="at">AC 交流</span>:大小與方向週期變化、平均值為零、利於長距離輸電——牆上插座 110V/220V,臺灣市電 60Hz。<br>
@@ -248,7 +248,7 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 <p style="color:var(--dim);margin-top:.5rem">鹼性電池 1.5V(一次性)｜鋰電池額定 3.7V、充飽 4.2V｜電源轉換器輸出 5V / 9V / 12V</p></div>
 <div class="b amb"><h3>Gogoro 換電站電池</h3>
 <p class="mono"><span class="gt">Q = It</span>&nbsp;&nbsp;2000mAh = 2000mA × 1h</p>
-<p>單組電池:12 顆 <span class="mono">21700</span>(⌀21mm × 70mm)串聯 = 43.56V、40Ah</p>
+<p>單組電池:<span class="mono">21700</span> 電芯(⌀21mm × 70mm)12 串 × 多顆並聯 = 43.56V、40Ah(串聯加電壓、並聯加容量;單顆電芯只有約 4–5Ah)</p>
 <p class="mono"><span class="gt">W = QV</span> = 40Ah × 43.56V ≈ <span class="at" style="font-weight:700">1740Wh</span></p>
 <p>雙電池並聯 ⇒ 全車約 <span class="at" style="font-weight:700">3.48kWh</span></p></div></div>
 <div class="callout amber"><b>試算｜誰的能量多?</b><br>
@@ -317,9 +317,14 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 </main>
 <script>
 document.querySelectorAll('.yt').forEach(function(el){
-  el.addEventListener('click', function(){
+  function play(){
+    if (el.querySelector('iframe')) return;
     var vid = el.dataset.vid;
     el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  }
+  el.addEventListener('click', play);
+  el.addEventListener('keydown', function(e){   /* 鍵盤操作:Tab 到影片後按 Enter 或空白鍵播放 */
+    if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); play(); }
   });
 });
 </script>

@@ -308,9 +308,14 @@ ul.obj li::marker { color:var(--amber); }
 </main>
 <script>
 document.querySelectorAll('.yt').forEach(el => {
-  el.addEventListener('click', () => {
+  const play = () => {
+    if (el.querySelector('iframe')) return;
     const vid = el.dataset.vid;
     el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  };
+  el.addEventListener('click', play);
+  el.addEventListener('keydown', e => {   /* 鍵盤操作:Tab 到影片後按 Enter 或空白鍵播放 */
+    if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); play(); }
   });
 });
 </script>

@@ -141,14 +141,14 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 
 <section id="rule"><h2><span class="prompt">$ ./measure --range auto</span><span class="pill amber">鐵則</span>量測:從大範圍往小</h2>
 <div class="shell">
-<span class="o">&gt; range 600V …</span> 讀到 <span class="k">[0.0]</span>&nbsp;&nbsp;<span class="o">太粗,看不出來</span><br>
+<span class="o">&gt; range 600V …</span> 讀到 <span class="k">[ 9 ]</span>&nbsp;&nbsp;<span class="o">只顯示到整數,太粗</span><br>
 <span class="o">&gt; range 20V &nbsp;…</span> 讀到 <span class="v">[9.4]</span>&nbsp;&nbsp;<span class="o">OK,就是它</span><br>
 <span class="o">&gt; range 2V &nbsp;&nbsp;…</span> 讀到 <span class="h">[OL ]</span>&nbsp;&nbsp;<span class="o">超載!危險</span>
 </div>
 <div class="callout amber"><b>原則:</b>待測物理量大小未知時,一律從最大檔位開始,逐項往小測,直到讀出正常的結果。反過來先用小檔,一旦超過量程輕則顯示 OL,重則燒毀電表。(習題 14 原題)</div>
 <div class="g2">
 <div class="b grn"><h3>量電壓 → 並聯</h3><p>電表與待測元件「並排」接上去,不必斷開電路。</p></div>
-<div class="b amb"><h3>量電流 → 串聯</h3><p>要把電路斷開,讓電流「穿過」電表——4-3 實作挑戰 2 用萬用表量 NE555 電路電流,就是這樣接。</p></div></div>
+<div class="b amb"><h3>量電流 → 串聯</h3><p>要把電路斷開,讓電流「穿過」電表——4-3 實作挑戰 2 用三用電表量 NE555 電路電流,就是這樣接。</p></div></div>
 <div class="note"><b>安全:</b>量電阻前電路必須斷電。帶電量電阻不但讀值不準,還可能燒毀電表內部的電流源。</div></section>
 
 <section id="bb"><h2><span class="prompt">$ ./breadboard --check</span><span class="pill">工具</span>麵包板:免焊接的實驗場</h2>
@@ -205,9 +205,14 @@ footer{text-align:center;color:var(--dim);font-size:.8rem;padding:2rem 0 3rem;fo
 </main>
 <script>
 document.querySelectorAll('.yt').forEach(function(el){
-  el.addEventListener('click', function(){
+  function play(){
+    if (el.querySelector('iframe')) return;
     var vid = el.dataset.vid;
     el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  }
+  el.addEventListener('click', play);
+  el.addEventListener('keydown', function(e){   /* 鍵盤操作:Tab 到影片後按 Enter 或空白鍵播放 */
+    if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); play(); }
   });
 });
 </script>

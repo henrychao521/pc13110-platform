@@ -166,7 +166,7 @@ ul.plain { padding-left:1.4rem; }
 <div class="src">考點:楊氏模數=彈性限度內「應力/應變」比值(剛性)</div>
 <div class="bento3">
 <div class="b teal"><h3>楊氏模數</h3><p><b>剛性:抵抗變形的能力。</b>鋼(硬、變形小)vs 橡膠(軟、變形大)。想要少變形,選高楊氏模數。</p></div>
-<div class="b purp"><h3>蒲松比</h3><p><b>橫向變形 ÷ 縱向變形。</b>拉麵條:變長的同時變細。金屬約 0.3,是體積變化計算的關鍵參數。</p></div>
+<div class="b purp"><h3>蒲松比</h3><p><b>橫向應變 ÷ 縱向應變</b>(應變=變形量 ÷ 原尺寸,不能直接拿變形量相除)。拉麵條:變長的同時變細。金屬約 0.3,是體積變化計算的關鍵參數。</p></div>
 <div class="b amber"><h3>降伏強度</h3><p><b>彈性 → 塑性的臨界點。</b>安全紅線:最大應力超過降伏強度=永久變形、已損壞。</p></div></div>
 <div class="callout"><b>課堂教具:</b>現場拉橡皮筋(回得來=彈性變形)vs 折迴紋針(回不來=塑性變形)——降伏強度就是那條界線。</div></section>
 
@@ -259,9 +259,14 @@ ul.plain { padding-left:1.4rem; }
 </main>
 <script>
 document.querySelectorAll('.yt').forEach(el => {
-  el.addEventListener('click', () => {
+  const play = () => {
+    if (el.querySelector('iframe')) return;
     const vid = el.dataset.vid;
     el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + vid + '?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+  };
+  el.addEventListener('click', play);
+  el.addEventListener('keydown', e => {   /* 鍵盤操作:Tab 到影片後按 Enter 或空白鍵播放 */
+    if (e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); play(); }
   });
 });
 </script>
