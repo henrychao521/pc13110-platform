@@ -99,7 +99,7 @@ const QUIZ = [
   { question: '「生成式設計(Generative Design)」的運作方式是什麼?',
     options: [
       { text: '使用者設定設計目標,軟體用演算法自動探索並生成多種方案', correct: true,
-        explain: '正確。設定材料、載荷、約束等目標後,AI 會生成多種輕量化方案供選擇。' },
+        explain: '正確。設定材料、負載、約束等條件後,AI 會生成多種輕量化方案供選擇。' },
       { text: '由工程師一條線一條線手繪完成', correct: false },
       { text: '隨機產生與需求無關的圖形', correct: false },
     ] },

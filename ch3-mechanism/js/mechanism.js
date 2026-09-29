@@ -67,7 +67,9 @@ function drawCam(ctx, w, h) {
   const C = { x: w * 0.4, y: h * 0.62 };
   const R = 46, e = 26;                       /* 偏心圓凸輪 */
   const center = { x: C.x + Math.cos(theta) * e, y: C.y + Math.sin(theta) * e };
-  const followerBottom = center.y - R;
+  /* 滾子(半徑 11)中心固定在導軌中線上,與凸輪輪廓相切:到凸輪圓心距離 = R + 11 */
+  const dx = center.x - C.x;
+  const followerBottom = center.y - Math.sqrt((R + 11) * (R + 11) - dx * dx);
   /* 凸輪 */
   ctx.fillStyle = '#C026D3';
   ctx.beginPath(); ctx.arc(center.x, center.y, R, 0, 7); ctx.fill();
@@ -78,12 +80,12 @@ function drawCam(ctx, w, h) {
   ctx.beginPath(); ctx.moveTo(C.x, C.y); ctx.lineTo(center.x, center.y); ctx.stroke();
   /* 從動件(垂直桿) */
   ctx.fillStyle = '#22D3EE';
-  ctx.fillRect(C.x - 9, followerBottom - 90, 18, 90);
+  ctx.fillRect(C.x - 9, followerBottom - 80, 18, 80);
   ctx.fillStyle = '#FBBF24';
   ctx.beginPath(); ctx.arc(C.x, followerBottom, 11, 0, 7); ctx.fill();
   /* 導軌 */
   ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
-  ctx.strokeRect(C.x - 16, h * 0.05, 32, followerBottom - 90 - h * 0.05 + 4);
+  ctx.strokeRect(C.x - 16, h * 0.05, 32, followerBottom - 80 - h * 0.05 + 4);
   ctx.fillStyle = '#fff'; ctx.font = '12px "Noto Sans TC"'; ctx.textAlign = 'center';
   ctx.fillText('凸輪旋轉', C.x, C.y + 34);
   ctx.fillText('↕ 從動件升降', C.x, h * 0.05 - 6);
@@ -109,44 +111,54 @@ function drawGears(ctx, w, h) {
 }
 
 function drawGeneva(ctx, w, h) {
-  const D = { x: w * 0.34, y: h * 0.5 };       /* 驅動輪 */
-  const G = { x: w * 0.64, y: h * 0.5 };       /* 日內瓦輪 */
-  const rev = theta / (Math.PI * 2);
-  const fullRevs = Math.floor(rev);
-  const phase = rev - fullRevs;
-  const step = Math.PI * 2 / 6;                /* 6 槽,每步 60° */
-  let adv = phase < 0.3 ? (phase / 0.3) : 1;
-  adv = adv < 0.5 ? 2*adv*adv : 1 - Math.pow(-2*adv+2,2)/2;   /* 平滑 */
-  const gAngle = fullRevs * step + adv * step;
-  /* 日內瓦輪(六角盤 + 槽) */
+  /* 6 槽日內瓦機構的真實幾何:中心距 C、撥銷半徑 a = C·sin30°、槽口半徑 b = C·cos30°,
+     撥銷在驅動輪轉到兩輪連心線 ±60° 範圍內才進入槽中,把日內瓦輪撥過 60°,其餘時間日內瓦輪靜止 */
+  const C = Math.min(120, h * 0.4);
+  const a = C * 0.5, b = C * Math.sqrt(3) / 2;
+  const D = { x: w * 0.5 - C * 0.5, y: h * 0.5 };   /* 驅動輪 */
+  const G = { x: D.x + C, y: h * 0.5 };             /* 日內瓦輪 */
+  const step = Math.PI / 3;                          /* 6 槽,每步 60° */
+  const t = Math.atan2(Math.sin(theta), Math.cos(theta));   /* 撥銷相對連心線的角度 −π~π */
+  const n = Math.floor((theta + Math.PI) / (Math.PI * 2)); /* 已完成的撥動次數 */
+  let delta = 0;                                     /* 本次撥動已轉過的角度(0 → −60°) */
+  if (t > step) delta = -step;
+  else if (t >= -step) {
+    const psi = Math.atan2(a * Math.sin(t), a * Math.cos(t) - C);        /* 撥銷相對日內瓦輪中心的方位 */
+    const psi0 = Math.atan2(a * Math.sin(-step), a * Math.cos(-step) - C);
+    let d = psi - psi0; while (d > 0) d -= Math.PI * 2; while (d < -Math.PI) d += Math.PI * 2;
+    delta = d;
+  }
+  const gAngle = -n * step + delta;
+  const slot0 = -5 * Math.PI / 6;                    /* 靜止時有一個槽口正對撥銷進入的位置 */
+  const R = b * 1.02, pinR = 7, lockR = C * 0.32;
+  /* 日內瓦輪:圓盤 + 6 條徑向槽 + 槽間的鎖止凹弧 */
   ctx.save();
   ctx.translate(G.x, G.y); ctx.rotate(gAngle);
   ctx.fillStyle = '#22D3EE';
-  ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const a = i * step;
-    ctx.lineTo(Math.cos(a) * 60, Math.sin(a) * 60);
-  }
-  ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI * 2); ctx.fill();
   ctx.fillStyle = '#0F172A';
   for (let i = 0; i < 6; i++) {
-    const a = i * step + step / 2;
-    ctx.beginPath(); ctx.arc(Math.cos(a) * 58, Math.sin(a) * 58, 8, 0, 7); ctx.fill();
+    const ang = slot0 + i * step;
+    ctx.save(); ctx.rotate(ang);
+    ctx.fillRect(C - a - pinR - 2, -pinR - 2, R - (C - a - pinR - 2) + 2, (pinR + 2) * 2);   /* 槽 */
+    ctx.restore();
+    const lk = ang + step / 2;                       /* 鎖止凹弧(驅動輪鎖止圓盤卡在這裡) */
+    ctx.beginPath(); ctx.arc(Math.cos(lk) * C, Math.sin(lk) * C, lockR, 0, Math.PI * 2); ctx.fill();
   }
   ctx.restore();
-  ctx.fillStyle = '#E2E8F0'; ctx.beginPath(); ctx.arc(G.x, G.y, 9, 0, 7); ctx.fill();
-  /* 驅動輪(連續旋轉)+ 撥銷 */
+  ctx.fillStyle = '#E2E8F0'; ctx.beginPath(); ctx.arc(G.x, G.y, 8, 0, 7); ctx.fill();
+  /* 驅動輪(連續旋轉):臂 + 撥銷 */
   ctx.fillStyle = '#C026D3';
-  ctx.beginPath(); ctx.arc(D.x, D.y, 30, 0, 7); ctx.fill();
-  const pin = { x: D.x + Math.cos(theta) * 44, y: D.y + Math.sin(theta) * 44 };
+  ctx.beginPath(); ctx.arc(D.x, D.y, lockR - 3, 0, 7); ctx.fill();
+  const pin = { x: D.x + Math.cos(theta) * a, y: D.y + Math.sin(theta) * a };
   ctx.strokeStyle = '#C026D3'; ctx.lineWidth = 6;
   ctx.beginPath(); ctx.moveTo(D.x, D.y); ctx.lineTo(pin.x, pin.y); ctx.stroke();
   ctx.fillStyle = '#FBBF24';
-  ctx.beginPath(); ctx.arc(pin.x, pin.y, 8, 0, 7); ctx.fill();
-  ctx.fillStyle = '#0F172A'; ctx.beginPath(); ctx.arc(D.x, D.y, 8, 0, 7); ctx.fill();
+  ctx.beginPath(); ctx.arc(pin.x, pin.y, pinR, 0, 7); ctx.fill();
+  ctx.fillStyle = '#0F172A'; ctx.beginPath(); ctx.arc(D.x, D.y, 6, 0, 7); ctx.fill();
   ctx.fillStyle = '#fff'; ctx.font = '12px "Noto Sans TC"'; ctx.textAlign = 'center';
-  ctx.fillText('連續旋轉', D.x, D.y + 48);
-  ctx.fillText('間歇旋轉', G.x, G.y + 78);
+  ctx.fillText('連續旋轉', D.x - a - 10, h - 16);
+  ctx.fillText('間歇旋轉', G.x + 10, h - 16);
 }
 
 const DRAW = { '曲柄滑塊': drawCrankSlider, '凸輪從動件': drawCam, '齒輪系': drawGears, '日內瓦機構': drawGeneva };
