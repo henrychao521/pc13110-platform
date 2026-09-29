@@ -225,7 +225,7 @@
     <span class="ab-label">🔢 動手操作:虛擬三用電表</span>
     <h3 style="margin-bottom:4px">用三用電表量測電壓、電阻、電流</h3>
     <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:10px">
-      右側有一個簡單電路(9V 電池 + 4.7kΩ + 10kΩ 串聯,中間有節點 A、B、C)。
+      右側有一個簡單電路(9V 電池 + 4.7kΩ + 10kΩ 串聯,中間有節點 A、B、C;D 在 A 與 R1 之間,切到電流檔時這段導線會打開成斷點)。
       選擇電表檔位、把紅黑探棒放到不同節點,看電表讀數。<strong>挑戰</strong>:用電壓檔分別測 R1 與 R2 兩端電壓,
       確認加總是否等於電池電壓(克希荷夫電壓定律)。
     </p>
@@ -240,13 +240,13 @@
         <div class="dmm-probe red">
           <span class="pl">🔴 紅探棒(+)</span>
           <span class="pr" id="probeR">
-            <button data-n="A" class="on">A</button><button data-n="B">B</button><button data-n="C">C</button>
+            <button data-n="A" class="on">A</button><button data-n="D">D</button><button data-n="B">B</button><button data-n="C">C</button>
           </span>
         </div>
         <div class="dmm-probe black">
           <span class="pl">⚫ 黑探棒(−)</span>
           <span class="pr" id="probeB">
-            <button data-n="A">A</button><button data-n="B">B</button><button data-n="C" class="on">C</button>
+            <button data-n="A">A</button><button data-n="D">D</button><button data-n="B">B</button><button data-n="C" class="on">C</button>
           </span>
         </div>
       </div>

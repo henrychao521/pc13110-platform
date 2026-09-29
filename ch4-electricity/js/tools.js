@@ -113,6 +113,7 @@ function renderQuizQ(i, box) {
 /* ============================================================
  * 虛擬三用電表 — V / Ω / A 三檔 × 紅黑探棒在 A/B/C 節點
  * 測試電路:9V 電池 + 4.7kΩ + 10kΩ 串聯
+ * 節點 D 在 A 與 R1 之間:電流檔時把這段導線打開(斷點),電表要跨在 A–D 兩端才是串接
  * ============================================================ */
 (function dmmSim() {
   const svg = document.getElementById('dmmSvg');
@@ -120,9 +121,9 @@ function renderQuizQ(i, box) {
   let mode = 'V', pR = 'A', pB = 'C';
   const VBAT = 9, R1 = 4700, R2 = 10000;
   const V_B = VBAT * R2 / (R1 + R2);
-  const NODE_V = { A: VBAT, B: V_B, C: 0 };
+  const NODE_V = { A: VBAT, D: VBAT, B: V_B, C: 0 };
   const I_LOOP_mA = VBAT / (R1 + R2) * 1000;
-  const NODE_POS = { A:[40,40], B:[320,110], C:[40,200] };
+  const NODE_POS = { A:[40,40], D:[112,40], B:[320,110], C:[40,200] };
 
   function nodeMark(name) {
     const [x, y] = NODE_POS[name];
@@ -137,8 +138,9 @@ function renderQuizQ(i, box) {
   }
 
   function draw() {
+    const open = mode === 'A', noBat = mode === 'R';
     svg.innerHTML = `
-      <g transform="translate(40,120)">
+      <g transform="translate(40,120)" opacity="${noBat ? 0.3 : 1}">
         <!-- 電池符號:長板在上=正極(接 A 節點 9V),短板在下=負極(接 C 節點 0V) -->
         <line x1="0" y1="-12" x2="0" y2="-5" stroke="#1F2937" stroke-width="3"/>
         <line x1="-14" y1="-5" x2="14" y2="-5" stroke="#1F2937" stroke-width="3"/>
@@ -148,7 +150,12 @@ function renderQuizQ(i, box) {
         <text x="-18" y="13" text-anchor="end" font-size="13" font-weight="700" fill="#6B7280">−</text>
         <text x="0" y="38" text-anchor="middle" font-size="11" fill="#6B7280">9V</text>
       </g>
-      <path d="M40 108 L40 40 L130 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+      ${noBat ? '<text x="58" y="160" font-size="11" fill="#B45309" font-weight="700">電池已拔除</text>' : ''}
+      ${open
+        ? `<path d="M40 108 L40 40 L60 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+           <path d="M80 40 L130 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>
+           <text x="70" y="30" text-anchor="middle" font-size="10" fill="#DC2626" font-weight="700">斷開</text>`
+        : '<path d="M40 108 L40 40 L130 40" stroke="#1F2937" stroke-width="2.5" fill="none"/>'}
       <path d="M180 40 L320 40 L320 88" stroke="#1F2937" stroke-width="2.5" fill="none"/>
       <path d="M320 132 L320 200 L40 200 L40 132" stroke="#1F2937" stroke-width="2.5" fill="none"/>
       <g transform="translate(155,40)">
@@ -159,7 +166,7 @@ function renderQuizQ(i, box) {
         <rect x="-7" y="-22" width="14" height="44" rx="3" fill="#FBBF24" stroke="#92400E" stroke-width="1.5"/>
         <text x="14" y="3" font-size="11" fill="#92400E" font-weight="700">R2 10kΩ</text>
       </g>
-      ${nodeMark('A')}${nodeMark('B')}${nodeMark('C')}
+      ${nodeMark('A')}${nodeMark('D')}${nodeMark('B')}${nodeMark('C')}
       ${probeMark(pR, '#DC2626', -22, -20)}
       ${probeMark(pB, '#1F2937', -22, 20)}
     `;
@@ -182,19 +189,28 @@ function renderQuizQ(i, box) {
         ? '紅黑探棒同一點 → 兩端電位差 = 0V'
         : `V(${pR}) − V(${pB}) = ${NODE_V[pR].toFixed(2)} − ${NODE_V[pB].toFixed(2)} = <strong>${raw.toFixed(2)}V</strong>`;
     } else if (mode === 'R') {
-      const map = { AB:R1, BA:R1, BC:R2, CB:R2, AC:R1+R2, CA:R1+R2, AA:0, BB:0, CC:0 };
-      raw = map[pR + pB]; unit = 'Ω';
-      msg = pR === pB
-        ? '同一節點 → 0Ω'
-        : `${pR}–${pB} 之間電阻 = <strong>${raw} Ω</strong>。⚠ 真實電表測電阻前要先把電源關掉。`;
+      /* 電阻檔:模擬中已先拔掉電池(帶電量電阻讀數不準、還可能傷電表);A、D 之間是導線 */
+      const pos = { A: 0, D: 0, B: R1, C: R1 + R2 };
+      raw = Math.abs(pos[pR] - pos[pB]); unit = 'Ω';
+      msg = raw === 0
+        ? `${pR}–${pB} 之間只有導線 → 0Ω`
+        : `${pR}–${pB} 之間電阻 = <strong>${raw} Ω</strong>。電阻檔一定要先<strong>關電源／拔電池</strong>再量(本模擬已先拔除)。`;
     } else {
-      const series = (pR === 'A' && pB === 'C') || (pR === 'C' && pB === 'A');
-      if (series) {
+      const pair = [pR, pB].sort().join('');
+      if (pair === 'AD') {
         raw = I_LOOP_mA * (pR === 'A' ? 1 : -1); unit = 'mA';
-        msg = `電流檔須<strong>串接</strong>進迴路。電流 I = 9V ÷ (4.7+10)kΩ = <strong>${Math.abs(raw).toFixed(3)} mA</strong><br>⚠ 真實電表量電流須先打開迴路、把電表串接進去;切勿直接並接在電池兩端,會燒毀保險絲。`;
+        msg = `✅ 正確串接:迴路在 A–D 打開,電表跨在斷點兩端,電流「穿過」電表。I = 9V ÷ (4.7+10)kΩ = <strong>${Math.abs(raw).toFixed(3)} mA</strong>`
+          + (pR === 'A' ? '' : '<br>讀數為負:紅黑棒接反了,電流從黑棒流進電表。');
+      } else if (pair === 'AC') {
+        dispEl.textContent = 'FUSE'; uEl.textContent = '';
+        note.innerHTML = '⛔ <strong>短路!</strong>電流檔內阻幾乎為零,紅黑棒跨在電池兩端(A、C)等於把正負極直接接通——真實電表會瞬間大電流、<strong>燒斷保險絲</strong>。電流檔要跨在迴路的<strong>斷點</strong>(A–D)兩端。';
+        return;
+      } else if (pair === 'AB') {
+        raw = VBAT / R2 * 1000 * (pR === 'A' ? 1 : -1); unit = 'mA';
+        msg = `⚠ 電表並接在 A–B:它幾乎零電阻,把 R1 繞過去了,量到的 ${Math.abs(raw).toFixed(3)} mA <strong>不是原電路的電流</strong>。電流檔要跨在斷點 A–D 兩端。`;
       } else {
         raw = 0; unit = 'mA';
-        msg = '⚠ 電流檔必須<strong>串接</strong>進迴路:把紅探棒放 A、黑探棒放 C(把電表當成導線串入)。真實電表量電流須先打開迴路再串入;切勿直接並接在電池兩端,會燒毀保險絲。';
+        msg = '迴路已在 A–D 打開,這兩點之間沒有電流流過電表 → 0。量電流要把電表<strong>串接</strong>在斷點 A–D 兩端。';
       }
     }
     const [txt, u] = fmt(raw, unit);
@@ -207,7 +223,7 @@ function renderQuizQ(i, box) {
     const b = e.target.closest('button[data-m]'); if (!b) return;
     mode = b.dataset.m;
     [...document.querySelectorAll('#dmmMode button')].forEach(x => x.classList.toggle('on', x === b));
-    compute();
+    draw(); compute();
   });
   document.getElementById('probeR').addEventListener('click', e => {
     const b = e.target.closest('button[data-n]'); if (!b) return;
