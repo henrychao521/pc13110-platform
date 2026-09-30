@@ -85,7 +85,8 @@ function buildMatch() {
         { text: '光固化樹脂 3D 列印', correct: true, explain: '正確。樹脂列印精度高、表面細緻,是牙科模型的首選。' },
         { text: 'FDM 塑膠 3D 列印', correct: false,
         explain: 'FDM 的精度與表面光滑度都不如光固化樹脂列印，難以呈現牙齒模型的細節。' },
-        { text: '五軸 CNC', correct: false },
+        { text: '五軸 CNC', correct: false,
+        explain: '五軸 CNC 在牙科多用來從氧化鋯等塊材切削出牙冠、假牙（減法加工）；本題要的是細節多的牙齒模型，逐層固化的光固化樹脂列印更常用。' },
       ] },
     { question: '博物館想把一件古董花瓶數位典藏、建立精確的 3D 模型,該用什麼?',
       options: [
