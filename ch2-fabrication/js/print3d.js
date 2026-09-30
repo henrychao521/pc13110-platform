@@ -123,6 +123,11 @@ function buildSeg(id, opts, current, fmt, onPick) {
     b.textContent = fmt(o);
     if (o === current) b.classList.add('on');
     b.addEventListener('click', () => {
+      // 列印進行中鎖定參數：否則畫面被重畫、結果與完成判定會用到換過的模型（與 CNC、雷切模組一致）
+      if (printing) {
+        if (typeof showToast === 'function') showToast('列印中，請等本次完成', 'warn');
+        return;
+      }
       wrap.querySelectorAll('button').forEach(x => x.classList.remove('on'));
       b.classList.add('on');
       onPick(o);
@@ -266,6 +271,7 @@ function finishPrint(failed, s) {
 
 document.getElementById('printBtn').addEventListener('click', startPrint);
 document.getElementById('resetBtn').addEventListener('click', () => {
+  if (printing) return;
   document.getElementById('printResult').innerHTML = '';
   refreshStats();
 });
