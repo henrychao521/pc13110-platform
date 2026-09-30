@@ -1,7 +1,8 @@
 /* ============================================================
  * 互動交誼廳 — 三位特別來賓
  *   占卜師(隨機好運占卜)/ 科技新聞記者(即時頭條)/ 氣象記者(定位天氣)
- * 純前端;新聞用 Hacker News 公開 API,天氣用 Open-Meteo(皆免金鑰)。
+ * 純前端;新聞讀 data/news.json(有公信力的外文科技／科學網站,每天由本機模型翻成中文,
+ *   管線在 tools/news/),天氣用 Open-Meteo(免金鑰)。
  * ============================================================ */
 
 const GUESTS = [
@@ -125,7 +126,9 @@ function openFortune() {
 }
 
 /* ============================================================
- * 科技新聞記者(Hacker News 即時頭條,失敗則用科技新知)
+ * 科技新聞記者
+ *   讀 data/news.json(NASA、ESA、IEEE Spectrum、JAXA、Fraunhofer… 的外文新聞,
+ *   每天由本機模型翻成繁體中文);檔案缺失或讀取失敗則用內建科技新知。
  * ============================================================ */
 const NEWS_FALLBACK = [
   '全球首座 3D 列印混凝土橋已在荷蘭啟用,顯示積層製造正走進土木工程。',
@@ -137,42 +140,74 @@ const NEWS_FALLBACK = [
   '電動車與儲能電池需求大增,帶動鋰電池與回收技術的發展。',
   'AI 影像辨識被應用在製造業檢測,協助找出人眼難察覺的瑕疵。',
 ];
+const NEWS_PER_BATCH = 5;
+let newsPool = null;      // data/news.json 的 items
+let newsMeta = null;
+let newsCursor = 0;
+
 function openNews() {
   loBody.innerHTML = `
-    <div class="lo-result" id="newsArea">📡 記者正在連線,抓取最新科技頭條…</div>
+    <div class="lo-result" id="newsArea">📡 記者正在整理最新的國際科技頭條…</div>
     <button class="lo-act" id="newsRefresh" style="margin-top:12px" disabled>🔄 換一批</button>`;
-  document.getElementById('newsRefresh').addEventListener('click', fetchNews);
-  fetchNews();
-}
-function fetchNews() {
-  const area = document.getElementById('newsArea');
-  const btn = document.getElementById('newsRefresh');
-  area.innerHTML = '📡 記者正在連線,抓取最新科技頭條…';
-  if (btn) btn.disabled = true;
-  fetch('https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage=5')
+  document.getElementById('newsRefresh').addEventListener('click', () => {
+    if (typeof SoundFX !== 'undefined') SoundFX.click();
+    showNewsBatch();
+  });
+  if (newsPool) { showNewsBatch(); return; }
+  fetch('data/news.json', { cache: 'no-cache' })
     .then(r => { if (!r.ok) throw 0; return r.json(); })
     .then(d => {
-      const hits = (d.hits || []).filter(h => h.title);
-      if (!hits.length) throw 0;
-      area.innerHTML = '<div style="font-size:11px;color:var(--px-dim);margin-bottom:6px">🌐 國際科技頭條・來源 Hacker News</div>' +
-        hits.map(h => {
-          const url = h.url || ('https://news.ycombinator.com/item?id=' + h.objectID);
-          return `<div class="lo-news-item">
-            <a href="${url}" target="_blank" rel="noopener">${esc(h.title)}</a>
-            <div class="ni-meta">▲ ${h.points || 0} 分・💬 ${h.num_comments || 0}</div>
-          </div>`;
-        }).join('');
-      if (btn) btn.disabled = false;
+      const items = (d.items || []).filter(i => i && i.title_orig && safeUrl(i.url));
+      if (!items.length) throw 0;
+      newsMeta = d;
+      newsPool = shuffle(items);
+      newsCursor = 0;
+      showNewsBatch();
     })
-    .catch(() => {
-      const pick = NEWS_FALLBACK.slice().sort(() => Math.random() - 0.5).slice(0, 4);
-      area.innerHTML = '<div style="font-size:11px;color:var(--px-dim);margin-bottom:6px">📚 科技新知快報(目前連不上即時新聞)</div>' +
-        pick.map(t => `<div class="lo-news-item">${t}</div>`).join('');
-      if (btn) btn.disabled = false;
-    });
+    .catch(showNewsFallback);
 }
+function showNewsBatch() {
+  const area = document.getElementById('newsArea');
+  const btn = document.getElementById('newsRefresh');
+  if (!area) return;
+  if (!newsPool) { showNewsFallback(); return; }
+  if (newsCursor >= newsPool.length) { newsPool = shuffle(newsPool); newsCursor = 0; }
+  const batch = newsPool.slice(newsCursor, newsCursor + NEWS_PER_BATCH);
+  newsCursor += NEWS_PER_BATCH;
+  const upd = newsMeta && newsMeta.generated ? String(newsMeta.generated).slice(0, 10) : '';
+  area.innerHTML =
+    '<div class="ni-head">🌐 國際科技頭條・外文新聞自動翻譯' + (upd ? '・更新於 ' + esc(upd) : '') + '</div>' +
+    batch.map(i => {
+      const zh = i.title_zh;
+      const lang = i.lang_label || i.lang || '外文';
+      const tag = zh ? '譯自' + esc(lang) : esc(lang) + '原文・未翻譯';
+      return `<div class="lo-news-item">
+        <a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer">${esc(zh || i.title_orig)}</a>
+        ${zh ? `<div class="ni-orig" lang="${esc(i.lang || '')}">${esc(i.title_orig)}</div>` : ''}
+        <div class="ni-meta">📰 ${esc(i.source || '')}・${tag}${i.date ? '・' + esc(i.date) : ''}</div>
+      </div>`;
+    }).join('') +
+    '<div class="lo-hint">※ 標題由本機 AI 模型自動翻譯,可能有誤,請以原文為準;點標題會開啟原文網站。</div>';
+  if (btn) btn.disabled = newsPool.length <= NEWS_PER_BATCH;
+}
+function showNewsFallback() {
+  const area = document.getElementById('newsArea');
+  const btn = document.getElementById('newsRefresh');
+  if (!area) return;
+  newsPool = null;
+  const pick = shuffle(NEWS_FALLBACK).slice(0, 4);
+  area.innerHTML = '<div class="ni-head">📚 科技新知快報(目前讀不到最新新聞)</div>' +
+    pick.map(t => `<div class="lo-news-item">${t}</div>`).join('');
+  if (btn) { btn.disabled = false; btn.onclick = null; }
+}
+function shuffle(a) {
+  const b = a.slice();
+  for (let i = b.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [b[i], b[j]] = [b[j], b[i]]; }
+  return b;
+}
+function safeUrl(u) { return typeof u === 'string' && /^https:\/\//.test(u); }
 function esc(s) {
-  return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 /* ============================================================
