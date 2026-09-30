@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  交誼廳外文新聞：每天 06:30 更新 data/news.json 並 commit＋push。
+  安裝前把 __REPO_DIR__ 換成實際的 repo 路徑（安裝步驟見同目錄 README.md）。
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.henry.pc13110-news</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/python3</string>
+    <string>__REPO_DIR__/tools/news/run_daily.py</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>NEWS_REPO_DIR</key>
+    <string>__REPO_DIR__</string>
+    <key>NEWS_BRANCH</key>
+    <string>master</string>
+    <key>NEWS_OLLAMA_URL</key>
+    <string>http://127.0.0.1:11434</string>
+    <key>NEWS_MODEL</key>
+    <string></string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>6</integer>
+    <key>Minute</key>
+    <integer>30</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>/Users/henry/Library/Logs/pc13110-news.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/henry/Library/Logs/pc13110-news.log</string>
+</dict>
+</plist>
