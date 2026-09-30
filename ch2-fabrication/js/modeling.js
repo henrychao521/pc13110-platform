@@ -144,7 +144,17 @@ function parseLine(line) {
   return { shape, p };
 }
 
-function buildModel() {
+/* 錯誤訊息會帶入使用者輸入的零件名稱，寫進 innerHTML 前先跳脫 */
+function escHtml(t) { return String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+/* 程式碼是否與某個內建範例相同（載入範例不算自己完成挑戰）*/
+function isUntouchedExample(code) {
+  const norm = t => t.replace(/\s+/g, ' ').trim();
+  return Object.values(EXAMPLES).some(ex => norm(ex) === norm(code));
+}
+
+/* fromUser：學生按「執行建模」才為 true；頁面初始化與點範例按鈕只預覽、不判定挑戰 */
+function buildModel(fromUser = false) {
   modelGroup.clear();
   const code = document.getElementById('codeEditor').value;
   const lines = code.split('\n');
@@ -186,7 +196,7 @@ function buildModel() {
 
   const msg = document.getElementById('modelMsg');
   if (errors.length) {
-    msg.innerHTML = `<span style="color:var(--danger)">⚠ ${errors.join('；')}</span>`;
+    msg.innerHTML = `<span style="color:var(--danger)">⚠ ${escHtml(errors.join('；'))}</span>`;
     if (typeof SoundFX !== 'undefined') SoundFX.error();
   } else if (count === 0) {
     msg.innerHTML = `<span style="color:var(--text-muted)">沒有偵測到零件,請至少寫一行。</span>`;
@@ -195,6 +205,11 @@ function buildModel() {
     if (typeof SoundFX !== 'undefined') SoundFX.success();
   }
   if (count >= 3 && !Progress.isDone('ch2-modeling')) {
+    if (!fromUser) return count;
+    if (isUntouchedExample(code)) {
+      msg.innerHTML += ' 這是內建範例——改寫範例或自己寫一個 3 個以上零件的作品，再按「執行建模」才算完成挑戰。';
+      return count;
+    }
     celebrateModule('ch2-modeling', '程式化 CAD 建模器');
     document.getElementById('nextBtn').classList.add('pop-in');
     msg.innerHTML += ' 🎉 完成挑戰（3 個以上零件）!';
@@ -218,7 +233,7 @@ function buildModel() {
   });
 })();
 
-document.getElementById('runBtn').addEventListener('click', buildModel);
+document.getElementById('runBtn').addEventListener('click', () => buildModel(true));
 
 /* ---- 初始化 ---- */
 document.getElementById('codeEditor').value = EXAMPLES['🪑 桌子'];
