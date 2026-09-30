@@ -208,6 +208,29 @@ const QUESTIONS = [
 ];
 let qIdx = 0, score = 0, chViewer = null;
 
+/* 作答紀錄（js/sheet-track.js）：一輪 6 題＝一份作答，每題只答一次（tries 恆為 1）。
+ * 選項是每次隨機抽的，沒有固定順序：
+ *   視圖題 a／k 記模型代號 M1–M8（MODEL_NAMES 的原始順序）；
+ *   三視圖組合題的 4 個選項固定是「全對／前視圖錯／上視圖錯／側視圖錯」→ A–D。 */
+const LOG_PAGE = 'ch2.orthographic';
+const MODEL_CODE = n => 'M' + (MODEL_NAMES.indexOf(n) + 1);
+const TRIP_OPTS = { A: '三視圖完全正確', B: '前視圖錯誤（上、側視圖正確）', C: '上視圖錯誤（前、側視圖正確）', D: '側視圖錯誤（前、上視圖正確）' };
+function logDefs() {
+  if (!window.SheetTrack) return;
+  const modelMap = {};
+  MODEL_NAMES.forEach(n => { modelMap[MODEL_CODE(n)] = n; });
+  QUESTIONS.forEach((q, i) => {
+    if (q.type === 'triplet') SheetTrack.register(LOG_PAGE, 'q' + (i + 1), { t: 'single',
+      stem: `觀察立體模型「${q.model}」,下列哪一組三視圖(前視圖／上視圖／側視圖)完全正確?`, optionMap: TRIP_OPTS, answer: 'A' });
+    else SheetTrack.register(LOG_PAGE, 'q' + (i + 1), { t: 'other',
+      stem: `觀察立體模型「${q.model}」,點選正確的「${VIEW_LABEL[q.type]}」(選項為隨機抽出的模型)`, optionMap: modelMap, answer: MODEL_CODE(q.model) });
+  });
+}
+function logAnswer(correct, a) {
+  if (window.SheetTrack) SheetTrack.attempt(LOG_PAGE, 'q' + (qIdx + 1), { ok: correct, a, final: true });
+}
+logDefs();
+
 /* 視圖題選項:答案 + 不重複的干擾項(以該視圖的投影簽章去重)*/
 function buildViewOptions(answerName, type) {
   const proj = PROJ[type];
@@ -342,6 +365,7 @@ function renderQuestion() {
           if (opts[j].correct) r.style.borderColor = 'var(--success)';
         });
         if (t.correct) score++;
+        logAnswer(t.correct, t.correct ? 'A' : ('BCD'.charAt(['front', 'top', 'side'].findIndex(k => sig(t[k]) !== sig(opts.find(o => o.correct)[k]))) || 'B'));
         if (typeof SoundFX !== 'undefined') (t.correct ? SoundFX.success : SoundFX.error)();
         fb.innerHTML = t.correct
           ? '<span style="color:var(--success);font-weight:700">✓ 答對了!三個視圖都正確——這需要同時掌握長、寬、高。</span>'
@@ -376,6 +400,7 @@ function renderQuestion() {
           if (sig(PROJ[q.type](MODELS[opts[j]])) === ansSig) o.style.borderColor = 'var(--success)';
         });
         if (correct) score++;
+        logAnswer(correct, MODEL_CODE(name));
         if (typeof SoundFX !== 'undefined') (correct ? SoundFX.success : SoundFX.error)();
         fb.innerHTML = correct
           ? `<span style="color:var(--success);font-weight:700">✓ 答對了!這就是模型的${VIEW_LABEL[q.type]}。</span>`

@@ -49,6 +49,7 @@ const PINS_R = [
 
 /* ---- 開發流程排序 ---- */
 Interactions.SequencePuzzle({
+  logKey: 'order',
   container: '#seqArea',
   title: '把 ESP32 在 Arduino IDE 的開發流程排回正確順序',
   items: [
@@ -182,6 +183,7 @@ QUIZ.forEach((q, i) => {
 });
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
+    logKey: 'q' + (i + 1),
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
     onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {

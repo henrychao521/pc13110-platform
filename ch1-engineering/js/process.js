@@ -120,6 +120,7 @@ function checkDone() {
 // 答錯時看完解說後重出題，答對才算通過（原本答錯也直接過關，檢核形同虛設）
 function renderDefineQuiz() {
   Interactions.DiagnosisQuiz({
+    logKey: 'define',
     container: '#defineQuiz',
     question: '情境：「學校走廊的盆栽常因忘記澆水而枯死。」下列哪一個是「界定良好」的工程問題敘述?',
     options: [
@@ -145,6 +146,7 @@ renderDefineQuiz();
 
 /* ---- 動動腦 2：流程排序 ---- */
 Interactions.SequencePuzzle({
+  logKey: 'order',
   container: '#seqPuzzle',
   title: '把工程設計流程「第一輪」排回正確順序',
   items: EDP.map((s, i) => `${s.icon}　${s.name}`),

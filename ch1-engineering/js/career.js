@@ -143,6 +143,7 @@ ETHICS.forEach((q, i) => {
   wrap.appendChild(box);
   function renderQ() {
     Interactions.DiagnosisQuiz({
+      logKey: 'q' + (i + 1),
       container: box,
       question: `情境 ${i + 1}　${q.question}`,
       options: q.options,

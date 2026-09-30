@@ -100,6 +100,7 @@ MAT_QUIZ.forEach((q, i) => {
   document.getElementById('matQuiz').appendChild(box);
   function renderQ() {
     Interactions.DiagnosisQuiz({
+      logKey: 'mat' + (i + 1),
       container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
       onRetry: renderQ,
       onAnswer: (correct) => {
@@ -115,6 +116,7 @@ MAT_QUIZ.forEach((q, i) => {
 
 /* ---- 外觀製作流程排序 ---- */
 Interactions.SequencePuzzle({
+  logKey: 'order',
   container: '#seqArea',
   title: '把外觀模型的製作步驟排回正確順序',
   items: [

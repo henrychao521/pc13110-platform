@@ -30,6 +30,10 @@ window.Interactions = (function() {
       } while (arr.length > 1 && arr.every((v, i) => v === i));
       return arr;
     }
+    // 作答紀錄（sheet-track.js）：logKey＝這題在資料中的穩定代號；排序答案一律用原始項目編號 1>2>3
+    const logKey = opts.logKey, logPage = opts.logPage;
+    if (logKey && window.SheetTrack) SheetTrack.register(logPage, logKey, { t: 'order', stem: title, items });
+
     const shuffled = shuffleInPlace([...items.keys()]);
     const userOrder = shuffled.slice();
     let solved = false;
@@ -118,6 +122,7 @@ window.Interactions = (function() {
 
     root.querySelector('.sp-check').addEventListener('click', () => {
       const correct = userOrder.every((v, i) => v === i);
+      if (logKey && window.SheetTrack) SheetTrack.attempt(logPage, logKey, { ok: correct, a: userOrder.map(v => v + 1).join('>') });
       if (correct) {
         feedbackEl.innerHTML = '<span style="color:var(--success);font-weight:700">✓ 排序正確！</span>';
         listEl.querySelectorAll('.sp-item').forEach(li => {
@@ -226,9 +231,12 @@ window.Interactions = (function() {
   //    explain:正解寫「為什麼對」,錯誤選項寫「為什麼錯」(沒寫的錯誤選項改顯示正解的解說)
   //    onRetry:有給時,答錯後在解說下方出現「再試一次」按鈕,由學生自己按才重出題
   // ============================================================
-  function DiagnosisQuiz({ container, question, image, options, onAnswer, onRetry }) {
+  //    logKey:這題在頁面資料中的穩定代號（例如 QUIZ 陣列第 1 筆 → 'q1'）,有給才記作答紀錄;logPage 省略＝依網址自動判斷
+  function DiagnosisQuiz({ container, question, image, options, onAnswer, onRetry, logKey, logPage }) {
     const root = typeof container === 'string' ? document.querySelector(container) : container;
     if (!root) return;
+    if (logKey && window.SheetTrack) SheetTrack.register(logPage, logKey, {
+      t: 'single', stem: question, options: options.map(o => o.text), answer: options.findIndex(o => o.correct) });
 
     root.innerHTML = `
       <div style="background:var(--bg-soft);border-radius:14px;padding:18px;border:1px solid var(--border)">
@@ -266,6 +274,7 @@ window.Interactions = (function() {
           }
         });
         const isCorrect = opt.correct;
+        if (logKey && window.SheetTrack) SheetTrack.attempt(logPage, logKey, { ok: isCorrect, a: String.fromCharCode(65 + i) });
         feedbackEl.innerHTML = `<div style="background:${isCorrect ? 'var(--success-light)' : 'var(--danger-light)'};color:${isCorrect ? '#15803d' : '#a72d2d'};padding:10px 14px;border-radius:8px;border-left:3px solid ${isCorrect ? 'var(--success)' : 'var(--danger)'}">${isCorrect ? '✓ 答對！' : '✗ 不正確。'} ${isCorrect || opt.explain ? (opt.explain || '') : (() => { const c = options.find(o => o.correct)?.explain || ''; return c ? '正解說明:' + c.replace(/^正確[。!！,，]\s*/, '') : ''; })()}</div>`;
         if (!isCorrect && typeof onRetry === 'function') {
           const row = document.createElement('div');

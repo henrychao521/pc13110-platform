@@ -148,6 +148,7 @@ QUIZ.forEach((q, i) => {
   document.getElementById('simQuiz').appendChild(box);
   function renderQ() {
     Interactions.DiagnosisQuiz({
+      logKey: 'q' + (i + 1),
       container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
       onRetry: renderQ,
       onAnswer: (correct) => {

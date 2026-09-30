@@ -94,6 +94,7 @@ QUIZ.forEach((q, i) => {
 });
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
+    logKey: 'q' + (i + 1),
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
     onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
