@@ -887,6 +887,22 @@ const PHASES = [
       'tools/news/（update_news.py、run_daily.py、launchd plist、README）、data/news-sources.json、data/news.json；js/lounge.js 改讀 news.json（缺檔時退回內建科技新知），快取 v=2',
       'arcade/games/geoguess：第 139 筆資料、WIKI_REFS、wiki-139.jpg、SOURCES 同步 twgeo',
     ],
+  },  {
+    tag: '段落 61',
+    date: '2026-09-30',
+    title: '補跑失敗的 Gemini 審查（第 07 份，12 個檔案）：建模器開頁即完成、列印中可換模型、安全檢查勾選永久保存',
+    verbatim: '有一份 Gemini 審查（12 個檔案）在佇列失敗沒有結果——選 B：回學校網路外時重送補一份。',
+    context: '第二輪補驗時 pc13110-07（第 1 章規劃器、流程、思考工具、趨勢四頁，第 2 章首頁與七支模組程式）在佇列失敗。本次在家用 gemini-3.1-pro-high 與 gemini-3.8-flash-high 審目前版本（master b915013），共 13 條發現，逐條比對第一、二輪紀錄後獨立查證。',
+    decisions: [
+      '採用 7 條：建模器初始化載入 5 個零件的範例就判定完成（改為學生按「執行建模」且不是原封不動的範例才算）；錯誤訊息的零件名稱先跳脫；3D 列印動畫中可切換模型（結束時完成判定會讀到換過的模型）；安全檢查勾選改只保留在本次分頁；檢查表補不戴手套；曼陀羅詞源改「圓」；牙齒模型題補五軸 CNC 解說',
+      '不採用：CNC 工時公式把切削深度放分母（深度是「每一刀切多深」，總深度固定時每刀越深、刀數越少，時間變短是對的）；3D 列印挑戰沒提示要選拱橋（print3d.html 已寫挑戰）；側躺拱橋畫成實心（側視投影，拱洞朝上下看不到，懸空消失正是 DFM 重點）；割字機沒內容（laser.html 有割字機段落）',
+      '沿用前兩輪：ChatGPT 圖表月活／週活已於 6ed4123 註明（依課本圖 1-2）；CAD 價值「強化模擬與分析」是課本原文，已駁回',
+      '不戴手套併入第 2 項，維持「八項」文字；依據與 cnc.html 安全須知、工坊鑽床題（職業安全衛生設施規則第 56 條）相同',
+    ],
+    outputs: [
+      'ch2-fabrication/js/modeling.js（?v=r3）、print3d.js（?v=r3）、emerging.js（?v=r3）；ch2-fabrication/index.html 安全檢查；ch1-engineering/pages/thinking.html 曼陀羅',
+      '分支 fix/r2-09，本機 motion_qc 6 頁 × 桌機／手機；Playwright 實測建模器開頁／跑範例不完成、自寫 3 零件才完成、注入字串不執行；列印中點拱橋無效；新分頁檢查表為空',
+    ],
   },
 ];
 
