@@ -230,10 +230,10 @@ footer b{color:var(--sub)}
 <div class="grid3">
 <div class="card mint"><h4>① Arduino IDE</h4><p>下載安裝 Arduino IDE 2.3.2 以上版本。</p></div>
 <div class="card amber"><h4>② USB 驅動</h4><p>看開發板上的晶片：<b>CP210x</b> 或 <b>CH340</b>，裝對應的驅動程式。</p></div>
-<div class="card pink"><h4>③ 開發板套件</h4><p>偏好設定加入 espressif 的 JSON 網址 → 開發板管理員安裝 <b>esp32</b>（注意 3.X 版）→ 選 <b>Node32s</b> 與正確 COM 埠。</p></div>
+<div class="card pink"><h4>③ 開發板套件</h4><p>偏好設定加入 espressif 的 JSON 網址 → 開發板管理員安裝 <b>esp32</b>（注意 3.X 版）→ 選 <b>NodeMCU-32S</b>（選 Node32s 也可）與正確 COM 埠。</p></div>
 </div>
 <h3>卡關時的除錯清單</h3>
-<table class="tw"><tr><th>症狀</th><th>怎麼解</th></tr><tr><td><b>找不到 COM 埠</b></td><td>USB 驅動沒裝或裝錯。先看晶片：<b>CP210x</b> 或 <b>CH340</b>，兩者驅動不同，裝對那一個。也可能是拿到「只能充電」的 USB 線。</td></tr><tr><td><b>一直卡在 Connecting…</b></td><td>按住開發板上的 <b>BOOT（IO0）</b>鍵不放，等出現 Connecting 點點點時再放開，讓它進入下載模式。</td></tr><tr><td><b>找不到開發板選項</b></td><td>開發板管理員裡的 esp32 套件沒裝好。網址列要加 espressif 的 JSON 來源，安裝後選 <b>Node32s</b>。</td></tr><tr><td><b>編譯錯誤：找不到函式庫</b></td><td>ESP32 用的是 <code>ESP32Servo</code> 而不是 Arduino 的 <code>Servo</code>；在函式庫管理員搜尋安裝 <code>ESP32Servo</code>；藍牙的 <code>BluetoothSerial</code> 是 esp32 開發板套件內建，直接 <code>#include</code> 即可，不必另外安裝。</td></tr><tr><td><b>燒錄成功但沒反應</b></td><td>先確認共地（GND 相接）、外部電源是否足夠；伺服馬達吃電大，用 USB 供電常會不夠。</td></tr></table>
+<table class="tw"><tr><th>症狀</th><th>怎麼解</th></tr><tr><td><b>找不到 COM 埠</b></td><td>USB 驅動沒裝或裝錯。先看晶片：<b>CP210x</b> 或 <b>CH340</b>，兩者驅動不同，裝對那一個。也可能是拿到「只能充電」的 USB 線。</td></tr><tr><td><b>一直卡在 Connecting…</b></td><td>按住開發板上的 <b>BOOT（IO0）</b>鍵不放，等出現 Connecting 點點點時再放開，讓它進入下載模式。</td></tr><tr><td><b>找不到開發板選項</b></td><td>開發板管理員裡的 esp32 套件沒裝好。網址列要加 espressif 的 JSON 來源，安裝後選 <b>NodeMCU-32S</b>（選 Node32s 也可）。</td></tr><tr><td><b>編譯錯誤：找不到函式庫</b></td><td>ESP32 用的是 <code>ESP32Servo</code> 而不是 Arduino 的 <code>Servo</code>；在函式庫管理員搜尋安裝 <code>ESP32Servo</code>；藍牙的 <code>BluetoothSerial</code> 是 esp32 開發板套件內建，直接 <code>#include</code> 即可，不必另外安裝。</td></tr><tr><td><b>燒錄成功但沒反應</b></td><td>先確認共地（GND 相接）、外部電源是否足夠；伺服馬達吃電大，用 USB 供電常會不夠。</td></tr></table>
 <div class="note">這一頁最適合列印成 A4 放在電腦教室，實機課學生卡住時自己查。</div></section>
 
 <section id="serial"><h2><span class="pill">3</span>隨堂實作 1：序列埠控制 LED</h2>

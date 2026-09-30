@@ -55,7 +55,7 @@ Interactions.SequencePuzzle({
     '① 下載並安裝 Arduino IDE',
     '② 安裝 USB 晶片驅動程式(CP210x 或 CH340)',
     '③ 在「開發板管理員」安裝 ESP32 相容性套件',
-    '④ 在工具選單選擇開發板(如 Node32s)與序列埠',
+    '④ 在工具選單選擇開發板(如 NodeMCU-32S,選 Node32s 也可)與序列埠',
     '⑤ 撰寫程式,編譯並上傳燒錄到 ESP32',
   ],
   onComplete: () => {},
