@@ -272,22 +272,28 @@ document.getElementById('calcBtn').addEventListener('click', () => {
 const QUIZ = [
   { question: '桁架為什麼特別穩固?核心關鍵是什麼形狀?',
     options: [
-      { text: '正方形', correct: false },
+      { text: '正方形', correct: false,
+        explain: '正方形四邊長度固定後，仍可被推歪成平行四邊形，形狀不唯一；要加斜桿分成三角形才穩。' },
       { text: '三角形——三邊長度固定後,形狀就唯一確定(不會歪斜)的多邊形', correct: true,
         explain: '正確。三角形三邊長度固定後形狀就不會歪斜,所以桁架以三角形為基本單元。' },
-      { text: '圓形', correct: false },
+      { text: '圓形', correct: false,
+        explain: '桁架由直桿與節點組成，圓形不是它的基本單元；穩固的關鍵是三角形。' },
     ] },
   { question: 'Pratt 桁架受到向下載重時,它的「斜桿」處於什麼受力狀態?',
     options: [
       { text: '張力(被拉)', correct: true,
         explain: '正確。Pratt 的斜桿受張力,適合發揮鋼材的抗拉特性,最省鋼材。' },
-      { text: '壓力(被壓)', correct: false },
-      { text: '完全不受力', correct: false },
+      { text: '壓力(被壓)', correct: false,
+        explain: 'Pratt 的斜桿在向下載重時被拉長而受張力；受壓力的是直桿。' },
+      { text: '完全不受力', correct: false,
+        explain: '斜桿是傳遞載重的主要桿件，受載時一定會受力（Pratt 的斜桿為張力）。' },
     ] },
   { question: '用 n = b + r − 2j 算出某桁架 n = 2,代表這個桁架?',
     options: [
-      { text: '不穩定,會垮掉', correct: false },
-      { text: '靜定,可直接用平衡方程式解出', correct: false },
+      { text: '不穩定,會垮掉', correct: false,
+        explain: 'n < 0 才是不穩定；n = 2 大於 0，表示桿件比必要的還多。' },
+      { text: '靜定,可直接用平衡方程式解出', correct: false,
+        explain: 'n = 0 才是靜定；n = 2 表示未知量比平衡方程式多 2 個，光靠平衡方程式解不出來。' },
       { text: '靜不定,靜不定度為 2,需用 FEA 等方法分析', correct: true,
         explain: '正確。n>0 為靜不定,多出的桿件讓結構更穩固,但需考慮材料變形才能求解。' },
     ] },
@@ -303,12 +309,9 @@ QUIZ.forEach((q, i) => {
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
-      if (!correct) {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(() => renderQuizQ(i, box), 3500);
-        return;
-      }
+      if (!correct) return;   /* 答錯:解說下方的「再試一次」由學生自己按 */
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-truss', '桁架結構解算');

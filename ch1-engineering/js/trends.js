@@ -403,6 +403,7 @@ QUIZ.forEach((q, i) => {
       container: box,
       question: `第 ${i + 1} 題　${q.question}`,
       options: q.options,
+      onRetry: renderQ,
       onAnswer: (correct) => {
         if (correct) {
           answered++;
@@ -410,10 +411,7 @@ QUIZ.forEach((q, i) => {
             celebrateModule('ch1-trends', '科技趨勢儀表板');
             document.getElementById('nextBtn').classList.add('pop-in');
           }
-        } else {
-          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-          setTimeout(renderQ, 3500);
-        }
+        }   /* 答錯:解說下方的「再試一次」由學生自己按 */
       },
     });
   }

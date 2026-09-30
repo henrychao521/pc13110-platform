@@ -68,22 +68,28 @@ const MAT_QUIZ = [
     options: [
       { text: '積木（Modular blocks）', correct: true,
         explain: '正確。積木「好拆卸、好組裝」,最適合在設計初期反覆測試機構連動邏輯。' },
-      { text: 'PU 泡綿', correct: false },
-      { text: '補土', correct: false },
+      { text: 'PU 泡綿', correct: false,
+        explain: 'PU 泡綿適合切割、砂磨出外觀造型，做好後不能拆開重組，不適合反覆修改機構。' },
+      { text: '補土', correct: false,
+        explain: '補土是用來填補模型表面孔洞與裂痕的材料，本身組不成會動的機構。' },
     ] },
   { question: '你要做一個建築物的室內空間模型,需要切出許多牆面。最適合的材料是?',
     options: [
-      { text: '鐵桿', correct: false },
+      { text: '鐵桿', correct: false,
+        explain: '鐵桿要用金屬加工工具才能裁切，不適合切出大量牆面；室內模型常用好切割的風扣板、紙板。' },
       { text: '風扣板或紙板', correct: true,
         explain: '正確。風扣板、白奶紙板防潮、質輕、好切割,是建築與室內模型的常用材料。' },
-      { text: '積木', correct: false },
+      { text: '積木', correct: false,
+        explain: '積木是固定規格的零件，適合測試機構連動，但切不出任意尺寸的牆面。' },
     ] },
   { question: '你要做一台跑車的外觀模型,需要打磨出流線曲面。最適合的材料與工序是?',
     options: [
-      { text: '直接用金屬板敲打成形', correct: false },
+      { text: '直接用金屬板敲打成形', correct: false,
+        explain: '金屬板加工能做出有強度的成品，但要敲出流線曲面很費工；外觀模型常用好塑形的 PU 泡綿。' },
       { text: '用 PU 泡綿切割、砂磨出外型,再以補土填補表面孔洞', correct: true,
         explain: '正確。PU 泡綿好塑形,但表面有孔洞,需補土修補,這是外觀模型的標準工序。' },
-      { text: '用積木堆出車身', correct: false },
+      { text: '用積木堆出車身', correct: false,
+        explain: '積木只能堆出一格一格的階梯狀外形，做不出光滑的流線曲面。' },
     ] },
 ];
 // 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
@@ -95,14 +101,12 @@ MAT_QUIZ.forEach((q, i) => {
   function renderQ() {
     Interactions.DiagnosisQuiz({
       container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+      onRetry: renderQ,
       onAnswer: (correct) => {
         if (correct) {
           mAnswered++;
           if (mAnswered === MAT_QUIZ.length) { matDone = true; checkComplete(); }
-        } else {
-          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-          setTimeout(renderQ, 3500);
-        }
+        }   /* 答錯:解說下方的「再試一次」由學生自己按 */
       },
     });
   }

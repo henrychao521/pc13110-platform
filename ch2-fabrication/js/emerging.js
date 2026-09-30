@@ -83,26 +83,33 @@ function buildMatch() {
     { question: '牙醫要為病人製作一個極精密的牙齒模型,最適合哪種技術?',
       options: [
         { text: '光固化樹脂 3D 列印', correct: true, explain: '正確。樹脂列印精度高、表面細緻,是牙科模型的首選。' },
-        { text: 'FDM 塑膠 3D 列印', correct: false },
+        { text: 'FDM 塑膠 3D 列印', correct: false,
+        explain: 'FDM 的精度與表面光滑度都不如光固化樹脂列印，難以呈現牙齒模型的細節。' },
         { text: '五軸 CNC', correct: false },
       ] },
     { question: '博物館想把一件古董花瓶數位典藏、建立精確的 3D 模型,該用什麼?',
       options: [
-        { text: '金屬 3D 列印', correct: false },
+        { text: '金屬 3D 列印', correct: false,
+        explain: '金屬 3D 列印是把數位模型「做出來」（數位→實體）；典藏需要的是把實體轉成數位。' },
         { text: '3D 掃描器', correct: true, explain: '正確。3D 掃描把「實體 → 數位」,是數位典藏與逆向工程的關鍵。' },
-        { text: 'UV 印刷機', correct: false },
+        { text: 'UV 印刷機', correct: false,
+        explain: 'UV 印刷機是在物體表面印彩色圖案，不會量測形狀，也建立不了 3D 模型。' },
       ] },
     { question: '航太公司要做一個「內部有複雜散熱通道」的鈦合金零件,最適合?',
       options: [
-        { text: '雷射切割', correct: false },
+        { text: '雷射切割', correct: false,
+        explain: '雷射切割主要依 X、Y 軸切出板材的平面輪廓，做不出零件內部的立體通道。' },
         { text: '金屬 3D 列印', correct: true, explain: '正確。金屬 3D 列印能做出傳統加工無法達成的內部複雜流道。' },
-        { text: '3D 掃描器', correct: false },
+        { text: '3D 掃描器', correct: false,
+        explain: '3D 掃描器只能把現有實體轉成數位模型，本身不會製造零件。' },
       ] },
     { question: '想在一座已經做好的木製獎盃曲面上,印出彩色的校徽,該用?',
       options: [
         { text: 'UV 平台印刷機', correct: true, explain: '正確。UV 印刷機能直接在立體、非平面的物體表面印彩色圖案。' },
-        { text: '光固化樹脂列印', correct: false },
-        { text: 'CNC 雕銑', correct: false },
+        { text: '光固化樹脂列印', correct: false,
+        explain: '樹脂列印是從無到有印出新物件，不能在已經做好的木製獎盃表面印上彩色圖案。' },
+        { text: 'CNC 雕銑', correct: false,
+        explain: 'CNC 雕銑是用刀具切削材料，可以刻出圖形，但印不出彩色。' },
       ] },
   ];
   // 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
@@ -114,6 +121,7 @@ function buildMatch() {
     function renderQ() {
       Interactions.DiagnosisQuiz({
         container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+        onRetry: renderQ,
         onAnswer: (correct) => {
           if (correct) {
             answered++;
@@ -121,10 +129,7 @@ function buildMatch() {
               celebrateModule('ch2-emerging', '新興數位加工設備');
               document.getElementById('nextBtn').classList.add('pop-in');
             }
-          } else {
-            if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-            setTimeout(renderQ, 3500);
-          }
+          }   /* 答錯:解說下方的「再試一次」由學生自己按 */
         },
       });
     }

@@ -317,24 +317,33 @@ function buildQuiz() {
     { question: 'CAD 最主要的價值之一是「修改設計只需點選幾下」,這屬於哪一個面向?',
       options: [
         { text: '提升設計效率與精度', correct: true, explain: '正確。快速修改、減少人為誤差,正是「效率與精度」的核心。' },
-        { text: '強化模擬與分析', correct: false },
-        { text: '促進協同作業', correct: false },
-        { text: '降低用電量', correct: false },
+        { text: '強化模擬與分析', correct: false,
+        explain: '模擬與分析指的是用 CAD 做應力、跌落等測試；「點幾下就能修改」屬於效率與精度。' },
+        { text: '促進協同作業', correct: false,
+        explain: '協同作業指的是檔案共享、雲端多人同步編輯；題目講的是修改快速。' },
+        { text: '降低用電量', correct: false,
+        explain: '課本列出的 CAD 價值（效率與精度、模擬與分析、協同作業、複雜設計）不包括降低用電量。' },
       ] },
     { question: '在數位製造流程中,負責「把設計轉成機器看得懂的加工指令」的是哪一項?',
       options: [
-        { text: 'CAD（電腦輔助設計)', correct: false },
-        { text: 'CAE（電腦輔助工程)', correct: false },
+        { text: 'CAD（電腦輔助設計)', correct: false,
+        explain: 'CAD 負責建立設計圖與 3D 模型，還不是機器看得懂的加工指令。' },
+        { text: 'CAE（電腦輔助工程)', correct: false,
+        explain: 'CAE 負責工程分析與模擬（例如應力分析），不產生加工指令。' },
         { text: 'CAM（電腦輔助製造)', correct: true, explain: '正確。CAM 負責產生 G-code、刀具路徑等加工指令。' },
-        { text: 'CPU（中央處理器）', correct: false },
+        { text: 'CPU（中央處理器）', correct: false,
+        explain: 'CPU 是電腦的運算晶片，不是數位製造流程中的一個階段。' },
       ] },
     { question: '從動畫中你觀察到:手繪修改後紙面留下痕跡,CAD 修改後乾淨如新。這說明 CAD 的什麼優勢?',
       options: [
         { text: '修改乾淨、可逆,不會破壞圖面品質', correct: true,
           explain: '正確。CAD 以指令修改,圖面不留殘影,可反覆編輯。' },
-        { text: 'CAD 的紙比較貴', correct: false },
-        { text: '手繪比較環保', correct: false },
-        { text: '兩者其實沒有差別', correct: false },
+        { text: 'CAD 的紙比較貴', correct: false,
+        explain: 'CAD 在電腦上作業，不需要用紙；差別在修改方式，不在紙的價錢。' },
+        { text: '手繪比較環保', correct: false,
+        explain: '動畫比較的是修改後圖面留不留痕跡，跟環保無關。' },
+        { text: '兩者其實沒有差別', correct: false,
+        explain: '動畫中手繪修改留下擦痕、CAD 修改乾淨如新，兩者明顯不同。' },
       ] },
   ];
   // 答錯時看完解說後重出題，答對才算完成（避免「答錯也計入完成」）
@@ -346,6 +355,7 @@ function buildQuiz() {
     function renderQ() {
       Interactions.DiagnosisQuiz({
         container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+        onRetry: renderQ,
         onAnswer: (correct) => {
           if (correct) {
             answered++;
@@ -353,10 +363,7 @@ function buildQuiz() {
               celebrateModule('ch2-cad', '為什麼需要 CAD?');
               document.getElementById('nextBtn').classList.add('pop-in');
             }
-          } else {
-            if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-            setTimeout(renderQ, 3500);
-          }
+          }   /* 答錯:解說下方的「再試一次」由學生自己按 */
         },
       });
     }

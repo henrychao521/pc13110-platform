@@ -119,17 +119,21 @@ draw();
 const QUIZ = [
   { question: '為什麼工程師要在「製造前」先用電腦做虛擬模擬?',
     options: [
-      { text: '為了讓設計圖比較好看', correct: false },
+      { text: '為了讓設計圖比較好看', correct: false,
+        explain: '外觀好不好看不是模擬的目的；模擬是在製造前預測會不會變形、斷裂等問題。' },
       { text: '為了在投入材料與時間前,先預測並找出設計的問題（如會不會變形、斷裂）', correct: true,
         explain: '正確。模擬能在製造前預先發現問題,避免浪費與危險。' },
-      { text: '因為法律規定一定要模擬', correct: false },
+      { text: '因為法律規定一定要模擬', correct: false,
+        explain: '模擬的價值在於事先找出問題、減少浪費與危險，而不是為了應付規定。' },
     ] },
   { question: '從懸臂梁實驗中,你觀察到「梁愈粗,同樣載重下變形愈小」。這說明了什麼?',
     options: [
       { text: '材料的尺寸與形狀,會大大影響結構的剛度與強度', correct: true,
         explain: '正確。結構的剛度和尺寸關係極大(懸臂梁剛度與厚度三次方成正比),這正是結構分析要量化的事。' },
-      { text: '粗的梁比較重,所以比較容易壞', correct: false },
-      { text: '梁的粗細跟受力完全無關', correct: false },
+      { text: '粗的梁比較重,所以比較容易壞', correct: false,
+        explain: '實驗結果正好相反：梁愈粗，同樣載重下變形愈小，代表剛度提高了。' },
+      { text: '梁的粗細跟受力完全無關', correct: false,
+        explain: '實驗中改變梁的粗細，變形量就跟著改變，可見尺寸會影響結構表現。' },
     ] },
 ];
 let answered = 0;
@@ -145,6 +149,7 @@ QUIZ.forEach((q, i) => {
   function renderQ() {
     Interactions.DiagnosisQuiz({
       container: box, question: `第 ${i + 1} 題　${q.question}`, options: q.options,
+      onRetry: renderQ,
       onAnswer: (correct) => {
         if (correct) {
           answered++;
@@ -153,10 +158,7 @@ QUIZ.forEach((q, i) => {
             chapterDoneToast('ch2');
             document.getElementById('nextBtn').classList.add('pop-in');
           }
-        } else {
-          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-          setTimeout(renderQ, 3500);
-        }
+        }   /* 答錯:解說下方的「再試一次」由學生自己按 */
       },
     });
   }

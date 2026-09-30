@@ -222,9 +222,11 @@ window.Interactions = (function() {
 
   // ============================================================
   // 3. 多選題快答（用於診斷類）
-  //    options: { container, question, image, options: [{text, correct, explain}] }
+  //    options: { container, question, image, options: [{text, correct, explain}], onAnswer, onRetry }
+  //    explain:正解寫「為什麼對」,錯誤選項寫「為什麼錯」(沒寫的錯誤選項改顯示正解的解說)
+  //    onRetry:有給時,答錯後在解說下方出現「再試一次」按鈕,由學生自己按才重出題
   // ============================================================
-  function DiagnosisQuiz({ container, question, image, options, onAnswer }) {
+  function DiagnosisQuiz({ container, question, image, options, onAnswer, onRetry }) {
     const root = typeof container === 'string' ? document.querySelector(container) : container;
     if (!root) return;
 
@@ -264,7 +266,25 @@ window.Interactions = (function() {
           }
         });
         const isCorrect = opt.correct;
-        feedbackEl.innerHTML = `<div style="background:${isCorrect ? 'var(--success-light)' : 'var(--danger-light)'};color:${isCorrect ? '#15803d' : '#a72d2d'};padding:10px 14px;border-radius:8px;border-left:3px solid ${isCorrect ? 'var(--success)' : 'var(--danger)'}">${isCorrect ? '✓ 答對！' : '✗ 不正確。'} ${opt.explain || options.find(o => o.correct)?.explain || ''}</div>`;
+        feedbackEl.innerHTML = `<div style="background:${isCorrect ? 'var(--success-light)' : 'var(--danger-light)'};color:${isCorrect ? '#15803d' : '#a72d2d'};padding:10px 14px;border-radius:8px;border-left:3px solid ${isCorrect ? 'var(--success)' : 'var(--danger)'}">${isCorrect ? '✓ 答對！' : '✗ 不正確。'} ${isCorrect || opt.explain ? (opt.explain || '') : (() => { const c = options.find(o => o.correct)?.explain || ''; return c ? '正解說明:' + c.replace(/^正確[。!！,，]\s*/, '') : ''; })()}</div>`;
+        if (!isCorrect && typeof onRetry === 'function') {
+          const row = document.createElement('div');
+          row.className = 'dq-retry-row';
+          row.innerHTML = '<span>看完解說後再作答一次,答對才算通過。</span>';
+          const retry = document.createElement('button');
+          retry.type = 'button';
+          retry.className = 'btn btn-primary btn-sm dq-retry';
+          retry.textContent = '↻ 再試一次';
+          retry.addEventListener('click', () => {
+            if (typeof SoundFX !== 'undefined') SoundFX.click();
+            onRetry();
+            const first = root.querySelector('.dq-options button');
+            if (first) first.focus({ preventScroll: true });
+          });
+          row.appendChild(retry);
+          feedbackEl.appendChild(row);
+          retry.focus({ preventScroll: true });
+        }
         if (typeof SoundFX !== 'undefined') (isCorrect ? SoundFX.success : SoundFX.error)();
         if (onAnswer) onAnswer(isCorrect, i);
       });
@@ -294,6 +314,8 @@ if (!document.getElementById('interactions-style')) {
     .sp-arrows button:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
     .sp-arrows button:disabled { opacity: .25; cursor: default; }
     .hh-dot:focus-visible { outline: 2px dashed var(--primary); outline-offset: 2px; }
+    .dq-retry-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 10px; color: var(--text-soft); }
+    .dq-retry-row .dq-retry { flex: 0 0 auto; }
   `;
   document.head.appendChild(style);
 }

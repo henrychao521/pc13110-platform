@@ -205,22 +205,28 @@ const QUIZ = [
     options: [
       { text: '傳遞與「轉換」運動——把一種運動形式變成另一種', correct: true,
         explain: '正確。馬達只提供旋轉,機構負責轉換成推、拉、升降、間歇等所需運動。' },
-      { text: '儲存電能', correct: false },
-      { text: '產生熱量', correct: false },
+      { text: '儲存電能', correct: false,
+        explain: '儲存電能是電池的功能；機構負責傳遞並轉換運動。' },
+      { text: '產生熱量', correct: false,
+        explain: '產生熱量不是機構的目的（摩擦生熱反而是損耗）；機構的功能是傳遞與轉換運動。' },
     ] },
   { question: '汽車引擎把活塞的「直線往復運動」與曲軸的「旋轉」互相轉換,用的是哪種機構?',
     options: [
-      { text: '日內瓦機構', correct: false },
+      { text: '日內瓦機構', correct: false,
+        explain: '日內瓦機構是把連續旋轉變成間歇旋轉，不是直線與旋轉互換。' },
       { text: '曲柄滑塊機構', correct: true,
         explain: '正確。曲柄滑塊把旋轉↔直線互相轉換,是引擎活塞的核心機構。' },
-      { text: '齒輪齒條', correct: false },
+      { text: '齒輪齒條', correct: false,
+        explain: '齒輪齒條也能讓旋轉與直線互換，但引擎活塞是經連桿接到曲軸，屬於曲柄滑塊機構。' },
     ] },
   { question: '日內瓦機構的特點是什麼?',
     options: [
       { text: '把連續旋轉轉換成「間歇旋轉」(轉一下、停一下)', correct: true,
         explain: '正確。日內瓦機構輸入連續、輸出間歇,常用於定格前進的場合。' },
-      { text: '把旋轉變成連續的等速旋轉', correct: false },
-      { text: '完全不會輸出任何運動', correct: false },
+      { text: '把旋轉變成連續的等速旋轉', correct: false,
+        explain: '日內瓦機構的輸出是轉一下、停一下的間歇旋轉，不是連續旋轉。' },
+      { text: '完全不會輸出任何運動', correct: false,
+        explain: '日內瓦機構有輸出，只是輸出是間歇的。' },
     ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
@@ -234,12 +240,9 @@ QUIZ.forEach((q, i) => {
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
-      if (!correct) {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(() => renderQuizQ(i, box), 3500);
-        return;
-      }
+      if (!correct) return;   /* 答錯:解說下方的「再試一次」由學生自己按 */
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-mechanism', '機構類型與運動');

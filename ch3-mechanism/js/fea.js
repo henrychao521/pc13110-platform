@@ -161,22 +161,28 @@ const QUIZ = [
     options: [
       { text: '把複雜物體切成許多微小元素,逐一計算後再組合', correct: true,
         explain: '正確。透過「網格劃分」把物體切成元素,電腦才能處理複雜結構。' },
-      { text: '用尺直接量測物體', correct: false },
-      { text: '把物體丟進水裡測體積', correct: false },
+      { text: '用尺直接量測物體', correct: false,
+        explain: '量尺寸只能知道形狀，得不到內部受力；FEA 是用電腦把物體切成元素來計算。' },
+      { text: '把物體丟進水裡測體積', correct: false,
+        explain: '排水法只能量體積，跟分析應力無關。' },
     ] },
   { question: 'FEA 結果的彩色應力雲圖中,「紅色」區域代表什麼?',
     options: [
-      { text: '溫度最高的地方', correct: false },
+      { text: '溫度最高的地方', correct: false,
+        explain: '應力雲圖的顏色代表應力大小（馮·米塞斯應力），不是溫度。' },
       { text: '應力最高、最容易破壞的地方', correct: true,
         explain: '正確。紅色代表馮·米塞斯應力最高處;L 型支架通常集中在內側轉角。' },
-      { text: '完全不受力的地方', correct: false },
+      { text: '完全不受力的地方', correct: false,
+        explain: '正好相反：紅色是高應力區，應力最低的區域在色階的另一端（藍色）。' },
     ] },
   { question: '某零件最大應力 100 MPa,材料降伏強度 250 MPa,安全係數是多少?是否安全?',
     options: [
       { text: '2.5,通常視為安全', correct: true,
         explain: '正確。安全係數 = 250 ÷ 100 = 2.5,大於工程常用門檻 2,屬安全。' },
-      { text: '0.4,結構會失效', correct: false },
-      { text: '150,過度浪費材料', correct: false },
+      { text: '0.4,結構會失效', correct: false,
+        explain: '算反了：安全係數是降伏強度 ÷ 最大應力 = 250 ÷ 100 = 2.5，不是 100 ÷ 250。' },
+      { text: '150,過度浪費材料', correct: false,
+        explain: '安全係數是相除不是相減：250 − 100 = 150 是差值，正確是 250 ÷ 100 = 2.5。' },
     ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
@@ -190,12 +196,9 @@ QUIZ.forEach((q, i) => {
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
-      if (!correct) {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(() => renderQuizQ(i, box), 3500);
-        return;
-      }
+      if (!correct) return;   /* 答錯:解說下方的「再試一次」由學生自己按 */
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-fea', '電腦輔助結構分析 FEA');

@@ -132,14 +132,12 @@ function renderDefineQuiz() {
       { text: '直接買一批新的盆栽來換。', correct: false,
         explain: '這是跳到「解決方案」了。界定問題階段應先把問題講清楚,而不是急著給答案。' },
     ],
+    onRetry: renderDefineQuiz,
     onAnswer: (correct) => {
       if (correct) {
         defineOK = true;
         checkDone();
-      } else {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(renderDefineQuiz, 3500);
-      }
+      }   /* 答錯:解說下方的「再試一次」由學生自己按 */
     },
   });
 }

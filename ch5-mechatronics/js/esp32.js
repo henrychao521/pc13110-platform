@@ -183,12 +183,9 @@ QUIZ.forEach((q, i) => {
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
-      if (!correct) {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(() => renderQuizQ(i, box), 3500);
-        return;
-      }
+      if (!correct) return;   /* 答錯:解說下方的「再試一次」由學生自己按 */
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch5-esp32', '認識 ESP32 與實作');

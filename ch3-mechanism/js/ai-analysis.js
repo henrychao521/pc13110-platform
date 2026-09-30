@@ -100,22 +100,28 @@ const QUIZ = [
     options: [
       { text: '使用者設定設計目標,軟體用演算法自動探索並生成多種方案', correct: true,
         explain: '正確。設定材料、負載、約束等條件後,AI 會生成多種輕量化方案供選擇。' },
-      { text: '由工程師一條線一條線手繪完成', correct: false },
-      { text: '隨機產生與需求無關的圖形', correct: false },
+      { text: '由工程師一條線一條線手繪完成', correct: false,
+        explain: '生成式設計是設定目標與條件後由軟體演算法自動產生方案，不是手繪。' },
+      { text: '隨機產生與需求無關的圖形', correct: false,
+        explain: '生成的方案都要符合設定的材料、負載與約束條件，並不是隨機的。' },
     ] },
   { question: '使用 ChatGPT 等 LLM 協助工程學習時,最重要的態度是什麼?',
     options: [
-      { text: '完全相信,AI 說的一定對', correct: false },
+      { text: '完全相信,AI 說的一定對', correct: false,
+        explain: 'LLM 可能產生「幻覺」說錯話，不能照單全收。' },
       { text: '保持批判性思維,把 AI 的回答當成「待查證的草稿」', correct: true,
         explain: '正確。LLM 可能產生「幻覺」(說錯話),專業領域尤其需要自己再查證。' },
-      { text: '完全不要使用任何 AI 工具', correct: false },
+      { text: '完全不要使用任何 AI 工具', correct: false,
+        explain: 'AI 是有用的學習輔助，關鍵在查證它的回答，而不是完全不用。' },
     ] },
   { question: '關於 LLM 的限制,下列何者正確?',
     options: [
-      { text: 'LLM 可以完全取代專業 CAE 軟體做精確的物理模擬', correct: false },
+      { text: 'LLM 可以完全取代專業 CAE 軟體做精確的物理模擬', correct: false,
+        explain: 'LLM 沒有真實的物理模擬能力，精確分析仍須專業 CAE 軟體。' },
       { text: 'LLM 無法取代專業 CAE 軟體進行精確的物理模擬', correct: true,
         explain: '正確。LLM 擅長解釋與發想,但缺乏真實的物理模擬能力,精確分析仍須專業 CAE。' },
-      { text: 'LLM 從來不會犯錯', correct: false },
+      { text: 'LLM 從來不會犯錯', correct: false,
+        explain: 'LLM 會產生「幻覺」，說出看似合理但錯誤的內容。' },
     ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
@@ -129,12 +135,9 @@ QUIZ.forEach((q, i) => {
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
-      if (!correct) {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(() => renderQuizQ(i, box), 3500);
-        return;
-      }
+      if (!correct) return;   /* 答錯:解說下方的「再試一次」由學生自己按 */
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-ai', 'AI 輔助的機構結構分析');

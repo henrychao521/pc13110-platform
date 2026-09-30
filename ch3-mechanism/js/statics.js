@@ -124,22 +124,28 @@ const QUIZ = [
   { question: '結構分析中,被描述為「第一步、也是最重要的一步」的是什麼?',
     options: [
       { text: '繪製自由體圖(FBD)', correct: true, explain: '正確。先把物體分離出來、畫出所有外力,後面才能計算。' },
-      { text: '計算材料的降伏強度', correct: false },
-      { text: '進行網格劃分', correct: false },
+      { text: '計算材料的降伏強度', correct: false,
+        explain: '降伏強度是判斷材料會不會破壞時才用到；要先畫出自由體圖，才知道物體受哪些力。' },
+      { text: '進行網格劃分', correct: false,
+        explain: '網格劃分是電腦 FEA 的步驟；結構分析的第一步是畫自由體圖。' },
     ] },
   { question: '若物體處於靜止平衡狀態,下列何者正確?',
     options: [
-      { text: '淨力大於零,淨力矩等於零', correct: false },
+      { text: '淨力大於零,淨力矩等於零', correct: false,
+        explain: '淨力大於零時物體會加速移動，不可能保持靜止。' },
       { text: '淨力與淨力矩「都」等於零(ΣF=0 且 ΣM=0)', correct: true,
         explain: '正確。靜止平衡的條件是淨力為零、且對任一點的淨力矩也為零。' },
-      { text: '只要淨力為零即可,力矩不必管', correct: false },
+      { text: '只要淨力為零即可,力矩不必管', correct: false,
+        explain: '淨力為零但淨力矩不為零時，物體仍會轉動，所以淨力矩也必須為零。' },
     ] },
   { question: '在反力計算器中,當你把載重從中央往 A 端移動,會觀察到什麼?',
     options: [
       { text: 'Rₐ 變大、Rᵦ 變小', correct: true,
         explain: '正確。載重越靠近 A,A 端分擔越多;由力矩平衡 Rᵦ=P·a/L 可推得。' },
-      { text: '兩端反力都不變', correct: false },
-      { text: 'Rₐ 變小、Rᵦ 變大', correct: false },
+      { text: '兩端反力都不變', correct: false,
+        explain: '載重位置一變，對支點的力矩就變，兩端反力的分配一定跟著改變。' },
+      { text: 'Rₐ 變小、Rᵦ 變大', correct: false,
+        explain: '方向相反了：由 Rᵦ = P·a/L，載重往 A 移動時 a 變小，所以 Rᵦ 變小、Rₐ 變大。' },
     ] },
 ];
 // 答錯時看完解說後重出題，全部答對才算完成（原本答錯也計入完成，檢核形同虛設）
@@ -153,12 +159,9 @@ QUIZ.forEach((q, i) => {
 function renderQuizQ(i, box) {
   Interactions.DiagnosisQuiz({
     container: box, question: `第 ${i + 1} 題　${QUIZ[i].question}`, options: QUIZ[i].options,
+    onRetry: () => renderQuizQ(i, box),
     onAnswer: (correct) => {
-      if (!correct) {
-        if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-        setTimeout(() => renderQuizQ(i, box), 3500);
-        return;
-      }
+      if (!correct) return;   /* 答錯:解說下方的「再試一次」由學生自己按 */
       quizCorrect.add(i);
       if (quizCorrect.size === QUIZ.length) {
         celebrateModule('ch3-statics', '靜力學與自由體圖');

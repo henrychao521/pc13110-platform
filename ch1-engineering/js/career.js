@@ -146,6 +146,7 @@ ETHICS.forEach((q, i) => {
       container: box,
       question: `情境 ${i + 1}　${q.question}`,
       options: q.options,
+      onRetry: renderQ,
       onAnswer: (correct) => {
         if (correct) {
           answered++;
@@ -154,10 +155,7 @@ ETHICS.forEach((q, i) => {
             chapterDoneToast('ch1');
             document.getElementById('nextBtn').classList.add('pop-in');
           }
-        } else {
-          if (typeof showToast === 'function') showToast('看完解說後再挑戰一次，答對才算通過', 'warn');
-          setTimeout(renderQ, 3500);
-        }
+        }   /* 答錯:解說下方的「再試一次」由學生自己按 */
       },
     });
   }
