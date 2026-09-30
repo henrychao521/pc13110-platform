@@ -442,7 +442,7 @@ const CH_ORDER = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'];
         班級代碼把同一班學生分到同一個像素實驗室。把代碼、連結或 QR Code 給學生即可。
       </p>
       <div class="tb-assign-fields">
-        <label>班級代碼<input type="text" id="clRoom" placeholder="例:901" maxlength="12"></label>
+        <label>班級代碼<input type="text" id="clRoom" placeholder="例:101" maxlength="12"></label>
         <button class="btn btn-ghost btn-sm" id="clGen" style="align-self:flex-end">🎲 隨機產生</button>
       </div>
       <div id="clJoin" class="tb-empty">輸入班級代碼後,這裡會出現給學生的連結與 QR Code。</div>
@@ -454,7 +454,12 @@ const CH_ORDER = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'];
             這是線上版(GitHub Pages),無法連到本機伺服器。請改用老師電腦的本機網址開啟此頁
             (例:<code>http://localhost:8080/teacher.html</code>),並先在終端機啟動
             <code>node server/server.js</code>。</p>`
-        : `<div class="tb-out-btns" style="margin-bottom:12px">
+        : `<p class="tb-note" style="margin:0 0 10px">
+            連線需要<b>教師 PIN</b>(啟動伺服器前用 <code>node server/set-teacher-pin.js</code> 設定,
+            或以環境變數 <code>TEACHER_PIN</code> 啟動)。學生端不需要 PIN。</p>
+          <div class="tb-out-btns" style="margin-bottom:12px">
+            <input type="password" id="clPin" placeholder="教師 PIN" autocomplete="current-password" maxlength="64"
+              style="width:140px;font-family:var(--font-sans);font-size:13px;padding:8px 11px;border:1.5px solid var(--border);border-radius:9px">
             <button class="btn btn-primary btn-sm" id="clConnect">▶ 連線監看</button>
             <span id="clStatus" class="tb-out-label">尚未連線</span>
           </div>
@@ -545,22 +550,34 @@ const CH_ORDER = ['ch1', 'ch2', 'ch3', 'ch4', 'ch5'];
     if (ws) { ws.close(); return; }
     const code = cleanRoom();
     if (!code) { showToast('請先輸入班級代碼', 'warning'); return; }
+    const pin = $('#clPin').value;
+    if (!pin) { showToast('請輸入教師 PIN', 'warning'); $('#clPin').focus(); return; }
+    let authFail = '';
     setStatus('連線中…', false);
     try { ws = new WebSocket('ws://' + location.hostname + ':8732'); }
     catch (e) { setStatus('無法連線', false); ws = null; return; }
     ws.addEventListener('open', () => {
-      ws.send(JSON.stringify({ t: 'join', role: 'teacher', room: code, name: '老師' }));
-      setStatus('已連線　班級 ' + code, true);
-      $('#clConnect').textContent = '■ 中斷連線';
-      $('#clControls').style.display = 'block';
+      ws.send(JSON.stringify({ t: 'join', role: 'teacher', room: code, name: '老師', pin }));
+      setStatus('驗證中…', false);
     });
     ws.addEventListener('message', ev => {
       let m; try { m = JSON.parse(ev.data); } catch (e) { return; }
-      if (m.t === 'roster') renderRoster(m.players || []);
+      if (m.t === 'welcome' && m.role === 'teacher') {
+        setStatus('已連線　班級 ' + code, true);
+        $('#clConnect').textContent = '■ 中斷連線';
+        $('#clControls').style.display = 'block';
+      } else if (m.t === 'auth' && !m.ok) {
+        authFail = {
+          'bad-pin': '教師 PIN 不正確',
+          'locked': '錯誤次數過多,請 1 分鐘後再試',
+          'not-configured': '伺服器尚未設定教師 PIN(請執行 node server/set-teacher-pin.js)',
+        }[m.reason] || '教師驗證失敗';
+        showToast(authFail, 'warning');
+      } else if (m.t === 'roster') renderRoster(m.players || []);
     });
     ws.addEventListener('close', () => {
       ws = null;
-      setStatus('已中斷連線', false);
+      setStatus(authFail || '已中斷連線', false);
       $('#clConnect').textContent = '▶ 連線監看';
       $('#clControls').style.display = 'none';
       const box = $('#clRoster');

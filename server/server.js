@@ -10,8 +10,57 @@
 const http = require('http');
 const crypto = require('crypto');
 const os = require('os');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = process.env.PORT || 8732;
+
+/* ---------- 教師 PIN(role:teacher 必須驗證) ----------
+ * 做法沿用生活科技乙版平台的教師密碼:只存 PBKDF2 雜湊、檔案放在 repo 之外、權限 0600。
+ * 兩種設定方式(擇一,環境變數優先):
+ *   1. 環境變數  TEACHER_PIN=xxxxxx node server/server.js
+ *   2. 設定檔    node server/set-teacher-pin.js   (寫到 ~/.config/pc13110/teacher.auth)
+ * 兩者都沒設定時,教師端一律被拒(學生端不受影響)。 */
+const AUTH_FILE = process.env.TEACHER_AUTH_FILE ||
+  path.join(os.homedir(), '.config', 'pc13110', 'teacher.auth');
+const PIN_MIN_LEN = 6;
+function teacherAuthMode() {
+  if (process.env.TEACHER_PIN) return 'env';
+  try { if (fs.readFileSync(AUTH_FILE, 'utf8').trim()) return 'file'; } catch (e) { /* 沒有檔案 */ }
+  return null;
+}
+function safeEqual(a, b) {
+  const ba = Buffer.from(a), bb = Buffer.from(b);
+  return ba.length === bb.length && crypto.timingSafeEqual(ba, bb);
+}
+function checkTeacherPin(pin) {
+  pin = String(pin || '');
+  if (!pin) return false;
+  if (process.env.TEACHER_PIN) {
+    /* 兩邊都先雜湊再比,避免長度不同時提早回傳洩漏長度 */
+    const h = s => crypto.createHash('sha256').update(s).digest();
+    return crypto.timingSafeEqual(h(pin), h(process.env.TEACHER_PIN));
+  }
+  let line;
+  try { line = fs.readFileSync(AUTH_FILE, 'utf8').trim(); } catch (e) { return false; }
+  const [algo, iters, saltHex, hashHex] = line.split('$');
+  if (algo !== 'pbkdf2_sha256' || !iters || !saltHex || !hashHex) return false;
+  const calc = crypto.pbkdf2Sync(pin, Buffer.from(saltHex, 'hex'), +iters, hashHex.length / 2, 'sha256');
+  return safeEqual(calc.toString('hex'), hashHex);
+}
+/* 同一來源 IP 連續錯 5 次,鎖 60 秒 */
+const failLog = new Map();   /* ip -> { n, until } */
+const FAIL_MAX = 5, LOCK_MS = 60000;
+function isLocked(ip) {
+  const f = failLog.get(ip);
+  return !!(f && f.until > Date.now());
+}
+function noteFail(ip) {
+  const f = failLog.get(ip) || { n: 0, until: 0 };
+  f.n += 1;
+  if (f.n >= FAIL_MAX) { f.until = Date.now() + LOCK_MS; f.n = 0; }
+  failLog.set(ip, f);
+}
 const WS_GUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
 /* socket -> player */
@@ -79,6 +128,19 @@ function handleMessage(player, raw) {
   let msg;
   try { msg = JSON.parse(raw); } catch (e) { return; }
   if (msg.t === 'join') {
+    if (player.joined) return;                       /* 一條連線只能加入一次,不能中途改身分 */
+    if (msg.role === 'teacher') {
+      /* 驗證失敗就回 auth 訊息並斷線;不會退回成學生身分 */
+      const deny = reason => {
+        send(player.socket, { t: 'auth', ok: false, reason });
+        log('教師驗證失敗(' + reason + ') 來源 ' + player.ip);
+        setTimeout(() => player.socket.end(), 50);
+      };
+      if (!teacherAuthMode()) return deny('not-configured');
+      if (isLocked(player.ip)) return deny('locked');
+      if (!checkTeacherPin(msg.pin)) { noteFail(player.ip); return deny(isLocked(player.ip) ? 'locked' : 'bad-pin'); }
+      failLog.delete(player.ip);
+    }
     player.room = String(msg.room || 'PUBLIC').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 12) || 'PUBLIC';
     player.role = msg.role === 'teacher' ? 'teacher' : 'student';
     player.name = String(msg.name || '訪客').slice(0, 12);
@@ -114,7 +176,7 @@ function handleMessage(player, raw) {
 /* ---------- 連線生命週期 ---------- */
 function onConnect(socket) {
   const player = { id: nextId++, room: 'PUBLIC', role: 'student', joined: false,
-    name: '', look: null, x: 380, y: 260, f: 0, socket };
+    name: '', look: null, x: 380, y: 260, f: 0, socket, ip: socket.remoteAddress || '?' };
   clients.set(socket, player);
   let buf = Buffer.alloc(0);
 
@@ -131,6 +193,7 @@ function onConnect(socket) {
   const drop = () => {
     if (!clients.has(socket)) return;
     clients.delete(socket);
+    if (!player.joined) return;   /* 沒加入就斷線(例如教師驗證失敗),不必通知 */
     broadcastRoom(player.room, socket, { t: 'leave', id: player.id });
     sendRoster(player.room);
     log('- ' + (player.name || '訪客') + ' 離開 班級[' + player.room + ']');
@@ -186,6 +249,12 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(' PC13110 工程實驗室 — 多人連線伺服器已啟動');
   console.log(' 本機:      ws://localhost:' + PORT);
   lanIPs().forEach(ip => console.log(' 區域網路:  ws://' + ip + ':' + PORT + '   (手機連這個)'));
+  const mode = teacherAuthMode();
+  console.log(' 教師 PIN:  ' + (mode === 'env' ? '已設定(環境變數 TEACHER_PIN)'
+    : mode === 'file' ? '已設定(' + AUTH_FILE + ')'
+    : '尚未設定 —— 教師端將無法連線。請執行 node server/set-teacher-pin.js'));
+  if (mode === 'env' && process.env.TEACHER_PIN.length < PIN_MIN_LEN)
+    console.log(' ⚠ TEACHER_PIN 少於 ' + PIN_MIN_LEN + ' 碼,建議改長一點');
   console.log(' 停止伺服器:Ctrl + C');
   console.log('======================================================');
 });
