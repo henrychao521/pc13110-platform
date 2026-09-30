@@ -925,6 +925,15 @@ const PHASES = [
       'tools/sheets/test_sheet_log.py：只用本機假 endpoint 端到端實測 ch1 趨勢、ch2 三視圖、ch3 桁架／靜力、ch5 ESP32、工坊雷射切割機，驗證送出內容、tries、原始選項代號、班級座號（全形轉半形、sessionStorage）、離線佇列補送、endpoint 空時不送不顯示；motion_qc 21 頁 × 桌機／手機',
     ],
   },
+  {
+    tag: '段落 63',
+    date: '2026-09-30',
+    title: '街景定位底圖改用內政部國土測繪中心電子地圖（CARTO 已改需金鑰）',
+    verbatim: 'twgeo 同一個問題：猜測地圖只剩「API KEY REQUIRED」浮水印。',
+    context: 'CARTO 免費底圖改為需金鑰，無金鑰仍回 HTTP 200 但圖磚只有浮水印。',
+    decisions: ['與 twgeo 同步改用國土測繪中心臺灣通用電子地圖 EMAP（中文地名、政府資料開放授權、免金鑰）'],
+    outputs: ['arcade/games/geoguess/index.html：底圖 URL 與出處', '驗證：6／6 圖磚載入、無 console 錯誤'],
+  },
 ];
 
 /* ============================================================
