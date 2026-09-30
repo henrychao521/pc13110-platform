@@ -28,6 +28,8 @@ import xml.etree.ElementTree as ET
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SOURCES = os.path.join(ROOT, "data", "news-sources.json")
 OUT = os.path.join(ROOT, "data", "news.json")
+# 人工校正表：{"原文標題": "人工譯文"}。原文標題相同就直接採用，不再交給模型重翻（每天重跑也不會把改正翻回去）
+OVERRIDES = os.path.join(ROOT, "data", "news-overrides.json")
 UA = "Mozilla/5.0 (compatible; pc13110-lounge-news/1.0; +https://henrychao521.github.io/pc13110-platform/)"
 
 LANG_LABEL = {"en": "英文", "ja": "日文", "de": "德文", "fr": "法文", "ko": "韓文", "es": "西班牙文"}
@@ -237,6 +239,11 @@ def main():
             print(f"[錯誤] 找不到模型 {model or MODEL_PREFERENCE}，現有：{have}", file=sys.stderr)
             return 3
 
+    try:
+        overrides = json.load(open(OVERRIDES, encoding="utf-8"))
+    except FileNotFoundError:
+        overrides = {}
+
     items, errors, dropped = [], [], []
     t_total = 0.0
     n_calls = 0
@@ -261,7 +268,9 @@ def main():
             errors.append(f"{src['id']}：沒有 {cfg.get('max_age_days', 45)} 天內的新聞")
         for x in picked:
             zh, why = None, "dry-run"
-            if not args.dry_run:
+            if x["title"] in overrides:
+                zh, why = overrides[x["title"]], "人工校正"
+            elif not args.dry_run:
                 t0 = time.time()
                 zh, why = translate(args.ollama_url, model, x["title"], src["lang"])
                 t_total += time.time() - t0

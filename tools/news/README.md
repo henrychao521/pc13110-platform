@@ -24,6 +24,10 @@ JAXA、日本國立天文台、Fraunhofer、CNRS）抓 RSS／Atom，每站取最
 - 連結只收 `news-sources.json` 裡該站 `link_domains` 的網域（例如 IEEE Spectrum 的贊助研討會連結會被排除），一律 https。
 - 翻譯成功少於 8 則就不覆寫 `news.json`（保留前一天的版本）並回傳錯誤。
 
+## 人工校正
+
+模型譯錯的標題寫進 `data/news-overrides.json`（`{"原文標題": "人工譯文"}`）。之後每天重跑，只要原文標題相同就直接採用人工譯文、不再交給模型重翻。
+
 ## 手動執行
 
 ```bash
