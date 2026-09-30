@@ -143,6 +143,15 @@
          background:rgba(0,0,0,.12);border:2px solid rgba(0,0,0,.25);display:none;z-index:18}
   .knob{position:absolute;left:50%;top:50%;width:48px;height:48px;border-radius:50%;
         background:rgba(0,0,0,.28);transform:translate(-50%,-50%)}
+  /* 作答紀錄的「填班級座號」按鈕（js/sheet-log.js，只有設定 endpoint 才出現）：
+     手機底部有機台提示與搖桿、課程視窗的「下一步」也在底部 → 改放右上；課程開著時移到頁首列（被遮罩蓋住的區域） */
+  .wk-sl-note{font-size:12px;color:#9aa3b5;margin:10px 0 0;line-height:1.6}
+  .wk-sl-note[hidden]{display:none}
+  @media (max-width:700px){
+    html #sl-wrap{top:72px;bottom:auto}
+    html body:has(#lessonOverlay:not(.hidden)) #sl-wrap,
+    html body:has(#certPanel:not(.hidden)) #sl-wrap{top:8px}
+  }
 </style>
 </head>
 <body>
@@ -168,6 +177,7 @@
     <div class="lesson-prog" id="lsProg"></div>
     <div id="lsBody"></div>
     <div class="lesson-nav"><button id="lsBack">← 上一步</button><button id="lsNext">下一步 →</button></div>
+    <p class="wk-sl-note" data-sheetlog-notice hidden></p>
   </div>
 </div>
 
@@ -196,7 +206,10 @@
   <div id="enterTip" style="display:none">點擊進入（電腦：滑鼠+WASD；手機：左搖桿走、右半邊螢幕轉視角）<br>走近機台 → 跳出「學習操作」</div>
 </div>
 
-<script src="js/interactions.js?v=r2"></script>
+<script src="js/sheet-config.js?v=s1"></script>
+<script src="js/sheet-log.js?v=s1"></script>
+<script src="js/sheet-track.js?v=s1"></script>
+<script src="js/interactions.js?v=r3"></script>
 <script src="js/workshop-content.js?v=r2"></script>
 <script src="js/audio.js?v=fs1"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -337,7 +350,7 @@ function videoHTML(m){ return `
     <p class="ls-note">點開觀看操作與安全示範（新分頁開啟，挑清楚的影片看）。</p>
     <div class="ls-vids">${(m.resources||[]).map(r=>`<a class="ls-vid" href="${r.url}" target="_blank" rel="noopener">${r.label} ↗</a>`).join('')}</div></div>`; }
 function mountSteps(m){
-  window.Interactions.SequencePuzzle({ container:'#lessonMount',
+  window.Interactions.SequencePuzzle({ container:'#lessonMount', logKey:'steps', logPage:'workshop.'+m.id,
     title:`把「${m.name}」的操作步驟排成正確順序`, items:m.steps,
     onComplete:()=>{ stepsDone=true; renderNav(); toast('✓ 步驟排序正確'); }});
 }
@@ -357,6 +370,8 @@ function mountQuiz(m){
     mount.querySelectorAll('.qz-opt').forEach(el=>el.onclick=()=>{ if(locked)return; const qi=+el.dataset.q; picks[qi]=+el.dataset.o; fb[qi]=''; r(); });
     mount.querySelector('#qzCheck').onclick=()=>{
       if(picks.includes(-1)){ document.getElementById('qzFb').innerHTML='<b class="no">⚠️ 還有題目沒作答</b>'; return; }
+      /* 作答紀錄（js/sheet-track.js）：每按一次「檢查答案」每題記一次；選項代號用原始順序（picks 本來就是原始索引） */
+      if(window.SheetTrack) qs.forEach((q,qi)=>SheetTrack.attempt('workshop.'+m.id,'q'+(qi+1),{ok:picks[qi]===q.answer, a:SheetTrack.code(picks[qi])}));
       let wrong=0;
       qs.forEach((q,qi)=>{
         if(picks[qi]===q.answer){ fb[qi]=''; return; }
@@ -398,6 +413,7 @@ function renderModule(){
 }
 function openLesson(m){
   if(lessonOpen)return; lessonOpen=true; cur=m; page=0; stepsDone=!!learned[m.id]; quizPassed=!!learned[m.id];
+  if(window.SheetTrack) SheetTrack.workshopDefs(m);   /* 先登記整台（步驟＋3 題），全部完成才算一份作答 */
   if(document.exitPointerLock)document.exitPointerLock();
   renderModule(); lessonOverlay.classList.remove('hidden');
 }
@@ -431,6 +447,7 @@ function openContact(){
   lessonOverlay.classList.remove('hidden');
 }
 function closeLesson(){ lessonOpen=false; lessonOverlay.classList.add('hidden');
+  if(window.SheetTrack && cur && cur.quiz) SheetTrack.flush('workshop.'+cur.id);   /* 沒做完就關掉：已作答的部分先送 */
   document.getElementById('lsBody').innerHTML=''; relock(); updateResume(); }
 document.getElementById('lsClose').addEventListener('click',closeLesson);
 document.getElementById('lsBack').addEventListener('click',()=>{ if(page>0){page--; renderModule();} });
