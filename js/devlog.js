@@ -871,6 +871,23 @@ const PHASES = [
       '分支 fix/r2-decisions，本機 motion_qc 動態體檢 24 頁 × 桌機／手機；Playwright 實測 6 個模組答錯→再試一次→答對、工坊測驗解析、教師錯 PIN 被拒／對 PIN 可入／學生照常',
     ],
   },
+  {
+    tag: '段落 60',
+    date: '2026-09-30',
+    title: '交誼廳改讀外文科技新聞中譯、猜地點第 139 筆換臺北玉成抽水站',
+    verbatim: '外文部分抓有公信力的網站，並將不同語言翻譯成中文。',
+    context: '互動交誼廳原本即時抓 Hacker News 英文標題，內容不受控；街景定位第 139 筆王功生態景觀橋是固定鋼桁架橋，卻放在機電整合主題（與 taiwan-engineering-geo 同步處理）。',
+    decisions: [
+      '新聞來源改為 9 個有公信力的外文網站（NASA、ESA、IEEE Spectrum、MIT News、Science News、JAXA、國立天文台、Fraunhofer、CNRS），標題由本機模型翻成繁中；新聞標題屬外部內容，不交給 Antigravity',
+      '譯文做格式檢查（單行、無網址、無指令字樣、無簡體與假名），不過就顯示原文；頁面註明「標題由本機 AI 模型自動翻譯，可能有誤，請以原文為準」',
+      '第一批 27 則逐則人工看過，兩則錯譯人工改正；每日排程程式已寫好，安裝位置待作者決定',
+      '第 139 筆原地換成臺北玉成抽水站（水位感測→中控→抽水機組），保持其餘 199 筆索引與截圖編號不變',
+    ],
+    outputs: [
+      'tools/news/（update_news.py、run_daily.py、launchd plist、README）、data/news-sources.json、data/news.json；js/lounge.js 改讀 news.json（缺檔時退回內建科技新知），快取 v=2',
+      'arcade/games/geoguess：第 139 筆資料、WIKI_REFS、wiki-139.jpg、SOURCES 同步 twgeo',
+    ],
+  },
 ];
 
 /* ============================================================
