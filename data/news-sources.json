@@ -1,0 +1,80 @@
+{
+  "說明": "交誼廳「科技新聞記者」的外文新聞來源。由 tools/news/update_news.py 讀取；每站取最新數則、以本機模型翻成繁體中文後寫入 data/news.json。2026-09-30 逐一以 curl 確認 feed 可用、有標題與連結。",
+  "per_source": 3,
+  "max_age_days": 45,
+  "sources": [
+    {
+      "id": "nasa",
+      "name": "NASA 美國國家航空暨太空總署",
+      "lang": "en",
+      "url": "https://www.nasa.gov/news-release/feed/",
+      "link_domains": ["nasa.gov"],
+      "reason": "美國政府太空機構官方新聞稿，第一手發布，和太空工程、火箭發射、探測任務直接相關。"
+    },
+    {
+      "id": "esa",
+      "name": "ESA 歐洲太空總署",
+      "lang": "en",
+      "url": "https://www.esa.int/rssfeed/TopNews",
+      "link_domains": ["esa.int"],
+      "reason": "歐洲 22 國共同的太空機構官方頭條，補足 NASA 以外的太空科學與地球觀測觀點。"
+    },
+    {
+      "id": "ieee-spectrum",
+      "name": "IEEE Spectrum",
+      "lang": "en",
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "link_domains": ["spectrum.ieee.org"],
+      "reason": "全球最大工程師學會 IEEE 的旗艦刊物，涵蓋電機、電子、機器人、能源與工程教育；只收 spectrum.ieee.org 本站文章，排除贊助的網路研討會連結。"
+    },
+    {
+      "id": "mit-news",
+      "name": "MIT News 麻省理工學院新聞",
+      "lang": "en",
+      "url": "https://news.mit.edu/rss/research",
+      "link_domains": ["news.mit.edu"],
+      "reason": "麻省理工學院官方研究新聞，工程與科學研究成果的一手來源。（engineering 主題 feed 排序混亂、含 2014 年舊文，改用 research feed）"
+    },
+    {
+      "id": "science-news",
+      "name": "Science News",
+      "lang": "en",
+      "url": "https://www.sciencenews.org/feed",
+      "link_domains": ["sciencenews.org"],
+      "reason": "美國非營利 Society for Science 出版（也主辦 Regeneron ISEF 國際科展），1921 年創刊的科學新聞刊物，寫給一般讀者、適合高中生。"
+    },
+    {
+      "id": "jaxa",
+      "name": "JAXA 日本宇宙航空研究開發機構",
+      "lang": "ja",
+      "url": "https://www.jaxa.jp/rss/press_j.rdf",
+      "link_domains": ["jaxa.jp"],
+      "reason": "日本國家太空機構的日文新聞稿，第一手發布；和 NASA、ESA 並列可以比較各國太空計畫。"
+    },
+    {
+      "id": "naoj",
+      "name": "國立天文台（日本 NAOJ）",
+      "lang": "ja",
+      "url": "https://www.nao.ac.jp/atom.xml",
+      "link_domains": ["nao.ac.jp"],
+      "reason": "日本國立天文台官方消息，含研究成果與科普活動，天文觀測儀器也是工程設計的好例子。（NHK 的 RSS 舊網址已停在 2026-08，科學類別又混入政治社會新聞，故不採用）"
+    },
+    {
+      "id": "fraunhofer",
+      "name": "Fraunhofer 弗勞恩霍夫協會",
+      "lang": "de",
+      "url": "https://www.fraunhofer.de/de/rss/presse.rss",
+      "link_domains": ["fraunhofer.de"],
+      "exclude_keywords": ["Institutsleitung", "Institutsleiter", "Positionspapier"],
+      "reason": "歐洲最大的應用研究機構（德國），新聞稿多是材料、製程、能源等可以落地的工程技術，最貼近「工程設計」；排除人事任命與政策立場文件。"
+    },
+    {
+      "id": "cnrs",
+      "name": "CNRS Le Journal 法國國家科學研究中心",
+      "lang": "fr",
+      "url": "https://lejournal.cnrs.fr/rss",
+      "link_domains": ["lejournal.cnrs.fr"],
+      "reason": "法國國家科學研究中心官方科學雜誌，研究者親自參與撰寫的科普報導。（Le Monde 科學版混入醫療政策與社會新聞，故改用 CNRS）"
+    }
+  ]
+}

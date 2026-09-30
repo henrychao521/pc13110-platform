@@ -1,0 +1,285 @@
+{
+ "generated": "2026-09-30T10:35:14+08:00",
+ "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
+ "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
+ "items": [
+  {
+   "title_zh": "NASA 開放 2027 年人類登月器挑戰賽，聚焦月球通訊",
+   "title_orig": "NASA Opens 2027 Human Lander Challenge for Lunar Communications",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/directorates/esdmd/artemis-campaign-development-division/human-landing-system-program/nasa-opens-2027-human-lander-challenge-for-lunar-communications/",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "NASA 頒發軌道安全分析支援服務合約",
+   "title_orig": "NASA Awards Orbital Safety Analysis Support Services Contract",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/news-release/nasa-awards-orbital-safety-analysis-support-services-contract/",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "NASA 於國際太空會議展示探索與科學成果",
+   "title_orig": "NASA Features Exploration, Science at International Space Conference",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/news-release/nasa-features-exploration-science-at-international-space-conference/",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "氣候行動學習實驗室橋接研究與政策，推動有效氣候解決方案",
+   "title_orig": "Climate Action Learning Lab bridges research and policy for effective climate solutions",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/climate-action-learning-lab-bridges-research-policy-for-effective-climate-solutions-0929",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "中世紀療法或為克服抗生素抗性提供靈感",
+   "title_orig": "A medieval remedy could offer ideas for beating antibiotic resistance",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/medieval-remedy-antibiotic-resistance",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "氣球觀測Sunrise-III揭開太陽磁場真面目",
+   "title_orig": "気球観測Sunrise-IIIで太陽磁場の素顔に迫る",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/science/2026/20260930-sso.html",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "鏡中宇宙：星系在鏡屋裡",
+   "title_orig": "Galaxies in a cosmic house of mirrors",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/09/Galaxies_in_a_cosmic_house_of_mirrors",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "取代動物實驗的技術快要成熟，科學家卻還沒準備好",
+   "title_orig": "Tech to Replace Animal Testing Is Almost Ready. Scientists Are Not",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/alternatives-to-animal-testing",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "TryEngineering推出面向青少年的全新IEEE STEM叢書系列",
+   "title_orig": "A New IEEE STEM Book Series for Tweens from TryEngineering",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ieee-stem-books-tweens-tryengineering",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "由肌肉細胞驅動，紙般薄的機器人在水中迷宮中游泳",
+   "title_orig": "Powered by muscle cells, a paper-thin robot swims through watery maze",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/powered-by-muscle-cells-paper-thin-robot-swims-through-watery-maze-0929",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "「演算法單一文化」的影響取決於細節",
+   "title_orig": "The effects of an “algorithmic monoculture” depend on the details",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/algorithmic-monoculture-effects-depend-on-details-0929",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "洪水過後，尼泊爾能否避免下一場災難？",
+   "title_orig": "In the wake of the flood, could Nepal avert the next disaster?",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/flood-nepal-prepare-disaster-climate",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "《Deep End》Podcast回歸，探索讓你的聲音成為你的獨特之處",
+   "title_orig": "‘The Deep End’ podcast is back to explore what makes your voice yours",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/the-deep-end-season-2-voice-identity",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "生育率面臨環境危機的考驗",
+   "title_orig": "La natalité à l’épreuve de la crise environnementale",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
+   "date": "2026-09-29"
+  },
+  {
+   "title_zh": "成功飛掠地球後，JUICE任務航線更趨精準朝向木星",
+   "title_orig": "Successful Earth flyby improves Juice’s course to Jupiter",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Space_Science/Juice/Successful_Earth_flyby_improves_Juice_s_course_to_Jupiter",
+   "date": "2026-09-28"
+  },
+  {
+   "title_zh": "地質學上，離登月又近了一步",
+   "title_orig": "One geology step closer to the Moon",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/One_geology_step_closer_to_the_Moon",
+   "date": "2026-09-28"
+  },
+  {
+   "title_zh": "德里如何達成其電力網的驚天修復",
+   "title_orig": "Here’s How Delhi Achieved Its Epic Power-Grid Fix",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/delhi-electricity-loss",
+   "date": "2026-09-28"
+  },
+  {
+   "title_zh": "JAXA諏訪理太空人的國際太空站（ISS）長期駐留搭乘飛船確定",
+   "title_orig": "JAXA諏訪理宇宙飛行士の国際宇宙ステーション（ISS）長期滞在 搭乗機決定",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/09/20260925-1_j.html",
+   "date": "2026-09-25"
+  },
+  {
+   "title_zh": "蝙蝠：演化的實驗室",
+   "title_orig": "Les chauves-souris, laboratoires de l’évolution",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/videos/les-chauves-souris-laboratoires-de-levolution",
+   "date": "2026-09-25"
+  },
+  {
+   "title_zh": "過度醫療化的分娩？（一）——預防原則",
+   "title_orig": "Des accouchements surmédicalisés ? (1) – Le principe de précaution",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/des-accouchements-surmedicalises-1-le-principe-de-precaution",
+   "date": "2026-09-25"
+  },
+  {
+   "title_zh": "探索宇宙與寶可夢之謎的特別企劃展『寶可夢天文台』",
+   "title_orig": "宇宙とポケモンの謎に迫る特別企画展『ポケモン天文台』",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/events/2026/20260731-pokemon.html",
+   "date": "2026-09-24"
+  },
+  {
+   "title_zh": "從研究成果到創立新創企業",
+   "title_orig": "Vom Forschungsergebnis zum Start-up",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/september-2026/fraunhofer-auf-der-bits-and-pretzels-2026.html",
+   "date": "2026-09-21"
+  },
+  {
+   "title_zh": "傳遞給未來的宇宙人才！「在國立天文台與油井太空人學習！—朝向月球、火星探測—」活動報導",
+   "title_orig": "未来の宇宙人材に届け！「国立天文台で油井宇宙飛行士と学ぶ！―月・火星探査に向けて―」開催報告",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/blog/2026/20260918-jaxa.html",
+   "date": "2026-09-18"
+  },
+  {
+   "title_zh": "其創新精神至今仍為典範：約瑟夫·馮·弗勞恩霍費爾的歷史玻璃廠重新開放",
+   "title_orig": "Sein Innovationsgeist ist bis heute Vorbild: Joseph von Fraunhofers historische Glashütte wiedereröffnet",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/september-2026/sein-innovationsgeist-ist-bis-heute-vorbild-joseph-von-fraunhofers-historische-glashuette-wiedereroeffnet.html",
+   "date": "2026-09-18"
+  },
+  {
+   "title_zh": "JAXA與A-POC ABLE ISSEY MIYAKE舉辦特別展，以織品呈現衛星觀測的南極影像牛仔褲",
+   "title_orig": "JAXAとA-POC ABLE ISSEY MIYAKE、衛星で観測した南極画像を織りで表現したジーンズの特別展を開催",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/09/20260914-1_j.html",
+   "date": "2026-09-14"
+  },
+  {
+   "title_zh": null,
+   "title_orig": "「いぶきGW」（GOSAT-GW）搭載の最新センサAMSR3データの気象庁での利用開始",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/09/20260902-1_j.html",
+   "date": "2026-09-02"
+  },
+  {
+   "title_zh": "測試化學品——無需動物實驗",
+   "title_orig": "Chemikalien testen – ohne Tierversuche",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/september-2026/chemikalien-testen-ohne-tierversuche.html",
+   "date": "2026-09-01"
+  }
+ ],
+ "dropped": [
+  {
+   "source": "jaxa",
+   "title": "「いぶきGW」（GOSAT-GW）搭載の最新センサAMSR3データの気象庁での利用開始",
+   "reason": "出現原文沒有的外文字詞「ibuki」"
+  }
+ ],
+ "errors": []
+}
