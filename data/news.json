@@ -1,46 +1,116 @@
 {
- "generated": "2026-09-30T11:39:29+08:00",
+ "generated": "2026-10-01T06:30:44+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 開放 2027 年人類登月器挑戰賽，聚焦月球通訊",
-   "title_orig": "NASA Opens 2027 Human Lander Challenge for Lunar Communications",
+   "title_zh": "重疊的望遠鏡揭示宇宙塵埃",
+   "title_orig": "Help Overlap Zoo Reveal Cosmic Dust",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/directorates/esdmd/artemis-campaign-development-division/human-landing-system-program/nasa-opens-2027-human-lander-challenge-for-lunar-communications/",
-   "date": "2026-09-30"
+   "url": "https://science.nasa.gov/get-involved/citizen-science/help-overlap-zoo-reveal-cosmic-dust/",
+   "date": "2026-10-01"
   },
   {
-   "title_zh": "NASA 頒發軌道安全分析支援服務合約",
-   "title_orig": "NASA Awards Orbital Safety Analysis Support Services Contract",
+   "title_zh": "NASA 為月球基地新增多項科學調查計畫",
+   "title_orig": "NASA Adds New Science Investigations for Moon Base",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-awards-orbital-safety-analysis-support-services-contract/",
-   "date": "2026-09-30"
+   "url": "https://www.nasa.gov/news-release/nasa-adds-new-science-investigations-for-moon-base/",
+   "date": "2026-10-01"
   },
   {
-   "title_zh": "NASA 於國際太空會議展示探索與科學成果",
-   "title_orig": "NASA Features Exploration, Science at International Space Conference",
+   "title_zh": "NASA 簽約開發月球 5G 通訊系統",
+   "title_orig": "NASA Awards Contract to Develop 5G Communications for Moon",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-features-exploration-science-at-international-space-conference/",
+   "url": "https://www.nasa.gov/news-release/nasa-awards-contract-to-develop-5g-communications-for-moon/",
+   "date": "2026-10-01"
+  },
+  {
+   "title_zh": "IEEE 表彰塑造未來的創新者",
+   "title_orig": "IEEE Celebrates Innovators Shaping the Future",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ieee-technical-field-awards-2027",
+   "date": "2026-10-01"
+  },
+  {
+   "title_zh": "新地圖指出美國最值得保護的河流",
+   "title_orig": "A new map points out U.S. rivers most worth protecting",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/new-map-rivers-conservation-protection",
+   "date": "2026-10-01"
+  },
+  {
+   "title_zh": "微笑的科學啟程",
+   "title_orig": "Science begins for Smile",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Space_Science/Smile/Science_begins_for_Smile",
    "date": "2026-09-30"
   },
   {
-   "title_zh": "氣候行動學習實驗室橋接研究與政策，推動有效氣候解決方案",
-   "title_orig": "Climate Action Learning Lab bridges research and policy for effective climate solutions",
+   "title_zh": "彭博終端機簡史",
+   "title_orig": "A Brief History of the Bloomberg Terminal",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/bloomberg-terminal",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "麻省理工學院交通實驗室將開發公共運輸機構專用的人工智慧平台",
+   "title_orig": "MIT Transit Lab to develop an AI platform for public transit agencies",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/climate-action-learning-lab-bridges-research-policy-for-effective-climate-solutions-0929",
+   "url": "https://news.mit.edu/2026/mit-transit-lab-to-develop-ai-platform-public-transit-agencies-0930",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "這款遊戲AI成為Stratego新冠軍",
+   "title_orig": "This game-playing AI is the new champ at Stratego",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/game-playing-ai-stratego-new-champ-0930",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "肺癌可利用兩種不同機制逃避KRAS抑制劑藥物",
+   "title_orig": "Lung cancers can use two different mechanisms to evade KRAS-inhibiting drugs",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/lung-cancers-can-use-two-different-mechanisms-evade-kras-inhibiting-drugs-0930",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "呼氣可能加快反應時間",
+   "title_orig": "Exhaling may speed up reaction times",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/reaction-times-sync-breathing-brain",
    "date": "2026-09-30"
   },
   {
@@ -64,6 +134,26 @@
    "date": "2026-09-30"
   },
   {
+   "title_zh": "烏克蘭：環境成為攻擊目標（一）",
+   "title_orig": "Ukraine : l’environnement pour cible (1)",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/ukraine-lenvironnement-pour-cible-1",
+   "date": "2026-09-30"
+  },
+  {
+   "title_zh": "生育率面臨環境危機的考驗",
+   "title_orig": "La natalité à l’épreuve de la crise environnementale",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
+   "date": "2026-09-30"
+  },
+  {
    "title_zh": "鏡中宇宙：星系在鏡屋裡",
    "title_orig": "Galaxies in a cosmic house of mirrors",
    "source": "ESA 歐洲太空總署",
@@ -84,66 +174,6 @@
    "date": "2026-09-29"
   },
   {
-   "title_zh": "TryEngineering推出面向青少年的全新IEEE STEM叢書系列",
-   "title_orig": "A New IEEE STEM Book Series for Tweens from TryEngineering",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-stem-books-tweens-tryengineering",
-   "date": "2026-09-29"
-  },
-  {
-   "title_zh": "由肌肉細胞驅動，紙般薄的機器人在水中迷宮中游泳",
-   "title_orig": "Powered by muscle cells, a paper-thin robot swims through watery maze",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/powered-by-muscle-cells-paper-thin-robot-swims-through-watery-maze-0929",
-   "date": "2026-09-29"
-  },
-  {
-   "title_zh": "「演算法單一文化」的影響取決於細節",
-   "title_orig": "The effects of an “algorithmic monoculture” depend on the details",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/algorithmic-monoculture-effects-depend-on-details-0929",
-   "date": "2026-09-29"
-  },
-  {
-   "title_zh": "洪水過後，尼泊爾能否避免下一場災難？",
-   "title_orig": "In the wake of the flood, could Nepal avert the next disaster?",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/flood-nepal-prepare-disaster-climate",
-   "date": "2026-09-29"
-  },
-  {
-   "title_zh": "《Deep End》Podcast回歸，探索讓你的聲音成為你的獨特之處",
-   "title_orig": "‘The Deep End’ podcast is back to explore what makes your voice yours",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/the-deep-end-season-2-voice-identity",
-   "date": "2026-09-29"
-  },
-  {
-   "title_zh": "生育率面臨環境危機的考驗",
-   "title_orig": "La natalité à l’épreuve de la crise environnementale",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
-   "date": "2026-09-29"
-  },
-  {
    "title_zh": "成功飛掠地球後，JUICE任務航線更趨精準朝向木星",
    "title_orig": "Successful Earth flyby improves Juice’s course to Jupiter",
    "source": "ESA 歐洲太空總署",
@@ -151,26 +181,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/Science_Exploration/Space_Science/Juice/Successful_Earth_flyby_improves_Juice_s_course_to_Jupiter",
-   "date": "2026-09-28"
-  },
-  {
-   "title_zh": "地質學上，離登月又近了一步",
-   "title_orig": "One geology step closer to the Moon",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/One_geology_step_closer_to_the_Moon",
-   "date": "2026-09-28"
-  },
-  {
-   "title_zh": "德里如何達成其電力網的驚天修復",
-   "title_orig": "Here’s How Delhi Achieved Its Epic Power-Grid Fix",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/delhi-electricity-loss",
    "date": "2026-09-28"
   },
   {
@@ -191,16 +201,6 @@
    "lang": "fr",
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/videos/les-chauves-souris-laboratoires-de-levolution",
-   "date": "2026-09-25"
-  },
-  {
-   "title_zh": "過度醫療化的分娩？（一）——預防原則",
-   "title_orig": "Des accouchements surmédicalisés ? (1) – Le principe de précaution",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/des-accouchements-surmedicalises-1-le-principe-de-precaution",
    "date": "2026-09-25"
   },
   {
