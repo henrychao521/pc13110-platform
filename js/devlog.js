@@ -904,6 +904,27 @@ const PHASES = [
       '分支 fix/r2-09，本機 motion_qc 6 頁 × 桌機／手機；Playwright 實測建模器開頁／跑範例不完成、自寫 3 零件才完成、注入字串不執行；列印中點拱橋無效；新分頁檢查表為空',
     ],
   },
+  {
+    tag: '段落 62',
+    date: '2026-09-30',
+    title: '作答紀錄送老師的 Google 試算表：各章檢核題、排序題、三視圖挑戰、工坊認證（預設關閉）',
+    verbatim: '盤點所有有對錯的作答……「再試一次」的情況要記 tries（同一題最後答對前嘗試幾次），ok 記最後結果或第一次結果——選一種並說明……endpoint 空時完全不顯示、不送。',
+    context: '依 classroom-sheets/SPEC.md（四平台共用規格）接上作答紀錄。盤點出 4 類有對錯的作答：19 頁的 DiagnosisQuiz 檢核題（答錯後「再試一次」）、4 頁的步驟排序題、第 2 章三視圖判讀挑戰（6 題、選項隨機產生）、工坊 6 台機台的步驟排序＋認證測驗。講義（handouts）是教師用講稿、下課遊樂區是計分遊戲、雷切／CNC／3D 列印等是模擬器，沒有對錯題，不納入。這和平台原有的多人連線伺服器、教師 PIN 無關，伺服器行為沒有改。',
+    decisions: [
+      'ok 記「第一次作答」的對錯、a 記第一次所選，tries 記同一題到答對為止總共答了幾次（一直沒答對就記已答次數）：鑑別度要看第一次作答，答錯後看解說再選一定會對，記最後結果會讓每題答對率都接近 100%',
+      '一頁（工坊是一台機台）＝一份作答：頁面上已登記的題目全部完成時送一筆；沒做完就離開頁面或關掉課程視窗，已作答的部分也先送（進佇列，下次開頁補送）',
+      '題目代號＝頁面代號＋資料陣列鍵（例：ch3.truss:q2、workshop.laser:steps），不用顯示順序；工坊認證選項每次洗牌，送出時換回原始順序的 A–D',
+      '三視圖挑戰的選項是每次隨機抽模型：視圖題 a／k 記模型代號 M1–M8（題型 other）；三視圖組合題的 4 個選項固定是「全對／前視圖錯／上視圖錯／側視圖錯」，記 A–D',
+      '題目指紋在瀏覽器算，題庫檔 assets/sheet-items.json 由 tools/sheets/build_items.py 用無頭瀏覽器打開每一頁收集，再用 Python 依 EMT q_hash 同法重算比對，不一致就中止',
+      'js/sheet-config.js 的 endpoint 預設空字串：不顯示班級座號元件與告知文字、不發任何請求',
+    ],
+    outputs: [
+      '新增 js/sheet-log.js（四平台共用）、js/sheet-config.js、js/sheet-track.js（pc13110 轉接：登記題目、記第一次作答與 tries、完成時送出）；js/interactions.js（?v=r3）的 DiagnosisQuiz／SequencePuzzle 加 logKey',
+      '19 支章節程式補 logKey；orthographic.js（?v=4）、emerging.js（?v=r4）；workshop.html 認證測驗與步驟排序、手機版班級座號按鈕避開課程視窗的「下一步」',
+      'assets/sheet-items.json：95 題（單選 81、排序 10、三視圖模型題 4）、26 份作答（20 頁＋6 台機台）',
+      'tools/sheets/test_sheet_log.py：只用本機假 endpoint 端到端實測 ch1 趨勢、ch2 三視圖、ch3 桁架／靜力、ch5 ESP32、工坊雷射切割機，驗證送出內容、tries、原始選項代號、班級座號（全形轉半形、sessionStorage）、離線佇列補送、endpoint 空時不送不顯示；motion_qc 21 頁 × 桌機／手機',
+    ],
+  },
 ];
 
 /* ============================================================
