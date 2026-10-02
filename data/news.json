@@ -1,57 +1,87 @@
 {
- "generated": "2026-10-02T06:30:40+08:00",
+ "generated": "2026-10-03T06:30:39+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 頒發企業後勤支援服務合約",
-   "title_orig": "NASA Awards Enterprise Logistics Support Services Agreements",
+   "title_zh": "NASA太空人克莉絲蒂娜·科赫將與費城的美國職橄欖球聯盟球迷會合",
+   "title_orig": "NASA Astronaut Christina Koch to Join NFL Fans in Philadelphia",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-awards-enterprise-logistics-support-services-agreements/",
-   "date": "2026-10-02"
+   "url": "https://www.nasa.gov/news-release/nasa-astronaut-christina-koch-to-join-nfl-fans-in-philadelphia/",
+   "date": "2026-10-03"
   },
   {
-   "title_zh": "NASA的SpaceX Crew-13發射",
-   "title_orig": "NASA’s SpaceX Crew-13 Launches",
+   "title_zh": "返家之路：NASA與SpaceX的Crew-12任務圓滿結束太空站科學任務",
+   "title_orig": "Heading Home: NASA’s SpaceX Crew-12 Concludes Station Science Mission",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/nasas-spacex-crew-13-launches/",
-   "date": "2026-10-02"
+   "url": "https://www.nasa.gov/missions/station/iss-research/heading-home-nasas-spacex-crew-12-concludes-station-science-mission/",
+   "date": "2026-10-03"
   },
   {
-   "title_zh": "本月天文焦點：NASA 提供 2026 年 10 月觀星建議",
-   "title_orig": "What’s Up: October 2026 Skywatching Tips from NASA",
+   "title_zh": "NASA的DAVINCI探測器能抵禦高溫",
+   "title_orig": "NASA’s DAVINCI Probe Can Stand the Heat",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/solar-system/skywatching/whats-up-october-2026-skywatching-tips-from-nasa/",
-   "date": "2026-10-02"
+   "url": "https://www.nasa.gov/image-article/nasas-davinci-probe-can-stand-the-heat/",
+   "date": "2026-10-03"
   },
   {
-   "title_zh": "歐洲太空總署本月發生了什麼事？（2026年9月）",
-   "title_orig": "What happened this month at the European Space Agency? (September 2026)",
+   "title_zh": "幼年期約塞米蒂蟾蜍挺過寒冬後，卻帶致命真菌現身",
+   "title_orig": "Young Yosemite toads survive winter, then emerge with a deadly fungus",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/yosemite-toads-fungus-chytrid-winter",
+   "date": "2026-10-03"
+  },
+  {
+   "title_zh": "圖片回顧：9月28日至10月2日（2026年）",
+   "title_orig": "Week in images: 28 Sep - 2 Oct 2026",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/What_happened_this_month_at_the_European_Space_Agency_September_2026",
-   "date": "2026-10-01"
+   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_28_Sep_-_2_Oct_2026",
+   "date": "2026-10-02"
   },
   {
-   "title_zh": "地球觀測衛星 EarthCARE 拍攝火山羽流影像提升航空安全",
-   "title_orig": "EarthCARE’s view of volcanic plume boosts air safety",
+   "title_zh": "氣閘艙之外——蘇菲·阿代諾的三次太空行走",
+   "title_orig": "Beyond the airlock - Sophie Adenot's three spacewalks",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/Applications/Observing_the_Earth/FutureEO/EarthCARE/EarthCARE_s_view_of_volcanic_plume_boosts_air_safety",
-   "date": "2026-10-01"
+   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/Beyond_the_airlock_-_Sophie_Adenot_s_three_spacewalks",
+   "date": "2026-10-02"
+  },
+  {
+   "title_zh": "太空中的地球：蘇力颱風",
+   "title_orig": "Earth from Space: Typhoon Surigae",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Typhoon_Surigae",
+   "date": "2026-10-02"
+  },
+  {
+   "title_zh": "超新星是真實存在的嗎？",
+   "title_orig": "Are hypernovas real?",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/hypernovas-real-elements-space",
+   "date": "2026-10-02"
   },
   {
    "title_zh": "盜電猖獗，但德里找到解方",
@@ -81,26 +111,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/brain-eating-amoebas-naegleria-fowleri",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "一段座頭鯨與已死亡幼崽的影片，揭示了動物間的羈絆",
-   "title_orig": "A video of a humpback whale and her dead calf reveals the animals’ bond",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/video-humpback-whale-dead-calf-bond",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "新地圖指出美國最值得保護的河流",
-   "title_orig": "A new map points out U.S. rivers most worth protecting",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/new-map-rivers-conservation-protection",
    "date": "2026-10-01"
   },
   {
@@ -162,16 +172,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/articles/ukraine-lenvironnement-pour-cible-1",
    "date": "2026-10-01"
-  },
-  {
-   "title_zh": "微笑的科學啟程",
-   "title_orig": "Science begins for Smile",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Space_Science/Smile/Science_begins_for_Smile",
-   "date": "2026-09-30"
   },
   {
    "title_zh": "彭博終端機簡史",
