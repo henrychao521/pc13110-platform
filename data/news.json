@@ -1,8 +1,18 @@
 {
- "generated": "2026-10-03T06:30:39+08:00",
+ "generated": "2026-10-04T06:30:32+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
+  {
+   "title_zh": "APOD：2026年10月3日——維拉·魯賓山脊的自拍",
+   "title_orig": "APOD: 2026 October 3 – Selfie at Vera Rubin Ridge",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-3-selfie-at-vera-rubin-ridge/",
+   "date": "2026-10-03"
+  },
   {
    "title_zh": "NASA太空人克莉絲蒂娜·科赫將與費城的美國職橄欖球聯盟球迷會合",
    "title_orig": "NASA Astronaut Christina Koch to Join NFL Fans in Philadelphia",
@@ -21,16 +31,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.nasa.gov/missions/station/iss-research/heading-home-nasas-spacex-crew-12-concludes-station-science-mission/",
-   "date": "2026-10-03"
-  },
-  {
-   "title_zh": "NASA的DAVINCI探測器能抵禦高溫",
-   "title_orig": "NASA’s DAVINCI Probe Can Stand the Heat",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/nasas-davinci-probe-can-stand-the-heat/",
    "date": "2026-10-03"
   },
   {
