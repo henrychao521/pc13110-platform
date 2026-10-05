@@ -1,46 +1,136 @@
 {
- "generated": "2026-10-05T06:30:34+08:00",
+ "generated": "2026-10-06T06:30:38+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "好奇號部落格，第5022至5028個火星日：在Cache Creek獲利",
-   "title_orig": "Curiosity Blog, Sols 5022-5028: Cashing in at Cache Creek",
+   "title_zh": "NASA將直播SpaceX Crew-12任務的返回與海上著陸過程",
+   "title_orig": "NASA to Stream SpaceX Crew-12 Return, Splashdown Live",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/blog/curiosity-blog-sols-5022-5028-cashing-in-at-cache-creek/",
-   "date": "2026-10-05"
+   "url": "https://www.nasa.gov/news-release/nasa-to-stream-spacex-crew-12-return-splashdown-live/",
+   "date": "2026-10-06"
   },
   {
-   "title_zh": "繪製NASA重返月球計畫中的缺口，專訪Richard Spolzino",
-   "title_orig": "Mapping the Gaps in NASA’s Return to the Moon, featuring Richard Spolzino",
+   "title_zh": "NASA太空人克莉絲汀娜·科赫出席老鷹隊對公羊隊的比賽",
+   "title_orig": "NASA Astronaut Christina Koch at Eagles vs. Rams",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/general/mapping-the-gaps-in-nasas-return-to-the-moon-featuring-richard-spolzino/",
-   "date": "2026-10-05"
+   "url": "https://www.nasa.gov/image-article/nasa-astronaut-christina-koch-at-eagles-vs-rams/",
+   "date": "2026-10-06"
   },
   {
-   "title_zh": "APOD：2026年10月4日——新澤西州上空的附加彩虹",
-   "title_orig": "APOD: 2026 October 4 – Supernumerary Rainbows over New Jersey",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "歐洲太空總署出席2026年國際太空大會－第一天",
+   "title_orig": "ESA at IAC 2026 – Day 1",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-4-supernumerary-rainbows-over-new-jersey/",
-   "date": "2026-10-04"
+   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_at_IAC_2026_Day_1",
+   "date": "2026-10-06"
   },
   {
-   "title_zh": "幼年期約塞米蒂蟾蜍挺過寒冬後，卻帶致命真菌現身",
-   "title_orig": "Young Yosemite toads survive winter, then emerge with a deadly fungus",
+   "title_zh": "治理人工智慧的6項指導原則",
+   "title_orig": "6 Guidelines for Governing AI",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/6-guidelines-governing-ai",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "科學家可能已觀測到暗物質。若真如此，它究竟是什麼？",
+   "title_orig": "Scientists may have seen dark matter. If they did, what exactly is it?",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/yosemite-toads-fungus-chytrid-winter",
+   "url": "https://www.sciencenews.org/article/dark-matter-supersymmetry-higgsino",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "NASA 測試旨在提升大過冷水滴航空安全",
+   "title_orig": "NASA Testing Aims at Supercooled Large Droplet Aviation Safety",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/image-article/nasa-testing-aims-at-supercooled-large-droplet-aviation-safety/",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "天文學家捕捉到一顆恆星在300光年外緩慢吞噬棕矮星的過程",
+   "title_orig": "Astronomers catch a star slowly snacking on a brown dwarf, 300 light years away",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/astronomers-catch-star-slowly-snacking-on-brown-dwarf-1005",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "從死星餘燼中重生的「鳳凰」行星",
+   "title_orig": "A ‘phoenix’ planet was born from the ashes of its dead star",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/baby-planet-from-dead-star-phoenix",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "天文學家稱發現首個朝向地球的小型類星體",
+   "title_orig": "Astronomers say they’ve spotted the first miniature quasar pointed at Earth",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/first-miniature-quasar-earth",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "天文資訊中心職員獲東北大學國際貢獻獎",
+   "title_orig": "天文情報センター職員が東北大学国際功労賞を受賞",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/topics/2026/20261005-award.html",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "傑奎琳·布洛赫，光影魔術師",
+   "title_orig": "Jacqueline Bloch, magicienne de la lumière",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/jacqueline-bloch-magicienne-de-la-lumiere",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "都是自私的嗎？",
+   "title_orig": "Tous égoïstes ?",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/tous-egoistes",
+   "date": "2026-10-05"
+  },
+  {
+   "title_zh": "智慧汽車研究者欲消除紅綠燈",
+   "title_orig": "Smart Car Researcher Wants to Eliminate Stoplights",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/smart-car-researcher-eliminate-stoplights",
    "date": "2026-10-03"
   },
   {
@@ -64,26 +154,6 @@
    "date": "2026-10-02"
   },
   {
-   "title_zh": "太空中的地球：蘇力颱風",
-   "title_orig": "Earth from Space: Typhoon Surigae",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Typhoon_Surigae",
-   "date": "2026-10-02"
-  },
-  {
-   "title_zh": "超新星是真實存在的嗎？",
-   "title_orig": "Are hypernovas real?",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/hypernovas-real-elements-space",
-   "date": "2026-10-02"
-  },
-  {
    "title_zh": "盜電猖獗，但德里找到解方",
    "title_orig": "Electricity Theft Is Rampant, but Delhi Found a Fix",
    "source": "IEEE Spectrum",
@@ -91,26 +161,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/electricity-theft",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "IEEE 表彰塑造未來的創新者",
-   "title_orig": "IEEE Celebrates Innovators Shaping the Future",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-technical-field-awards-2027",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "食腦阿米巴原蟲如何感染人類",
-   "title_orig": "Here’s how brain-eating amoebas may infect people",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/brain-eating-amoebas-naegleria-fowleri",
    "date": "2026-10-01"
   },
   {
@@ -164,26 +214,6 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "烏克蘭：環境成為攻擊目標（一）",
-   "title_orig": "Ukraine : l’environnement pour cible (1)",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/ukraine-lenvironnement-pour-cible-1",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "彭博終端機簡史",
-   "title_orig": "A Brief History of the Bloomberg Terminal",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/bloomberg-terminal",
-   "date": "2026-09-30"
-  },
-  {
    "title_zh": "麻省理工學院交通實驗室將開發公共運輸機構專用的人工智慧平台",
    "title_orig": "MIT Transit Lab to develop an AI platform for public transit agencies",
    "source": "MIT News 麻省理工學院新聞",
@@ -204,16 +234,6 @@
    "date": "2026-09-30"
   },
   {
-   "title_zh": "肺癌可利用兩種不同機制逃避KRAS抑制劑藥物",
-   "title_orig": "Lung cancers can use two different mechanisms to evade KRAS-inhibiting drugs",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/lung-cancers-can-use-two-different-mechanisms-evade-kras-inhibiting-drugs-0930",
-   "date": "2026-09-30"
-  },
-  {
    "title_zh": "氣球觀測Sunrise-III揭開太陽磁場真面目",
    "title_orig": "気球観測Sunrise-IIIで太陽磁場の素顔に迫る",
    "source": "國立天文台（日本 NAOJ）",
@@ -221,16 +241,6 @@
    "lang": "ja",
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/science/2026/20260930-sso.html",
-   "date": "2026-09-30"
-  },
-  {
-   "title_zh": "生育率面臨環境危機的考驗",
-   "title_orig": "La natalité à l’épreuve de la crise environnementale",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
    "date": "2026-09-30"
   },
   {
@@ -252,16 +262,6 @@
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/events/2026/20260731-pokemon.html",
    "date": "2026-09-24"
-  },
-  {
-   "title_zh": "傳遞給未來的宇宙人才！「在國立天文台與油井太空人學習！—朝向月球、火星探測—」活動報導",
-   "title_orig": "未来の宇宙人材に届け！「国立天文台で油井宇宙飛行士と学ぶ！―月・火星探査に向けて―」開催報告",
-   "source": "國立天文台（日本 NAOJ）",
-   "source_id": "naoj",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.nao.ac.jp/news/blog/2026/20260918-jaxa.html",
-   "date": "2026-09-18"
   },
   {
    "title_zh": "JAXA與A-POC ABLE ISSEY MIYAKE舉辦特別展，以織品呈現衛星觀測的南極影像牛仔褲",
