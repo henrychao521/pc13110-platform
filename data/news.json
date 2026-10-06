@@ -1,36 +1,86 @@
 {
- "generated": "2026-10-06T06:30:38+08:00",
+ "generated": "2026-10-07T06:30:54+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA將直播SpaceX Crew-12任務的返回與海上著陸過程",
-   "title_orig": "NASA to Stream SpaceX Crew-12 Return, Splashdown Live",
+   "title_zh": "NASA將轉播諾斯羅普·葛魯曼CRS-24太空船離港畫面",
+   "title_orig": "NASA to Cover Northrop Grumman CRS-24 Spacecraft Departure",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-to-stream-spacex-crew-12-return-splashdown-live/",
-   "date": "2026-10-06"
+   "url": "https://www.nasa.gov/news-release/nasa-to-cover-northrop-grumman-crs-24-spacecraft-departure/",
+   "date": "2026-10-07"
   },
   {
-   "title_zh": "NASA太空人克莉絲汀娜·科赫出席老鷹隊對公羊隊的比賽",
-   "title_orig": "NASA Astronaut Christina Koch at Eagles vs. Rams",
+   "title_zh": "2026年10月衛星謎題",
+   "title_orig": "October 2026 Satellite Puzzler",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/nasa-astronaut-christina-koch-at-eagles-vs-rams/",
-   "date": "2026-10-06"
+   "url": "https://science.nasa.gov/earth/earth-observatory/october-2026-satellite-puzzler/",
+   "date": "2026-10-07"
   },
   {
-   "title_zh": "歐洲太空總署出席2026年國際太空大會－第一天",
-   "title_orig": "ESA at IAC 2026 – Day 1",
+   "title_zh": "月球接地挑戰",
+   "title_orig": "Lunar Grounding Challenge",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/lunar-grounding-challenge/",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "超級電腦研究人員記錄AI硬體演進",
+   "title_orig": "Supercomputing researchers document evolution of AI hardware",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/supercomputing-researchers-document-evolution-ai-hardware-1006",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "歐洲太空總署出席2026年國際太空大會－第2日",
+   "title_orig": "ESA at IAC 2026 – Day 2",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_at_IAC_2026_Day_1",
+   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_at_IAC_2026_Day_2",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "韋伯捕捉到星雲恆星噴流的動盪景象",
+   "title_orig": "Webb captures commotion from nebula’s stellar jets",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Webb_captures_commotion_from_nebula_s_stellar_jets",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "觀看蘇菲·阿當重返地球",
+   "title_orig": "Watch Sophie Adenot return to Earth",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/Watch_Sophie_Adenot_return_to_Earth",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "IEEE日快樂！",
+   "title_orig": "Happy IEEE Day!",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ieee-day",
    "date": "2026-10-06"
   },
   {
@@ -44,24 +94,64 @@
    "date": "2026-10-06"
   },
   {
-   "title_zh": "科學家可能已觀測到暗物質。若真如此，它究竟是什麼？",
-   "title_orig": "Scientists may have seen dark matter. If they did, what exactly is it?",
+   "title_zh": "《母性之腦》探索母愛的神經科學",
+   "title_orig": "‘A Mother’s Brain’ explores the neuroscience of motherhood",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/dark-matter-supersymmetry-higgsino",
+   "url": "https://www.sciencenews.org/article/mommy-brain-neuroscience-book",
    "date": "2026-10-06"
   },
   {
-   "title_zh": "NASA 測試旨在提升大過冷水滴航空安全",
-   "title_orig": "NASA Testing Aims at Supercooled Large Droplet Aviation Safety",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "世界上最吵的鳥類可能蓋過搖滾音樂會",
+   "title_orig": "The world’s loudest bird could drown out a rock concert",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/nasa-testing-aims-at-supercooled-large-droplet-aviation-safety/",
-   "date": "2026-10-05"
+   "url": "https://www.sciencenews.org/article/worlds-loudest-bird-jackhammer-volume",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "你的聲音不只是聲響，更是你的一部分",
+   "title_orig": "Your voice is more than sound. It’s part of who you are",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/deep-end-voice-more-sound-identity",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "全球首次成功直接拍攝銀河系中心的低能伽馬射線輻射",
+   "title_orig": "世界初、天の川銀河中心の低エネルギーガンマ線放射の直接撮像に成功",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/10/20261006-1_j.html",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": null,
+   "title_orig": "みたか太陽系ウォーク",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/events/2026/20261006-taiyokei-walk.html",
+   "date": "2026-10-06"
+  },
+  {
+   "title_zh": "傑奎琳·布洛赫，光影魔術師",
+   "title_orig": "Jacqueline Bloch, magicienne de la lumière",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/jacqueline-bloch-magicienne-de-la-lumiere",
+   "date": "2026-10-06"
   },
   {
    "title_zh": "天文學家捕捉到一顆恆星在300光年外緩慢吞噬棕矮星的過程",
@@ -74,26 +164,6 @@
    "date": "2026-10-05"
   },
   {
-   "title_zh": "從死星餘燼中重生的「鳳凰」行星",
-   "title_orig": "A ‘phoenix’ planet was born from the ashes of its dead star",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/baby-planet-from-dead-star-phoenix",
-   "date": "2026-10-05"
-  },
-  {
-   "title_zh": "天文學家稱發現首個朝向地球的小型類星體",
-   "title_orig": "Astronomers say they’ve spotted the first miniature quasar pointed at Earth",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/first-miniature-quasar-earth",
-   "date": "2026-10-05"
-  },
-  {
    "title_zh": "天文資訊中心職員獲東北大學國際貢獻獎",
    "title_orig": "天文情報センター職員が東北大学国際功労賞を受賞",
    "source": "國立天文台（日本 NAOJ）",
@@ -101,16 +171,6 @@
    "lang": "ja",
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/topics/2026/20261005-award.html",
-   "date": "2026-10-05"
-  },
-  {
-   "title_zh": "傑奎琳·布洛赫，光影魔術師",
-   "title_orig": "Jacqueline Bloch, magicienne de la lumière",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/jacqueline-bloch-magicienne-de-la-lumiere",
    "date": "2026-10-05"
   },
   {
@@ -132,36 +192,6 @@
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/smart-car-researcher-eliminate-stoplights",
    "date": "2026-10-03"
-  },
-  {
-   "title_zh": "圖片回顧：9月28日至10月2日（2026年）",
-   "title_orig": "Week in images: 28 Sep - 2 Oct 2026",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_28_Sep_-_2_Oct_2026",
-   "date": "2026-10-02"
-  },
-  {
-   "title_zh": "氣閘艙之外——蘇菲·阿代諾的三次太空行走",
-   "title_orig": "Beyond the airlock - Sophie Adenot's three spacewalks",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/Beyond_the_airlock_-_Sophie_Adenot_s_three_spacewalks",
-   "date": "2026-10-02"
-  },
-  {
-   "title_zh": "盜電猖獗，但德里找到解方",
-   "title_orig": "Electricity Theft Is Rampant, but Delhi Found a Fix",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/electricity-theft",
-   "date": "2026-10-01"
   },
   {
    "title_zh": "集約溫室氣體相關資訊與知識的「日本GHG中心」成立",
@@ -224,16 +254,6 @@
    "date": "2026-09-30"
   },
   {
-   "title_zh": "這款遊戲AI成為Stratego新冠軍",
-   "title_orig": "This game-playing AI is the new champ at Stratego",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/game-playing-ai-stratego-new-champ-0930",
-   "date": "2026-09-30"
-  },
-  {
    "title_zh": "氣球觀測Sunrise-III揭開太陽磁場真面目",
    "title_orig": "気球観測Sunrise-IIIで太陽磁場の素顔に迫る",
    "source": "國立天文台（日本 NAOJ）",
@@ -252,28 +272,14 @@
    "lang_label": "日文",
    "url": "https://www.jaxa.jp/press/2026/09/20260925-1_j.html",
    "date": "2026-09-25"
-  },
-  {
-   "title_zh": "探索宇宙與寶可夢之謎的特別企劃展『寶可夢天文台』",
-   "title_orig": "宇宙とポケモンの謎に迫る特別企画展『ポケモン天文台』",
-   "source": "國立天文台（日本 NAOJ）",
-   "source_id": "naoj",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.nao.ac.jp/news/events/2026/20260731-pokemon.html",
-   "date": "2026-09-24"
-  },
-  {
-   "title_zh": "JAXA與A-POC ABLE ISSEY MIYAKE舉辦特別展，以織品呈現衛星觀測的南極影像牛仔褲",
-   "title_orig": "JAXAとA-POC ABLE ISSEY MIYAKE、衛星で観測した南極画像を織りで表現したジーンズの特別展を開催",
-   "source": "JAXA 日本宇宙航空研究開發機構",
-   "source_id": "jaxa",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.jaxa.jp/press/2026/09/20260914-1_j.html",
-   "date": "2026-09-14"
   }
  ],
- "dropped": [],
+ "dropped": [
+  {
+   "source": "naoj",
+   "title": "みたか太陽系ウォーク",
+   "reason": "含簡體字"
+  }
+ ],
  "errors": []
 }
