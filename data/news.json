@@ -1,40 +1,120 @@
 {
- "generated": "2026-10-07T06:30:54+08:00",
+ "generated": "2026-10-08T07:14:56+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA將轉播諾斯羅普·葛魯曼CRS-24太空船離港畫面",
-   "title_orig": "NASA to Cover Northrop Grumman CRS-24 Spacecraft Departure",
+   "title_zh": "NASA 設定 SpaceX 第 35 次太空站補給任務的發射與抵達覆蓋時間",
+   "title_orig": "NASA Sets Coverage for SpaceX 35th Station Resupply Launch, Arrival",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-to-cover-northrop-grumman-crs-24-spacecraft-departure/",
-   "date": "2026-10-07"
+   "url": "https://www.nasa.gov/news-release/nasa-sets-coverage-for-spacex-35th-station-resupply-launch-arrival/",
+   "date": "2026-10-08"
   },
   {
-   "title_zh": "2026年10月衛星謎題",
-   "title_orig": "October 2026 Satellite Puzzler",
+   "title_zh": "NASA的SpaceX第35次商業補給任務概覽",
+   "title_orig": "NASA’s SpaceX 35th Commercial Resupply Mission Overview",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/earth/earth-observatory/october-2026-satellite-puzzler/",
-   "date": "2026-10-07"
+   "url": "https://www.nasa.gov/general/nasas-spacex-35th-commercial-resupply-mission-overview/",
+   "date": "2026-10-08"
   },
   {
-   "title_zh": "月球接地挑戰",
-   "title_orig": "Lunar Grounding Challenge",
+   "title_zh": "NASA的PRIMA太空船（藝術家概念圖）",
+   "title_orig": "NASA’s PRIMA Spacecraft (Artist’s Concept)",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/lunar-grounding-challenge/",
+   "url": "https://science.nasa.gov/photojournal/nasas-prima-spacecraft-artists-concept/",
+   "date": "2026-10-08"
+  },
+  {
+   "title_zh": "IEEE報告預測將改變生活的科技",
+   "title_orig": "IEEE Report Predicts Tech That Will Transform Lives",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ieee-report-predicts-tech",
+   "date": "2026-10-08"
+  },
+  {
+   "title_zh": "改變職業生涯並非易事",
+   "title_orig": "Changing Your Career Isn’t Easy",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/career-pivots-for-software-engineers",
+   "date": "2026-10-08"
+  },
+  {
+   "title_zh": "扭轉麻薩諸塞州貝類養殖數據的趨勢",
+   "title_orig": "Turning the tide on Massachusetts shellfishing data",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/turning-tide-massachusetts-shellfishing-data-1007",
+   "date": "2026-10-08"
+  },
+  {
+   "title_zh": "基因療法與特殊護目鏡讓部分盲人恢復有限視力",
+   "title_orig": "Gene therapy and special goggles give some blind people limited sight",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/gene-therapy-cells-light-blind-vision",
+   "date": "2026-10-08"
+  },
+  {
+   "title_zh": "火星最奇特的雲可能比我們想像的更奇特",
+   "title_orig": "Mars’s oddest cloud may be even odder than we thought",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Mars_s_oddest_cloud_may_be_even_odder_than_we_thought",
    "date": "2026-10-07"
   },
   {
-   "title_zh": "超級電腦研究人員記錄AI硬體演進",
+   "title_zh": "歐洲太空總署出席2026年國際太空大會——第3天",
+   "title_orig": "ESA at IAC 2026 – Day 3",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_at_IAC_2026_Day_3",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "煞車！歐洲太空總署的赫拉小行星任務該放慢腳步了",
+   "title_orig": "Brake! Time for ESA’s Hera asteroid mission to go slow",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Space_Safety/Hera/Brake!_Time_for_ESA_s_Hera_asteroid_mission_to_go_slow",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "規劃系統確保機器人飛行路徑保持無碰撞",
+   "title_orig": "Planning system ensures a robot’s flight path will remain collision-free",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/planning-system-ensures-robots-flight-path-will-remain-collision-free-1007",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "超級電腦研究人員記錄人工智慧硬體演進",
    "title_orig": "Supercomputing researchers document evolution of AI hardware",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
@@ -44,34 +124,54 @@
    "date": "2026-10-07"
   },
   {
-   "title_zh": "歐洲太空總署出席2026年國際太空大會－第2日",
-   "title_orig": "ESA at IAC 2026 – Day 2",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
+   "title_zh": "火星地震可能讓這些岩石滾動",
+   "title_orig": "A quake on Mars may have set these rocks rolling",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_at_IAC_2026_Day_2",
-   "date": "2026-10-06"
+   "url": "https://www.sciencenews.org/article/mars-quakes-falling-boulders",
+   "date": "2026-10-07"
   },
   {
-   "title_zh": "韋伯捕捉到星雲恆星噴流的動盪景象",
-   "title_orig": "Webb captures commotion from nebula’s stellar jets",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
+   "title_zh": "記得「照顧者死亡」研究嗎？現實情況更為複雜",
+   "title_orig": "Remember the ‘caregiving kills’ study? Reality is more nuanced",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Webb_captures_commotion_from_nebula_s_stellar_jets",
-   "date": "2026-10-06"
+   "url": "https://www.sciencenews.org/article/caregiving-kills-nuance-benefit",
+   "date": "2026-10-07"
   },
   {
-   "title_zh": "觀看蘇菲·阿當重返地球",
-   "title_orig": "Watch Sophie Adenot return to Earth",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/Watch_Sophie_Adenot_return_to_Earth",
-   "date": "2026-10-06"
+   "title_zh": null,
+   "title_orig": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/Fraunhofer-igd-erweitert-institutsleitung.html",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "出生率在環境危機的考驗下",
+   "title_orig": "La natalité à l’épreuve de la crise environnementale",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
+   "date": "2026-10-07"
+  },
+  {
+   "title_zh": "災難：如何重振謹慎態度",
+   "title_orig": "Catastrophes : comment réhabiliter la prudence",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/catastrophes-comment-rehabiliter-la-prudence",
+   "date": "2026-10-07"
   },
   {
    "title_zh": "IEEE日快樂！",
@@ -84,47 +184,7 @@
    "date": "2026-10-06"
   },
   {
-   "title_zh": "治理人工智慧的6項指導原則",
-   "title_orig": "6 Guidelines for Governing AI",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/6-guidelines-governing-ai",
-   "date": "2026-10-06"
-  },
-  {
-   "title_zh": "《母性之腦》探索母愛的神經科學",
-   "title_orig": "‘A Mother’s Brain’ explores the neuroscience of motherhood",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/mommy-brain-neuroscience-book",
-   "date": "2026-10-06"
-  },
-  {
-   "title_zh": "世界上最吵的鳥類可能蓋過搖滾音樂會",
-   "title_orig": "The world’s loudest bird could drown out a rock concert",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/worlds-loudest-bird-jackhammer-volume",
-   "date": "2026-10-06"
-  },
-  {
-   "title_zh": "你的聲音不只是聲響，更是你的一部分",
-   "title_orig": "Your voice is more than sound. It’s part of who you are",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/deep-end-voice-more-sound-identity",
-   "date": "2026-10-06"
-  },
-  {
-   "title_zh": "全球首次成功直接拍攝銀河系中心的低能伽馬射線輻射",
+   "title_zh": "全球首次成功拍攝銀河系中心低能伽馬射線的影像",
    "title_orig": "世界初、天の川銀河中心の低エネルギーガンマ線放射の直接撮像に成功",
    "source": "JAXA 日本宇宙航空研究開發機構",
    "source_id": "jaxa",
@@ -134,7 +194,7 @@
    "date": "2026-10-06"
   },
   {
-   "title_zh": null,
+   "title_zh": "三河太陽系漫步",
    "title_orig": "みたか太陽系ウォーク",
    "source": "國立天文台（日本 NAOJ）",
    "source_id": "naoj",
@@ -142,26 +202,6 @@
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/events/2026/20261006-taiyokei-walk.html",
    "date": "2026-10-06"
-  },
-  {
-   "title_zh": "傑奎琳·布洛赫，光影魔術師",
-   "title_orig": "Jacqueline Bloch, magicienne de la lumière",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/jacqueline-bloch-magicienne-de-la-lumiere",
-   "date": "2026-10-06"
-  },
-  {
-   "title_zh": "天文學家捕捉到一顆恆星在300光年外緩慢吞噬棕矮星的過程",
-   "title_orig": "Astronomers catch a star slowly snacking on a brown dwarf, 300 light years away",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/astronomers-catch-star-slowly-snacking-on-brown-dwarf-1005",
-   "date": "2026-10-05"
   },
   {
    "title_zh": "天文資訊中心職員獲東北大學國際貢獻獎",
@@ -184,17 +224,7 @@
    "date": "2026-10-05"
   },
   {
-   "title_zh": "智慧汽車研究者欲消除紅綠燈",
-   "title_orig": "Smart Car Researcher Wants to Eliminate Stoplights",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/smart-car-researcher-eliminate-stoplights",
-   "date": "2026-10-03"
-  },
-  {
-   "title_zh": "集約溫室氣體相關資訊與知識的「日本GHG中心」成立",
+   "title_zh": "設立匯集溫室氣體相關資訊與知識的「日本GHG中心」",
    "title_orig": "温室効果ガスに関する情報と知見を集約する「日本GHGセンター」を設立",
    "source": "JAXA 日本宇宙航空研究開發機構",
    "source_id": "jaxa",
@@ -204,7 +234,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "奠基儀式：弗勞恩霍夫協會在科特布斯的新據點強化結構轉型與技術轉移",
+   "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變革與技術轉移",
    "title_orig": "Spatenstich: Neuer Fraunhofer-Standort in Cottbus stärkt Strukturwandel und Transfer",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -214,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "未淨化的海水進入電解槽：弗勞恩霍夫研究所測試材料與膜",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -224,37 +254,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "創新敷料讓傷口更快癒合",
-   "title_orig": "Innovative Pflaster lassen Wunden schneller heilen",
-   "source": "Fraunhofer 弗勞恩霍夫協會",
-   "source_id": "fraunhofer",
-   "lang": "de",
-   "lang_label": "德文",
-   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/innovative-pflaster-lassen-wunden-schneller-heilen.html",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "烏克蘭：環境成為攻擊目標（二）",
-   "title_orig": "Ukraine : l’environnement pour cible (2)",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/ukraine-lenvironnement-pour-cible-2",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "麻省理工學院交通實驗室將開發公共運輸機構專用的人工智慧平台",
-   "title_orig": "MIT Transit Lab to develop an AI platform for public transit agencies",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/mit-transit-lab-to-develop-ai-platform-public-transit-agencies-0930",
-   "date": "2026-09-30"
-  },
-  {
-   "title_zh": "氣球觀測Sunrise-III揭開太陽磁場真面目",
+   "title_zh": "氣球觀測 Sunrise-III 揭開太陽磁場真面目",
    "title_orig": "気球観測Sunrise-IIIで太陽磁場の素顔に迫る",
    "source": "國立天文台（日本 NAOJ）",
    "source_id": "naoj",
@@ -264,7 +264,7 @@
    "date": "2026-09-30"
   },
   {
-   "title_zh": "JAXA諏訪理太空人的國際太空站（ISS）長期駐留搭乘飛船確定",
+   "title_zh": "JAXA諏訪理太空人將搭乘指定載具前往國際太空站（ISS）進行長期駐留任務",
    "title_orig": "JAXA諏訪理宇宙飛行士の国際宇宙ステーション（ISS）長期滞在 搭乗機決定",
    "source": "JAXA 日本宇宙航空研究開發機構",
    "source_id": "jaxa",
@@ -276,9 +276,9 @@
  ],
  "dropped": [
   {
-   "source": "naoj",
-   "title": "みたか太陽系ウォーク",
-   "reason": "含簡體字"
+   "source": "fraunhofer",
+   "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
+   "reason": "出現原文沒有的外文字詞「Unbeschieden」"
   }
  ],
  "errors": []
