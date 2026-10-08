@@ -228,10 +228,19 @@ def main():
 
     model = args.model
     if not args.dry_run:
-        try:
-            have = ollama_models(args.ollama_url)
-        except Exception as e:  # noqa: BLE001
-            print(f"[錯誤] 連不上本機模型服務 {args.ollama_url}：{e}", file=sys.stderr)
+        # 剛開機時 Ollama 可能還沒起來或模型清單還是空的：每 10 秒重試、最多 2 分鐘再報錯（2026-10-08 稽核）
+        have, err = [], None
+        for _ in range(12):
+            try:
+                have = ollama_models(args.ollama_url)
+                err = None
+                if have:
+                    break
+            except Exception as e:  # noqa: BLE001
+                err = e
+            time.sleep(10)
+        if err is not None:
+            print(f"[錯誤] 連不上本機模型服務 {args.ollama_url}：{err}", file=sys.stderr)
             return 3
         if not model:
             model = next((m for m in MODEL_PREFERENCE if m in have), "")
