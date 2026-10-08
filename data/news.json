@@ -1,36 +1,86 @@
 {
- "generated": "2026-10-08T07:14:56+08:00",
+ "generated": "2026-10-09T06:30:39+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 設定 SpaceX 第 35 次太空站補給任務的發射與抵達覆蓋時間",
-   "title_orig": "NASA Sets Coverage for SpaceX 35th Station Resupply Launch, Arrival",
+   "title_zh": "NASA 簡報將強調對火星衛星任務的貢獻",
+   "title_orig": "NASA Briefing to Highlight Contributions to Martian Moons Mission",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-sets-coverage-for-spacex-35th-station-resupply-launch-arrival/",
+   "url": "https://www.nasa.gov/news-release/nasa-briefing-to-highlight-contributions-to-martian-moons-mission/",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "NASA 宣布美國黃金時代峰會的雄心科學計畫",
+   "title_orig": "NASA Announces Bold Science Initiatives for America’s Golden Age Summit",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/news-release/nasa-announces-bold-science-initiatives-for-americas-golden-age-summit/",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "NASA的SSPICY任務旨在展示太空檢測技術",
+   "title_orig": "NASA’s SSPICY Mission to Demonstrate In-Space Inspection Technologies",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/centers-and-facilities/ames/nasas-sspicy-mission-to-demonstrate-in-space-inspection-technologies/",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "確認蘇菲·阿當的著陸點",
+   "title_orig": "Splashdown confirmed for Sophie Adenot",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/Splashdown_confirmed_for_Sophie_Adenot",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "形狀感測薄膜數位追蹤其彎曲與扭轉時的移動",
+   "title_orig": "Shape-sensing sheet digitally tracks its movement as it bends and twists",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/shape-sensing-sheet-digitally-tracks-movement-bends-twists-1008",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "基拉韋厄火山噴發景象揭示火山為何如喷泉般噴發",
+   "title_orig": "Kilauea’s display is revealing why volcanoes spew like a fountain show",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/kilauea-why-volcanoes-spew-fountains",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "Sentinel-3C 傳回首張地球影像",
+   "title_orig": "Sentinel-3C returns its first views of Earth",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3/Sentinel-3C_returns_its_first_views_of_Earth",
    "date": "2026-10-08"
   },
   {
-   "title_zh": "NASA的SpaceX第35次商業補給任務概覽",
-   "title_orig": "NASA’s SpaceX 35th Commercial Resupply Mission Overview",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "太陽軌道器追蹤神秘磁場折返的起源",
+   "title_orig": "Solar Orbiter tracks origin of mysterious magnetic switchbacks",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/general/nasas-spacex-35th-commercial-resupply-mission-overview/",
-   "date": "2026-10-08"
-  },
-  {
-   "title_zh": "NASA的PRIMA太空船（藝術家概念圖）",
-   "title_orig": "NASA’s PRIMA Spacecraft (Artist’s Concept)",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/photojournal/nasas-prima-spacecraft-artists-concept/",
+   "url": "https://www.esa.int/Science_Exploration/Space_Science/Solar_Orbiter/Solar_Orbiter_tracks_origin_of_mysterious_magnetic_switchbacks",
    "date": "2026-10-08"
   },
   {
@@ -64,44 +114,44 @@
    "date": "2026-10-08"
   },
   {
-   "title_zh": "基因療法與特殊護目鏡讓部分盲人恢復有限視力",
+   "title_zh": "實驗性藥物能消滅脂肪細胞而非縮小它們",
+   "title_orig": "An experimental drug kills fat cells, rather than shrinking them",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/experimental-drug-kills-fat-cells",
+   "date": "2026-10-08"
+  },
+  {
+   "title_zh": "基因治療與特殊護目鏡讓部分盲人恢復有限視力",
    "title_orig": "Gene therapy and special goggles give some blind people limited sight",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/gene-therapy-cells-light-blind-vision",
+   "url": "https://www.sciencenews.org/article/cells-detect-light-blind-vision",
    "date": "2026-10-08"
   },
   {
-   "title_zh": "火星最奇特的雲可能比我們想像的更奇特",
-   "title_orig": "Mars’s oddest cloud may be even odder than we thought",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Space_Science/Mars_Express/Mars_s_oddest_cloud_may_be_even_odder_than_we_thought",
-   "date": "2026-10-07"
+   "title_zh": "出生率在環境危機的考驗下",
+   "title_orig": "La natalité à l’épreuve de la crise environnementale",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
+   "date": "2026-10-08"
   },
   {
-   "title_zh": "歐洲太空總署出席2026年國際太空大會——第3天",
-   "title_orig": "ESA at IAC 2026 – Day 3",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_at_IAC_2026_Day_3",
-   "date": "2026-10-07"
-  },
-  {
-   "title_zh": "煞車！歐洲太空總署的赫拉小行星任務該放慢腳步了",
-   "title_orig": "Brake! Time for ESA’s Hera asteroid mission to go slow",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Space_Safety/Hera/Brake!_Time_for_ESA_s_Hera_asteroid_mission_to_go_slow",
-   "date": "2026-10-07"
+   "title_zh": "二氧化碳是廢棄物還是資源？",
+   "title_orig": "Le CO₂, déchet à capter ou ressource à transformer ?",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/le-co2-dechet-a-capter-ou-ressource-a-transformer",
+   "date": "2026-10-08"
   },
   {
    "title_zh": "規劃系統確保機器人飛行路徑保持無碰撞",
@@ -114,36 +164,6 @@
    "date": "2026-10-07"
   },
   {
-   "title_zh": "超級電腦研究人員記錄人工智慧硬體演進",
-   "title_orig": "Supercomputing researchers document evolution of AI hardware",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/supercomputing-researchers-document-evolution-ai-hardware-1006",
-   "date": "2026-10-07"
-  },
-  {
-   "title_zh": "火星地震可能讓這些岩石滾動",
-   "title_orig": "A quake on Mars may have set these rocks rolling",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/mars-quakes-falling-boulders",
-   "date": "2026-10-07"
-  },
-  {
-   "title_zh": "記得「照顧者死亡」研究嗎？現實情況更為複雜",
-   "title_orig": "Remember the ‘caregiving kills’ study? Reality is more nuanced",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/caregiving-kills-nuance-benefit",
-   "date": "2026-10-07"
-  },
-  {
    "title_zh": null,
    "title_orig": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
    "source": "Fraunhofer 弗勞恩霍夫協會",
@@ -151,16 +171,6 @@
    "lang": "de",
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/Fraunhofer-igd-erweitert-institutsleitung.html",
-   "date": "2026-10-07"
-  },
-  {
-   "title_zh": "出生率在環境危機的考驗下",
-   "title_orig": "La natalité à l’épreuve de la crise environnementale",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
    "date": "2026-10-07"
   },
   {
@@ -214,16 +224,6 @@
    "date": "2026-10-05"
   },
   {
-   "title_zh": "都是自私的嗎？",
-   "title_orig": "Tous égoïstes ?",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/tous-egoistes",
-   "date": "2026-10-05"
-  },
-  {
    "title_zh": "設立匯集溫室氣體相關資訊與知識的「日本GHG中心」",
    "title_orig": "温室効果ガスに関する情報と知見を集約する「日本GHGセンター」を設立",
    "source": "JAXA 日本宇宙航空研究開發機構",
@@ -244,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -264,7 +264,7 @@
    "date": "2026-09-30"
   },
   {
-   "title_zh": "JAXA諏訪理太空人將搭乘指定載具前往國際太空站（ISS）進行長期駐留任務",
+   "title_zh": "JAXA諏訪理太空人的國際太空站（ISS）長期駐留任務搭乘飛船確定",
    "title_orig": "JAXA諏訪理宇宙飛行士の国際宇宙ステーション（ISS）長期滞在 搭乗機決定",
    "source": "JAXA 日本宇宙航空研究開發機構",
    "source_id": "jaxa",
