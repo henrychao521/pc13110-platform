@@ -1,46 +1,86 @@
 {
- "generated": "2026-10-09T06:30:39+08:00",
+ "generated": "2026-10-10T06:30:38+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 簡報將強調對火星衛星任務的貢獻",
-   "title_orig": "NASA Briefing to Highlight Contributions to Martian Moons Mission",
+   "title_zh": "美國太空總署尋求美國業界對商業太空站的計畫",
+   "title_orig": "NASA Seeks US Industry Plans for Commercial Space Stations",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-briefing-to-highlight-contributions-to-martian-moons-mission/",
-   "date": "2026-10-09"
+   "url": "https://www.nasa.gov/news-release/nasa-seeks-us-industry-plans-for-commercial-space-stations/",
+   "date": "2026-10-10"
   },
   {
-   "title_zh": "NASA 宣布美國黃金時代峰會的雄心科學計畫",
-   "title_orig": "NASA Announces Bold Science Initiatives for America’s Golden Age Summit",
+   "title_zh": "NASA 展示下一代熱防護系統技術",
+   "title_orig": "NASA Demonstrates Next-Generation Heat Shield Technologies",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-announces-bold-science-initiatives-for-americas-golden-age-summit/",
-   "date": "2026-10-09"
+   "url": "https://www.nasa.gov/centers-and-facilities/ames/nasa-demonstrates-next-generation-heat-shield-technologies/",
+   "date": "2026-10-10"
   },
   {
-   "title_zh": "NASA的SSPICY任務旨在展示太空檢測技術",
-   "title_orig": "NASA’s SSPICY Mission to Demonstrate In-Space Inspection Technologies",
+   "title_zh": "透過全新 IEEE 設計計畫掌握 AI 晶片原理",
+   "title_orig": "Master AI Chip Principles With New IEEE Design Program",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/master-ai-chip-principles-ieee",
+   "date": "2026-10-10"
+  },
+  {
+   "title_zh": "宇宙鏡屋",
+   "title_orig": "Cosmic House of Mirrors",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/ames/nasas-sspicy-mission-to-demonstrate-in-space-inspection-technologies/",
+   "url": "https://www.nasa.gov/image-article/cosmic-house-of-mirrors/",
    "date": "2026-10-09"
   },
   {
-   "title_zh": "確認蘇菲·阿當的著陸點",
+   "title_zh": "圖片回顧：2026年10月5日至9日",
+   "title_orig": "Week in images: 05-09 October 2026",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_05-09_October_2026",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "太空中的地球：納米比亞最大的鹽沼",
+   "title_orig": "Earth from Space: Namibia’s biggest salt pan",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Namibia_s_biggest_salt_pan",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "確認蘇菲·阿當（Sophie Adenot）著陸",
    "title_orig": "Splashdown confirmed for Sophie Adenot",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/Splashdown_confirmed_for_Sophie_Adenot",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "我們需要將倫理融入工程課程中",
+   "title_orig": "We Need to Embed Ethics Into Our Engineering Courses",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/integrating-engineering-ethics-education",
    "date": "2026-10-09"
   },
   {
@@ -54,6 +94,26 @@
    "date": "2026-10-09"
   },
   {
+   "title_zh": null,
+   "title_orig": "How the Grand Canyon could have lost 1 billion years of geologic history",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/grand-canyon-lost-history-giant-cliff",
+   "date": "2026-10-09"
+  },
+  {
+   "title_zh": "這裡是科學諾貝爾獎的概覽",
+   "title_orig": "Here’s a look at the Nobel Prizes for science",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/nobel-2026-physics-chemistry-medicine",
+   "date": "2026-10-09"
+  },
+  {
    "title_zh": "基拉韋厄火山噴發景象揭示火山為何如喷泉般噴發",
    "title_orig": "Kilauea’s display is revealing why volcanoes spew like a fountain show",
    "source": "Science News",
@@ -64,24 +124,14 @@
    "date": "2026-10-09"
   },
   {
-   "title_zh": "Sentinel-3C 傳回首張地球影像",
-   "title_orig": "Sentinel-3C returns its first views of Earth",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3/Sentinel-3C_returns_its_first_views_of_Earth",
-   "date": "2026-10-08"
-  },
-  {
-   "title_zh": "太陽軌道器追蹤神秘磁場折返的起源",
-   "title_orig": "Solar Orbiter tracks origin of mysterious magnetic switchbacks",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Space_Science/Solar_Orbiter/Solar_Orbiter_tracks_origin_of_mysterious_magnetic_switchbacks",
-   "date": "2026-10-08"
+   "title_zh": "中世紀風格製造玻璃",
+   "title_orig": "Fabriquer du verre comme au Moyen Âge",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/videos/fabriquer-du-verre-comme-au-moyen-age",
+   "date": "2026-10-09"
   },
   {
    "title_zh": "IEEE報告預測將改變生活的科技",
@@ -94,16 +144,6 @@
    "date": "2026-10-08"
   },
   {
-   "title_zh": "改變職業生涯並非易事",
-   "title_orig": "Changing Your Career Isn’t Easy",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/career-pivots-for-software-engineers",
-   "date": "2026-10-08"
-  },
-  {
    "title_zh": "扭轉麻薩諸塞州貝類養殖數據的趨勢",
    "title_orig": "Turning the tide on Massachusetts shellfishing data",
    "source": "MIT News 麻省理工學院新聞",
@@ -111,26 +151,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/turning-tide-massachusetts-shellfishing-data-1007",
-   "date": "2026-10-08"
-  },
-  {
-   "title_zh": "實驗性藥物能消滅脂肪細胞而非縮小它們",
-   "title_orig": "An experimental drug kills fat cells, rather than shrinking them",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/experimental-drug-kills-fat-cells",
-   "date": "2026-10-08"
-  },
-  {
-   "title_zh": "基因治療與特殊護目鏡讓部分盲人恢復有限視力",
-   "title_orig": "Gene therapy and special goggles give some blind people limited sight",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/cells-detect-light-blind-vision",
    "date": "2026-10-08"
   },
   {
@@ -172,26 +192,6 @@
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/Fraunhofer-igd-erweitert-institutsleitung.html",
    "date": "2026-10-07"
-  },
-  {
-   "title_zh": "災難：如何重振謹慎態度",
-   "title_orig": "Catastrophes : comment réhabiliter la prudence",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/catastrophes-comment-rehabiliter-la-prudence",
-   "date": "2026-10-07"
-  },
-  {
-   "title_zh": "IEEE日快樂！",
-   "title_orig": "Happy IEEE Day!",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-day",
-   "date": "2026-10-06"
   },
   {
    "title_zh": "全球首次成功拍攝銀河系中心低能伽馬射線的影像",
@@ -244,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -264,7 +264,7 @@
    "date": "2026-09-30"
   },
   {
-   "title_zh": "JAXA諏訪理太空人的國際太空站（ISS）長期駐留任務搭乘飛船確定",
+   "title_zh": "JAXA諏訪理太空人將搭乘指定載具前往國際太空站（ISS）進行長期駐留任務",
    "title_orig": "JAXA諏訪理宇宙飛行士の国際宇宙ステーション（ISS）長期滞在 搭乗機決定",
    "source": "JAXA 日本宇宙航空研究開發機構",
    "source_id": "jaxa",
@@ -275,6 +275,11 @@
   }
  ],
  "dropped": [
+  {
+   "source": "science-news",
+   "title": "How the Grand Canyon could have lost 1 billion years of geologic history",
+   "reason": "含簡體字"
+  },
   {
    "source": "fraunhofer",
    "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
