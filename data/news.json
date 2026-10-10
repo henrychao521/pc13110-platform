@@ -1,10 +1,30 @@
 {
- "generated": "2026-10-10T06:30:38+08:00",
+ "generated": "2026-10-11T06:30:35+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "美國太空總署尋求美國業界對商業太空站的計畫",
+   "title_zh": "NASA將進行飛越表演，在大都會生命體育場與NFL球迷互動",
+   "title_orig": "NASA to Conduct Flyover, Engage NFL Fans at MetLife Stadium",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/news-release/nasa-to-conduct-flyover-engage-nfl-fans-at-metlife-stadium/",
+   "date": "2026-10-10"
+  },
+  {
+   "title_zh": "每日天文圖：2026年10月10日——月球背面",
+   "title_orig": "APOD: 2026 October 10 – Lunar Farside",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-10-lunar-farside/",
+   "date": "2026-10-10"
+  },
+  {
+   "title_zh": "NASA 尋求美國產業界關於商業太空站的計畫",
    "title_orig": "NASA Seeks US Industry Plans for Commercial Space Stations",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
@@ -14,13 +34,13 @@
    "date": "2026-10-10"
   },
   {
-   "title_zh": "NASA 展示下一代熱防護系統技術",
-   "title_orig": "NASA Demonstrates Next-Generation Heat Shield Technologies",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返抵地球",
+   "title_orig": "ESA astronaut Sophie Adenot returns from her first mission to the International Space Station",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/ames/nasa-demonstrates-next-generation-heat-shield-technologies/",
+   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/ESA_astronaut_Sophie_Adenot_returns_from_her_first_mission_to_the_International_Space_Station",
    "date": "2026-10-10"
   },
   {
@@ -32,16 +52,6 @@
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/master-ai-chip-principles-ieee",
    "date": "2026-10-10"
-  },
-  {
-   "title_zh": "宇宙鏡屋",
-   "title_orig": "Cosmic House of Mirrors",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/cosmic-house-of-mirrors/",
-   "date": "2026-10-09"
   },
   {
    "title_zh": "圖片回顧：2026年10月5日至9日",
@@ -61,16 +71,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Namibia_s_biggest_salt_pan",
-   "date": "2026-10-09"
-  },
-  {
-   "title_zh": "確認蘇菲·阿當（Sophie Adenot）著陸",
-   "title_orig": "Splashdown confirmed for Sophie Adenot",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/Splashdown_confirmed_for_Sophie_Adenot",
    "date": "2026-10-09"
   },
   {
@@ -244,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
