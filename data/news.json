@@ -1,8 +1,18 @@
 {
- "generated": "2026-10-11T06:30:35+08:00",
+ "generated": "2026-10-12T06:30:42+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
+  {
+   "title_zh": "每日天文圖片：2026年10月11日——冰上釣取宇宙中微子",
+   "title_orig": "APOD: 2026 October 11 – Ice Fishing for Cosmic Neutrinos",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-11-ice-fishing-for-cosmic-neutrinos/",
+   "date": "2026-10-11"
+  },
   {
    "title_zh": "NASA將進行飛越表演，在大都會生命體育場與NFL球迷互動",
    "title_orig": "NASA to Conduct Flyover, Engage NFL Fans at MetLife Stadium",
@@ -14,23 +24,13 @@
    "date": "2026-10-10"
   },
   {
-   "title_zh": "每日天文圖：2026年10月10日——月球背面",
+   "title_zh": "APOD：2026年10月10日——月球背面",
    "title_orig": "APOD: 2026 October 10 – Lunar Farside",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://science.nasa.gov/image-article/apod-2026-october-10-lunar-farside/",
-   "date": "2026-10-10"
-  },
-  {
-   "title_zh": "NASA 尋求美國產業界關於商業太空站的計畫",
-   "title_orig": "NASA Seeks US Industry Plans for Commercial Space Stations",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-seeks-us-industry-plans-for-commercial-space-stations/",
    "date": "2026-10-10"
   },
   {
@@ -244,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
