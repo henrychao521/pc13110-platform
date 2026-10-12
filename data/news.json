@@ -1,37 +1,87 @@
 {
- "generated": "2026-10-12T06:30:42+08:00",
+ "generated": "2026-10-13T06:30:40+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "每日天文圖片：2026年10月11日——冰上釣取宇宙中微子",
-   "title_orig": "APOD: 2026 October 11 – Ice Fishing for Cosmic Neutrinos",
+   "title_zh": "NASA的SpaceX CRS-35任務將發射健康研究設備",
+   "title_orig": "NASA’s SpaceX CRS-35 Mission to Launch Health Research",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-11-ice-fishing-for-cosmic-neutrinos/",
-   "date": "2026-10-11"
+   "url": "https://science.nasa.gov/missions/station/nasas-spacex-crs-35-mission-to-launch-health-research/",
+   "date": "2026-10-13"
   },
   {
-   "title_zh": "NASA將進行飛越表演，在大都會生命體育場與NFL球迷互動",
-   "title_orig": "NASA to Conduct Flyover, Engage NFL Fans at MetLife Stadium",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "認識讓Anthropic的AI代理保持可信賴的工程師",
+   "title_orig": "Meet the Anthropic Engineer Keeping Its AI Agent Trustworthy",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-to-conduct-flyover-engage-nfl-fans-at-metlife-stadium/",
-   "date": "2026-10-10"
+   "url": "https://spectrum.ieee.org/anthropic-engineer-ai-agent",
+   "date": "2026-10-13"
   },
   {
-   "title_zh": "APOD：2026年10月10日——月球背面",
-   "title_orig": "APOD: 2026 October 10 – Lunar Farside",
+   "title_zh": "受損的血管可能是APOE4增加阿茲海默症風險的關鍵線索",
+   "title_orig": "Scarred blood vessels may be one clue to APOE4’s Alzheimer’s risk",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/scar-tissue-blood-vessels-alzheimers",
+   "date": "2026-10-13"
+  },
+  {
+   "title_zh": "每日天文圖：2026年10月12日——木星與衛星",
+   "title_orig": "APOD: 2026 October 12 – Jupiter and the Moons",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-10-lunar-farside/",
-   "date": "2026-10-10"
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-12-jupiter-and-the-moons/",
+   "date": "2026-10-12"
+  },
+  {
+   "title_zh": "南極海冰擴大至2026年最高點",
+   "title_orig": "Antarctic Sea Ice Grows to Its 2026 Maximum",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/earth/earth-observatory/antarctic-sea-ice-grows-to-its-2026-maximum/",
+   "date": "2026-10-12"
+  },
+  {
+   "title_zh": "歡迎回家，蘇菲·阿當諾",
+   "title_orig": "Welcome home, Sophie Adenot",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/Welcome_home_Sophie_Adenot",
+   "date": "2026-10-12"
+  },
+  {
+   "title_zh": "首座公用事業規模增強型地熱發電廠正式啟用",
+   "title_orig": "First Utility-Scale Enhanced Geothermal Plant Goes Live",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/fervo-cape-station-geothermal",
+   "date": "2026-10-12"
+  },
+  {
+   "title_zh": "當氣候變暖帶來高溫，巨紅杉會如何？",
+   "title_orig": "When climate change brings the heat, what happens to a mighty redwood?",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/climate-change-heat-redwood-temperature",
+   "date": "2026-10-12"
   },
   {
    "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返抵地球",
@@ -64,26 +114,6 @@
    "date": "2026-10-09"
   },
   {
-   "title_zh": "太空中的地球：納米比亞最大的鹽沼",
-   "title_orig": "Earth from Space: Namibia’s biggest salt pan",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Namibia_s_biggest_salt_pan",
-   "date": "2026-10-09"
-  },
-  {
-   "title_zh": "我們需要將倫理融入工程課程中",
-   "title_orig": "We Need to Embed Ethics Into Our Engineering Courses",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/integrating-engineering-ethics-education",
-   "date": "2026-10-09"
-  },
-  {
    "title_zh": "形狀感測薄膜數位追蹤其彎曲與扭轉時的移動",
    "title_orig": "Shape-sensing sheet digitally tracks its movement as it bends and twists",
    "source": "MIT News 麻省理工學院新聞",
@@ -104,26 +134,6 @@
    "date": "2026-10-09"
   },
   {
-   "title_zh": "這裡是科學諾貝爾獎的概覽",
-   "title_orig": "Here’s a look at the Nobel Prizes for science",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/nobel-2026-physics-chemistry-medicine",
-   "date": "2026-10-09"
-  },
-  {
-   "title_zh": "基拉韋厄火山噴發景象揭示火山為何如喷泉般噴發",
-   "title_orig": "Kilauea’s display is revealing why volcanoes spew like a fountain show",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/kilauea-why-volcanoes-spew-fountains",
-   "date": "2026-10-09"
-  },
-  {
    "title_zh": "中世紀風格製造玻璃",
    "title_orig": "Fabriquer du verre comme au Moyen Âge",
    "source": "CNRS Le Journal 法國國家科學研究中心",
@@ -132,16 +142,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/videos/fabriquer-du-verre-comme-au-moyen-age",
    "date": "2026-10-09"
-  },
-  {
-   "title_zh": "IEEE報告預測將改變生活的科技",
-   "title_orig": "IEEE Report Predicts Tech That Will Transform Lives",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-report-predicts-tech",
-   "date": "2026-10-08"
   },
   {
    "title_zh": "扭轉麻薩諸塞州貝類養殖數據的趨勢",
