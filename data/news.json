@@ -1,17 +1,57 @@
 {
- "generated": "2026-10-13T06:30:40+08:00",
+ "generated": "2026-10-14T06:31:46+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA的SpaceX CRS-35任務將發射健康研究設備",
-   "title_orig": "NASA’s SpaceX CRS-35 Mission to Launch Health Research",
+   "title_zh": "NASA 任命太空人克里斯蒂娜·科克為代理首席工程師",
+   "title_orig": "NASA Names Astronaut Christina Koch Acting Deputy Chief Engineer",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/missions/station/nasas-spacex-crs-35-mission-to-launch-health-research/",
-   "date": "2026-10-13"
+   "url": "https://www.nasa.gov/news-release/nasa-names-astronaut-christina-koch-acting-deputy-chief-engineer/",
+   "date": "2026-10-14"
+  },
+  {
+   "title_zh": "比較地外巡邏車行駛距離",
+   "title_orig": "Comparing Off-World Rover Driving Distances",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/photojournal/comparing-off-world-rover-driving-distances/",
+   "date": "2026-10-14"
+  },
+  {
+   "title_zh": "NASA 創紀錄的毅力號探測車團隊",
+   "title_orig": "NASA’s Record-Setting Perseverance Rover Team",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/photojournal/nasas-record-setting-perseverance-rover-team/",
+   "date": "2026-10-14"
+  },
+  {
+   "title_zh": "人工神經網路如何建構自身的學習機制",
+   "title_orig": "How artificial neural networks build their own learning machinery",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/how-artificial-neural-networks-build-their-own-learning-machinery-1013",
+   "date": "2026-10-14"
+  },
+  {
+   "title_zh": "為了實現隱形，我們需要調整光線的行進路徑",
+   "title_orig": "To turn invisible, we need to tweak the path light travels",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/invisibility-tweak-path-light-cloak",
+   "date": "2026-10-14"
   },
   {
    "title_zh": "認識讓Anthropic的AI代理保持可信賴的工程師",
@@ -24,34 +64,44 @@
    "date": "2026-10-13"
   },
   {
-   "title_zh": "受損的血管可能是APOE4增加阿茲海默症風險的關鍵線索",
-   "title_orig": "Scarred blood vessels may be one clue to APOE4’s Alzheimer’s risk",
+   "title_zh": "重新編程的NK免疫細胞靶向癌症和自體免疫疾病",
+   "title_orig": "Reprogrammed NK immune cells target cancer and autoimmune disorders",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/reprogrammed-nk-immune-cells-target-cancer-and-autoimmune-disorders-1013",
+   "date": "2026-10-13"
+  },
+  {
+   "title_zh": "兩人逆流而上，揭示人類耐力的起源",
+   "title_orig": "A duo goes against the tide to explain an origin of human endurance",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/scar-tissue-blood-vessels-alzheimers",
+   "url": "https://www.sciencenews.org/article/origin-human-endurance-dive-evolution",
    "date": "2026-10-13"
   },
   {
-   "title_zh": "每日天文圖：2026年10月12日——木星與衛星",
-   "title_orig": "APOD: 2026 October 12 – Jupiter and the Moons",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "當你失去聲音時會發生什麼事？",
+   "title_orig": "What happens when you lose your voice?",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-12-jupiter-and-the-moons/",
-   "date": "2026-10-12"
+   "url": "https://www.sciencenews.org/article/deep-end-podcast-voice-communication",
+   "date": "2026-10-13"
   },
   {
-   "title_zh": "南極海冰擴大至2026年最高點",
-   "title_orig": "Antarctic Sea Ice Grows to Its 2026 Maximum",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/earth/earth-observatory/antarctic-sea-ice-grows-to-its-2026-maximum/",
-   "date": "2026-10-12"
+   "title_zh": "鏡像生物警報",
+   "title_orig": "Alerte à la biologie miroir",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/alerte-a-la-biologie-miroir",
+   "date": "2026-10-13"
   },
   {
    "title_zh": "歡迎回家，蘇菲·阿當諾",
@@ -71,16 +121,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/fervo-cape-station-geothermal",
-   "date": "2026-10-12"
-  },
-  {
-   "title_zh": "當氣候變暖帶來高溫，巨紅杉會如何？",
-   "title_orig": "When climate change brings the heat, what happens to a mighty redwood?",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/climate-change-heat-redwood-temperature",
    "date": "2026-10-12"
   },
   {
@@ -124,16 +164,6 @@
    "date": "2026-10-09"
   },
   {
-   "title_zh": null,
-   "title_orig": "How the Grand Canyon could have lost 1 billion years of geologic history",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/grand-canyon-lost-history-giant-cliff",
-   "date": "2026-10-09"
-  },
-  {
    "title_zh": "中世紀風格製造玻璃",
    "title_orig": "Fabriquer du verre comme au Moyen Âge",
    "source": "CNRS Le Journal 法國國家科學研究中心",
@@ -144,16 +174,6 @@
    "date": "2026-10-09"
   },
   {
-   "title_zh": "扭轉麻薩諸塞州貝類養殖數據的趨勢",
-   "title_orig": "Turning the tide on Massachusetts shellfishing data",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/turning-tide-massachusetts-shellfishing-data-1007",
-   "date": "2026-10-08"
-  },
-  {
    "title_zh": "出生率在環境危機的考驗下",
    "title_orig": "La natalité à l’épreuve de la crise environnementale",
    "source": "CNRS Le Journal 法國國家科學研究中心",
@@ -162,26 +182,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
    "date": "2026-10-08"
-  },
-  {
-   "title_zh": "二氧化碳是廢棄物還是資源？",
-   "title_orig": "Le CO₂, déchet à capter ou ressource à transformer ?",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/le-co2-dechet-a-capter-ou-ressource-a-transformer",
-   "date": "2026-10-08"
-  },
-  {
-   "title_zh": "規劃系統確保機器人飛行路徑保持無碰撞",
-   "title_orig": "Planning system ensures a robot’s flight path will remain collision-free",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/planning-system-ensures-robots-flight-path-will-remain-collision-free-1007",
-   "date": "2026-10-07"
   },
   {
    "title_zh": null,
@@ -275,11 +275,6 @@
   }
  ],
  "dropped": [
-  {
-   "source": "science-news",
-   "title": "How the Grand Canyon could have lost 1 billion years of geologic history",
-   "reason": "含簡體字"
-  },
   {
    "source": "fraunhofer",
    "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
