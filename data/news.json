@@ -1,36 +1,66 @@
 {
- "generated": "2026-10-14T06:31:46+08:00",
+ "generated": "2026-10-15T06:30:31+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 任命太空人克里斯蒂娜·科克為代理首席工程師",
-   "title_orig": "NASA Names Astronaut Christina Koch Acting Deputy Chief Engineer",
+   "title_zh": "NASA將舉辦新聞發布會，預覽美國第100、101次太空行走任務",
+   "title_orig": "NASA to Host News Conference Previewing US Spacewalks 100, 101",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-names-astronaut-christina-koch-acting-deputy-chief-engineer/",
-   "date": "2026-10-14"
+   "url": "https://www.nasa.gov/news-release/nasa-to-host-news-conference-previewing-us-spacewalks-100-101/",
+   "date": "2026-10-15"
   },
   {
-   "title_zh": "比較地外巡邏車行駛距離",
-   "title_orig": "Comparing Off-World Rover Driving Distances",
+   "title_zh": "NASA太空人將回答佛羅里達州學生的提問",
+   "title_orig": "NASA Astronauts to Answer Questions from Florida Students",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/photojournal/comparing-off-world-rover-driving-distances/",
-   "date": "2026-10-14"
+   "url": "https://www.nasa.gov/learning-resources/nasa-astronauts-to-answer-questions-from-florida-students/",
+   "date": "2026-10-15"
   },
   {
-   "title_zh": "NASA 創紀錄的毅力號探測車團隊",
-   "title_orig": "NASA’s Record-Setting Perseverance Rover Team",
+   "title_zh": "NASA錢德拉望遠鏡解析「高音譜號」星系團碰撞",
+   "title_orig": "NASA’s Chandra Breaks Down ‘Treble Clef’s’ Galaxy Cluster Collision",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/photojournal/nasas-record-setting-perseverance-rover-team/",
+   "url": "https://science.nasa.gov/missions/chandra/nasas-chandra-breaks-down-treble-clefs-galaxy-cluster-collision/",
+   "date": "2026-10-15"
+  },
+  {
+   "title_zh": "IEEE持續為區域重組做準備",
+   "title_orig": "IEEE Continues Preparations for the Realignment of Its Regions",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/realignment-ieee-regions",
+   "date": "2026-10-15"
+  },
+  {
+   "title_zh": "在人工智慧時代，數學能否保持人性？",
+   "title_orig": "Can math stay human in the age of AI?",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/math-human-ai-age",
+   "date": "2026-10-15"
+  },
+  {
+   "title_zh": "研究人員改善兩至六週後的天氣預報",
+   "title_orig": "Researchers improve weather forecasts looking two to six weeks out",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/researchers-improve-weather-forecasts-looking-two-six-weeks-out-1014",
    "date": "2026-10-14"
   },
   {
@@ -44,13 +74,33 @@
    "date": "2026-10-14"
   },
   {
-   "title_zh": "為了實現隱形，我們需要調整光線的行進路徑",
-   "title_orig": "To turn invisible, we need to tweak the path light travels",
+   "title_zh": "微型植入裝置可利用人體自身實現彼此通訊",
+   "title_orig": "Tiny implants can use the body itself to talk to each other",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/invisibility-tweak-path-light-cloak",
+   "url": "https://www.sciencenews.org/article/implants-body-electric-signal-tissue",
+   "date": "2026-10-14"
+  },
+  {
+   "title_zh": "旅行者1號距離地球僅差一個光日。那裡有什麼？",
+   "title_orig": "Voyager 1 is nearly one light-day from Earth. What’s out there?",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/voyager-1-light-day-exploration",
+   "date": "2026-10-14"
+  },
+  {
+   "title_zh": "JAXA與未來宇宙運輸系統株式會社啟動「以可重複使用火箭進行宇宙運輸服務業務」之共同創新活動",
+   "title_orig": "JAXAと将来宇宙輸送システム株式会社、「再使用型ロケットによる宇宙輸送サービス事業」に関する共創活動を開始",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/10/20261014-1_j.html",
    "date": "2026-10-14"
   },
   {
@@ -64,33 +114,13 @@
    "date": "2026-10-13"
   },
   {
-   "title_zh": "重新編程的NK免疫細胞靶向癌症和自體免疫疾病",
+   "title_zh": "重編程NK免疫細胞靶向癌症和自體免疫疾病",
    "title_orig": "Reprogrammed NK immune cells target cancer and autoimmune disorders",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/reprogrammed-nk-immune-cells-target-cancer-and-autoimmune-disorders-1013",
-   "date": "2026-10-13"
-  },
-  {
-   "title_zh": "兩人逆流而上，揭示人類耐力的起源",
-   "title_orig": "A duo goes against the tide to explain an origin of human endurance",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/origin-human-endurance-dive-evolution",
-   "date": "2026-10-13"
-  },
-  {
-   "title_zh": "當你失去聲音時會發生什麼事？",
-   "title_orig": "What happens when you lose your voice?",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/deep-end-podcast-voice-communication",
    "date": "2026-10-13"
   },
   {
@@ -104,7 +134,7 @@
    "date": "2026-10-13"
   },
   {
-   "title_zh": "歡迎回家，蘇菲·阿當諾",
+   "title_zh": "歡迎回家，Sophie Adenot",
    "title_orig": "Welcome home, Sophie Adenot",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -114,7 +144,7 @@
    "date": "2026-10-12"
   },
   {
-   "title_zh": "首座公用事業規模增強型地熱發電廠正式啟用",
+   "title_zh": "首座公用事業級增強型地熱發電廠正式啟用",
    "title_orig": "First Utility-Scale Enhanced Geothermal Plant Goes Live",
    "source": "IEEE Spectrum",
    "source_id": "ieee-spectrum",
@@ -124,23 +154,13 @@
    "date": "2026-10-12"
   },
   {
-   "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返抵地球",
+   "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返航",
    "title_orig": "ESA astronaut Sophie Adenot returns from her first mission to the International Space Station",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/ESA_astronaut_Sophie_Adenot_returns_from_her_first_mission_to_the_International_Space_Station",
-   "date": "2026-10-10"
-  },
-  {
-   "title_zh": "透過全新 IEEE 設計計畫掌握 AI 晶片原理",
-   "title_orig": "Master AI Chip Principles With New IEEE Design Program",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/master-ai-chip-principles-ieee",
    "date": "2026-10-10"
   },
   {
@@ -151,16 +171,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_05-09_October_2026",
-   "date": "2026-10-09"
-  },
-  {
-   "title_zh": "形狀感測薄膜數位追蹤其彎曲與扭轉時的移動",
-   "title_orig": "Shape-sensing sheet digitally tracks its movement as it bends and twists",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/shape-sensing-sheet-digitally-tracks-movement-bends-twists-1008",
    "date": "2026-10-09"
   },
   {
@@ -262,16 +272,6 @@
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/science/2026/20260930-sso.html",
    "date": "2026-09-30"
-  },
-  {
-   "title_zh": "JAXA諏訪理太空人將搭乘指定載具前往國際太空站（ISS）進行長期駐留任務",
-   "title_orig": "JAXA諏訪理宇宙飛行士の国際宇宙ステーション（ISS）長期滞在 搭乗機決定",
-   "source": "JAXA 日本宇宙航空研究開發機構",
-   "source_id": "jaxa",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.jaxa.jp/press/2026/09/20260925-1_j.html",
-   "date": "2026-09-25"
   }
  ],
  "dropped": [
