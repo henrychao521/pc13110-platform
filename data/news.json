@@ -1,36 +1,96 @@
 {
- "generated": "2026-10-15T06:30:31+08:00",
+ "generated": "2026-10-16T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA將舉辦新聞發布會，預覽美國第100、101次太空行走任務",
-   "title_orig": "NASA to Host News Conference Previewing US Spacewalks 100, 101",
+   "title_zh": "NASA 將協助揭開火星衛星之謎於即將進行的任務中",
+   "title_orig": "NASA to Help Unlock Mysteries of Mars’ Moons in Upcoming Mission",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-to-host-news-conference-previewing-us-spacewalks-100-101/",
+   "url": "https://science.nasa.gov/directorates/smd/planetary-science-division/nasa-to-help-unlock-mysteries-of-mars-moons-in-upcoming-mission/",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "NASA衛星觀測到創紀錄的2026年厄爾尼諾現象",
+   "title_orig": "NASA Satellites Observe Historic 2026 El Niño",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/earth/nasa-satellites-observe-historic-2026-el-nino/",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "電力升級：展開太陽能陣列提升太空站供電能力",
+   "title_orig": "Power Up: Roll Out Solar Arrays Boost Space Station Power Supply",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/missions/station/iss-research/power-up-roll-out-solar-arrays-boost-space-station-power-supply/",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "供應鏈永續發展報告顯示企業承諾創歷史新高，但治理落後",
+   "title_orig": "State of Supply Chain Sustainability Report finds corporate commitment at record high, but governance lags behind",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/state-of-supply-chain-sustainability-report-1015",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "AI模型解碼細胞溝通語言",
+   "title_orig": "AI model decodes the language cells use to communicate",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/ai-model-decodes-language-cells-use-communicate-1015",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "衛星數據揭示南極冰崖隨時間的變化行為",
+   "title_orig": "Satellite data reveal how Antarctica’s ice cliffs behave over time",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/satellite-data-reveal-how-antarcticas-ice-cliffs-behave-over-time-1015",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "許多美國人的飲食可能未攝取足夠這種必需營養素",
+   "title_orig": "Many American diets may not include enough of this essential nutrient",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/iodine-salt-brain-development-diets",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "追逐中國獨佔的獨居石市場",
+   "title_orig": "Chasing China’s Monazite Monopoly",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/china-rare-earth-minerals",
    "date": "2026-10-15"
   },
   {
-   "title_zh": "NASA太空人將回答佛羅里達州學生的提問",
-   "title_orig": "NASA Astronauts to Answer Questions from Florida Students",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "放射性礦石能否打破中國對稀土的控制？",
+   "title_orig": "Can a Radioactive Ore Break China’s Grip on Rare Earths?",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/learning-resources/nasa-astronauts-to-answer-questions-from-florida-students/",
-   "date": "2026-10-15"
-  },
-  {
-   "title_zh": "NASA錢德拉望遠鏡解析「高音譜號」星系團碰撞",
-   "title_orig": "NASA’s Chandra Breaks Down ‘Treble Clef’s’ Galaxy Cluster Collision",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/missions/chandra/nasas-chandra-breaks-down-treble-clefs-galaxy-cluster-collision/",
+   "url": "https://spectrum.ieee.org/monazite-rare-earth",
    "date": "2026-10-15"
   },
   {
@@ -44,54 +104,34 @@
    "date": "2026-10-15"
   },
   {
-   "title_zh": "在人工智慧時代，數學能否保持人性？",
-   "title_orig": "Can math stay human in the age of AI?",
+   "title_zh": "尼安德塔人骨頭上的致命破洞暗示了其悲慘的結局",
+   "title_orig": "A telling hole in a Neandertal bone hints at a bitter end",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/math-human-ai-age",
+   "url": "https://www.sciencenews.org/article/hole-neandertal-bone-fatal-spear",
    "date": "2026-10-15"
   },
   {
-   "title_zh": "研究人員改善兩至六週後的天氣預報",
-   "title_orig": "Researchers improve weather forecasts looking two to six weeks out",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/researchers-improve-weather-forecasts-looking-two-six-weeks-out-1014",
-   "date": "2026-10-14"
-  },
-  {
-   "title_zh": "人工神經網路如何建構自身的學習機制",
-   "title_orig": "How artificial neural networks build their own learning machinery",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/how-artificial-neural-networks-build-their-own-learning-machinery-1013",
-   "date": "2026-10-14"
-  },
-  {
-   "title_zh": "微型植入裝置可利用人體自身實現彼此通訊",
-   "title_orig": "Tiny implants can use the body itself to talk to each other",
+   "title_zh": "腦部植入裝置正協助失聲人士恢復發聲能力",
+   "title_orig": "Brain implants are helping people who’ve lost their voice",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/implants-body-electric-signal-tissue",
-   "date": "2026-10-14"
+   "url": "https://www.sciencenews.org/article/brain-implants-restore-voices-injuries",
+   "date": "2026-10-15"
   },
   {
-   "title_zh": "旅行者1號距離地球僅差一個光日。那裡有什麼？",
-   "title_orig": "Voyager 1 is nearly one light-day from Earth. What’s out there?",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/voyager-1-light-day-exploration",
-   "date": "2026-10-14"
+   "title_zh": "生物多樣性：湧向極地和山巔",
+   "title_orig": "Biodiversité : ruée vers les pôles et les sommets",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/biodiversite-ruee-vers-les-poles-et-les-sommets",
+   "date": "2026-10-15"
   },
   {
    "title_zh": "JAXA與未來宇宙運輸系統株式會社啟動「以可重複使用火箭進行宇宙運輸服務業務」之共同創新活動",
@@ -104,27 +144,7 @@
    "date": "2026-10-14"
   },
   {
-   "title_zh": "認識讓Anthropic的AI代理保持可信賴的工程師",
-   "title_orig": "Meet the Anthropic Engineer Keeping Its AI Agent Trustworthy",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/anthropic-engineer-ai-agent",
-   "date": "2026-10-13"
-  },
-  {
-   "title_zh": "重編程NK免疫細胞靶向癌症和自體免疫疾病",
-   "title_orig": "Reprogrammed NK immune cells target cancer and autoimmune disorders",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/reprogrammed-nk-immune-cells-target-cancer-and-autoimmune-disorders-1013",
-   "date": "2026-10-13"
-  },
-  {
-   "title_zh": "鏡像生物警報",
+   "title_zh": "鏡像生物學警報",
    "title_orig": "Alerte à la biologie miroir",
    "source": "CNRS Le Journal 法國國家科學研究中心",
    "source_id": "cnrs",
@@ -134,7 +154,7 @@
    "date": "2026-10-13"
   },
   {
-   "title_zh": "歡迎回家，Sophie Adenot",
+   "title_zh": "歡迎回家，蘇菲·阿當諾",
    "title_orig": "Welcome home, Sophie Adenot",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -144,17 +164,7 @@
    "date": "2026-10-12"
   },
   {
-   "title_zh": "首座公用事業級增強型地熱發電廠正式啟用",
-   "title_orig": "First Utility-Scale Enhanced Geothermal Plant Goes Live",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/fervo-cape-station-geothermal",
-   "date": "2026-10-12"
-  },
-  {
-   "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返航",
+   "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返抵地球",
    "title_orig": "ESA astronaut Sophie Adenot returns from her first mission to the International Space Station",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -182,16 +192,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/videos/fabriquer-du-verre-comme-au-moyen-age",
    "date": "2026-10-09"
-  },
-  {
-   "title_zh": "出生率在環境危機的考驗下",
-   "title_orig": "La natalité à l’épreuve de la crise environnementale",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/la-natalite-a-lepreuve-de-la-crise-environnementale",
-   "date": "2026-10-08"
   },
   {
    "title_zh": null,
@@ -244,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變革與技術轉移",
+   "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變遷與技術轉移",
    "title_orig": "Spatenstich: Neuer Fraunhofer-Standort in Cottbus stärkt Strukturwandel und Transfer",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -254,7 +254,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
