@@ -1,40 +1,70 @@
 {
- "generated": "2026-10-16T06:30:34+08:00",
+ "generated": "2026-10-17T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 將協助揭開火星衛星之謎於即將進行的任務中",
-   "title_orig": "NASA to Help Unlock Mysteries of Mars’ Moons in Upcoming Mission",
+   "title_zh": "NASA 任命史提芬·卡什為馬歇爾太空飛行中心主任",
+   "title_orig": "NASA Names Stephen Cash Marshall Space Flight Center Director",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/directorates/smd/planetary-science-division/nasa-to-help-unlock-mysteries-of-mars-moons-in-upcoming-mission/",
-   "date": "2026-10-16"
+   "url": "https://www.nasa.gov/news-release/nasa-names-stephen-cash-marshall-space-flight-center-director/",
+   "date": "2026-10-17"
   },
   {
-   "title_zh": "NASA衛星觀測到創紀錄的2026年厄爾尼諾現象",
-   "title_orig": "NASA Satellites Observe Historic 2026 El Niño",
+   "title_zh": null,
+   "title_orig": "Artemis II Heat Shield After Splashdown",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/earth/nasa-satellites-observe-historic-2026-el-nino/",
-   "date": "2026-10-16"
+   "url": "https://www.nasa.gov/image-article/artemis-ii-heat-shield-after-splashdown/",
+   "date": "2026-10-17"
   },
   {
-   "title_zh": "電力升級：展開太陽能陣列提升太空站供電能力",
-   "title_orig": "Power Up: Roll Out Solar Arrays Boost Space Station Power Supply",
+   "title_zh": "IEEE為希望更智能的城市提供更多服務",
+   "title_orig": "IEEE Offers More Services to Cities That Want to Be Smarter",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ieee-smart-cities-new-services",
+   "date": "2026-10-17"
+  },
+  {
+   "title_zh": "模擬應用程式加速電動卡車電池設計",
+   "title_orig": "Simulation App Speeds Up Electric Truck Battery Design",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/electric-truck-battery-design-simulation",
+   "date": "2026-10-17"
+  },
+  {
+   "title_zh": "我是阿爾忒彌斯：艾莉森·姆約恩",
+   "title_orig": "I Am Artemis: Allison Mjoen",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/missions/station/iss-research/power-up-roll-out-solar-arrays-boost-space-station-power-supply/",
+   "url": "https://www.nasa.gov/missions/station/i-am-artemis-allison-mjoen/",
    "date": "2026-10-16"
   },
   {
-   "title_zh": "供應鏈永續發展報告顯示企業承諾創歷史新高，但治理落後",
+   "title_zh": "太空中的地球：西南極洲",
+   "title_orig": "Earth from Space: West Antarctica",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_West_Antarctica",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "供應鏈永續性報告顯示企業承諾創歷史新高，但治理落後",
    "title_orig": "State of Supply Chain Sustainability Report finds corporate commitment at record high, but governance lags behind",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
@@ -44,7 +74,7 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "AI模型解碼細胞溝通語言",
+   "title_zh": "AI模型解碼細胞用於溝通的語言",
    "title_orig": "AI model decodes the language cells use to communicate",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
@@ -64,13 +94,43 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "許多美國人的飲食可能未攝取足夠這種必需營養素",
-   "title_orig": "Many American diets may not include enough of this essential nutrient",
+   "title_zh": "角龍類恐龍的武器演化以應對戰鬥中的力量",
+   "title_orig": "Horned dinosaurs’ weapons evolved to handle the forces of combat",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/iodine-salt-brain-development-diets",
+   "url": "https://www.sciencenews.org/article/horned-dinosaur-skull-forces-combat",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "阿提米絲二號結果顯示人類在月球能進行多少科學研究",
+   "title_orig": "Artemis II results show how much science people can do at the moon",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/artemis-ii-human-moon-science",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "填字遊戲：時間線",
+   "title_orig": "Crossword: Time lines",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/crossword-puzzle-november-2026",
+   "date": "2026-10-16"
+  },
+  {
+   "title_zh": "氣候變遷：全球暖化是否加劇極端天氣事件？",
+   "title_orig": "Climat : le réchauffement aggrave-t-il les évènements extrêmes ?",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/videos/climat-le-rechauffement-aggrave-t-il-les-evenements-extremes",
    "date": "2026-10-16"
   },
   {
@@ -84,47 +144,7 @@
    "date": "2026-10-15"
   },
   {
-   "title_zh": "放射性礦石能否打破中國對稀土的控制？",
-   "title_orig": "Can a Radioactive Ore Break China’s Grip on Rare Earths?",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/monazite-rare-earth",
-   "date": "2026-10-15"
-  },
-  {
-   "title_zh": "IEEE持續為區域重組做準備",
-   "title_orig": "IEEE Continues Preparations for the Realignment of Its Regions",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/realignment-ieee-regions",
-   "date": "2026-10-15"
-  },
-  {
-   "title_zh": "尼安德塔人骨頭上的致命破洞暗示了其悲慘的結局",
-   "title_orig": "A telling hole in a Neandertal bone hints at a bitter end",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/hole-neandertal-bone-fatal-spear",
-   "date": "2026-10-15"
-  },
-  {
-   "title_zh": "腦部植入裝置正協助失聲人士恢復發聲能力",
-   "title_orig": "Brain implants are helping people who’ve lost their voice",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/brain-implants-restore-voices-injuries",
-   "date": "2026-10-15"
-  },
-  {
-   "title_zh": "生物多樣性：湧向極地和山巔",
+   "title_zh": "生物多樣性：爭奪極地和山巔",
    "title_orig": "Biodiversité : ruée vers les pôles et les sommets",
    "source": "CNRS Le Journal 法國國家科學研究中心",
    "source_id": "cnrs",
@@ -144,6 +164,16 @@
    "date": "2026-10-14"
   },
   {
+   "title_zh": "圖片回顧：2026年10月12日至16日",
+   "title_orig": "Week in images: 12-16 October 2026",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_12-16_October_2026",
+   "date": "2026-10-13"
+  },
+  {
    "title_zh": "鏡像生物學警報",
    "title_orig": "Alerte à la biologie miroir",
    "source": "CNRS Le Journal 法國國家科學研究中心",
@@ -154,7 +184,7 @@
    "date": "2026-10-13"
   },
   {
-   "title_zh": "歡迎回家，蘇菲·阿當諾",
+   "title_zh": "歡迎回家，Sophie Adenot",
    "title_orig": "Welcome home, Sophie Adenot",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -162,36 +192,6 @@
    "lang_label": "英文",
    "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/Welcome_home_Sophie_Adenot",
    "date": "2026-10-12"
-  },
-  {
-   "title_zh": "歐洲太空總署太空人索菲·阿德諾從其首次國際太空站任務返抵地球",
-   "title_orig": "ESA astronaut Sophie Adenot returns from her first mission to the International Space Station",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/epsilon/ESA_astronaut_Sophie_Adenot_returns_from_her_first_mission_to_the_International_Space_Station",
-   "date": "2026-10-10"
-  },
-  {
-   "title_zh": "圖片回顧：2026年10月5日至9日",
-   "title_orig": "Week in images: 05-09 October 2026",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_05-09_October_2026",
-   "date": "2026-10-09"
-  },
-  {
-   "title_zh": "中世紀風格製造玻璃",
-   "title_orig": "Fabriquer du verre comme au Moyen Âge",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/videos/fabriquer-du-verre-comme-au-moyen-age",
-   "date": "2026-10-09"
   },
   {
    "title_zh": null,
@@ -244,7 +244,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變遷與技術轉移",
+   "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變革與技術轉移",
    "title_orig": "Spatenstich: Neuer Fraunhofer-Standort in Cottbus stärkt Strukturwandel und Transfer",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -254,7 +254,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -275,6 +275,11 @@
   }
  ],
  "dropped": [
+  {
+   "source": "nasa",
+   "title": "Artemis II Heat Shield After Splashdown",
+   "reason": "含簡體字"
+  },
   {
    "source": "fraunhofer",
    "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
