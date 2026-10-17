@@ -1,8 +1,18 @@
 {
- "generated": "2026-10-17T06:30:34+08:00",
+ "generated": "2026-10-18T06:30:32+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
+  {
+   "title_zh": "每日天文圖片：2026年10月17日 – 67P的3D影像",
+   "title_orig": "APOD: 2026 October 17 – 3D 67P",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-17-3d-67p/",
+   "date": "2026-10-17"
+  },
   {
    "title_zh": "NASA 任命史提芬·卡什為馬歇爾太空飛行中心主任",
    "title_orig": "NASA Names Stephen Cash Marshall Space Flight Center Director",
@@ -24,6 +34,16 @@
    "date": "2026-10-17"
   },
   {
+   "title_zh": "這項隱藏裝置或能釋放數百萬千瓦的電網電力",
+   "title_orig": "This Hidden Device Could Free Up Gigawatts of Grid Power",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/variable-frequency-drives",
+   "date": "2026-10-17"
+  },
+  {
    "title_zh": "IEEE為希望更智能的城市提供更多服務",
    "title_orig": "IEEE Offers More Services to Cities That Want to Be Smarter",
    "source": "IEEE Spectrum",
@@ -42,16 +62,6 @@
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/electric-truck-battery-design-simulation",
    "date": "2026-10-17"
-  },
-  {
-   "title_zh": "我是阿爾忒彌斯：艾莉森·姆約恩",
-   "title_orig": "I Am Artemis: Allison Mjoen",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/missions/station/i-am-artemis-allison-mjoen/",
-   "date": "2026-10-16"
   },
   {
    "title_zh": "太空中的地球：西南極洲",
@@ -132,16 +142,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/videos/climat-le-rechauffement-aggrave-t-il-les-evenements-extremes",
    "date": "2026-10-16"
-  },
-  {
-   "title_zh": "追逐中國獨佔的獨居石市場",
-   "title_orig": "Chasing China’s Monazite Monopoly",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/china-rare-earth-minerals",
-   "date": "2026-10-15"
   },
   {
    "title_zh": "生物多樣性：爭奪極地和山巔",
