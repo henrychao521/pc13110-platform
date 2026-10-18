@@ -1,10 +1,40 @@
 {
- "generated": "2026-10-18T06:30:32+08:00",
+ "generated": "2026-10-19T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "每日天文圖片：2026年10月17日 – 67P的3D影像",
+   "title_zh": "APOD：2026年10月18日——聲化：鷹狀星雲的柱體",
+   "title_orig": "APOD: 2026 October 18 – Sonified: Eagle Nebula Pillars",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-18-sonified-eagle-nebula-pillars/",
+   "date": "2026-10-18"
+  },
+  {
+   "title_zh": "讓人工智慧對材料世界擁有「清晰明確」的視角",
+   "title_orig": "Giving AI a “crystal clear” view of the materials world",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018",
+   "date": "2026-10-18"
+  },
+  {
+   "title_zh": "H3火箭第10號發射器發射火星衛星探測器（MMX）的時間",
+   "title_orig": "H3ロケット10号機による火星衛星探査機（MMX）の打上げ時刻",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/10/20261018-1_j.html",
+   "date": "2026-10-18"
+  },
+  {
+   "title_zh": "每日天文圖片：2026年10月17日 - 67P的3D影像",
    "title_orig": "APOD: 2026 October 17 – 3D 67P",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
@@ -21,16 +51,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.nasa.gov/news-release/nasa-names-stephen-cash-marshall-space-flight-center-director/",
-   "date": "2026-10-17"
-  },
-  {
-   "title_zh": null,
-   "title_orig": "Artemis II Heat Shield After Splashdown",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/artemis-ii-heat-shield-after-splashdown/",
    "date": "2026-10-17"
   },
   {
@@ -74,7 +94,7 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "供應鏈永續性報告顯示企業承諾創歷史新高，但治理落後",
+   "title_zh": "供應鏈永續發展報告顯示企業承諾創歷史新高，但治理落後",
    "title_orig": "State of Supply Chain Sustainability Report finds corporate commitment at record high, but governance lags behind",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
@@ -84,23 +104,13 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "AI模型解碼細胞用於溝通的語言",
+   "title_zh": "AI模型解碼細胞溝通語言",
    "title_orig": "AI model decodes the language cells use to communicate",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/ai-model-decodes-language-cells-use-communicate-1015",
-   "date": "2026-10-16"
-  },
-  {
-   "title_zh": "衛星數據揭示南極冰崖隨時間的變化行為",
-   "title_orig": "Satellite data reveal how Antarctica’s ice cliffs behave over time",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/satellite-data-reveal-how-antarcticas-ice-cliffs-behave-over-time-1015",
    "date": "2026-10-16"
   },
   {
@@ -184,7 +194,7 @@
    "date": "2026-10-13"
   },
   {
-   "title_zh": "歡迎回家，Sophie Adenot",
+   "title_zh": "歡迎回家，蘇菲·阿當諾",
    "title_orig": "Welcome home, Sophie Adenot",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -234,16 +244,6 @@
    "date": "2026-10-05"
   },
   {
-   "title_zh": "設立匯集溫室氣體相關資訊與知識的「日本GHG中心」",
-   "title_orig": "温室効果ガスに関する情報と知見を集約する「日本GHGセンター」を設立",
-   "source": "JAXA 日本宇宙航空研究開發機構",
-   "source_id": "jaxa",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.jaxa.jp/press/2026/10/20261001-2_j.html",
-   "date": "2026-10-01"
-  },
-  {
    "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變革與技術轉移",
    "title_orig": "Spatenstich: Neuer Fraunhofer-Standort in Cottbus stärkt Strukturwandel und Transfer",
    "source": "Fraunhofer 弗勞恩霍夫協會",
@@ -275,11 +275,6 @@
   }
  ],
  "dropped": [
-  {
-   "source": "nasa",
-   "title": "Artemis II Heat Shield After Splashdown",
-   "reason": "含簡體字"
-  },
   {
    "source": "fraunhofer",
    "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
