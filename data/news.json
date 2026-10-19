@@ -1,20 +1,140 @@
 {
- "generated": "2026-10-19T06:30:34+08:00",
+ "generated": "2026-10-20T06:30:36+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "APOD：2026年10月18日——聲化：鷹狀星雲的柱體",
-   "title_orig": "APOD: 2026 October 18 – Sonified: Eagle Nebula Pillars",
+   "title_zh": "NASA 改善衝擊與振動分析",
+   "title_orig": "NASA Improves Shock, Vibration Analysis",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-18-sonified-eagle-nebula-pillars/",
-   "date": "2026-10-18"
+   "url": "https://www.nasa.gov/centers-and-facilities/kennedy/nasa-improves-shock-vibration-analysis/",
+   "date": "2026-10-20"
   },
   {
-   "title_zh": "讓人工智慧對材料世界擁有「清晰明確」的視角",
+   "title_zh": null,
+   "title_orig": "Software",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/centers-and-facilities/glenn/acoustics-software/",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "實驗設施",
+   "title_orig": "Experimental Facilities",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/centers-and-facilities/glenn/acoustics-experimental-facilities/",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "IEEE報告強調會員如何為公共利益進行工程設計",
+   "title_orig": "IEEE Report Highlights How Members Are Engineering for Public Good",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ieee-report-engineering-public-good",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "研討會凸顯麻省理工學院在促進大腦健康與老化方面的廣泛創新成果",
+   "title_orig": "Symposium highlights MIT’s wide range of innovations for aging brain health",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/symposium-highlights-innovations-for-aging-brain-health-1019",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "為何教導人工智慧對稱性概念能讓產前診斷更可靠",
+   "title_orig": "Why teaching AI about symmetry could make prenatal diagnosis more reliable",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/teaching-ai-about-symmetry-could-make-prenatal-diagnosis-more-reliable-1019",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "MMX，或如何把火星的一小部分帶回家",
+   "title_orig": "MMX, ou comment ramener un peu de Mars à la maison",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/mmx-ou-comment-ramener-un-peu-de-mars-a-la-maison",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "歐幾里得發現新彗星",
+   "title_orig": "Euclid discovers new comet",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Space_Science/Euclid/Euclid_discovers_new_comet",
+   "date": "2026-10-19"
+  },
+  {
+   "title_zh": "我沒料到會去打造的機器人",
+   "title_orig": "The Robot I Didn’t Expect to Build",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/agility-robotics-digit-5-redesign",
+   "date": "2026-10-19"
+  },
+  {
+   "title_zh": "這些小蛇以翻滾方式逃離危險",
+   "title_orig": "These tiny snakes cartwheel to escape danger",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/tiny-snakes-cartwheel-escape-video",
+   "date": "2026-10-19"
+  },
+  {
+   "title_zh": "日本發往火衛一的採樣返回任務可能也會收集一些火星塵埃",
+   "title_orig": "Japan’s sample return mission to Phobos may also collect some Mars dust",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/japan-mission-mars-moon",
+   "date": "2026-10-19"
+  },
+  {
+   "title_zh": "與東京農工大學簽署綜合合作協議",
+   "title_orig": "東京農工大学との包括連携協定を締結",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/topics/2026/20261019-tuat.html",
+   "date": "2026-10-19"
+  },
+  {
+   "title_zh": "鏡像生物學警報",
+   "title_orig": "Alerte à la biologie miroir",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/alerte-a-la-biologie-miroir",
+   "date": "2026-10-19"
+  },
+  {
+   "title_zh": "讓AI對材料世界擁有「清晰明確」的視角",
    "title_orig": "Giving AI a “crystal clear” view of the materials world",
    "source": "MIT News 麻省理工學院新聞",
    "source_id": "mit-news",
@@ -34,53 +154,13 @@
    "date": "2026-10-18"
   },
   {
-   "title_zh": "每日天文圖片：2026年10月17日 - 67P的3D影像",
-   "title_orig": "APOD: 2026 October 17 – 3D 67P",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-17-3d-67p/",
-   "date": "2026-10-17"
-  },
-  {
-   "title_zh": "NASA 任命史提芬·卡什為馬歇爾太空飛行中心主任",
-   "title_orig": "NASA Names Stephen Cash Marshall Space Flight Center Director",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-names-stephen-cash-marshall-space-flight-center-director/",
-   "date": "2026-10-17"
-  },
-  {
-   "title_zh": "這項隱藏裝置或能釋放數百萬千瓦的電網電力",
+   "title_zh": "這項隱藏裝置可能釋放數百萬千瓦的電網電力",
    "title_orig": "This Hidden Device Could Free Up Gigawatts of Grid Power",
    "source": "IEEE Spectrum",
    "source_id": "ieee-spectrum",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/variable-frequency-drives",
-   "date": "2026-10-17"
-  },
-  {
-   "title_zh": "IEEE為希望更智能的城市提供更多服務",
-   "title_orig": "IEEE Offers More Services to Cities That Want to Be Smarter",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-smart-cities-new-services",
-   "date": "2026-10-17"
-  },
-  {
-   "title_zh": "模擬應用程式加速電動卡車電池設計",
-   "title_orig": "Simulation App Speeds Up Electric Truck Battery Design",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/electric-truck-battery-design-simulation",
    "date": "2026-10-17"
   },
   {
@@ -94,26 +174,6 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "供應鏈永續發展報告顯示企業承諾創歷史新高，但治理落後",
-   "title_orig": "State of Supply Chain Sustainability Report finds corporate commitment at record high, but governance lags behind",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/state-of-supply-chain-sustainability-report-1015",
-   "date": "2026-10-16"
-  },
-  {
-   "title_zh": "AI模型解碼細胞溝通語言",
-   "title_orig": "AI model decodes the language cells use to communicate",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/ai-model-decodes-language-cells-use-communicate-1015",
-   "date": "2026-10-16"
-  },
-  {
    "title_zh": "角龍類恐龍的武器演化以應對戰鬥中的力量",
    "title_orig": "Horned dinosaurs’ weapons evolved to handle the forces of combat",
    "source": "Science News",
@@ -121,26 +181,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/horned-dinosaur-skull-forces-combat",
-   "date": "2026-10-16"
-  },
-  {
-   "title_zh": "阿提米絲二號結果顯示人類在月球能進行多少科學研究",
-   "title_orig": "Artemis II results show how much science people can do at the moon",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/artemis-ii-human-moon-science",
-   "date": "2026-10-16"
-  },
-  {
-   "title_zh": "填字遊戲：時間線",
-   "title_orig": "Crossword: Time lines",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/crossword-puzzle-november-2026",
    "date": "2026-10-16"
   },
   {
@@ -154,16 +194,6 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "生物多樣性：爭奪極地和山巔",
-   "title_orig": "Biodiversité : ruée vers les pôles et les sommets",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/biodiversite-ruee-vers-les-poles-et-les-sommets",
-   "date": "2026-10-15"
-  },
-  {
    "title_zh": "JAXA與未來宇宙運輸系統株式會社啟動「以可重複使用火箭進行宇宙運輸服務業務」之共同創新活動",
    "title_orig": "JAXAと将来宇宙輸送システム株式会社、「再使用型ロケットによる宇宙輸送サービス事業」に関する共創活動を開始",
    "source": "JAXA 日本宇宙航空研究開發機構",
@@ -174,7 +204,7 @@
    "date": "2026-10-14"
   },
   {
-   "title_zh": "圖片回顧：2026年10月12日至16日",
+   "title_zh": "圖片回顧：10月12日至16日",
    "title_orig": "Week in images: 12-16 October 2026",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -182,26 +212,6 @@
    "lang_label": "英文",
    "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_12-16_October_2026",
    "date": "2026-10-13"
-  },
-  {
-   "title_zh": "鏡像生物學警報",
-   "title_orig": "Alerte à la biologie miroir",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/alerte-a-la-biologie-miroir",
-   "date": "2026-10-13"
-  },
-  {
-   "title_zh": "歡迎回家，蘇菲·阿當諾",
-   "title_orig": "Welcome home, Sophie Adenot",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/Welcome_home_Sophie_Adenot",
-   "date": "2026-10-12"
   },
   {
    "title_zh": null,
@@ -214,7 +224,7 @@
    "date": "2026-10-07"
   },
   {
-   "title_zh": "全球首次成功拍攝銀河系中心低能伽馬射線的影像",
+   "title_zh": "全球首次成功對銀河系中心的低能伽馬射線輻射進行直接成像",
    "title_orig": "世界初、天の川銀河中心の低エネルギーガンマ線放射の直接撮像に成功",
    "source": "JAXA 日本宇宙航空研究開發機構",
    "source_id": "jaxa",
@@ -254,7 +264,7 @@
    "date": "2026-10-01"
   },
   {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜",
+   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
    "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -262,19 +272,14 @@
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/ungereinigtes-meerwasser-im-elektrolyseur-fraunhofer-testet-materialien-und-membranen.html",
    "date": "2026-10-01"
-  },
-  {
-   "title_zh": "氣球觀測 Sunrise-III 揭開太陽磁場真面目",
-   "title_orig": "気球観測Sunrise-IIIで太陽磁場の素顔に迫る",
-   "source": "國立天文台（日本 NAOJ）",
-   "source_id": "naoj",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.nao.ac.jp/news/science/2026/20260930-sso.html",
-   "date": "2026-09-30"
   }
  ],
  "dropped": [
+  {
+   "source": "nasa",
+   "title": "Software",
+   "reason": "長度異常"
+  },
   {
    "source": "fraunhofer",
    "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
