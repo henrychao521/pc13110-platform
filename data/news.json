@@ -1,36 +1,56 @@
 {
- "generated": "2026-10-20T06:30:36+08:00",
+ "generated": "2026-10-21T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 改善衝擊與振動分析",
-   "title_orig": "NASA Improves Shock, Vibration Analysis",
+   "title_zh": "NASA 將對德州農田進行低空飛行",
+   "title_orig": "NASA to Conduct Low-Altitude Flights Over Texas Farmland",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/kennedy/nasa-improves-shock-vibration-analysis/",
-   "date": "2026-10-20"
+   "url": "https://www.nasa.gov/general/nasa-to-conduct-low-altitude-flights-over-texas-farmland/",
+   "date": "2026-10-21"
   },
   {
-   "title_zh": null,
-   "title_orig": "Software",
+   "title_zh": "NASA的SR-1自由號在核動力模組進展上取得突破",
+   "title_orig": "NASA’s SR-1 Freedom Advances with Progress on Nuclear Power Module",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/glenn/acoustics-software/",
-   "date": "2026-10-20"
+   "url": "https://www.nasa.gov/centers-and-facilities/glenn/sr-1-freedom-advances-with-progress-on-nuclear-power-module/",
+   "date": "2026-10-21"
   },
   {
-   "title_zh": "實驗設施",
-   "title_orig": "Experimental Facilities",
+   "title_zh": "NASA 實驗性火星直升機旋翼設計目標為更長飛行時間",
+   "title_orig": "NASA Experimental Mars Helicopter Blade Designs Target Longer Flights",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/glenn/acoustics-experimental-facilities/",
+   "url": "https://www.nasa.gov/science-research/aeronautics-research/nasa-experimental-mars-helicopter-blade-designs-target-longer-flights/",
+   "date": "2026-10-21"
+  },
+  {
+   "title_zh": "海洋中最豐富的「獨行」微生物擁有黏著的第二生命",
+   "title_orig": "The ocean’s most abundant “loner” microbe has a sticky second life",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/oceans-most-abundant-loner-microbe-has-sticky-second-life-1020",
+   "date": "2026-10-21"
+  },
+  {
+   "title_zh": "伽利略系統的新大腦",
+   "title_orig": "New brain for Galileo",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Applications/Satellite_navigation/Galileo/New_brain_for_Galileo",
    "date": "2026-10-20"
   },
   {
@@ -64,7 +84,37 @@
    "date": "2026-10-20"
   },
   {
-   "title_zh": "MMX，或如何把火星的一小部分帶回家",
+   "title_zh": "量子計算突破讓「兆次操作」時代更進一步",
+   "title_orig": "A quantum computing feat brings the ‘megaquops’ era a step closer",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/quantum-computer-megaquops-error-correction",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "AI 能讓你找回聲音",
+   "title_orig": "AI can give you your voice back",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/ai-voice-restore-identity-the-deep-end",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "令人驚嘆的生命世界",
+   "title_orig": "L’étonnant univers du vivant",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/dossiers/letonnant-univers-du-vivant",
+   "date": "2026-10-20"
+  },
+  {
+   "title_zh": "MMX，或如何將火星的一小部分帶回家",
    "title_orig": "MMX, ou comment ramener un peu de Mars à la maison",
    "source": "CNRS Le Journal 法國國家科學研究中心",
    "source_id": "cnrs",
@@ -104,16 +154,6 @@
    "date": "2026-10-19"
   },
   {
-   "title_zh": "日本發往火衛一的採樣返回任務可能也會收集一些火星塵埃",
-   "title_orig": "Japan’s sample return mission to Phobos may also collect some Mars dust",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/japan-mission-mars-moon",
-   "date": "2026-10-19"
-  },
-  {
    "title_zh": "與東京農工大學簽署綜合合作協議",
    "title_orig": "東京農工大学との包括連携協定を締結",
    "source": "國立天文台（日本 NAOJ）",
@@ -132,16 +172,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/articles/alerte-a-la-biologie-miroir",
    "date": "2026-10-19"
-  },
-  {
-   "title_zh": "讓AI對材料世界擁有「清晰明確」的視角",
-   "title_orig": "Giving AI a “crystal clear” view of the materials world",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/giving-ai-crystal-clear-view-of-materials-world-1018",
-   "date": "2026-10-18"
   },
   {
    "title_zh": "H3火箭第10號發射器發射火星衛星探測器（MMX）的時間",
@@ -174,26 +204,6 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "角龍類恐龍的武器演化以應對戰鬥中的力量",
-   "title_orig": "Horned dinosaurs’ weapons evolved to handle the forces of combat",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/horned-dinosaur-skull-forces-combat",
-   "date": "2026-10-16"
-  },
-  {
-   "title_zh": "氣候變遷：全球暖化是否加劇極端天氣事件？",
-   "title_orig": "Climat : le réchauffement aggrave-t-il les évènements extrêmes ?",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/videos/climat-le-rechauffement-aggrave-t-il-les-evenements-extremes",
-   "date": "2026-10-16"
-  },
-  {
    "title_zh": "JAXA與未來宇宙運輸系統株式會社啟動「以可重複使用火箭進行宇宙運輸服務業務」之共同創新活動",
    "title_orig": "JAXAと将来宇宙輸送システム株式会社、「再使用型ロケットによる宇宙輸送サービス事業」に関する共創活動を開始",
    "source": "JAXA 日本宇宙航空研究開發機構",
@@ -202,16 +212,6 @@
    "lang_label": "日文",
    "url": "https://www.jaxa.jp/press/2026/10/20261014-1_j.html",
    "date": "2026-10-14"
-  },
-  {
-   "title_zh": "圖片回顧：10月12日至16日",
-   "title_orig": "Week in images: 12-16 October 2026",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_12-16_October_2026",
-   "date": "2026-10-13"
   },
   {
    "title_zh": null,
@@ -275,11 +275,6 @@
   }
  ],
  "dropped": [
-  {
-   "source": "nasa",
-   "title": "Software",
-   "reason": "長度異常"
-  },
   {
    "source": "fraunhofer",
    "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
