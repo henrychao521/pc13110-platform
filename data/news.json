@@ -1,36 +1,66 @@
 {
- "generated": "2026-10-21T06:30:34+08:00",
+ "generated": "2026-10-22T06:31:00+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 將對德州農田進行低空飛行",
-   "title_orig": "NASA to Conduct Low-Altitude Flights Over Texas Farmland",
+   "title_zh": "NASA 進行 RS-25 引擎測試以支援未來阿提米絲任務",
+   "title_orig": "NASA Conducts RS-25 Engine Test in Support of Future Artemis Missions",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/general/nasa-to-conduct-low-altitude-flights-over-texas-farmland/",
-   "date": "2026-10-21"
+   "url": "https://www.nasa.gov/image-article/rs-25-engine-test-in-support-of-future-artemis-missions/",
+   "date": "2026-10-22"
   },
   {
-   "title_zh": "NASA的SR-1自由號在核動力模組進展上取得突破",
-   "title_orig": "NASA’s SR-1 Freedom Advances with Progress on Nuclear Power Module",
+   "title_zh": "NASA JPL展望未來90年的創新與探索",
+   "title_orig": "NASA JPL Looks to Next 90 Years of Innovation, Exploration",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/glenn/sr-1-freedom-advances-with-progress-on-nuclear-power-module/",
-   "date": "2026-10-21"
+   "url": "https://www.nasa.gov/centers-and-facilities/jpl/nasa-jpl-looks-to-next-90-years-of-innovation-exploration/",
+   "date": "2026-10-22"
   },
   {
-   "title_zh": "NASA 實驗性火星直升機旋翼設計目標為更長飛行時間",
-   "title_orig": "NASA Experimental Mars Helicopter Blade Designs Target Longer Flights",
+   "title_zh": "NASA 將進行 NCAA 空中巡禮，並與阿拉巴馬大學的粉絲互動",
+   "title_orig": "NASA to Conduct NCAA Flyover, Engage Fans at University of Alabama",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/science-research/aeronautics-research/nasa-experimental-mars-helicopter-blade-designs-target-longer-flights/",
+   "url": "https://www.nasa.gov/news-release/nasa-to-conduct-ncaa-flyover-engage-fans-at-university-of-alabama/",
+   "date": "2026-10-22"
+  },
+  {
+   "title_zh": "曼弗雷德·“弗雷德”·J·辛德勒當選為2027年IEEE主席",
+   "title_orig": "Manfred “Fred” J. Schindler Is 2027 IEEE President-Elect",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/schindler-2027-ieee-president-elect",
+   "date": "2026-10-22"
+  },
+  {
+   "title_zh": "人工智慧可能將科學論文轉化為研究助手",
+   "title_orig": "AI could turn scientific papers into research assistants",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/ai-scientific-papers-research-assistant",
+   "date": "2026-10-22"
+  },
+  {
+   "title_zh": "維基百科編輯如何確保線上百科全書由人類撰寫",
+   "title_orig": "How Wikipedia’s Editors Keep the Online Encyclopedia Human-Written",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/wikipedia-wikiproject-ai-writing-cleanup",
    "date": "2026-10-21"
   },
   {
@@ -44,14 +74,34 @@
    "date": "2026-10-21"
   },
   {
-   "title_zh": "伽利略系統的新大腦",
-   "title_orig": "New brain for Galileo",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
+   "title_zh": "救命藥物並非美國過量死亡人數下降的原因",
+   "title_orig": "A lifesaving medication is not behind the drop in U.S. overdose deaths",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/Applications/Satellite_navigation/Galileo/New_brain_for_Galileo",
-   "date": "2026-10-20"
+   "url": "https://www.sciencenews.org/article/opioid-overdose-deaths-naloxone",
+   "date": "2026-10-21"
+  },
+  {
+   "title_zh": "窺探2026年尼康小世界競賽揭開的隱藏世界",
+   "title_orig": "Peek into hidden worlds revealed by the 2026 Nikon Small World contest",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/nikon-small-world-contest-2026-photos",
+   "date": "2026-10-21"
+  },
+  {
+   "title_zh": "火星衛星探測器（MMX）初期關鍵任務階段結束",
+   "title_orig": "火星衛星探査機（MMX）の初期クリティカル運用フェーズ終了",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/10/20261021-1_j.html",
+   "date": "2026-10-21"
   },
   {
    "title_zh": "IEEE報告強調會員如何為公共利益進行工程設計",
@@ -84,23 +134,13 @@
    "date": "2026-10-20"
   },
   {
-   "title_zh": "量子計算突破讓「兆次操作」時代更進一步",
-   "title_orig": "A quantum computing feat brings the ‘megaquops’ era a step closer",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/quantum-computer-megaquops-error-correction",
-   "date": "2026-10-20"
-  },
-  {
-   "title_zh": "AI 能讓你找回聲音",
-   "title_orig": "AI can give you your voice back",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/ai-voice-restore-identity-the-deep-end",
+   "title_zh": "H3火箭第10號發射器發射火星衛星探測器（MMX）的結果",
+   "title_orig": "H3ロケット10号機による火星衛星探査機（MMX）の打上げ結果",
+   "source": "JAXA 日本宇宙航空研究開發機構",
+   "source_id": "jaxa",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.jaxa.jp/press/2026/10/20261020-1_j.html",
    "date": "2026-10-20"
   },
   {
@@ -134,26 +174,6 @@
    "date": "2026-10-19"
   },
   {
-   "title_zh": "我沒料到會去打造的機器人",
-   "title_orig": "The Robot I Didn’t Expect to Build",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/agility-robotics-digit-5-redesign",
-   "date": "2026-10-19"
-  },
-  {
-   "title_zh": "這些小蛇以翻滾方式逃離危險",
-   "title_orig": "These tiny snakes cartwheel to escape danger",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/tiny-snakes-cartwheel-escape-video",
-   "date": "2026-10-19"
-  },
-  {
    "title_zh": "與東京農工大學簽署綜合合作協議",
    "title_orig": "東京農工大学との包括連携協定を締結",
    "source": "國立天文台（日本 NAOJ）",
@@ -184,16 +204,6 @@
    "date": "2026-10-18"
   },
   {
-   "title_zh": "這項隱藏裝置可能釋放數百萬千瓦的電網電力",
-   "title_orig": "This Hidden Device Could Free Up Gigawatts of Grid Power",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/variable-frequency-drives",
-   "date": "2026-10-17"
-  },
-  {
    "title_zh": "太空中的地球：西南極洲",
    "title_orig": "Earth from Space: West Antarctica",
    "source": "ESA 歐洲太空總署",
@@ -204,14 +214,14 @@
    "date": "2026-10-16"
   },
   {
-   "title_zh": "JAXA與未來宇宙運輸系統株式會社啟動「以可重複使用火箭進行宇宙運輸服務業務」之共同創新活動",
-   "title_orig": "JAXAと将来宇宙輸送システム株式会社、「再使用型ロケットによる宇宙輸送サービス事業」に関する共創活動を開始",
-   "source": "JAXA 日本宇宙航空研究開發機構",
-   "source_id": "jaxa",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.jaxa.jp/press/2026/10/20261014-1_j.html",
-   "date": "2026-10-14"
+   "title_zh": "圖片回顧：2026年10月12日至16日",
+   "title_orig": "Week in images: 12-16 October 2026",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_12-16_October_2026",
+   "date": "2026-10-13"
   },
   {
    "title_zh": null,
@@ -222,16 +232,6 @@
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/Fraunhofer-igd-erweitert-institutsleitung.html",
    "date": "2026-10-07"
-  },
-  {
-   "title_zh": "全球首次成功對銀河系中心的低能伽馬射線輻射進行直接成像",
-   "title_orig": "世界初、天の川銀河中心の低エネルギーガンマ線放射の直接撮像に成功",
-   "source": "JAXA 日本宇宙航空研究開發機構",
-   "source_id": "jaxa",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.jaxa.jp/press/2026/10/20261006-1_j.html",
-   "date": "2026-10-06"
   },
   {
    "title_zh": "三河太陽系漫步",
