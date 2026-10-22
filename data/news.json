@@ -1,36 +1,106 @@
 {
- "generated": "2026-10-22T06:31:00+08:00",
+ "generated": "2026-10-23T06:30:36+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 進行 RS-25 引擎測試以支援未來阿提米絲任務",
-   "title_orig": "NASA Conducts RS-25 Engine Test in Support of Future Artemis Missions",
+   "title_zh": "NASA邀請媒體參加2026年馮·布勞恩太空探索研討會",
+   "title_orig": "NASA Invites Media to 2026 von Braun Space Exploration Symposium",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/rs-25-engine-test-in-support-of-future-artemis-missions/",
+   "url": "https://www.nasa.gov/news-release/nasa-invites-media-to-2026-von-braun-space-exploration-symposium/",
+   "date": "2026-10-23"
+  },
+  {
+   "title_zh": "螺旋邊緣",
+   "title_orig": "Spiral’s Edge",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/image-article/spirals-edge/",
+   "date": "2026-10-23"
+  },
+  {
+   "title_zh": "NASA哈伯望遠鏡利用重力透鏡繪製羅馬太空望遠鏡軌跡",
+   "title_orig": "NASA’s Hubble Charts Path for Roman with Gravitational Lenses",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/missions/hubble/nasas-hubble-charts-path-for-roman-with-gravitational-lenses/",
+   "date": "2026-10-23"
+  },
+  {
+   "title_zh": "為什麼人工智慧無法取代工程團隊",
+   "title_orig": "Why AI Can’t Replace Engineering Teams",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/engineering-jobs-that-ai-cant-replace",
+   "date": "2026-10-23"
+  },
+  {
+   "title_zh": "此設計軟體將日常物品重新想像為具備自我意識的裝置",
+   "title_orig": "This design software reimagines everyday objects as self-aware devices",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/design-software-reimagines-everyday-objects-as-self-aware-devices-1022",
+   "date": "2026-10-23"
+  },
+  {
+   "title_zh": "奈米粒子揭示單一氣體原子的微小影響",
+   "title_orig": "A nanoparticle revealed the tiny impact of a single gas atom",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/nanoparticle-tiny-impact-gas-atom",
+   "date": "2026-10-23"
+  },
+  {
+   "title_zh": "歐洲太空總署第350次理事會：媒體資訊說明會",
+   "title_orig": "350th ESA Council: Media information session",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/350th_ESA_Council_Media_information_session",
    "date": "2026-10-22"
   },
   {
-   "title_zh": "NASA JPL展望未來90年的創新與探索",
-   "title_orig": "NASA JPL Looks to Next 90 Years of Innovation, Exploration",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "歐洲太空總署開放日 2026",
+   "title_orig": "ESA Open Days 2026",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/jpl/nasa-jpl-looks-to-next-90-years-of-innovation-exploration/",
+   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/ESA_Open_Days_2026",
    "date": "2026-10-22"
   },
   {
-   "title_zh": "NASA 將進行 NCAA 空中巡禮，並與阿拉巴馬大學的粉絲互動",
-   "title_orig": "NASA to Conduct NCAA Flyover, Engage Fans at University of Alabama",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "歐洲太空總署理事會批准任命兩位新任主管",
+   "title_orig": "ESA Council approves appointment of two new directors",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-to-conduct-ncaa-flyover-engage-fans-at-university-of-alabama/",
+   "url": "https://www.esa.int/About_Us/Corporate_news/ESA_Council_approves_appointment_of_two_new_directors",
+   "date": "2026-10-22"
+  },
+  {
+   "title_zh": "工程師為何應勇闖國會山丘",
+   "title_orig": "Why Engineers Should Brave Capitol Hill",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/engineers-lobbying-congress",
    "date": "2026-10-22"
   },
   {
@@ -44,24 +114,44 @@
    "date": "2026-10-22"
   },
   {
-   "title_zh": "人工智慧可能將科學論文轉化為研究助手",
-   "title_orig": "AI could turn scientific papers into research assistants",
+   "title_zh": "梵谷的《星月夜》是想像之作還是真實的天空？",
+   "title_orig": "Was van Gogh’s ‘The Starry Night’ a flight of fancy or a real sky?",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/ai-scientific-papers-research-assistant",
+   "url": "https://www.sciencenews.org/article/van-gogh-starry-night-real-sky-stars",
    "date": "2026-10-22"
   },
   {
-   "title_zh": "維基百科編輯如何確保線上百科全書由人類撰寫",
-   "title_orig": "How Wikipedia’s Editors Keep the Online Encyclopedia Human-Written",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
+   "title_zh": "這種「活體藥物」可能改變自體免疫疾病的治療方向",
+   "title_orig": "This ‘living drug’ could change the course of autoimmune disease",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/wikipedia-wikiproject-ai-writing-cleanup",
-   "date": "2026-10-21"
+   "url": "https://www.sciencenews.org/article/car-t-cell-therapy-autoimmune-diseases",
+   "date": "2026-10-22"
+  },
+  {
+   "title_zh": "Franziska Boenisch 教授與 Georg Sigl 教授共同領導 Fraunhofer AISEC",
+   "title_orig": "Prof. Franziska Boenisch führt mit Prof. Georg Sigl das Fraunhofer AISEC",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/neues-leitungsduo-fuer-cybersicherheitsforschung.html",
+   "date": "2026-10-22"
+  },
+  {
+   "title_zh": "健康：醫學最新動態",
+   "title_orig": "Santé : dernières nouvelles de la médecine",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/dossiers/sante-dernieres-nouvelles-de-la-medecine",
+   "date": "2026-10-22"
   },
   {
    "title_zh": "海洋中最豐富的「獨行」微生物擁有黏著的第二生命",
@@ -71,26 +161,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/oceans-most-abundant-loner-microbe-has-sticky-second-life-1020",
-   "date": "2026-10-21"
-  },
-  {
-   "title_zh": "救命藥物並非美國過量死亡人數下降的原因",
-   "title_orig": "A lifesaving medication is not behind the drop in U.S. overdose deaths",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/opioid-overdose-deaths-naloxone",
-   "date": "2026-10-21"
-  },
-  {
-   "title_zh": "窺探2026年尼康小世界競賽揭開的隱藏世界",
-   "title_orig": "Peek into hidden worlds revealed by the 2026 Nikon Small World contest",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/nikon-small-world-contest-2026-photos",
    "date": "2026-10-21"
   },
   {
@@ -104,16 +174,6 @@
    "date": "2026-10-21"
   },
   {
-   "title_zh": "IEEE報告強調會員如何為公共利益進行工程設計",
-   "title_orig": "IEEE Report Highlights How Members Are Engineering for Public Good",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-report-engineering-public-good",
-   "date": "2026-10-20"
-  },
-  {
    "title_zh": "研討會凸顯麻省理工學院在促進大腦健康與老化方面的廣泛創新成果",
    "title_orig": "Symposium highlights MIT’s wide range of innovations for aging brain health",
    "source": "MIT News 麻省理工學院新聞",
@@ -121,16 +181,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/symposium-highlights-innovations-for-aging-brain-health-1019",
-   "date": "2026-10-20"
-  },
-  {
-   "title_zh": "為何教導人工智慧對稱性概念能讓產前診斷更可靠",
-   "title_orig": "Why teaching AI about symmetry could make prenatal diagnosis more reliable",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/teaching-ai-about-symmetry-could-make-prenatal-diagnosis-more-reliable-1019",
    "date": "2026-10-20"
   },
   {
@@ -154,7 +204,7 @@
    "date": "2026-10-20"
   },
   {
-   "title_zh": "MMX，或如何將火星的一小部分帶回家",
+   "title_zh": "MMX，或如何把火星的一小部分帶回家",
    "title_orig": "MMX, ou comment ramener un peu de Mars à la maison",
    "source": "CNRS Le Journal 法國國家科學研究中心",
    "source_id": "cnrs",
@@ -162,16 +212,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/articles/mmx-ou-comment-ramener-un-peu-de-mars-a-la-maison",
    "date": "2026-10-20"
-  },
-  {
-   "title_zh": "歐幾里得發現新彗星",
-   "title_orig": "Euclid discovers new comet",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Space_Science/Euclid/Euclid_discovers_new_comet",
-   "date": "2026-10-19"
   },
   {
    "title_zh": "與東京農工大學簽署綜合合作協議",
@@ -184,16 +224,6 @@
    "date": "2026-10-19"
   },
   {
-   "title_zh": "鏡像生物學警報",
-   "title_orig": "Alerte à la biologie miroir",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/alerte-a-la-biologie-miroir",
-   "date": "2026-10-19"
-  },
-  {
    "title_zh": "H3火箭第10號發射器發射火星衛星探測器（MMX）的時間",
    "title_orig": "H3ロケット10号機による火星衛星探査機（MMX）の打上げ時刻",
    "source": "JAXA 日本宇宙航空研究開發機構",
@@ -202,26 +232,6 @@
    "lang_label": "日文",
    "url": "https://www.jaxa.jp/press/2026/10/20261018-1_j.html",
    "date": "2026-10-18"
-  },
-  {
-   "title_zh": "太空中的地球：西南極洲",
-   "title_orig": "Earth from Space: West Antarctica",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_West_Antarctica",
-   "date": "2026-10-16"
-  },
-  {
-   "title_zh": "圖片回顧：2026年10月12日至16日",
-   "title_orig": "Week in images: 12-16 October 2026",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_12-16_October_2026",
-   "date": "2026-10-13"
   },
   {
    "title_zh": null,
@@ -261,16 +271,6 @@
    "lang": "de",
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/spatenstich-neuer-fraunhofer-standort-in-cottbus-staerkt-strukturwandel-und-transfer.html",
-   "date": "2026-10-01"
-  },
-  {
-   "title_zh": "電解槽中使用未淨化的海水：弗勞恩霍夫研究所測試材料與膜技術",
-   "title_orig": "Ungereinigtes Meerwasser im Elektrolyseur: Fraunhofer testet Materialien und Membranen",
-   "source": "Fraunhofer 弗勞恩霍夫協會",
-   "source_id": "fraunhofer",
-   "lang": "de",
-   "lang_label": "德文",
-   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/ungereinigtes-meerwasser-im-elektrolyseur-fraunhofer-testet-materialien-und-membranen.html",
    "date": "2026-10-01"
   }
  ],
