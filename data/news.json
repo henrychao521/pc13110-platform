@@ -1,26 +1,36 @@
 {
- "generated": "2026-10-24T06:30:42+08:00",
+ "generated": "2026-10-25T06:30:40+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA史特尼斯進行RS-25引擎測試",
-   "title_orig": "RS-25 Engine Tests at NASA Stennis",
+   "title_zh": "每日天文圖：2026年10月24日——羅塞塔號的自拍照",
+   "title_orig": "APOD: 2026 October 24 – Rosetta’s Selfie",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/rs-25-engine-tests-at-nasa-stennis/",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-24-rosettas-selfie/",
    "date": "2026-10-24"
   },
   {
-   "title_zh": "NASA與維吉尼亞州啟動能源安全合作夥伴關係",
-   "title_orig": "NASA, Virginia Launch Power Partnership for Energy Security",
+   "title_zh": "NASA與合作夥伴加速開發2028年月球任務的登月器",
+   "title_orig": "NASA, Partners Accelerate Lander Development for 2028 Moon Missions",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/langley/nasa-power-energy-partnership/",
+   "url": "https://www.nasa.gov/missions/artemis/nasa-partners-accelerate-lander-development-for-2028-moon-missions/",
+   "date": "2026-10-24"
+  },
+  {
+   "title_zh": "NASA的Artemis III任務將測試未來月球登陸器操作",
+   "title_orig": "NASA’s Artemis III Mission to Test Future Moon Lander Operations",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/missions/artemis/nasas-artemis-iii-mission-to-test-future-moon-lander-operations/",
    "date": "2026-10-24"
   },
   {
@@ -34,6 +44,16 @@
    "date": "2026-10-24"
   },
   {
+   "title_zh": null,
+   "title_orig": "The human voice",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/ed-note-november-2026",
+   "date": "2026-10-24"
+  },
+  {
    "title_zh": "人類大腦為何超越黑猩猩？微小敵人或許能解釋原因",
    "title_orig": "Why did humans’ brains surpass chimps’? A tiny foe might help explain it",
    "source": "Science News",
@@ -42,16 +62,6 @@
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/human-chimp-brains-different-virus-dna",
    "date": "2026-10-24"
-  },
-  {
-   "title_zh": "每日天文圖片：2026年10月23日——南天春季的仙女座星系",
-   "title_orig": "APOD: 2026 October 23 – Andromeda in Southern Spring",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-23-andromeda-in-southern-spring/",
-   "date": "2026-10-23"
   },
   {
    "title_zh": "圖片回顧：2026年10月19日至23日",
@@ -111,16 +121,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/sugar-antibiotics-squash-gut-bacteria",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "電爐或有助氣喘患者呼吸更順暢",
-   "title_orig": "Electric stoves could help people with asthma breathe easier",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/asthma-symptoms-electric-stove-gas",
    "date": "2026-10-23"
   },
   {
@@ -275,6 +275,11 @@
   }
  ],
  "dropped": [
+  {
+   "source": "science-news",
+   "title": "The human voice",
+   "reason": "長度異常"
+  },
   {
    "source": "naoj",
    "title": "日本の天文学研究を日常から支える「国立天文台エポスカード」が誕生",
