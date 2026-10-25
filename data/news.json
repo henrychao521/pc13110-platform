@@ -1,10 +1,20 @@
 {
- "generated": "2026-10-25T06:30:40+08:00",
+ "generated": "2026-10-26T06:30:44+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "每日天文圖：2026年10月24日——羅塞塔號的自拍照",
+   "title_zh": "每日天文圖：2026年10月25日——模擬宇宙中的暗物質",
+   "title_orig": "APOD: 2026 October 25 – Dark Matter in a Simulated Universe",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-25-dark-matter-in-a-simulated-universe/",
+   "date": "2026-10-25"
+  },
+  {
+   "title_zh": "每日天文圖片：2026年10月24日——羅塞塔號的自拍照",
    "title_orig": "APOD: 2026 October 24 – Rosetta’s Selfie",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
@@ -21,16 +31,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.nasa.gov/missions/artemis/nasa-partners-accelerate-lander-development-for-2028-moon-missions/",
-   "date": "2026-10-24"
-  },
-  {
-   "title_zh": "NASA的Artemis III任務將測試未來月球登陸器操作",
-   "title_orig": "NASA’s Artemis III Mission to Test Future Moon Lander Operations",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/missions/artemis/nasas-artemis-iii-mission-to-test-future-moon-lander-operations/",
    "date": "2026-10-24"
   },
   {
