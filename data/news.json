@@ -1,47 +1,137 @@
 {
- "generated": "2026-10-26T06:30:44+08:00",
+ "generated": "2026-10-27T06:30:47+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "每日天文圖：2026年10月25日——模擬宇宙中的暗物質",
-   "title_orig": "APOD: 2026 October 25 – Dark Matter in a Simulated Universe",
+   "title_zh": "廷加的傳說",
+   "title_orig": "Tinga’s Tale",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-25-dark-matter-in-a-simulated-universe/",
-   "date": "2026-10-25"
+   "url": "https://science.nasa.gov/blog/tingas-tale/",
+   "date": "2026-10-27"
   },
   {
-   "title_zh": "每日天文圖片：2026年10月24日——羅塞塔號的自拍照",
-   "title_orig": "APOD: 2026 October 24 – Rosetta’s Selfie",
+   "title_zh": "NASA的毅力號提供保護太空人免受火星塵埃危害的線索",
+   "title_orig": "NASA’s Perseverance Offers Clues to Protect Crews From Mars Dust",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-24-rosettas-selfie/",
-   "date": "2026-10-24"
+   "url": "https://www.nasa.gov/missions/mars-2020-perseverance/nasas-perseverance-offers-clues-to-protect-crews-from-mars-dust/",
+   "date": "2026-10-27"
   },
   {
-   "title_zh": "NASA與合作夥伴加速開發2028年月球任務的登月器",
-   "title_orig": "NASA, Partners Accelerate Lander Development for 2028 Moon Missions",
+   "title_zh": "NEO Surveyor 遮陽板接受檢查",
+   "title_orig": "NEO Surveyor’s Sunshade Gets Inspected",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/missions/artemis/nasa-partners-accelerate-lander-development-for-2028-moon-missions/",
-   "date": "2026-10-24"
+   "url": "https://science.nasa.gov/photojournal/neo-surveyors-sunshade-gets-inspected/",
+   "date": "2026-10-27"
   },
   {
-   "title_zh": "從晶片實驗室走向舞台中央",
-   "title_orig": "From Chip Lab to Center Stage",
+   "title_zh": "IEEE Xplore 數位圖書館新增 AI 助手",
+   "title_orig": "IEEE Xplore Digital Library Adds AI Assistant",
    "source": "IEEE Spectrum",
    "source_id": "ieee-spectrum",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/preethi-ashwath-chip-designer",
-   "date": "2026-10-24"
+   "url": "https://spectrum.ieee.org/ieee-xplore-digital-library-ai",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "火山潛伏於人類歷史的幕後",
+   "title_orig": "Volcanoes lurk behind the scenes of human history",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/volcanoes-impact-human-history-climate",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "外科機器人技術的崛起",
+   "title_orig": "L’avènement de la robotique chirurgicale",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/lavenement-de-la-robotique-chirurgicale",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "冰原任務CRISTAL展開翅膀",
+   "title_orig": "Ice mission CRISTAL opens its wings",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Ice_mission_CRISTAL_opens_its_wings",
+   "date": "2026-10-26"
+  },
+  {
+   "title_zh": "用磁力成像儀打造隱藏式鎖具",
+   "title_orig": "Build a Hidden Lock With a Magnetic Imager",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/magnetic",
+   "date": "2026-10-26"
+  },
+  {
+   "title_zh": "植入式裝置利用超音波改善藥物輸送至大腦",
+   "title_orig": "Implantable device uses ultrasound to improve drug delivery to the brain",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/implantable-device-uses-ultrasound-improve-drug-delivery-brain-1026",
+   "date": "2026-10-26"
+  },
+  {
+   "title_zh": "用Lumina觀測宇宙如何從黑暗時代中顯現",
+   "title_orig": "Watch the universe emerge from the dark ages, with Lumina",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/watch-universe-emerge-from-dark-ages-with-lumina-1026",
+   "date": "2026-10-26"
+  },
+  {
+   "title_zh": "Claude協助規劃具風險的禽流感研究。AI添加了什麼？",
+   "title_orig": "Claude helped plan risky bird flu research. What did the AI add?",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/claude-bird-flu-research-ai-biology",
+   "date": "2026-10-26"
+  },
+  {
+   "title_zh": "健康：醫學最新動態",
+   "title_orig": "Santé : dernières nouvelles de la médecine",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/dossiers/sante-dernieres-nouvelles-de-la-medecine",
+   "date": "2026-10-26"
+  },
+  {
+   "title_zh": "工程師的詩歌：代碼與短葉松",
+   "title_orig": "Poetry for Engineers: Of Code and Shortleaf Pine",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/poetry-for-engineers-of-code-and-shortleaf-pine",
+   "date": "2026-10-25"
   },
   {
    "title_zh": null,
@@ -51,16 +141,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/ed-note-november-2026",
-   "date": "2026-10-24"
-  },
-  {
-   "title_zh": "人類大腦為何超越黑猩猩？微小敵人或許能解釋原因",
-   "title_orig": "Why did humans’ brains surpass chimps’? A tiny foe might help explain it",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/human-chimp-brains-different-virus-dna",
    "date": "2026-10-24"
   },
   {
@@ -84,16 +164,6 @@
    "date": "2026-10-23"
   },
   {
-   "title_zh": "為什麼人工智慧無法取代工程團隊",
-   "title_orig": "Why AI Can’t Replace Engineering Teams",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/engineering-jobs-that-ai-cant-replace",
-   "date": "2026-10-23"
-  },
-  {
    "title_zh": "問答：人工智慧如何模擬「混亂」的人類心智",
    "title_orig": "Q&A: How AI came to model the “messy” human mind",
    "source": "MIT News 麻省理工學院新聞",
@@ -101,26 +171,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/qa-how-ai-came-to-model-messy-human-mind-1023",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "此設計軟體將日常物品重新想像為具備自我意識的裝置",
-   "title_orig": "This design software reimagines everyday objects as self-aware devices",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/design-software-reimagines-everyday-objects-as-self-aware-devices-1022",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "服用抗生素時攝取過多糖分可能抑制有益腸道菌群",
-   "title_orig": "Eating too much sugar on antibiotics could squash helpful gut bacteria",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/sugar-antibiotics-squash-gut-bacteria",
    "date": "2026-10-23"
   },
   {
@@ -154,26 +204,6 @@
    "date": "2026-10-23"
   },
   {
-   "title_zh": "歐洲太空總署第350次理事會：媒體資訊說明會",
-   "title_orig": "350th ESA Council: Media information session",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/350th_ESA_Council_Media_information_session",
-   "date": "2026-10-22"
-  },
-  {
-   "title_zh": "工程師為何應勇闖國會山丘",
-   "title_orig": "Why Engineers Should Brave Capitol Hill",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/engineers-lobbying-congress",
-   "date": "2026-10-22"
-  },
-  {
    "title_zh": "Franziska Boenisch 教授與 Georg Sigl 教授共同領導 Fraunhofer AISEC",
    "title_orig": "Prof. Franziska Boenisch führt mit Prof. Georg Sigl das Fraunhofer AISEC",
    "source": "Fraunhofer 弗勞恩霍夫協會",
@@ -182,26 +212,6 @@
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/neues-leitungsduo-fuer-cybersicherheitsforschung.html",
    "date": "2026-10-22"
-  },
-  {
-   "title_zh": "健康：醫學最新動態",
-   "title_orig": "Santé : dernières nouvelles de la médecine",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/dossiers/sante-dernieres-nouvelles-de-la-medecine",
-   "date": "2026-10-22"
-  },
-  {
-   "title_zh": "海洋中最豐富的「獨行」微生物擁有黏著的第二生命",
-   "title_orig": "The ocean’s most abundant “loner” microbe has a sticky second life",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/oceans-most-abundant-loner-microbe-has-sticky-second-life-1020",
-   "date": "2026-10-21"
   },
   {
    "title_zh": "火星衛星探測器（MMX）初期關鍵任務階段結束",
@@ -221,16 +231,6 @@
    "lang": "ja",
    "lang_label": "日文",
    "url": "https://www.jaxa.jp/press/2026/10/20261020-1_j.html",
-   "date": "2026-10-20"
-  },
-  {
-   "title_zh": "令人驚嘆的生命世界",
-   "title_orig": "L’étonnant univers du vivant",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/dossiers/letonnant-univers-du-vivant",
    "date": "2026-10-20"
   },
   {
