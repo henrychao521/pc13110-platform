@@ -1,418 +1,287 @@
 /* ============================================================
- * 三視圖與立體模型 — three.js 立體檢視 + 三視圖投影 + 進階判讀挑戰
- * 體素網格 3×3×3;8 個模型。挑戰由淺至難:
- *   淺 → 選上視圖    中 → 選前/側視圖    難 → 選出完全正確的三視圖組合
+ * 三視圖與立體模型 — 3D 模型 + 第三角法三視圖 + 判讀挑戰（2026-10-27 改版）
+ * 模型與視圖來自物件庫 ../assets/ortho-library/（OpenSCAD 實體 → 正投影算出可見線、隱藏線、中心線）。
+ * 視圖排版由 ortho-views.js 負責：上視圖在前視圖正上方、右側視圖在前視圖正右方，同一比例尺
+ * → 長對正、高平齊、寬相等由排版保證。題庫在 ortho-quiz.js（正解唯一性有自動測試）。
  * ============================================================ */
 import * as THREE from '../../vendor/three/three.module.min.js';
 
-const N = 3;
-const R = [0, 1, 2];
-const ALL9 = [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2]];
+const OV = window.OrthoViews;
+const LIB = window.ORTHO_LIB;
+const QUIZ = window.ORTHO_QUIZ_PC;
+const LIB_DIR = '../assets/ortho-library/';
+const NAMES_PC = { front: '前視圖', top: '上視圖', right: '右側視圖', left: '左側視圖', bottom: '仰視圖', rear: '後視圖' };
+const LEVEL_TXT = { 1: '基礎', 2: '進階', 3: '挑戰', 4: '綜合' };
+const PICKER_IDS = ['lblock', 'step3', 'tee', 'notch', 'chamfer', 'ramp', 'holeplate', 'vblock', 'tslot', 'dovetail',
+  'cbore', 'cylstack', 'bracket', 'lhole', 'slotplate', 'boss', 'rib'];
 
-function fromFootprint(fp, zs) {
-  const o = [];
-  fp.forEach(([x, y]) => zs.forEach(z => o.push([x, y, z])));
-  return o;
+/* ---- STL（二進位）→ BufferGeometry ---- */
+const geoCache = new Map();
+function loadGeometry(id) {
+  if (geoCache.has(id)) return geoCache.get(id);
+  const p = fetch(LIB_DIR + id + '.stl').then(r => {
+    if (!r.ok) throw new Error('STL ' + r.status);
+    return r.arrayBuffer();
+  }).then(buf => {
+    const dv = new DataView(buf), n = dv.getUint32(80, true);
+    const pos = new Float32Array(n * 9);
+    for (let i = 0; i < n; i++) for (let j = 0; j < 9; j++) pos[i * 9 + j] = dv.getFloat32(84 + i * 50 + 12 + j * 4, true);
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.computeVertexNormals();
+    g.computeBoundingBox();
+    return g;
+  });
+  geoCache.set(id, p);
+  return p;
 }
-
-/* ---- 8 個體素模型 ---- */
-const MODELS = {
-  '立方體': fromFootprint(ALL9, R),
-  'L 形塊': fromFootprint([[0,0],[1,0],[2,0],[0,1],[0,2]], [0, 1]),
-  '十字柱': fromFootprint([[1,0],[0,1],[1,1],[2,1],[1,2]], R),
-  '階梯': (() => { const o = []; R.forEach(y => {
-    o.push([0,y,0], [1,y,0],[1,y,1], [2,y,0],[2,y,1],[2,y,2]);
-  }); return o; })(),
-  '直立板': fromFootprint([[0,0],[1,0],[2,0]], R),
-  '角柱': fromFootprint([[0,0],[1,0],[0,1],[1,1]], [0, 1]),
-  '凸字塊': (() => { const o = fromFootprint(ALL9, [0]); o.push([1,1,1], [1,1,2]); return o; })(),
-  '長條臥': [[0,2,0],[1,2,0],[2,2,0]],
-};
-const MODEL_NAMES = Object.keys(MODELS);
-
-/* ---- 投影 ---- */
-function grid() { return Array.from({ length: N }, () => Array(N).fill(0)); }
-function projFront(vx) { const m = grid(); vx.forEach(([x,, z]) => m[z][x] = 1); return m; }
-function projTop(vx)   { const m = grid(); vx.forEach(([x, y]) => m[y][x] = 1); return m; }
-function projSide(vx)  { const m = grid(); vx.forEach(([, y, z]) => m[z][N - 1 - y] = 1); return m; }
-const PROJ = { top: projTop, front: projFront, side: projSide };
-const VIEW_LABEL = { top: '上視圖', front: '前視圖', side: '側視圖' };
-const VIEW_FLIP = { top: false, front: true, side: true };
-
-function sig(m) { return m.map(r => r.join('')).join('|'); }
-
-/* ---- 繪製 2D 視圖 ---- */
-function drawView(canvas, matrix, flipZ, size) {
-  size = size || 96;
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = size * dpr; canvas.height = size * dpr;
-  canvas.style.width = size + 'px'; canvas.style.height = size + 'px';
-  const ctx = canvas.getContext('2d');
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.clearRect(0, 0, size, size);
-  const cell = size / N;
-  for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) {
-    const mr = flipZ ? (N - 1 - r) : r;
-    ctx.fillStyle = matrix[mr][c] ? '#2563EB' : '#fff';
-    ctx.fillRect(c * cell, r * cell, cell, cell);
-    ctx.strokeStyle = '#CBD5E1';
-    ctx.strokeRect(c * cell, r * cell, cell, cell);
-  }
-}
-function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random()*(i+1))|0; [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
 /* ============================================================
- * three.js 體素檢視器
+ * 3D 檢視器（Z 軸朝上；橘色箭頭＝前視方向）
  * ============================================================ */
-function makeVoxelViewer(canvas, autoRotate) {
+function makeViewer(canvas, autoRotate) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#F1F5F9');
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.72));
-  const dl = new THREE.DirectionalLight(0xffffff, 0.9);
-  dl.position.set(6, 10, 8); scene.add(dl);
-  const group = new THREE.Group();
-  scene.add(group);
-
-  let az = 0.9, pol = 1.0, rad = 9, drag = false, lx = 0, ly = 0;
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 2000);
+  camera.up.set(0, 0, 1);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+  const dl = new THREE.DirectionalLight(0xffffff, 0.95);
+  dl.position.set(40, -90, 120); scene.add(dl);
+  const group = new THREE.Group(); scene.add(group);
+  let az = 0.75, pol = 1.05, drag = false, lx = 0, ly = 0, zoom = 1, radius = 60;
+  const target = new THREE.Vector3();
   function updateCam() {
-    camera.position.set(rad*Math.sin(pol)*Math.sin(az), rad*Math.cos(pol), rad*Math.sin(pol)*Math.cos(az));
-    camera.lookAt(0, 0, 0);
+    const d = 400;
+    camera.position.set(target.x + d * Math.sin(pol) * Math.sin(az), target.y - d * Math.sin(pol) * Math.cos(az), target.z + d * Math.cos(pol));
+    camera.lookAt(target);
   }
   function resize() {
     const w = canvas.clientWidth, h = canvas.clientHeight;
     if (!w || !h) return;
     renderer.setSize(w, h, false);
-    camera.aspect = w / h; camera.updateProjectionMatrix();
+    const half = radius * 1.08 / zoom, a = w / h;
+    /* 直式畫面以寬度為準，橫式以高度為準 → 物件全貌都在畫面內 */
+    const hh = a >= 1 ? half : half / a;
+    camera.left = -hh * a; camera.right = hh * a; camera.top = hh; camera.bottom = -hh;
+    camera.updateProjectionMatrix();
   }
-  const touches = new Map(); // 進行中的指針（雙指＝pinch 縮放）
-  let pinchDist = 0;
+  const touches = new Map(); let pinch = 0;
   canvas.addEventListener('pointerdown', e => {
     e.preventDefault();
     touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
     try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
-    if (touches.size === 2) {
-      const [a, b] = [...touches.values()];
-      pinchDist = Math.hypot(a.x - b.x, a.y - b.y);
-      drag = false;
-    } else {
-      drag = true; lx = e.clientX; ly = e.clientY;
-    }
+    if (touches.size === 2) { const [a, b] = [...touches.values()]; pinch = Math.hypot(a.x - b.x, a.y - b.y); drag = false; }
+    else { drag = true; lx = e.clientX; ly = e.clientY; }
   });
-  const endPointer = e => {
-    touches.delete(e.pointerId);
-    if (touches.size < 2) pinchDist = 0;
-    if (touches.size === 0) drag = false;
-  };
-  window.addEventListener('pointerup', endPointer);
-  window.addEventListener('pointercancel', endPointer);
+  const endP = e => { touches.delete(e.pointerId); if (touches.size < 2) pinch = 0; if (!touches.size) drag = false; };
+  window.addEventListener('pointerup', endP); window.addEventListener('pointercancel', endP);
   window.addEventListener('pointermove', e => {
     if (touches.has(e.pointerId)) touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (touches.size === 2) {
-      const [a, b] = [...touches.values()];
-      const d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (pinchDist > 0 && d > 0) {
-        rad = Math.min(16, Math.max(5, rad * (pinchDist / d)));
-        updateCam();
-      }
-      pinchDist = d;
-      return;
+      const [a, b] = [...touches.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (pinch > 0 && d > 0) { zoom = Math.min(3, Math.max(0.6, zoom * d / pinch)); resize(); }
+      pinch = d; return;
     }
     if (!drag) return;
     az -= (e.clientX - lx) * 0.01;
-    pol = Math.min(1.4, Math.max(0.3, pol - (e.clientY - ly) * 0.01));
+    pol = Math.min(1.5, Math.max(0.15, pol - (e.clientY - ly) * 0.01));
     lx = e.clientX; ly = e.clientY; updateCam();
   });
-  canvas.addEventListener('wheel', e => {
-    e.preventDefault();
-    rad = Math.min(16, Math.max(5, rad * (1 + e.deltaY * 0.0012)));
-    updateCam();
-  }, { passive: false });
+  canvas.addEventListener('wheel', e => { e.preventDefault(); zoom = Math.min(3, Math.max(0.6, zoom * (1 - e.deltaY * 0.0012))); resize(); }, { passive: false });
 
-  function show(vx) {
-    group.clear();
-    const geo = new THREE.BoxGeometry(0.94, 0.94, 0.94);
-    const mat = new THREE.MeshLambertMaterial({ color: 0x2563EB });
-    vx.forEach(([x, y, z]) => {
-      const cube = new THREE.Mesh(geo, mat);
-      cube.position.set(x, z, y);
-      group.add(cube);
-      const edge = new THREE.LineSegments(
-        new THREE.EdgesGeometry(geo),
-        new THREE.LineBasicMaterial({ color: 0x1e293b }));
-      edge.position.copy(cube.position);
-      group.add(edge);
+  let token = 0;
+  function show(id) {
+    const my = ++token;
+    loadGeometry(id).then(geo => {
+      if (my !== token) return;
+      group.clear();
+      const mesh = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ color: 0x93A5F5 }));
+      group.add(mesh);
+      group.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 20), new THREE.LineBasicMaterial({ color: 0x1E1B4B })));
+      const bb = geo.boundingBox, c = new THREE.Vector3(); bb.getCenter(c);
+      const size = new THREE.Vector3(); bb.getSize(size);
+      /* 前視方向箭頭：放在正面前方，指向 +Y（從前面往物體看） */
+      const len = Math.max(14, size.y * 0.45);
+      const arrow = new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0), new THREE.Vector3(c.x, bb.min.y - len - 4, bb.min.z + size.z * 0.35), len, 0xF97316, len * 0.35, len * 0.22);
+      group.add(arrow);
+      target.set(c.x, c.y - (len + 4) / 2, c.z);
+      radius = 0.5 * Math.hypot(size.x, size.y + len + 4, size.z);
+      resize(); updateCam();
+    }).catch(err => {
+      group.clear();
+      console.error('模型載入失敗', id, err);
     });
-    group.position.set(-(N - 1) / 2, -(N - 1) / 2, -(N - 1) / 2);
   }
-  resize(); updateCam();
+  updateCam(); resize();
   window.addEventListener('resize', resize);
   let alive = true;
   (function loop() {
     if (!alive) return;
     requestAnimationFrame(loop);
-    if (autoRotate && !drag) { az += 0.006; updateCam(); }
+    if (autoRotate && !drag) { az += 0.005; updateCam(); }
     renderer.render(scene, camera);
   })();
-  function dispose() {
-    alive = false;
-    window.removeEventListener('resize', resize);
-    renderer.dispose();
-    if (renderer.forceContextLoss) renderer.forceContextLoss();
-  }
-  return { show, resize, dispose };
+  return {
+    show, resize,
+    dispose() { alive = false; window.removeEventListener('resize', resize); renderer.dispose(); if (renderer.forceContextLoss) renderer.forceContextLoss(); }
+  };
 }
 
 /* ============================================================
- * 主檢視器:立體模型 + 即時三視圖
+ * 互動①：立體 ↔ 三視圖
  * ============================================================ */
-const mainViewer = makeVoxelViewer(document.getElementById('orthoView'), false);
-function showModel(name) {
-  const vx = MODELS[name];
-  mainViewer.show(vx);
-  drawView(document.getElementById('viewFront'), projFront(vx), true);
-  drawView(document.getElementById('viewTop'), projTop(vx), false);
-  drawView(document.getElementById('viewSide'), projSide(vx), true);
+const mainViewer = makeViewer(document.getElementById('orthoView'), false);
+let curId = 'lblock', layoutMode = 'three';
+function drawViews() {
+  const o = LIB.objects[curId];
+  const host = document.getElementById('orthoViews');
+  const w = Math.max(260, Math.min(520, host.clientWidth || 340));
+  const views = layoutMode === 'six' ? o.views : { front: o.views.front, top: o.views.top, right: o.views.right };
+  host.innerHTML = OV.svgLayout(views, layoutMode, { maxWidth: w, names: NAMES_PC, projLines: layoutMode === 'three', title: o.name + (layoutMode === 'six' ? ' 六視圖' : ' 三視圖') });
+  document.getElementById('orthoDesc').innerHTML = `<strong>${o.name}</strong>（${LEVEL_TXT[o.level]}）：${o.desc}`;
 }
+function showModel(id) { curId = id; mainViewer.show(id); drawViews(); }
 (function buildPicker() {
   const wrap = document.getElementById('modelPicker');
-  MODEL_NAMES.forEach((name, i) => {
+  PICKER_IDS.forEach(id => {
+    const o = LIB.objects[id];
     const b = document.createElement('button');
-    b.className = 'btn btn-ghost btn-sm';
-    b.textContent = name;
-    if (i === 0) b.classList.add('btn-primary');
+    b.type = 'button';
+    b.className = 'btn btn-ghost btn-sm' + (id === curId ? ' btn-primary' : '');
+    b.innerHTML = `<span class="lvl-dot lvl-dot-${o.level}" aria-hidden="true"></span>${o.name}`;
     b.addEventListener('click', () => {
       wrap.querySelectorAll('button').forEach(x => x.classList.remove('btn-primary'));
       b.classList.add('btn-primary');
-      showModel(name);
+      showModel(id);
       if (typeof SoundFX !== 'undefined') SoundFX.click();
     });
     wrap.appendChild(b);
   });
+  document.querySelectorAll('[data-layout]').forEach(btn => btn.addEventListener('click', () => {
+    layoutMode = btn.dataset.layout;
+    document.querySelectorAll('[data-layout]').forEach(x => x.classList.toggle('btn-primary', x === btn));
+    drawViews();
+  }));
 })();
-showModel(MODEL_NAMES[0]);
+showModel(curId);
+let rsT = 0;
+window.addEventListener('resize', () => { clearTimeout(rsT); rsT = setTimeout(drawViews, 150); });
 setTimeout(() => mainViewer.resize(), 80);
 
 /* ============================================================
- * 進階判讀挑戰(6 題,由淺至難)
+ * 互動②：判讀挑戰（6 題，淺→中→難）
  * ============================================================ */
-const QUESTIONS = [
-  { level: '淺', type: 'top',     model: 'L 形塊' },
-  { level: '淺', type: 'top',     model: '角柱' },
-  { level: '中', type: 'front',   model: '階梯' },
-  { level: '中', type: 'side',    model: '凸字塊' },
-  { level: '難', type: 'triplet', model: '十字柱' },
-  { level: '難', type: 'triplet', model: '直立板' },
-];
-let qIdx = 0, score = 0, chViewer = null;
-
-/* 作答紀錄（js/sheet-track.js）：一輪 6 題＝一份作答，每題只答一次（tries 恆為 1）。
- * 選項是每次隨機抽的，沒有固定順序：
- *   視圖題 a／k 記模型代號 M1–M8（MODEL_NAMES 的原始順序）；
- *   三視圖組合題的 4 個選項固定是「全對／前視圖錯／上視圖錯／側視圖錯」→ A–D。 */
 const LOG_PAGE = 'ch2.orthographic';
-const MODEL_CODE = n => 'M' + (MODEL_NAMES.indexOf(n) + 1);
-const TRIP_OPTS = { A: '三視圖完全正確', B: '前視圖錯誤（上、側視圖正確）', C: '上視圖錯誤（前、側視圖正確）', D: '側視圖錯誤（前、上視圖正確）' };
-function logDefs() {
-  if (!window.SheetTrack) return;
-  const modelMap = {};
-  MODEL_NAMES.forEach(n => { modelMap[MODEL_CODE(n)] = n; });
-  QUESTIONS.forEach((q, i) => {
-    if (q.type === 'triplet') SheetTrack.register(LOG_PAGE, 'q' + (i + 1), { t: 'single',
-      stem: `觀察立體模型「${q.model}」,下列哪一組三視圖(前視圖／上視圖／側視圖)完全正確?`, optionMap: TRIP_OPTS, answer: 'A' });
-    else SheetTrack.register(LOG_PAGE, 'q' + (i + 1), { t: 'other',
-      stem: `觀察立體模型「${q.model}」,點選正確的「${VIEW_LABEL[q.type]}」(選項為隨機抽出的模型)`, optionMap: modelMap, answer: MODEL_CODE(q.model) });
-  });
+const VIEW_LABEL = { top: '上視圖', front: '前視圖', right: '右側視圖' };
+const PASS_SCORE = 4;
+let qIdx = 0, score = 0, chViewer = null;
+function stemOf(q) {
+  const name = LIB.objects[q.obj].name;
+  return q.type === 'triplet'
+    ? `觀察立體模型「${name}」,下列哪一組三視圖(上視圖在上、前視圖在下、右側視圖在右)完全正確?`
+    : `觀察立體模型「${name}」,點選正確的「${VIEW_LABEL[q.view]}」`;
 }
-function logAnswer(correct, a) {
-  if (window.SheetTrack) SheetTrack.attempt(LOG_PAGE, 'q' + (qIdx + 1), { ok: correct, a, final: true });
+if (window.SheetTrack) QUIZ.forEach((q, i) => SheetTrack.register(LOG_PAGE, 'q' + (i + 1),
+  { t: 'single', stem: stemOf(q), options: q.options.map(o => o.note), answer: 0 }));
+function logAnswer(i, correct, origIdx) {
+  if (window.SheetTrack) SheetTrack.attempt(LOG_PAGE, 'q' + (i + 1), { ok: correct, a: 'ABCD'.charAt(origIdx), final: true });
 }
-logDefs();
-
-/* 視圖題選項:答案 + 不重複的干擾項(以該視圖的投影簽章去重)*/
-function buildViewOptions(answerName, type) {
-  const proj = PROJ[type];
-  const used = new Set([sig(proj(MODELS[answerName]))]);
-  const opts = [answerName];
-  shuffle(MODEL_NAMES.filter(n => n !== answerName)).forEach(n => {
-    if (opts.length >= 4) return;
-    const s = sig(proj(MODELS[n]));
-    if (!used.has(s)) { used.add(s); opts.push(n); }
-  });
-  return shuffle(opts);
-}
-
-/* 三視圖組合題選項:正解 + 3 個「只錯一個視圖」的干擾項 */
-function tripSig(t) { return sig(t.front) + '#' + sig(t.top) + '#' + sig(t.side); }
-function buildTripletOptions(answerName) {
-  const correct = {
-    front: projFront(MODELS[answerName]), top: projTop(MODELS[answerName]),
-    side: projSide(MODELS[answerName]), correct: true,
-  };
-  const opts = [correct];
-  const usedSig = new Set([tripSig(correct)]);
-  const views = ['front', 'top', 'side'];
-  const others = shuffle(MODEL_NAMES.filter(n => n !== answerName));
-  let oi = 0;
-  while (opts.length < 4 && oi < others.length) {
-    const cv = views[(opts.length - 1) % 3];      /* 每個干擾項換掉不同視圖 */
-    const donorView = PROJ[cv](MODELS[others[oi]]);
-    oi++;
-    if (sig(donorView) === sig(correct[cv])) continue;   /* 換掉的視圖必須真的不同 */
-    const trip = { front: correct.front, top: correct.top, side: correct.side, correct: false };
-    trip[cv] = donorView;
-    if (usedSig.has(tripSig(trip))) continue;
-    usedSig.add(tripSig(trip));
-    opts.push(trip);
-  }
-  return shuffle(opts);
-}
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; }
 
 function buildShell() {
   document.getElementById('challengeArea').innerHTML = `
     <div class="panel" style="margin-bottom:10px">
       <div id="chTitle" style="font-size:13px;font-weight:700;margin-bottom:8px"></div>
       <canvas id="chView"></canvas>
-      <div style="font-size:11px;color:var(--text-muted);margin-top:4px">🖱️ 模型會自動旋轉,也可拖曳檢視</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px">模型會自動旋轉,也可拖曳檢視;<span style="color:#EA580C;font-weight:700">橘色箭頭＝前視方向</span></div>
     </div>
     <div id="chPrompt" style="font-size:12.5px;color:var(--text-muted);margin-bottom:4px"></div>
     <div id="chOptsHost"></div>
     <div id="chFeedback" style="font-size:13px;margin-top:8px;min-height:20px"></div>`;
-  chViewer = makeVoxelViewer(document.getElementById('chView'), true);
+  chViewer = makeViewer(document.getElementById('chView'), true);
 }
-
 function nextBtn(label) {
   const nb = document.createElement('button');
-  nb.className = 'btn btn-primary btn-sm';
-  nb.style.marginTop = '8px';
-  nb.textContent = label;
+  nb.className = 'btn btn-primary btn-sm'; nb.style.marginTop = '8px'; nb.textContent = label;
   nb.addEventListener('click', () => { qIdx++; renderQuestion(); });
   return nb;
 }
-
-const PASS_SCORE = 4;   /* 六題至少答對 4 題才算完成(與其他模組「答對才算完成」一致) */
-function renderQuestion() {
-  if (qIdx >= QUESTIONS.length) {
-    if (chViewer) { chViewer.dispose(); chViewer = null; }
-    if (score < PASS_SCORE) {
-      document.getElementById('challengeArea').innerHTML = `
-      <div class="panel" style="text-align:center;border:2px solid var(--warning)">
-        <div style="font-size:30px">💪</div>
-        <strong style="font-size:16px">你答對 ${score} / ${QUESTIONS.length} 題——再多練習!</strong>
-        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">至少答對 ${PASS_SCORE} 題才算完成本模組。先回到上方主檢視器多轉幾個模型對照三視圖,再挑戰一次。</p>
-        <button class="btn btn-primary btn-sm" id="chRetry" style="margin-top:8px">↻ 重新挑戰</button>
-      </div>`;
-      document.getElementById('chRetry').addEventListener('click', () => {
-        qIdx = 0; score = 0;
-        buildShell();
-        renderQuestion();
-      });
-      return;
-    }
-    const lv = score >= 5 ? '太厲害了' : '表現不錯';
-    document.getElementById('challengeArea').innerHTML = `
-      <div class="panel" style="text-align:center;border:2px solid var(--success)">
-        <div style="font-size:30px">🎉</div>
-        <strong style="font-size:16px">挑戰完成!你答對 ${score} / ${QUESTIONS.length} 題——${lv}!</strong>
-        <p style="font-size:13px;color:var(--text-soft);margin-top:4px">你已能在「淺、中、難」三種層次判讀三視圖。</p>
-      </div>`;
-    if (!Progress.isDone('ch2-ortho')) {
-      celebrateModule('ch2-ortho', '三視圖與立體模型');
-      document.getElementById('nextBtn').classList.add('pop-in');
-    }
+function finish() {
+  if (chViewer) { chViewer.dispose(); chViewer = null; }
+  const area = document.getElementById('challengeArea');
+  if (score < PASS_SCORE) {
+    area.innerHTML = `<div class="panel" style="text-align:center;border:2px solid var(--warning)">
+      <div style="font-size:30px">💪</div><strong style="font-size:16px">你答對 ${score} / ${QUIZ.length} 題——再多練習!</strong>
+      <p style="font-size:13px;color:var(--text-soft);margin-top:4px">至少答對 ${PASS_SCORE} 題才算完成本模組。先回到上方多轉幾個模型對照三視圖,再挑戰一次。</p>
+      <button class="btn btn-primary btn-sm" id="chRetry" style="margin-top:8px">↻ 重新挑戰</button></div>`;
+    document.getElementById('chRetry').addEventListener('click', () => { qIdx = 0; score = 0; buildShell(); renderQuestion(); });
     return;
   }
-  const q = QUESTIONS[qIdx];
-  document.getElementById('chTitle').innerHTML =
-    `第 ${qIdx + 1} / ${QUESTIONS.length} 題　<span class="lvl-badge lvl-${q.level}">難度:${q.level}</span>　請觀察這個立體模型:`;
-  chViewer.show(MODELS[q.model]);
-  setTimeout(() => chViewer.resize(), 60);
-
-  const host = document.getElementById('chOptsHost');
-  const fb = document.getElementById('chFeedback');
-  host.innerHTML = ''; fb.innerHTML = '';
-  let answered = false;
-
-  if (q.type === 'triplet') {
-    document.getElementById('chPrompt').textContent = '▾ 下列哪一組三視圖(前視圖／上視圖／側視圖)完全正確?';
-    const opts = buildTripletOptions(q.model);
-    const wrap = document.createElement('div');
-    wrap.className = 'trip-opts';
-    opts.forEach((t, i) => {
-      const row = document.createElement('div');
-      row.className = 'trip-opt';
-      row.innerHTML = `<div class="to-label">選項 ${String.fromCharCode(65 + i)}</div>`;
-      const views = document.createElement('div');
-      views.className = 'to-views';
-      [['front', '前'], ['top', '上'], ['side', '側']].forEach(([k, lab]) => {
-        const cell = document.createElement('div');
-        cell.className = 'to-view';
-        const cap = document.createElement('div');
-        cap.className = 'tv-t'; cap.textContent = lab + '視圖';
-        const cv = document.createElement('canvas');
-        drawView(cv, t[k], VIEW_FLIP[k], 50);
-        cell.appendChild(cap); cell.appendChild(cv);
-        views.appendChild(cell);
-      });
-      row.appendChild(views);
-      row.addEventListener('click', () => {
-        if (answered) return;
-        answered = true;
-        row.style.borderColor = t.correct ? 'var(--success)' : 'var(--danger)';
-        if (!t.correct) [...wrap.children].forEach((r, j) => {
-          if (opts[j].correct) r.style.borderColor = 'var(--success)';
-        });
-        if (t.correct) score++;
-        logAnswer(t.correct, t.correct ? 'A' : ('BCD'.charAt(['front', 'top', 'side'].findIndex(k => sig(t[k]) !== sig(opts.find(o => o.correct)[k]))) || 'B'));
-        if (typeof SoundFX !== 'undefined') (t.correct ? SoundFX.success : SoundFX.error)();
-        fb.innerHTML = t.correct
-          ? '<span style="color:var(--success);font-weight:700">✓ 答對了!三個視圖都正確——這需要同時掌握長、寬、高。</span>'
-          : '<span style="color:var(--danger);font-weight:700">✗ 不對。綠框那組才完全正確;其他組各有一個視圖是錯的。</span>';
-        fb.appendChild(document.createElement('br'));
-        fb.appendChild(nextBtn(qIdx < QUESTIONS.length - 1 ? '下一題 →' : '看結果 →'));
-      });
-      wrap.appendChild(row);
-    });
-    host.appendChild(wrap);
-  } else {
-    document.getElementById('chPrompt').textContent = `▾ 點選正確的「${VIEW_LABEL[q.type]}」`;
-    const opts = buildViewOptions(q.model, q.type);
-    const ansSig = sig(PROJ[q.type](MODELS[q.model]));
-    const grid = document.createElement('div');
-    grid.className = 'opt-grid';
-    opts.forEach((name, i) => {
-      const opt = document.createElement('div');
-      opt.className = 'opt';
-      const cv = document.createElement('canvas');
-      drawView(cv, PROJ[q.type](MODELS[name]), VIEW_FLIP[q.type], 104);
-      const label = document.createElement('div');
-      label.className = 'opt-label';
-      label.textContent = '選項 ' + String.fromCharCode(65 + i);
-      opt.appendChild(cv); opt.appendChild(label);
-      opt.addEventListener('click', () => {
-        if (answered) return;
-        answered = true;
-        const correct = sig(PROJ[q.type](MODELS[name])) === ansSig;
-        opt.style.borderColor = correct ? 'var(--success)' : 'var(--danger)';
-        if (!correct) [...grid.children].forEach((o, j) => {
-          if (sig(PROJ[q.type](MODELS[opts[j]])) === ansSig) o.style.borderColor = 'var(--success)';
-        });
-        if (correct) score++;
-        logAnswer(correct, MODEL_CODE(name));
-        if (typeof SoundFX !== 'undefined') (correct ? SoundFX.success : SoundFX.error)();
-        fb.innerHTML = correct
-          ? `<span style="color:var(--success);font-weight:700">✓ 答對了!這就是模型的${VIEW_LABEL[q.type]}。</span>`
-          : `<span style="color:var(--danger);font-weight:700">✗ 不對。綠框才是正確的${VIEW_LABEL[q.type]}。</span>`;
-        fb.appendChild(document.createElement('br'));
-        fb.appendChild(nextBtn(qIdx < QUESTIONS.length - 1 ? '下一題 →' : '看結果 →'));
-      });
-      grid.appendChild(opt);
-    });
-    host.appendChild(grid);
+  area.innerHTML = `<div class="panel" style="text-align:center;border:2px solid var(--success)">
+    <div style="font-size:30px">🎉</div><strong style="font-size:16px">挑戰完成!你答對 ${score} / ${QUIZ.length} 題——${score >= 5 ? '太厲害了' : '表現不錯'}!</strong>
+    <p style="font-size:13px;color:var(--text-soft);margin-top:4px">你已能判讀可見線、隱藏線,也分得出上視圖、仰視圖與左右側視圖的位置。</p></div>`;
+  if (!Progress.isDone('ch2-ortho')) {
+    celebrateModule('ch2-ortho', '三視圖與立體模型');
+    document.getElementById('nextBtn').classList.add('pop-in');
   }
 }
-
+function renderQuestion() {
+  if (qIdx >= QUIZ.length) return finish();
+  const q = QUIZ[qIdx], qi = qIdx;
+  document.getElementById('chTitle').innerHTML =
+    `第 ${qi + 1} / ${QUIZ.length} 題　<span class="lvl-badge lvl-${q.level}">難度:${q.level}</span>　請觀察這個立體模型:`;
+  chViewer.show(q.obj);
+  setTimeout(() => chViewer.resize(), 60);
+  const host = document.getElementById('chOptsHost'), fb = document.getElementById('chFeedback');
+  host.innerHTML = ''; fb.innerHTML = '';
+  let answered = false;
+  const order = shuffle(q.options.map((_, i) => i));
+  const wrap = document.createElement('div');
+  wrap.className = q.type === 'triplet' ? 'trip-opts' : 'opt-grid';
+  /* 同一題的選項用同一比例尺，大小也是線索 */
+  let maxMm = 0;
+  q.options.forEach(o => (q.type === 'triplet' ? ['front', 'top', 'right'].map(k => o[k]) : [o]).forEach(s => {
+    const b = OV.viewOf(s).box; maxMm = Math.max(maxMm, (b[2] - b[0]) / 10, (b[3] - b[1]) / 10);
+  }));
+  const optW = Math.min(150, Math.max(110, (host.clientWidth || 320) / 2 - 24));
+  order.forEach((oi, pos) => {
+    const o = q.options[oi];
+    const el = document.createElement('button');
+    el.type = 'button';
+    el.className = q.type === 'triplet' ? 'trip-opt' : 'opt';
+    const label = '選項 ' + String.fromCharCode(65 + pos);
+    if (q.type === 'triplet') {
+      const tw = Math.min(300, (host.clientWidth || 320) - 70);
+      el.innerHTML = `<div class="to-label">${label}</div><div class="to-views">${OV.svgLayout({
+        front: OV.viewOf(o.front), top: OV.viewOf(o.top), right: OV.viewOf(o.right) }, 'three',
+        { maxWidth: tw, names: NAMES_PC, symbol: false, gapMm: 10, title: label })}</div>`;
+    } else {
+      el.innerHTML = OV.svgSingle(OV.viewOf(o), { pxPerMm: (optW - 20) / maxMm, width: optW, height: optW * 0.82, title: label }) +
+        `<div class="opt-label">${label}</div>`;
+    }
+    el.addEventListener('click', () => {
+      if (answered) return;
+      answered = true;
+      const ok = oi === 0;
+      el.style.borderColor = ok ? 'var(--success)' : 'var(--danger)';
+      if (!ok) [...wrap.children].forEach((c, j) => { if (order[j] === 0) c.style.borderColor = 'var(--success)'; });
+      if (ok) score++;
+      logAnswer(qi, ok, oi);
+      if (typeof SoundFX !== 'undefined') (ok ? SoundFX.success : SoundFX.error)();
+      fb.innerHTML = (ok ? '<span style="color:var(--success);font-weight:700">✓ 答對了!</span> '
+        : `<span style="color:var(--danger);font-weight:700">✗ 不對。</span>你選的是「${o.note}」。綠框才是正解。 `) +
+        `<span style="color:var(--text-soft)">${q.why}</span>`;
+      fb.appendChild(document.createElement('br'));
+      fb.appendChild(nextBtn(qi < QUIZ.length - 1 ? '下一題 →' : '看結果 →'));
+    });
+    wrap.appendChild(el);
+  });
+  document.getElementById('chPrompt').textContent = q.type === 'triplet'
+    ? '▾ 下列哪一組三視圖完全正確?（每組依第三角法排列）'
+    : `▾ 點選正確的「${VIEW_LABEL[q.view]}」`;
+  host.appendChild(wrap);
+}
 buildShell();
 renderQuestion();

@@ -11,43 +11,45 @@
 <link rel="stylesheet" href="../../css/svg-effects.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📊%3C/text%3E%3C/svg%3E">
 <style>
-  .ortho-stage { display:grid; grid-template-columns:1.3fr 1fr; gap:14px; }
-  #orthoView { width:100%; height:300px; border:1px solid var(--border);
-    border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; }
+  .ortho-stage { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:14px; align-items:start; }
+  #orthoView { width:100%; height:340px; border:1px solid var(--border);
+    border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; display:block; }
   #orthoView:active { cursor:grabbing; }
-  /* 第三角法標準配置:俯視在正視正上方、側視在正視右方(田字缺右上) */
-  .views-col { display:grid; grid-template-areas:"top note" "front side"; grid-template-columns:auto auto;
-    gap:8px; justify-content:start; align-content:start; }
-  .views-col .view-box { width:fit-content; }
-  .va-note { font-size:11px; color:var(--text-muted); line-height:1.8; align-self:end; padding:0 0 8px 4px; }
-  @media(max-width:680px){ .views-col{grid-template-areas:"top" "front" "side" "note"; grid-template-columns:1fr;} }
-  .view-box { background:#fff; border:1px solid var(--border); border-radius:10px; padding:8px; }
-  .view-box .vb-t { font-size:12px; font-weight:800; color:var(--theme-dark); margin-bottom:4px; }
-  .view-box canvas { display:block; background:#F8FAFC; border-radius:6px; }
+  .views-panel { background:#fff; border:1px solid var(--border); border-radius:10px; padding:8px; }
+  .views-panel svg { display:block; margin:0 auto; }
+  .views-tools { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin-bottom:6px; font-size:12px; color:var(--text-muted); }
+  .line-legend { display:flex; flex-wrap:wrap; gap:4px 14px; font-size:11.5px; color:var(--text-soft); margin-top:6px; }
+  .line-legend svg { vertical-align:middle; margin-right:4px; }
   .model-picker { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0; }
-  .opt-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:10px; }
-  .opt-grid .opt { background:#F8FAFC; border:2px solid var(--border);
-    border-radius:8px; cursor:pointer; transition:all .15s; padding:6px;
+  .lvl-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:1px; }
+  .lvl-dot-1 { background:#16A34A; } .lvl-dot-2 { background:#2563EB; } .lvl-dot-3 { background:#D97706; } .lvl-dot-4 { background:#DC2626; }
+  #orthoDesc { font-size:12.5px; color:var(--text-soft); margin-top:6px; line-height:1.7; }
+  .opt-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:10px; }
+  .opt-grid .opt { background:#fff; border:2px solid var(--border); font:inherit;
+    border-radius:8px; cursor:pointer; transition:border-color .15s; padding:6px;
     display:flex; flex-direction:column; align-items:center; gap:4px; }
   .opt-grid .opt:hover { border-color:var(--theme); }
-  .opt-grid .opt canvas { display:block; }
+  .opt-grid .opt svg { display:block; }
   .opt-grid .opt .opt-label { font-size:11px; font-weight:700; color:var(--text-muted); }
-  #chView { width:100%; height:230px; border:1px solid var(--border);
-    border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; }
+  #chView { width:100%; height:260px; border:1px solid var(--border);
+    border-radius:10px; background:#F1F5F9; cursor:grab; touch-action:none; display:block; }
   #chView:active { cursor:grabbing; }
   .lvl-badge { display:inline-block; font-size:11px; font-weight:800; color:#fff;
     padding:2px 9px; border-radius:999px; }
   .lvl-淺 { background:#16A34A; } .lvl-中 { background:#D97706; } .lvl-難 { background:#DC2626; }
   .trip-opts { display:flex; flex-direction:column; gap:8px; margin-top:10px; }
-  .trip-opt { display:flex; align-items:center; gap:10px; border:2px solid var(--border);
-    border-radius:10px; padding:9px 11px; cursor:pointer; background:#F8FAFC; transition:all .15s; }
+  .trip-opt { display:flex; align-items:center; gap:10px; border:2px solid var(--border); font:inherit; text-align:left;
+    border-radius:10px; padding:8px 10px; cursor:pointer; background:#fff; transition:border-color .15s; width:100%; }
   .trip-opt:hover { border-color:var(--theme); }
-  .trip-opt .to-label { font-size:11.5px; font-weight:800; color:var(--text-muted);
-    width:44px; flex-shrink:0; }
-  .trip-opt .to-views { display:flex; gap:7px; }
-  .trip-opt .to-view { text-align:center; }
-  .trip-opt .to-view .tv-t { font-size:9.5px; color:var(--text-muted); margin-bottom:2px; }
-  @media(max-width:680px){ .ortho-stage{grid-template-columns:1fr;} .opt-grid{grid-template-columns:repeat(2,1fr);} }
+  .trip-opt .to-label { font-size:11.5px; font-weight:800; color:var(--text-muted); width:44px; flex-shrink:0; }
+  .trip-opt .to-views { flex:1; min-width:0; }
+  .trip-opt .to-views svg { display:block; }
+  @media(max-width:680px){
+    .ortho-stage{grid-template-columns:1fr;}
+    #orthoView{height:min(78vw,340px);}
+    .opt-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .trip-opt .to-label{width:auto;writing-mode:vertical-rl;}
+  }
 </style>
 </head>
 <body class="ch2">
@@ -83,7 +85,7 @@
     <h2>三視圖是什麼?</h2>
     <p>
       把一個立體物件,分別從<strong>正前方、正上方、正側方</strong>看過去,所得到的三張平面投影圖,
-      就是<strong>三視圖</strong>——前視圖（正視圖）、上視圖（俯視圖）、側視圖。
+      就是<strong>三視圖</strong>——前視圖（正視圖）、上視圖（俯視圖）、右側視圖。
     </p>
     <p>
       雷射切割機只看得懂平面的 2D 線條;3D 列印前也要先確認各個面的形狀。
@@ -94,7 +96,8 @@
       <h4>第三角投影法</h4>
       <p>
         臺灣與美、日等國的工程製圖,多採用<strong>第三角投影法</strong>(CNS 規定第一角法與第三角法同等適用,但同一張圖不可混用,並須標示投影符號)。它的特點是
-        「視圖放在觀察方向的同一側」——所以<strong>上視圖畫在前視圖的正上方、右側視圖畫在前視圖的右方</strong>。
+        「視圖放在觀察方向的同一側」——所以<strong>上視圖畫在前視圖的正上方、右側視圖畫在前視圖的正右方</strong>,
+        上下對齊(長對正)、左右對齊(高平齊)。
         歐洲、中國大陸則多用「第一角投影法」,擺放位置相反。看工程圖時,要先確認用的是哪一種。
       </p>
     </div>
@@ -105,19 +108,32 @@
     <span class="ab-label">🧠 動動腦 動動手 ①</span>
     <h3 style="margin-bottom:4px">立體 ↔ 三視圖 即時對照</h3>
     <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
-      下方左側可拖曳旋轉立體模型,右側會即時顯示它的三視圖。切換不同模型,觀察視圖如何變化。
+      左側可拖曳旋轉立體模型(<span style="color:#EA580C;font-weight:700">橘色箭頭＝前視方向</span>),右側是它依<strong>第三角法</strong>排好的三視圖。
+      切換不同模型,觀察可見線、隱藏線與中心線怎麼變化。圓點顏色表示難度:🟢 基礎、🔵 進階、🟠 挑戰、🔴 綜合。
     </p>
     <div class="model-picker" id="modelPicker"></div>
     <div class="ortho-stage">
       <div>
-        <canvas id="orthoView"></canvas>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">🖱️ 拖曳旋轉・滾輪縮放</div>
+        <canvas id="orthoView" aria-label="可旋轉的立體模型"></canvas>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">🖱️ 拖曳旋轉・滾輪或雙指縮放</div>
+        <div id="orthoDesc"></div>
       </div>
-      <div class="views-col">
-        <div class="view-box" style="grid-area:top"><div class="vb-t">▣ 上視圖（從正上方看）</div><canvas id="viewTop"></canvas></div>
-        <div class="view-box" style="grid-area:front"><div class="vb-t">▣ 前視圖（從正前方看）</div><canvas id="viewFront"></canvas></div>
-        <div class="view-box" style="grid-area:side"><div class="vb-t">▣ 側視圖（從右側方看）</div><canvas id="viewSide"></canvas></div>
-        <div class="va-note" style="grid-area:note">CNS 第三角法排列:<br>俯視在上・側視在右<br>——視圖的<strong>相對位置</strong><br>本身就是規範的一部分</div>
+      <div class="views-panel">
+        <div class="views-tools">顯示:
+          <button type="button" class="btn btn-ghost btn-sm btn-primary" data-layout="three">三視圖</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-layout="six">六個基本視圖</button>
+        </div>
+        <div id="orthoViews"></div>
+        <div class="line-legend" aria-label="線型說明">
+          <span><svg width="28" height="6"><line x1="1" y1="3" x2="27" y2="3" stroke="#111827" stroke-width="2.2"/></svg>粗實線＝看得見的輪廓</span>
+          <span><svg width="28" height="6"><line x1="1" y1="3" x2="27" y2="3" stroke="#111827" stroke-width="1.3" stroke-dasharray="5 3"/></svg>虛線＝被擋住的輪廓(隱藏線)</span>
+          <span><svg width="28" height="6"><line x1="1" y1="3" x2="27" y2="3" stroke="#111827" stroke-width="0.9" stroke-dasharray="12 3 2 3"/></svg>細鏈線＝中心線(孔、圓柱的軸)</span>
+        </div>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;line-height:1.7">
+          第三角法排列:<strong>上視圖在前視圖正上方、右側視圖在前視圖正右方</strong>。細虛的投影線表示
+          <strong>長對正</strong>(前視圖與上視圖等寬)、<strong>高平齊</strong>(前視圖與右側視圖等高);上視圖的深度＝右側視圖的寬度(<strong>寬相等</strong>)。
+          右上角是第三角法的投影符號。視圖由 3D 實體模型(OpenSCAD)正投影計算產生,和 Onshape 等 CAD 軟體由模型產生工程圖的原理相同。
+        </p>
       </div>
     </div>
   </div>
@@ -128,7 +144,8 @@
     <h3 style="margin-bottom:4px">判讀挑戰：找出正確的視圖</h3>
     <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:6px">
       觀察題目中的立體模型(可拖曳旋轉),選出正確的視圖。題目由<strong>淺至難</strong>分三關:
-      🟢 淺(選上視圖)→ 🟠 中(選前/側視圖)→ 🔴 難(選出完全正確的三視圖組合),共 6 題,答對 4 題以上才算完成本模組。
+      🟢 淺(選上視圖、前視圖)→ 🟠 中(判斷右側視圖方向、隱藏線)→ 🔴 難(選出完全正確的三視圖組合),共 6 題,答對 4 題以上才算完成本模組。
+      干擾選項都是常見錯誤:左右或上下顛倒、把隱藏線畫成實線、漏畫隱藏線、把仰視圖或左側視圖放錯位置。
     </p>
     <div id="challengeArea"></div>
   </div>
@@ -170,6 +187,9 @@
 <script src="../../js/sheet-config.js?v=s1"></script>
 <script src="../../js/sheet-log.js?v=s1"></script>
 <script src="../../js/sheet-track.js?v=s1"></script>
-<script type="module" src="../js/orthographic.js?v=4"></script>
+<script src="../assets/ortho-library/library-data.js?v=1"></script>
+<script src="../js/ortho-views.js?v=1"></script>
+<script src="../js/ortho-quiz.js?v=1"></script>
+<script type="module" src="../js/orthographic.js?v=5"></script>
 </body>
 </html>
