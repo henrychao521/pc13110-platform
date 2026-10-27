@@ -48,7 +48,7 @@ function draw() {
     const pts = [[x0,y0+25],[x0,y0+bh-25],[x0+bw*0.34,y0+bh/2],
                  [x0+bw*0.62,y0+25],[x0+bw*0.62,y0+bh-25],[x0+bw-22,y0+bh/2]];
     ctx.strokeStyle = '#C026D3'; ctx.lineWidth = 13; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    [[0,2],[1,2],[2,3],[2,4],[3,4],[3,5],[4,5]].forEach(([a,b]) => {
+    [[0,2],[1,2],[0,3],[1,4],[2,3],[2,4],[3,4],[3,5],[4,5]].forEach(([a,b]) => {
       ctx.beginPath(); ctx.moveTo(pts[a][0],pts[a][1]); ctx.lineTo(pts[b][0],pts[b][1]); ctx.stroke();
     });
   } else {
@@ -80,8 +80,8 @@ function refresh() {
   const d = DESIGNS[dIdx];
   draw();
   document.getElementById('genStat').innerHTML = `
-    <div><b>${d.weight}%</b><span>相對重量</span></div>
-    <div><b style="color:var(--success)">−${d.save}%</b><span>材料省下</span></div>
+    <div><b>${d.weight}%</b><span>相對重量(示意)</span></div>
+    <div><b style="color:var(--success)">−${d.save}%</b><span>材料省下(示意)</span></div>
     <div><b>✓</b><span>強度仍達標</span></div>`;
   document.getElementById('genNote').innerHTML = `<strong>${d.name}</strong>:${d.note}`;
 }

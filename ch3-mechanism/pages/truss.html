@@ -266,8 +266,9 @@
       <p>
         斜桿 AB = <strong>83.3 kN 壓力</strong>、下弦桿 BC = <strong>66.7 kN 張力</strong>;
         由對稱性,右斜桿 AC 也是 83.3 kN 壓力。<br>
-        <strong>與上方模擬器對照</strong>:斜桿是<span style="color:#3B82F6;font-weight:700">藍色(壓力)</span>、
-        下弦是<span style="color:#EF4444;font-weight:700">紅色(張力)</span>——你手算的結果與電腦模擬完全一致!
+        <strong>和上方模擬器比一比</strong>:這座三角桁架的斜桿被往外撐開而受壓、下弦把兩端拉住而受拉。
+        上方的 Howe 桁架斜桿也朝外撐、同樣是<span style="color:#3B82F6;font-weight:700">藍色(壓力)</span>,
+        下弦是<span style="color:#EF4444;font-weight:700">紅色(張力)</span>;Pratt 的斜桿方向相反,就變成受拉。
       </p>
     </div>
   </div>
@@ -276,6 +277,7 @@
   <div class="activity-box">
     <span class="ab-label">🧮 動手算:靜定判斷計算器</span>
     <h3 style="margin-bottom:4px">這個桁架是靜定還是靜不定?</h3>
+    <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:4px">預設數字是上方的 Pratt 桁架:17 根桿件、10 個節點、左鉸右滾共 3 個反力。換成 Warren(15 根、9 個節點)試試看。</p>
     <p style="font-size:13.5px;color:var(--text-soft);margin-bottom:8px">
       用公式 <strong>n = b + r − 2j</strong> 判斷:b 桿件數、r 反力數、j 節點數。
       輸入數值,看計算結果。
@@ -283,9 +285,9 @@
       <a href="statics.html#support-types">靜力學頁的「支承類型與反力數」小卡</a>(滾支承 1、鉸支承 2、固定端 3)。</span>
     </p>
     <div class="calc-row">
-      <span>b 桿件數</span><input type="number" id="bIn" value="13" min="0">
+      <span>b 桿件數</span><input type="number" id="bIn" value="17" min="0">
       <span>r 反力數</span><input type="number" id="rIn" value="3" min="0">
-      <span>j 節點數</span><input type="number" id="jIn" value="8" min="1">
+      <span>j 節點數</span><input type="number" id="jIn" value="10" min="1">
       <button class="btn btn-primary btn-sm" id="calcBtn">計算</button>
     </div>
     <div id="calcResult" style="font-size:13.5px;min-height:24px"></div>
@@ -349,6 +351,6 @@
 <script src="../../js/sheet-log.js?v=s1"></script>
 <script src="../../js/sheet-track.js?v=s1"></script>
 <script src="../../js/interactions.js?v=r3"></script>
-<script src="../js/truss.js"></script>
+<script src="../js/truss.js?v=r1"></script>
 </body>
 </html>
