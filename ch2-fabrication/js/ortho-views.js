@@ -46,7 +46,7 @@
   /* ---- SVG ---- */
   function lineStyle(scalePx) {        /* scalePx：每 mm 幾 px */
     var vis = Math.max(1.3, Math.min(2.6, scalePx * 0.75));
-    return { vis: vis, hid: vis * 0.6, ctr: vis * 0.38,
+    return { vis: vis, hid: vis * 0.7, ctr: vis * 0.36,   /* CNS 建議線寬組合（A4）粗 0.5：中 0.35：細 0.18 */
       dash: [vis * 2.4, vis * 1.4], chain: [vis * 6, vis * 1.2, vis * 0.6, vis * 1.2] };
   }
   function f1(x) { return Math.round(x * 10) / 10; }
