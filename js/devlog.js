@@ -954,6 +954,23 @@ const PHASES = [
       '題庫指紋：ch2.orthographic:q1–q6 題幹與選項改了，新指紋已用 sheet-log.js 本身算出並用 Python q_hash 對帳（清單交給主控合併 assets/sheet-items.json）',
     ],
   },
+  {
+    tag: '段落 65',
+    date: '2026-10-28',
+    title: 'App 全章檢查(第 1 章):齒輪轉速比、FRC 用語、SCAMPER 全名、思考工具完成條件',
+    verbatim: '生科互動實驗室 App 全章檢查:模型審查清單逐項裁決,成立的修正。',
+    context: '兩個模型(Gemini Flash、gpt-oss)讀原始碼的審查清單,每項以程式碼或資料親自確認後才修。第 1 章駁回:競賽名稱(國教署指導、學科中心主辦的正式名稱就是「全國高級中學生活科技學藝競賽」)、排序拼圖(本來就要排對才過)、專題規劃器相依(前置結束即開始)、曼陀羅來源今泉浩晃、Grashof 等。',
+    decisions: [
+      'STEM 齒輪:中心 18 齒、兩側 12 齒,轉速比 18:12,小齒輪週期改 6s×12/18 = 4s,齒才不會互相穿過',
+      'FRC:「工業等級的機器人」改「接近工業尺寸的大型機器人」(比賽用機器人不是工業級產品)',
+      'SCAMPER 的 P 改 Put to other uses',
+      '創意思考工具箱:完成條件本來就是三種工具合計 6 格,說明文字改成「合計」',
+    ],
+    outputs: [
+      'ch1-engineering/pages/process.html、career.html(career.js?v=r1)、thinking.html(thinking.js?v=r1)',
+      '驗證:jsdom 冒煙測試三頁無錯誤',
+    ],
+  },
 ];
 
 /* ============================================================

@@ -20,7 +20,7 @@ const SCAMPER = [
   { id: 'c', L: 'C', name: '結合 Combine',       q: '可以把哪些功能或物件「結合」在一起?', bg: '#D97706' },
   { id: 'a', L: 'A', name: '調整 Adapt',         q: '有沒有別的東西的點子,可以「借用、調整」過來用?', bg: '#16A34A' },
   { id: 'm', L: 'M', name: '修改 Modify',        q: '可以把它放大、縮小、改變形狀或顏色嗎?', bg: '#0891B2' },
-  { id: 'p', L: 'P', name: '其他用途 Put to use', q: '它還能拿來做什麼別的、原本沒想到的用途?', bg: '#2563EB' },
+  { id: 'p', L: 'P', name: '其他用途 Put to other uses', q: '它還能拿來做什麼別的、原本沒想到的用途?', bg: '#2563EB' },
   { id: 'e', L: 'E', name: '消除 Eliminate',     q: '可以「拿掉」哪個部分,讓它更簡單、更便宜?', bg: '#7C3AED' },
   { id: 'r', L: 'R', name: '重組 Rearrange',     q: '可以把順序、結構或流程「重新排列、顛倒」嗎?', bg: '#C026D3' },
 ];

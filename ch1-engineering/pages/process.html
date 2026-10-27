@@ -18,7 +18,7 @@
   .gear-unit { display:flex; flex-direction:column; align-items:center; }
   .gear-svg { transition:none; }
   .gear-spinning .gear-svg.cw  { animation:spinCW 6s linear infinite; }
-  .gear-spinning .gear-svg.ccw { animation:spinCCW 6s linear infinite; }
+  .gear-spinning .gear-svg.ccw { animation:spinCCW 4s linear infinite; } /* 12 齒小齒輪:轉速比 = 18/12,週期 6s×12/18 = 4s */
   @keyframes spinCW  { to { transform:rotate(360deg); } }
   @keyframes spinCCW { to { transform:rotate(-360deg); } }
   .gear-label { color:#fff; font-weight:800; font-size:14px; margin-top:4px; text-align:center; }
