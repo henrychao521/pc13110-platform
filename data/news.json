@@ -1,36 +1,86 @@
 {
- "generated": "2026-10-27T06:30:47+08:00",
+ "generated": "2026-10-28T06:30:35+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "廷加的傳說",
-   "title_orig": "Tinga’s Tale",
+   "title_zh": "NASA 邀請媒體見證一年期火星模擬任務的乘組完成",
+   "title_orig": "NASA Invites Media to Crew Completion of Yearlong Mars Simulation",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/blog/tingas-tale/",
+   "url": "https://www.nasa.gov/news-release/nasa-invites-media-to-crew-completion-of-yearlong-mars-simulation/",
+   "date": "2026-10-28"
+  },
+  {
+   "title_zh": "NASA的Neo Surveyor遮陽板",
+   "title_orig": "NASA’s Neo Surveyor Sunshade",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/image-article/nasas-neo-surveyor-sunshade/",
+   "date": "2026-10-28"
+  },
+  {
+   "title_zh": "你的機器人安全功能已經運作正常。但如果輸入資料造假呢？",
+   "title_orig": "Your Robot’s Safety Functions Already Work. What If the Input Lies?",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ai-robot-safety-cybersecurity-vicone",
+   "date": "2026-10-28"
+  },
+  {
+   "title_zh": "腦部植入裝置如何將思維轉化為語言",
+   "title_orig": "How brain implants turn thoughts into speech",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/brain-implants-thoughts-speech-podcast",
+   "date": "2026-10-28"
+  },
+  {
+   "title_zh": "一位約翰遜導師如何塑造NASA下一代人才",
+   "title_orig": "How a Johnson Mentor Shapes the Next Generation of NASA Talent",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/general/how-a-johnson-mentor-shapes-the-next-generation-of-nasa-talent/",
    "date": "2026-10-27"
   },
   {
-   "title_zh": "NASA的毅力號提供保護太空人免受火星塵埃危害的線索",
-   "title_orig": "NASA’s Perseverance Offers Clues to Protect Crews From Mars Dust",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "首光時刻：赫拉號解析出兩顆小行星而非一顆",
+   "title_orig": "First light: Hera resolves two asteroids instead of one",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/missions/mars-2020-perseverance/nasas-perseverance-offers-clues-to-protect-crews-from-mars-dust/",
+   "url": "https://www.esa.int/Space_Safety/Hera/First_light_Hera_resolves_two_asteroids_instead_of_one",
    "date": "2026-10-27"
   },
   {
-   "title_zh": "NEO Surveyor 遮陽板接受檢查",
-   "title_orig": "NEO Surveyor’s Sunshade Gets Inspected",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "歐洲太空總署採購四顆新一代伽利略衛星",
+   "title_orig": "ESA procures four new Galileo Second Generation satellites",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/photojournal/neo-surveyors-sunshade-gets-inspected/",
+   "url": "https://www.esa.int/Applications/Satellite_navigation/Galileo/ESA_procures_four_new_Galileo_Second_Generation_satellites",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "我使用AI偽造了一篇科學論文。結果發生了什麼事",
+   "title_orig": "I Used AI to Fake a Scientific Paper. Here’s What Happened",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ai-generated-scientific-papers",
    "date": "2026-10-27"
   },
   {
@@ -44,13 +94,43 @@
    "date": "2026-10-27"
   },
   {
-   "title_zh": "火山潛伏於人類歷史的幕後",
-   "title_orig": "Volcanoes lurk behind the scenes of human history",
+   "title_zh": "摺紙建造法能製作出建築規模的輕量承重結構",
+   "title_orig": "Origami-based construction method yields lightweight, load-bearing structures on architectural scales",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/origami-based-construction-method-yields-lightweight-load-bearing-structures-architecture-1027",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "J-PAL北美分部推出無家可歸者評估資源中心，推動以證據為基礎的住房穩定策略",
+   "title_orig": "J-PAL North America launches Homelessness Evaluation Resource Hub to drive evidence-informed approaches to housing stability",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/j-pal-north-america-launches-homelessness-evaluation-resource-hub-1026",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "遊樂設施安全是科學問題",
+   "title_orig": "Roller coaster safety is a matter of science",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/volcanoes-impact-human-history-climate",
+   "url": "https://www.sciencenews.org/article/extreme-roller-coaster-brain-safety",
+   "date": "2026-10-27"
+  },
+  {
+   "title_zh": "恐龍滅絕後，巨大的「D. rex」真菌統治了森林",
+   "title_orig": "After the dinosaurs died, the massive ‘D. rex’ fungus ruled the woods",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/d-rex-fungus-mushroom-dinosaurs-china",
    "date": "2026-10-27"
   },
   {
@@ -74,16 +154,6 @@
    "date": "2026-10-26"
   },
   {
-   "title_zh": "用磁力成像儀打造隱藏式鎖具",
-   "title_orig": "Build a Hidden Lock With a Magnetic Imager",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/magnetic",
-   "date": "2026-10-26"
-  },
-  {
    "title_zh": "植入式裝置利用超音波改善藥物輸送至大腦",
    "title_orig": "Implantable device uses ultrasound to improve drug delivery to the brain",
    "source": "MIT News 麻省理工學院新聞",
@@ -91,26 +161,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/implantable-device-uses-ultrasound-improve-drug-delivery-brain-1026",
-   "date": "2026-10-26"
-  },
-  {
-   "title_zh": "用Lumina觀測宇宙如何從黑暗時代中顯現",
-   "title_orig": "Watch the universe emerge from the dark ages, with Lumina",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/watch-universe-emerge-from-dark-ages-with-lumina-1026",
-   "date": "2026-10-26"
-  },
-  {
-   "title_zh": "Claude協助規劃具風險的禽流感研究。AI添加了什麼？",
-   "title_orig": "Claude helped plan risky bird flu research. What did the AI add?",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/claude-bird-flu-research-ai-biology",
    "date": "2026-10-26"
   },
   {
@@ -122,56 +172,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/dossiers/sante-dernieres-nouvelles-de-la-medecine",
    "date": "2026-10-26"
-  },
-  {
-   "title_zh": "工程師的詩歌：代碼與短葉松",
-   "title_orig": "Poetry for Engineers: Of Code and Shortleaf Pine",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/poetry-for-engineers-of-code-and-shortleaf-pine",
-   "date": "2026-10-25"
-  },
-  {
-   "title_zh": null,
-   "title_orig": "The human voice",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/ed-note-november-2026",
-   "date": "2026-10-24"
-  },
-  {
-   "title_zh": "圖片回顧：2026年10月19日至23日",
-   "title_orig": "Week in images: 19-23 October 2026",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_19-23_October_2026",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "太空中的地球：粉紅之城",
-   "title_orig": "Earth from Space: The pink city",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_The_pink_city",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "問答：人工智慧如何模擬「混亂」的人類心智",
-   "title_orig": "Q&A: How AI came to model the “messy” human mind",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/qa-how-ai-came-to-model-messy-human-mind-1023",
-   "date": "2026-10-23"
   },
   {
    "title_zh": null,
@@ -275,11 +275,6 @@
   }
  ],
  "dropped": [
-  {
-   "source": "science-news",
-   "title": "The human voice",
-   "reason": "長度異常"
-  },
   {
    "source": "naoj",
    "title": "日本の天文学研究を日常から支える「国立天文台エポスカード」が誕生",
