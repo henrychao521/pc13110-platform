@@ -121,7 +121,7 @@ function renderQuizQ(i, box) {
   const V_B = VBAT * R2 / (R1 + R2);
   const NODE_V = { A: VBAT, D: VBAT, B: V_B, C: 0 };
   const I_LOOP_mA = VBAT / (R1 + R2) * 1000;
-  const NODE_POS = { A:[40,40], D:[112,40], B:[320,110], C:[40,200] };
+  const NODE_POS = { A:[40,40], D:[112,40], B:[320,40], C:[40,200] };   /* B 是 R1 與 R2 之間的導線(右上轉角) */
 
   function nodeMark(name) {
     const [x, y] = NODE_POS[name];

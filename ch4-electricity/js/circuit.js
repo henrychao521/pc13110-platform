@@ -82,7 +82,7 @@ function renderQuizQ(i, box) {
   function led(x, y, lit) {
     const glow = lit ? `<circle cx="${x}" cy="${y}" r="20" fill="#DC2626" opacity="0.3"/>` : '';
     const body = lit ? '#DC2626' : '#9CA3AF';
-    return `<g>${glow}<polygon points="${x-12},${y} ${x+8},${y-12} ${x+8},${y+12}" fill="${body}" stroke="#1F2937" stroke-width="1.5"/>
+    return `<g>${glow}<polygon points="${x-10},${y-12} ${x-10},${y+12} ${x+8},${y}" fill="${body}" stroke="#1F2937" stroke-width="1.5"/>
       <rect x="${x+8}" y="${y-12}" width="3" height="24" fill="#1F2937"/>
       <text x="${x}" y="${y+30}" text-anchor="middle" font-size="11" fill="#1F2937">LED</text></g>`;
   }
@@ -106,8 +106,8 @@ function renderQuizQ(i, box) {
       steps: [
         '放一顆 9V 電池',
         '從正極拉一條線到頂部',
-        '串接一顆 470Ω 限流電阻(9V 時電流約 15 mA)',
-        '接上 LED(三角形朝右)',
+        '串接一顆 470Ω 限流電阻(9V 扣掉紅光 LED 約 2V 壓降,電流約 (9−2)÷470 ≈ 15 mA)',
+        '接上 LED(三角形朝右、尖端的短線是負極)',
         '回到電池負極,形成完整迴路',
         '通電 → 看電流流動,LED 點亮',
       ],
@@ -116,7 +116,7 @@ function renderQuizQ(i, box) {
         if (step >= 1) elements += battery(60, 140);
         if (step >= 2) elements += wire('M60 118 L60 60 L160 60');
         if (step >= 3) elements += resistor(200, 60, 50, '470Ω') + wire('M225 60 L260 60');
-        if (step >= 4) elements += led(300, 60, step >= 6) + wire('M260 60 L288 60') + wire('M308 60 L320 60 L320 200');
+        if (step >= 4) elements += led(300, 60, step >= 6) + wire('M260 60 L290 60') + wire('M311 60 L320 60 L320 200');
         if (step >= 5) elements += wire('M60 162 L60 200 L320 200');
         svg.innerHTML = `<g>${elements}<path id="ledLoop" d="M60 118 L60 60 L320 60 L320 200 L60 200 L60 162" fill="none" stroke="none"/></g>`;
         return step >= 6 ? makeDots('ledLoop', 10) : null;

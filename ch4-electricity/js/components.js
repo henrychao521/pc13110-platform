@@ -115,8 +115,9 @@ function updateResistor() {
   document.getElementById('resOut').textContent = fmtOhm(val) + '  ±' + tol + '%';
   const target = Math.abs(val - 4700) < 1;
   document.getElementById('resNote').innerHTML = target
-    ? '🎉 答對了!黃-紫-紅-金 正好是 4.7 kΩ ±5% 的常見電阻。'
-    : '目前阻值:' + fmtOhm(val) + '。試著調出 4.7 kΩ(黃-紫-紅)。';
+    ? (bandMode === 5 ? '🎉 答對了!黃-紫-黑-棕 = 470 × 10 = 4.7 kΩ(最後一環是誤差)。'
+                      : '🎉 答對了!黃-紫-紅 = 47 × 10² = 4.7 kΩ(最後一環是誤差,金色 ±5% 最常見)。')
+    : '目前阻值:' + fmtOhm(val) + '。試著調出 4.7 kΩ(' + (bandMode === 5 ? '五色環:黃-紫-黑-棕' : '四色環:黃-紫-紅') + ')。';
   if (target && !Progress.isDone('ch4-components')) {
     if (quizDone) finishModule();
     else if (!resistorTarget && typeof showToast === 'function') showToast('色碼正確!完成下方檢核即可過關', '');
@@ -320,16 +321,24 @@ function renderQuizQ(i, box) {
         let drawnKey = '';
         // 只有「哪條線有電流、LED 亮不亮」改變時才整張重繪;充電量只更新屬性,電流點才不會每 5% 跳回起點
         const stateKey = () => mode + '|' + (mode === 'charge' && charge < 0.99) + '|' + (mode === 'discharge' && charge > 0.05);
+        /* 開關:兩個接點+刀片;closed 時刀片接到右接點 */
+        const sw = (x1, x2, y, closed, label) => `
+            <circle cx="${x1}" cy="${y}" r="3.5" fill="#1F2937"/><circle cx="${x2}" cy="${y}" r="3.5" fill="#1F2937"/>
+            <line x1="${x1}" y1="${y}" x2="${closed ? x2 : x2 - 8}" y2="${closed ? y : y - 18}" stroke="#1F2937" stroke-width="3" stroke-linecap="round"/>
+            <text x="${(x1 + x2) / 2}" y="${y + 18}" text-anchor="middle" font-size="10" fill="#6B7280">${label}</text>`;
         const draw = () => {
           const f = charge;
           svg.innerHTML = `
             ${battery(80, 140)}
             <path id="capCh" class="csim-wire ${mode==='charge'?'live':''}"
               d="M83 118 L83 70 L300 70 L300 130"/>
-            <path id="capDi" class="csim-wire ${mode==='discharge'?'live':''}"
-              d="M500 152 L500 220 L300 220 L300 150"/>
-            <path class="csim-wire" d="M83 162 L83 220 L260 220"/>
-            <path class="csim-wire" d="M300 70 L500 70 L500 128"/>
+            <path id="capDi" fill="none" stroke="none" d="M500 152 L500 220 L300 220 L300 150"/>
+            <path class="csim-wire ${mode==='discharge'?'live':''}" d="M500 152 L500 220 L440 220"/>
+            <path class="csim-wire ${mode==='discharge'?'live':''}" d="M400 220 L300 220 L300 150"/>
+            ${sw(400, 440, 220, mode === 'discharge', 'S2 放電')}
+            <path class="csim-wire ${mode==='charge'?'live':''}" d="M83 162 L83 220 L260 220"/>
+            ${sw(260, 300, 220, mode === 'charge', 'S1 充電')}
+            <path class="csim-wire ${mode==='discharge'?'live':''}" d="M300 70 L500 70 L500 128"/>
             <line x1="280" y1="130" x2="320" y2="130" stroke="#1F2937" stroke-width="3"/>
             <line x1="280" y1="150" x2="320" y2="150" stroke="#1F2937" stroke-width="3"/>
             <rect id="capFill" x="280" y="118" width="40" height="10" fill="#FCD34D" opacity="${f}"/>
@@ -439,14 +448,14 @@ function renderQuizQ(i, box) {
             ${battery(80, 80)}
             <path id="cPath" class="csim-wire ${base?'live':''}"
               d="M83 58 L83 30 L640 30 L640 70 L464 70 L464 102"/>
-            <path class="csim-wire" d="M464 178 L464 250 L40 250 L40 102 L83 102"/>
+            <path class="csim-wire ${base?'live':''}" d="M464 178 L464 250 L40 250 L40 102 L83 102"/>
             ${resistor(300, 30, '220Ω')}
             ${led(560, 70, base, '#DC2626', 180)}
             <text x="180" y="22" font-size="11" fill="#6B7280">主迴路(大電流)</text>
             ${battery(80, 220)}
             <path id="bPath" class="csim-wire ${base?'live':''}"
               d="M83 198 L83 175 L380 175 L380 140 L400 140"/>
-            <path class="csim-wire" d="M83 242 L83 250"/>
+            <path class="csim-wire ${base?'live':''}" d="M83 242 L83 250"/>
             ${resistor(220, 175, '10kΩ')}
             <text x="280" y="266" font-size="11" fill="#6B7280">基極小電流(透過 10kΩ 限流);兩迴路共地</text>
             <g transform="translate(450,140)">
