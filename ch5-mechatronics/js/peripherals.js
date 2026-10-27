@@ -20,7 +20,7 @@ function draw() {
   ctx.fillRect(cx - 46, cy - 6, 92, 64);
   ctx.fillStyle = '#1E3A8A';
   ctx.fillRect(cx - 60, cy + 6, 14, 30); ctx.fillRect(cx + 46, cy + 6, 14, 30);
-  /* 角度刻度弧(0°在右、180°在左,上半圈) */
+  /* 角度刻度弧(0°在左、180°在右,上半圈) */
   ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.arc(cx, cy, 74, Math.PI, 0); ctx.stroke();
   for (let a = 0; a <= 180; a += 30) {

@@ -16,10 +16,10 @@ const PINS_L = [
   { n: 'GPIO2',  c: 'gpio', d: '一般數位 I/O 腳位:可用 digitalWrite() 輸出高/低電位,常用來接 LED。' },
 ];
 const PINS_R = [
-  { n: '5V',   c: 'pwr',   d: '電源腳位:NodeMCU-32s 有穩壓 IC,插 USB 時可提供 5V 輸出。' },
+  { n: '5V',   c: 'pwr',   d: '電源腳位:插 USB 時,這支腳直接接到 USB 的 5V,可供 5V 小電流元件使用;板上的穩壓 IC 則把 5V 降成 3.3V 給 ESP32 晶片。' },
   { n: 'GPIO1（TX）', c: 'serial', d: '序列埠 TX 腳位:程式燒錄與序列通訊使用。建議避免接其他元件,以免無法輸出序列訊息。' },
   { n: 'GPIO3（RX）', c: 'serial', d: '序列埠 RX 腳位:序列通訊接收使用,同樣建議保留。' },
-  { n: 'GPIO6-11', c: 'flash', d: 'Flash 燒錄專用腳位:連接內部記憶體,不建議使用,以免造成無法燒錄。' },
+  { n: 'GPIO6-11', c: 'flash', d: 'SPI 快閃記憶體腳位:模組內部已接到存放程式的快閃記憶體(Flash),外接元件會干擾 CPU 讀取程式,導致無法開機或當機,不要使用。(程式燒錄走的是 GPIO1/GPIO3 序列埠)' },
   { n: 'GPIO21', c: 'gpio', d: 'I2C 的 SDA 腳位:可與 LCD、感測器等 I2C 介面裝置通訊。' },
   { n: 'EN',   c: 'pwr',   d: 'Enable 重置腳位:當 EN 為低電位時會重新啟動 ESP32(相當於重開機)。' },
 ];
@@ -53,11 +53,11 @@ Interactions.SequencePuzzle({
   container: '#seqArea',
   title: '把 ESP32 在 Arduino IDE 的開發流程排回正確順序',
   items: [
-    '① 下載並安裝 Arduino IDE',
-    '② 安裝 USB 晶片驅動程式(CP210x 或 CH340)',
-    '③ 在「開發板管理員」安裝 ESP32 相容性套件',
-    '④ 在工具選單選擇開發板(如 NodeMCU-32S,選 Node32s 也可)與序列埠',
-    '⑤ 撰寫程式,編譯並上傳燒錄到 ESP32',
+    '下載並安裝 Arduino IDE',
+    '安裝 USB 晶片驅動程式(CP210x 或 CH340)',
+    '在「開發板管理員」安裝 ESP32 相容性套件',
+    '在工具選單選擇開發板(如 NodeMCU-32S,選 Node32s 也可)與序列埠',
+    '撰寫程式,編譯並上傳燒錄到 ESP32',
   ],
   onComplete: () => {},
 });
@@ -151,8 +151,8 @@ const QUIZ = [
     ] },
   { question: 'ESP32 的 GPIO6～11 腳位,為什麼「不建議使用」?',
     options: [
-      { text: '它們是 Flash 燒錄專用腳位,接其他元件可能造成無法燒錄', correct: true,
-        explain: '正確。GPIO6-11 連接內部 Flash 記憶體,佔用會干擾程式燒錄。' },
+      { text: '它們已接到模組內部存放程式的快閃記憶體,接其他元件會讓程式無法讀取、無法開機或當機', correct: true,
+        explain: '正確。GPIO6～11 是 ESP32 讀取 SPI 快閃記憶體(Flash)的腳位,CPU 執行程式時一直在用;燒錄程式則是走 GPIO1/GPIO3 的序列埠。' },
       { text: '它們會漏電', correct: false },
       { text: '它們的電壓特別高', correct: false },
     ] },

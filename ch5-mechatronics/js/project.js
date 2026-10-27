@@ -142,7 +142,7 @@ document.getElementById('printBtn').addEventListener('click', () => window.print
     /* 圖例 */
     if (ss && as) {
       leg.innerHTML = `📊 <strong>資料流</strong>:<br>
-        ① <strong>${s}</strong> 用 <code>${ss.code}</code> 把<strong>${ss.type}</strong>的訊號送進<strong>${b||'控制板'}</strong>;<br>
+        ① <strong>${b||'控制板'}</strong> 用 <code>${ss.code}</code> 讀取 <strong>${s}</strong> 的<strong>${ss.type}</strong>訊號;<br>
         ② <strong>${b||'控制板'}</strong> 經程式判斷後,用 <code>${as.code}</code> 輸出<strong>${as.type}</strong>給 <strong>${a}</strong>。`;
     } else if (ss || as) {
       leg.innerHTML = '📊 <strong>資料流</strong>:已標出部分訊號類型。三個元件都選好後,會看到完整的訊號類型與程式 API。';

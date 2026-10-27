@@ -170,7 +170,7 @@
         <div class="fp-step fix"><b>🔁 改用</b>
           <p>改用 NPN 電晶體(或馬達驅動板)當開關:馬達改吃外部 5V 電源,GPIO 只送控制訊號,並把兩個電源的 GND 接在一起(共地)。</p></div>
         <div class="fp-step learn"><b>💡 學到</b>
-          <p>GPIO 是「訊號腳」不是「電源腳」——它只供得起十幾 mA,馬達動輒數百 mA。大電流一律交給外部電源與開關元件。</p></div>
+          <p>GPIO 是「訊號腳」不是「電源腳」——它能輸出的電流只有幾十 mA 以內(上限見 Espressif《ESP32 技術規格書》的 I/O 電氣特性),馬達動輒數百 mA。大電流一律交給外部電源與開關元件。</p></div>
       </div>
     </div>
   </section>
@@ -195,6 +195,6 @@
 
 <script src="../../js/main.js"></script>
 <script src="../../js/audio.js"></script>
-<script src="../js/project.js"></script>
+<script src="../js/project.js?v=r1"></script>
 </body>
 </html>

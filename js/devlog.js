@@ -1030,6 +1030,26 @@ const PHASES = [
       '驗證:jsdom 情境測試(充電時 S1 閉合 S2 斷開、放電相反;四色環提示);其他頁冒煙無錯誤',
     ],
   },
+  {
+    tag: '段落 69',
+    date: '2026-10-28',
+    title: 'App 全章檢查(第 5 章):ESP32 GPIO6–11 是快閃記憶體腳位、5V 腳說明、排序題拿掉編號、共地圖補外部電源負極、資料流主詞',
+    verbatim: '生科互動實驗室 App 全章檢查:模型審查清單逐項裁決,成立的修正。',
+    context: '第 5 章駁回:ledcAttach(pin, freq, res) 是 ESP32 Arduino 核心 3.x 的寫法(頁面已註明 2.x 要用 ledcSetup＋ledcAttachPin)。',
+    decisions: [
+      'GPIO6～11:不是「燒錄專用」,是 CPU 讀取 SPI 快閃記憶體的腳位,外接會無法開機或當機;燒錄走 GPIO1／GPIO3 序列埠。腳位圖與測驗第 2 題同步改',
+      '5V 腳:插 USB 時直接接 USB 的 5V;穩壓 IC 是把 5V 降成 3.3V 給晶片',
+      '開發流程排序題:選項前面的 ①～⑤ 等於直接給答案,拿掉',
+      '電晶體驅動圖:補畫外部電源本體,負極接到共地線',
+      '專題整合資料流:改成「控制板用 analogRead() 讀取感測器」(程式在控制板上執行)',
+      'GPIO 電流:不寫無出處的「十幾 mA」,改指向 Espressif 技術規格書;致動器與其他輸出元件分開寫;LED 點矩陣',
+    ],
+    outputs: [
+      'esp32.js、peripherals.js、project.js 皆 ?v=r1;peripherals.html、project.html、boards.html',
+      '題庫指紋:ch5.esp32:q2 4fbad620→bd513614、ch5.esp32:order 7d76caaa→67916682(同段落 66 的方法,assets/sheet-items.json 已在上一筆 commit 一起更新)',
+      '驗證:node --check、jsdom 冒煙測試無錯誤',
+    ],
+  },
 ];
 
 /* ============================================================
