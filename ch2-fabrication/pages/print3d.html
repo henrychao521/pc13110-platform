@@ -202,8 +202,8 @@
     <div class="knowledge-box" style="background:linear-gradient(135deg,#FEF3C7,#fff);border-left-color:#D97706">
       <span class="kb-label" style="color:#B45309">⚠️ 3D 列印安全須知</span>
       <p>
-        ・<strong>高溫</strong>:噴頭可達 200℃ 以上、熱床約 60℃,列印中與剛結束時切勿徒手觸碰。<br>
-        ・<strong>通風</strong>:列印（尤其 ABS、樹脂）會逸散揮發性有機物與超細微粒,須在通風處操作。<br>
+        ・<strong>高溫</strong>:噴頭可達 200℃ 以上、熱床常設在 60℃ 以上(ABS 等材料更高),列印中與剛結束時切勿徒手觸碰。<br>
+        ・<strong>通風</strong>:FDM 列印會逸散超細微粒與揮發性有機物,要在通風良好的地方操作,有條件時加上有排氣的外罩(依據:美國 NIOSH《Approaches to Safe 3D Printing》,出版品 2024-103,<a href="https://www.cdc.gov/niosh/docs/2024-103/" target="_blank" rel="noopener">cdc.gov/niosh/docs/2024-103</a>)。<br>
         ・<strong>移動部件</strong>:噴頭與平台會快速移動,列印中勿將手伸入。<br>
         ・<strong>留意火源</strong>:長時間列印建議有人留意,避免無人看管過夜。
       </p>
@@ -257,7 +257,7 @@
   <div class="fail-path">
     <span class="fp-label">🧯 失敗路徑:拱橋為什麼印垮了?</span>
     <div class="fp-step"><b>嘗試</b>把拱橋模型直立擺上平台就按下列印,想說形狀簡單應該沒問題。</div>
-    <div class="fp-step fp-bad"><b>失敗</b>印到拱洞上緣時,懸空處的熱融膠絲往下垂,整個拱頂垮成一團「麵條」。</div>
+    <div class="fp-step fp-bad"><b>失敗</b>印到拱洞上緣時,懸空處熔融的塑膠線往下垂,整個拱頂垮成一團「麵條」。</div>
     <div class="fp-step"><b>改用</b>回到切片軟體把模型翻轉 90° 側躺——橋的側面平貼平台,幾乎沒有懸空,不開支撐一次印成。</div>
     <div class="fp-step fp-good"><b>學到</b>列印方向是「免費的支撐」:遇到懸空,先想能不能換方向,再考慮開支撐——這就是 DFM(可製造性設計)的第一課。</div>
   </div>
@@ -270,6 +270,6 @@
 
 <script src="../../js/main.js"></script>
 <script src="../../js/audio.js"></script>
-<script src="../js/print3d.js?v=r3"></script>
+<script src="../js/print3d.js?v=r4"></script>
 </body>
 </html>

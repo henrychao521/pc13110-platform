@@ -38,7 +38,7 @@ function gear(cx, cy, teeth, rOut, rIn) {
 /* ---- 圖案(座標 0-100) ---- */
 const DESIGNS = {
   '書籤': {
-    cut: [rect(32, 12, 68, 88), circle(50, 20, 3.5)],
+    cut: [circle(50, 20, 3.5), rect(32, 12, 68, 88)],   /* 先切內孔、最後切外框:外框一切斷工件就可能位移 */
     engrave: [
       [{ x: 38, y: 40 }, { x: 62, y: 40 }],
       [{ x: 38, y: 48 }, { x: 62, y: 48 }],
@@ -47,12 +47,12 @@ const DESIGNS = {
     ],
   },
   '齒輪': {
-    cut: [gear(50, 50, 10, 38, 30), circle(50, 50, 8)],
+    cut: [circle(50, 50, 8), gear(50, 50, 10, 38, 30)],
     engrave: [circle(50, 50, 18), [{ x: 50, y: 35 }, { x: 50, y: 28 }],
       [{ x: 65, y: 50 }, { x: 72, y: 50 }], [{ x: 35, y: 50 }, { x: 28, y: 50 }]],
   },
   '名牌': {
-    cut: [rect(18, 30, 82, 70), circle(26, 38, 2.6)],
+    cut: [circle(26, 38, 2.6), rect(18, 30, 82, 70)],
     engrave: [
       [{ x: 34, y: 44 }, { x: 50, y: 44 }],
       [{ x: 34, y: 52 }, { x: 66, y: 52 }],
@@ -270,7 +270,7 @@ drawPreview();
     const beamW = Math.max(2, kv / 0.3 * 8);
     const bl = $('kerfBeamL'), br = $('kerfBeamR');
     bl.setAttribute('width', beamW); br.setAttribute('width', beamW);
-    bl.setAttribute('x', 120 - beamW); br.setAttribute('x', 180);
+    bl.setAttribute('x', 120 - beamW / 2); br.setAttribute('x', 180 - beamW / 2);   /* 光束以圖面線為中心,兩側各吃半條 */
   }
   thick.addEventListener('input', update);
   k.addEventListener('input', update);

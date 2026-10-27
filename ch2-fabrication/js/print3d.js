@@ -147,8 +147,8 @@ function refreshStats() {
   const s = computeStats();
   document.getElementById('statBox').innerHTML = `
     <div class="sb-row"><span>預估層數</span><b>${s.layers} 層</b></div>
-    <div class="sb-row"><span>預估列印時間</span><b>${s.time.toFixed(0)} 分鐘</b></div>
-    <div class="sb-row"><span>預估耗材</span><b>${s.material.toFixed(1)} 公克</b></div>
+    <div class="sb-row"><span>粗估列印時間</span><b>${s.time.toFixed(0)} 分鐘</b></div>
+    <div class="sb-row"><span>粗估耗材</span><b>${s.material.toFixed(1)} 公克</b></div>
     <div class="sb-row"><span>懸空格數</span><b style="color:${s.overhangN ? 'var(--danger)' : 'var(--success)'}">${s.overhangN}</b></div>`;
   drawStatic(s);
 }

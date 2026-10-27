@@ -16,11 +16,11 @@ cylinder r=5 h=40 x=-32 y=-32 color=silver
 cylinder r=5 h=40 x=32 y=-32 color=silver
 cylinder r=5 h=40 x=-32 y=32 color=silver
 cylinder r=5 h=40 x=32 y=32 color=silver`,
-  '⛄ 雪人': `# 雪人 — 三顆球疊起來
+  '⛄ 雪人': `# 雪人 — 三顆球疊起來,頭頂戴一頂圓錐帽
 sphere r=24 z=0 color=silver
 sphere r=17 z=44 color=silver
 sphere r=11 z=74 color=silver
-cone r=5 h=12 z=72 color=orange`,
+cone r=8 h=14 z=94 color=orange`,
   '🚀 火箭': `# 火箭 — 圓柱身 + 圓錐頭 + 兩片尾翼
 cylinder r=14 h=50 z=0 color=silver
 cone r=14 h=26 z=50 color=red
@@ -181,6 +181,7 @@ function buildModel(fromUser = false) {
     let halfH;
     if (shape === 'sphere') halfH = (p.r || 12);
     else if (shape === 'box') halfH = (p.h || 20) / 2;
+    else if (shape === 'cone') halfH = (p.h || 24) / 2;   /* 與 ConeGeometry 預設高 24 一致 */
     else halfH = (p.h || 20) / 2;
     mesh.position.set(p.x || 0, (p.z || 0) + halfH, -(p.y || 0));
     /* 加描邊 */

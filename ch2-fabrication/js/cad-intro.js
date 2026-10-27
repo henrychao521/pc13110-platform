@@ -228,7 +228,7 @@ function runTask(idx) {
     renderCAD(frame, task);
     /* 狀態文字 */
     if (frame <= HAND_A) handT.textContent = '原圖（已存在）';
-    else if (frame <= HAND_B) handT.textContent = '✏️ 擦拭中…';
+    else if (frame <= HAND_B) handT.textContent = task.after.copies >= 2 ? '✏️ 準備描圖紙…' : '✏️ 擦拭中…';
     else if (frame < HAND_END) handT.textContent = '✏️ 重新描繪中…';
     else handT.textContent = `✓ 完成・耗時 ${task.handUnits} 單位`;
     if (frame <= CAD_A) cadT.textContent = '原圖';
@@ -285,7 +285,7 @@ window.addEventListener('resize', () => {
 
 /* ---- CAD 應用領域圖鑑 ---- */
 const APPS = [
-  { icon: '🏛️', name: '建築業', detail: '住宅、商業大樓、橋梁與公共建設的規劃與設計。建築資訊模型（BIM）就是 CAD 的延伸應用。' },
+  { icon: '🏛️', name: '建築業', detail: '住宅、商業大樓、橋梁與公共建設的規劃與設計。建築資訊模型（BIM）是從 CAD 發展出來的,在 3D 模型裡再加上材料、數量、施工等資訊。' },
   { icon: '🚗', name: '製造業', detail: '汽車、飛機、船舶、機械設備、電子產品與家電的設計與開發,是 CAD 應用最深的領域。' },
   { icon: '🪑', name: '消費性產品', detail: '家具、玩具、運動器材到包裝設計,讓產品在量產前就能反覆驗證外觀與機能。' },
   { icon: '👗', name: '時尚產業', detail: '服裝打版與珠寶設計。3D 試衣與客製化珠寶,大幅縮短打樣的時間與成本。' },
