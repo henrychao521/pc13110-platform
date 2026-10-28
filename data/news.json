@@ -1,26 +1,86 @@
 {
- "generated": "2026-10-28T06:30:35+08:00",
+ "generated": "2026-10-29T06:30:33+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 邀請媒體見證一年期火星模擬任務的乘組完成",
-   "title_orig": "NASA Invites Media to Crew Completion of Yearlong Mars Simulation",
+   "title_zh": "NASA 歡迎越南成為最新加入《阿提米絲協定》的簽署國",
+   "title_orig": "NASA Welcomes Vietnam as Newest Artemis Accords Signatory",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-invites-media-to-crew-completion-of-yearlong-mars-simulation/",
-   "date": "2026-10-28"
+   "url": "https://www.nasa.gov/organizations/oiir/nasa-welcomes-vietnam-as-newest-artemis-accords-signatory/",
+   "date": "2026-10-29"
   },
   {
-   "title_zh": "NASA的Neo Surveyor遮陽板",
-   "title_orig": "NASA’s Neo Surveyor Sunshade",
+   "title_zh": null,
+   "title_orig": "Artemis III SLS Core Stage Joins Boosters at Kennedy",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/nasas-neo-surveyor-sunshade/",
+   "url": "https://www.nasa.gov/image-article/artemis-iii-sls-core-stage-joins-boosters-at-kennedy/",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "NASA大學挑戰賽點燃無人機創業者的發展軌跡",
+   "title_orig": "NASA University Challenge Ignites Trajectory of Drone Entrepreneur",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/aeronautics/nasa-challenge-drone-entrepreneur/",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "系統思維在人工智慧時代至關重要",
+   "title_orig": "Systems Thinking Is Vital in the Age of AI",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/systems-thinking-vital-in-ai",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "捕捉胚胎發育的完整過程",
+   "title_orig": "Capturing the complete process of embryonic development",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/capturing-complete-process-of-embryonic-development-1028",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "最大阿茲海默症風險基因如何干擾神經元髓鞘化過程",
+   "title_orig": "How the biggest Alzheimer’s risk gene disrupts the process of insulating neurons",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/how-biggest-alzheimers-risk-gene-disrupts-process-insulating-neurons-1028",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "軟式機器人或能協助醫師診斷並治療小腸疾病",
+   "title_orig": "A soft robot could help doctors diagnose and treat disorders of the small intestine",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/soft-robot-could-help-doctors-diagnose-treat-small-intestine-disorders-1028",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "Beta Technologies 如何為電動飛行鋪平跑道",
+   "title_orig": "How Beta Technologies Is Clearing the Runway for Electric Flight",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/beta-technologies-electric-aircraft",
    "date": "2026-10-28"
   },
   {
@@ -34,27 +94,47 @@
    "date": "2026-10-28"
   },
   {
-   "title_zh": "腦部植入裝置如何將思維轉化為語言",
-   "title_orig": "How brain implants turn thoughts into speech",
+   "title_zh": "四分之三的NFL美式足球球員可能最終會罹患慢性創傷性腦病變",
+   "title_orig": "Three-quarters of NFL football players may end up with CTE",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/brain-implants-thoughts-speech-podcast",
+   "url": "https://www.sciencenews.org/article/football-nfl-players-cte-brain-disease",
    "date": "2026-10-28"
   },
   {
-   "title_zh": "一位約翰遜導師如何塑造NASA下一代人才",
-   "title_orig": "How a Johnson Mentor Shapes the Next Generation of NASA Talent",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "為什麼火烈鳥在進食時會跳舞？這位科學家找到了答案",
+   "title_orig": "Why do flamingos dance while they eat? This scientist found out",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/general/how-a-johnson-mentor-shapes-the-next-generation-of-nasa-talent/",
-   "date": "2026-10-27"
+   "url": "https://www.sciencenews.org/article/flamingos-dance-eat-scientist",
+   "date": "2026-10-28"
   },
   {
-   "title_zh": "首光時刻：赫拉號解析出兩顆小行星而非一顆",
+   "title_zh": "彗星可能並未將生命的組成元素帶到地球",
+   "title_orig": "Comets probably didn’t deliver life’s building blocks to Earth",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/comet-chemistry-life-earth-speed-sharp",
+   "date": "2026-10-28"
+  },
+  {
+   "title_zh": "為什麼我們如此熱愛影集？",
+   "title_orig": "Pourquoi aimons-nous autant les séries ?",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/pourquoi-aime-t-autant-les-series",
+   "date": "2026-10-28"
+  },
+  {
+   "title_zh": "曙光初現：赫拉號解析出兩顆小行星而非一顆",
    "title_orig": "First light: Hera resolves two asteroids instead of one",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -71,66 +151,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/Applications/Satellite_navigation/Galileo/ESA_procures_four_new_Galileo_Second_Generation_satellites",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "我使用AI偽造了一篇科學論文。結果發生了什麼事",
-   "title_orig": "I Used AI to Fake a Scientific Paper. Here’s What Happened",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ai-generated-scientific-papers",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "IEEE Xplore 數位圖書館新增 AI 助手",
-   "title_orig": "IEEE Xplore Digital Library Adds AI Assistant",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ieee-xplore-digital-library-ai",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "摺紙建造法能製作出建築規模的輕量承重結構",
-   "title_orig": "Origami-based construction method yields lightweight, load-bearing structures on architectural scales",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/origami-based-construction-method-yields-lightweight-load-bearing-structures-architecture-1027",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "J-PAL北美分部推出無家可歸者評估資源中心，推動以證據為基礎的住房穩定策略",
-   "title_orig": "J-PAL North America launches Homelessness Evaluation Resource Hub to drive evidence-informed approaches to housing stability",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/j-pal-north-america-launches-homelessness-evaluation-resource-hub-1026",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "遊樂設施安全是科學問題",
-   "title_orig": "Roller coaster safety is a matter of science",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/extreme-roller-coaster-brain-safety",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "恐龍滅絕後，巨大的「D. rex」真菌統治了森林",
-   "title_orig": "After the dinosaurs died, the massive ‘D. rex’ fungus ruled the woods",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/d-rex-fungus-mushroom-dinosaurs-china",
    "date": "2026-10-27"
   },
   {
@@ -151,16 +171,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Ice_mission_CRISTAL_opens_its_wings",
-   "date": "2026-10-26"
-  },
-  {
-   "title_zh": "植入式裝置利用超音波改善藥物輸送至大腦",
-   "title_orig": "Implantable device uses ultrasound to improve drug delivery to the brain",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/implantable-device-uses-ultrasound-improve-drug-delivery-brain-1026",
    "date": "2026-10-26"
   },
   {
@@ -191,16 +201,6 @@
    "lang": "ja",
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/topics/2026/20261023-naoj-news.html",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "中世紀創造了動物",
-   "title_orig": "Et le Moyen Âge créa l’animal",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/et-le-moyen-age-crea-lanimal",
    "date": "2026-10-23"
   },
   {
@@ -275,6 +275,11 @@
   }
  ],
  "dropped": [
+  {
+   "source": "nasa",
+   "title": "Artemis III SLS Core Stage Joins Boosters at Kennedy",
+   "reason": "含簡體字"
+  },
   {
    "source": "naoj",
    "title": "日本の天文学研究を日常から支える「国立天文台エポスカード」が誕生",
