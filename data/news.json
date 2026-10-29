@@ -1,36 +1,76 @@
 {
- "generated": "2026-10-29T06:30:33+08:00",
+ "generated": "2026-10-30T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 歡迎越南成為最新加入《阿提米絲協定》的簽署國",
-   "title_orig": "NASA Welcomes Vietnam as Newest Artemis Accords Signatory",
+   "title_zh": "國際太空站上的萬聖節",
+   "title_orig": "Halloween Aboard the International Space Station",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/organizations/oiir/nasa-welcomes-vietnam-as-newest-artemis-accords-signatory/",
-   "date": "2026-10-29"
+   "url": "https://www.nasa.gov/centers-and-facilities/johnson/halloween-aboard-the-international-space-station/",
+   "date": "2026-10-30"
   },
   {
-   "title_zh": null,
-   "title_orig": "Artemis III SLS Core Stage Joins Boosters at Kennedy",
+   "title_zh": "NASA資助研究詳述迄今發現最古老火星隕石之一",
+   "title_orig": "NASA-funded Study Details One of Oldest Mars Meteorites Ever Found",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/artemis-iii-sls-core-stage-joins-boosters-at-kennedy/",
-   "date": "2026-10-29"
+   "url": "https://www.nasa.gov/solar-system/planets/mars/nasa-funded-study-details-one-of-oldest-mars-meteorites-ever-found/",
+   "date": "2026-10-30"
   },
   {
-   "title_zh": "NASA大學挑戰賽點燃無人機創業者的發展軌跡",
-   "title_orig": "NASA University Challenge Ignites Trajectory of Drone Entrepreneur",
+   "title_zh": "NASA 任命 Troy Asher 為阿姆斯飛行研究中心主任",
+   "title_orig": "NASA Names Troy Asher Armstrong Flight Research Center Director",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/aeronautics/nasa-challenge-drone-entrepreneur/",
+   "url": "https://www.nasa.gov/news-release/nasa-names-troy-asher-armstrong-flight-research-center-director/",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "消費者對個人AI的需求已成為主流",
+   "title_orig": "Consumer Appetite for Personal AI Goes Mainstream",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ai-personal-assistant-intelligent-wearables",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "海鳥也會時差反應——這會使它們偏離航線",
+   "title_orig": "Seabirds get jet lag, too — and it can throw them a bit off course",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/seabird-jet-lag-navigation-off-course",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "全球部分最大型蝙蝠體型正逐漸縮小",
+   "title_orig": "Some of the world’s biggest bats are getting smaller",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/bats-get-smaller-madagascan-flying-fox",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "幽靈貓頭星雲隱身於哈勃與韋伯望遠鏡的視野之中",
+   "title_orig": "Ghostly Cat’s Head Nebula lurks within sight of Hubble and Webb",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Science_Exploration/Space_Science/Webb/Ghostly_Cat_s_Head_Nebula_lurks_within_sight_of_Hubble_and_Webb",
    "date": "2026-10-29"
   },
   {
@@ -44,6 +84,26 @@
    "date": "2026-10-29"
   },
   {
+   "title_zh": "磁性感測器追蹤肌肉運動，提升假肢控制精度",
+   "title_orig": "Magnetic sensors track muscle movement, for better prosthetic limb control",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/magnetic-sensors-track-muscle-movement-better-prosthetic-limb-control-1029",
+   "date": "2026-10-29"
+  },
+  {
+   "title_zh": "新系統讓用戶更掌控線上體驗",
+   "title_orig": "New system gives users more control over their online experience",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/new-system-gives-users-more-control-over-online-experience-1029",
+   "date": "2026-10-29"
+  },
+  {
    "title_zh": "捕捉胚胎發育的完整過程",
    "title_orig": "Capturing the complete process of embryonic development",
    "source": "MIT News 麻省理工學院新聞",
@@ -54,27 +114,27 @@
    "date": "2026-10-29"
   },
   {
-   "title_zh": "最大阿茲海默症風險基因如何干擾神經元髓鞘化過程",
-   "title_orig": "How the biggest Alzheimer’s risk gene disrupts the process of insulating neurons",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
+   "title_zh": "一道引人注目的火星雲可能源自令人驚訝的物理現象",
+   "title_orig": "A striking Mars cloud may be born from surprising physics",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/how-biggest-alzheimers-risk-gene-disrupts-process-insulating-neurons-1028",
+   "url": "https://www.sciencenews.org/article/mars-cloud-homogenous-nucleation",
    "date": "2026-10-29"
   },
   {
-   "title_zh": "軟式機器人或能協助醫師診斷並治療小腸疾病",
-   "title_orig": "A soft robot could help doctors diagnose and treat disorders of the small intestine",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/soft-robot-could-help-doctors-diagnose-treat-small-intestine-disorders-1028",
+   "title_zh": "Terramation：回歸大地",
+   "title_orig": "Terramation : le retour à la terre",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/terramation-le-retour-a-la-terre",
    "date": "2026-10-29"
   },
   {
-   "title_zh": "Beta Technologies 如何為電動飛行鋪平跑道",
+   "title_zh": "Beta Technologies如何為電動飛行鋪平跑道",
    "title_orig": "How Beta Technologies Is Clearing the Runway for Electric Flight",
    "source": "IEEE Spectrum",
    "source_id": "ieee-spectrum",
@@ -84,43 +144,13 @@
    "date": "2026-10-28"
   },
   {
-   "title_zh": "你的機器人安全功能已經運作正常。但如果輸入資料造假呢？",
-   "title_orig": "Your Robot’s Safety Functions Already Work. What If the Input Lies?",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ai-robot-safety-cybersecurity-vicone",
-   "date": "2026-10-28"
-  },
-  {
-   "title_zh": "四分之三的NFL美式足球球員可能最終會罹患慢性創傷性腦病變",
-   "title_orig": "Three-quarters of NFL football players may end up with CTE",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/football-nfl-players-cte-brain-disease",
-   "date": "2026-10-28"
-  },
-  {
-   "title_zh": "為什麼火烈鳥在進食時會跳舞？這位科學家找到了答案",
-   "title_orig": "Why do flamingos dance while they eat? This scientist found out",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/flamingos-dance-eat-scientist",
-   "date": "2026-10-28"
-  },
-  {
-   "title_zh": "彗星可能並未將生命的組成元素帶到地球",
-   "title_orig": "Comets probably didn’t deliver life’s building blocks to Earth",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/comet-chemistry-life-earth-speed-sharp",
+   "title_zh": "聯邦研究部長巴爾啟動連接巴伐利亞、圖林根和柏林的量子通信網路",
+   "title_orig": "Bundesforschungsministerin Bär aktiviert Netz zur Quantenkommunikation zwischen Bayern, Thüringen und Berlin",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/abschluss-der-qunet-initiative.html",
    "date": "2026-10-28"
   },
   {
@@ -134,7 +164,7 @@
    "date": "2026-10-28"
   },
   {
-   "title_zh": "曙光初現：赫拉號解析出兩顆小行星而非一顆",
+   "title_zh": "首光時刻：赫拉號解析出兩顆小行星而非一顆",
    "title_orig": "First light: Hera resolves two asteroids instead of one",
    "source": "ESA 歐洲太空總署",
    "source_id": "esa",
@@ -162,26 +192,6 @@
    "lang_label": "法文",
    "url": "https://lejournal.cnrs.fr/articles/lavenement-de-la-robotique-chirurgicale",
    "date": "2026-10-27"
-  },
-  {
-   "title_zh": "冰原任務CRISTAL展開翅膀",
-   "title_orig": "Ice mission CRISTAL opens its wings",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Ice_mission_CRISTAL_opens_its_wings",
-   "date": "2026-10-26"
-  },
-  {
-   "title_zh": "健康：醫學最新動態",
-   "title_orig": "Santé : dernières nouvelles de la médecine",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/dossiers/sante-dernieres-nouvelles-de-la-medecine",
-   "date": "2026-10-26"
   },
   {
    "title_zh": null,
@@ -262,24 +272,9 @@
    "lang_label": "德文",
    "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/Fraunhofer-igd-erweitert-institutsleitung.html",
    "date": "2026-10-07"
-  },
-  {
-   "title_zh": "奠基儀式：新的弗勞恩霍夫研究所位於科特布斯，強化結構變革與技術轉移",
-   "title_orig": "Spatenstich: Neuer Fraunhofer-Standort in Cottbus stärkt Strukturwandel und Transfer",
-   "source": "Fraunhofer 弗勞恩霍夫協會",
-   "source_id": "fraunhofer",
-   "lang": "de",
-   "lang_label": "德文",
-   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/spatenstich-neuer-fraunhofer-standort-in-cottbus-staerkt-strukturwandel-und-transfer.html",
-   "date": "2026-10-01"
   }
  ],
  "dropped": [
-  {
-   "source": "nasa",
-   "title": "Artemis III SLS Core Stage Joins Boosters at Kennedy",
-   "reason": "含簡體字"
-  },
   {
    "source": "naoj",
    "title": "日本の天文学研究を日常から支える「国立天文台エポスカード」が誕生",
