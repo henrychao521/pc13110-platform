@@ -1,36 +1,106 @@
 {
- "generated": "2026-10-30T06:30:34+08:00",
+ "generated": "2026-10-31T06:30:32+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "國際太空站上的萬聖節",
-   "title_orig": "Halloween Aboard the International Space Station",
+   "title_zh": "NASA 發布 MAX POWER 任務媒體與參與者關鍵時程",
+   "title_orig": "NASA Releases MAX POWER Key Events for Media, Participants",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/johnson/halloween-aboard-the-international-space-station/",
+   "url": "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "研究指出自1980年以來暖化趨勢最陡峭的州份",
+   "title_orig": "Study pinpoints states with steepest warming trends since 1980",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/study-pinpoints-states-with-steepest-warming-trends-1030",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "問答：嘿AI，今年我該投誰一票？",
+   "title_orig": "Q&A: Hey AI, who should I vote for this year?",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/qa-hey-ai-who-should-i-vote-for-this-year-1030",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "今年萬聖節，業餘天文學家或許能收穫一顆矮行星的驚喜",
+   "title_orig": "This Halloween, amateur astronomers may be in for a dwarf planet treat",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/halloween-astronomers-dwarf-planet",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "《挖掘》重述美國第一個吸血鬼的真實故事",
+   "title_orig": "‘Exhumed’ recounts the true story of America’s first vampire",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/exhumed-aaron-mahnke-vampire-book",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "NASA詹姆斯·韋伯太空望遠鏡捕捉到詭異的貓頭影像",
+   "title_orig": "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/",
    "date": "2026-10-30"
   },
   {
-   "title_zh": "NASA資助研究詳述迄今發現最古老火星隕石之一",
-   "title_orig": "NASA-funded Study Details One of Oldest Mars Meteorites Ever Found",
+   "title_zh": "NASA 探索哈伯望遠鏡潛在的商業服務",
+   "title_orig": "NASA Explores Potential Commercial Servicing for Hubble Telescope",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/solar-system/planets/mars/nasa-funded-study-details-one-of-oldest-mars-meteorites-ever-found/",
+   "url": "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/",
    "date": "2026-10-30"
   },
   {
-   "title_zh": "NASA 任命 Troy Asher 為阿姆斯飛行研究中心主任",
-   "title_orig": "NASA Names Troy Asher Armstrong Flight Research Center Director",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "歐洲太空總署本月發生了什麼事？（2026年10月）",
+   "title_orig": "What happened this month at the European Space Agency? (October 2026)",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-names-troy-asher-armstrong-flight-research-center-director/",
+   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/What_happened_this_month_at_the_European_Space_Agency_October_2026",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "圖片回顧：10月26日至30日",
+   "title_orig": "Week in images: 26-30 October 2026",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_26-30_October_2026",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "太空中的地球：Champi 詭異的視線",
+   "title_orig": "Earth from Space: Champi’s eerie eye",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Champi_s_eerie_eye",
    "date": "2026-10-30"
   },
   {
@@ -44,34 +114,34 @@
    "date": "2026-10-30"
   },
   {
-   "title_zh": "海鳥也會時差反應——這會使它們偏離航線",
-   "title_orig": "Seabirds get jet lag, too — and it can throw them a bit off course",
+   "title_zh": "麻省理工學院工程師開發用於遞送個人化癌症疫苗的奈米粒子",
+   "title_orig": "MIT engineers create nanoparticles for delivering personalized cancer vaccines",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/mit-engineers-create-nanoparticles-delivering-personalized-cancer-vaccines-1030",
+   "date": "2026-10-30"
+  },
+  {
+   "title_zh": "NASA的Swift望遠鏡將因救援失敗而面臨毀滅性的火海結局",
+   "title_orig": "NASA’s Swift telescope will face a fiery demise after a failed rescue",
    "source": "Science News",
    "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/seabird-jet-lag-navigation-off-course",
+   "url": "https://www.sciencenews.org/article/nasa-swift-telescope-gamma-ray-burst",
    "date": "2026-10-30"
   },
   {
-   "title_zh": "全球部分最大型蝙蝠體型正逐漸縮小",
-   "title_orig": "Some of the world’s biggest bats are getting smaller",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/bats-get-smaller-madagascan-flying-fox",
+   "title_zh": "克爾西：化石見證氣候變遷",
+   "title_orig": "Quercy : des fossiles témoins d’un bouleversement climatique",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/videos/quercy-des-fossiles-temoins-dun-bouleversement-climatique",
    "date": "2026-10-30"
-  },
-  {
-   "title_zh": "幽靈貓頭星雲隱身於哈勃與韋伯望遠鏡的視野之中",
-   "title_orig": "Ghostly Cat’s Head Nebula lurks within sight of Hubble and Webb",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Science_Exploration/Space_Science/Webb/Ghostly_Cat_s_Head_Nebula_lurks_within_sight_of_Hubble_and_Webb",
-   "date": "2026-10-29"
   },
   {
    "title_zh": "系統思維在人工智慧時代至關重要",
@@ -81,46 +151,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/systems-thinking-vital-in-ai",
-   "date": "2026-10-29"
-  },
-  {
-   "title_zh": "磁性感測器追蹤肌肉運動，提升假肢控制精度",
-   "title_orig": "Magnetic sensors track muscle movement, for better prosthetic limb control",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/magnetic-sensors-track-muscle-movement-better-prosthetic-limb-control-1029",
-   "date": "2026-10-29"
-  },
-  {
-   "title_zh": "新系統讓用戶更掌控線上體驗",
-   "title_orig": "New system gives users more control over their online experience",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/new-system-gives-users-more-control-over-online-experience-1029",
-   "date": "2026-10-29"
-  },
-  {
-   "title_zh": "捕捉胚胎發育的完整過程",
-   "title_orig": "Capturing the complete process of embryonic development",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/capturing-complete-process-of-embryonic-development-1028",
-   "date": "2026-10-29"
-  },
-  {
-   "title_zh": "一道引人注目的火星雲可能源自令人驚訝的物理現象",
-   "title_orig": "A striking Mars cloud may be born from surprising physics",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/mars-cloud-homogenous-nucleation",
    "date": "2026-10-29"
   },
   {
@@ -164,36 +194,6 @@
    "date": "2026-10-28"
   },
   {
-   "title_zh": "首光時刻：赫拉號解析出兩顆小行星而非一顆",
-   "title_orig": "First light: Hera resolves two asteroids instead of one",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Space_Safety/Hera/First_light_Hera_resolves_two_asteroids_instead_of_one",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "歐洲太空總署採購四顆新一代伽利略衛星",
-   "title_orig": "ESA procures four new Galileo Second Generation satellites",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Applications/Satellite_navigation/Galileo/ESA_procures_four_new_Galileo_Second_Generation_satellites",
-   "date": "2026-10-27"
-  },
-  {
-   "title_zh": "外科機器人技術的崛起",
-   "title_orig": "L’avènement de la robotique chirurgicale",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/lavenement-de-la-robotique-chirurgicale",
-   "date": "2026-10-27"
-  },
-  {
    "title_zh": null,
    "title_orig": "日本の天文学研究を日常から支える「国立天文台エポスカード」が誕生",
    "source": "國立天文台（日本 NAOJ）",
@@ -204,7 +204,7 @@
    "date": "2026-10-23"
   },
   {
-   "title_zh": "國立天文台新聞2026年秋季號",
+   "title_zh": "國立天文台新聞 2026年秋季號",
    "title_orig": "国立天文台ニュース2026年秋号",
    "source": "國立天文台（日本 NAOJ）",
    "source_id": "naoj",
