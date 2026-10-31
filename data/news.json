@@ -1,16 +1,36 @@
 {
- "generated": "2026-10-31T06:30:32+08:00",
+ "generated": "2026-11-01T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 發布 MAX POWER 任務媒體與參與者關鍵時程",
+   "title_zh": "APOD：2026年10月31日——幽靈星球之夜",
+   "title_orig": "APOD: 2026 October 31 – Night on a Spooky Planet",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "NASA 發布 MAX POWER 任務關鍵活動時程供媒體與參與者參考",
    "title_orig": "NASA Releases MAX POWER Key Events for Media, Participants",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "當電動車是為女性設計的",
+   "title_orig": "When Electric Cars Were for Women",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/early-electric-vehicles",
    "date": "2026-10-31"
   },
   {
@@ -64,16 +84,6 @@
    "date": "2026-10-30"
   },
   {
-   "title_zh": "NASA 探索哈伯望遠鏡潛在的商業服務",
-   "title_orig": "NASA Explores Potential Commercial Servicing for Hubble Telescope",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/missions/hubble/nasa-explores-potential-commercial-servicing-for-hubble-telescope/",
-   "date": "2026-10-30"
-  },
-  {
    "title_zh": "歐洲太空總署本月發生了什麼事？（2026年10月）",
    "title_orig": "What happened this month at the European Space Agency? (October 2026)",
    "source": "ESA 歐洲太空總署",
@@ -124,7 +134,7 @@
    "date": "2026-10-30"
   },
   {
-   "title_zh": "NASA的Swift望遠鏡將因救援失敗而面臨毀滅性的火海結局",
+   "title_zh": "NASA的Swift望遠鏡在救援失敗後將面臨毀滅性的火海結局",
    "title_orig": "NASA’s Swift telescope will face a fiery demise after a failed rescue",
    "source": "Science News",
    "source_id": "science-news",
@@ -164,17 +174,7 @@
    "date": "2026-10-29"
   },
   {
-   "title_zh": "Beta Technologies如何為電動飛行鋪平跑道",
-   "title_orig": "How Beta Technologies Is Clearing the Runway for Electric Flight",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/beta-technologies-electric-aircraft",
-   "date": "2026-10-28"
-  },
-  {
-   "title_zh": "聯邦研究部長巴爾啟動連接巴伐利亞、圖林根和柏林的量子通信網路",
+   "title_zh": "聯邦研究部長巴爾激活連接巴伐利亞、圖林根和柏林的量子通信網路",
    "title_orig": "Bundesforschungsministerin Bär aktiviert Netz zur Quantenkommunikation zwischen Bayern, Thüringen und Berlin",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
@@ -204,7 +204,7 @@
    "date": "2026-10-23"
   },
   {
-   "title_zh": "國立天文台新聞 2026年秋季號",
+   "title_zh": "國立天文台新聞2026年秋季號",
    "title_orig": "国立天文台ニュース2026年秋号",
    "source": "國立天文台（日本 NAOJ）",
    "source_id": "naoj",
