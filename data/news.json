@@ -1,10 +1,30 @@
 {
- "generated": "2026-11-01T06:30:34+08:00",
+ "generated": "2026-11-02T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "APOD：2026年10月31日——幽靈星球之夜",
+   "title_zh": "每日天文圖：2026年11月1日——月球色彩",
+   "title_orig": "APOD: 2026 November 1 – Colors of the Moon",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/",
+   "date": "2026-11-01"
+  },
+  {
+   "title_zh": "守護知識的大門",
+   "title_orig": "Guarding the Gates of Knowledge",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/ai-slop-trust-science",
+   "date": "2026-11-01"
+  },
+  {
+   "title_zh": "每日天文圖：2026年10月31日——幽靈星球之夜",
    "title_orig": "APOD: 2026 October 31 – Night on a Spooky Planet",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
@@ -72,16 +92,6 @@
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/exhumed-aaron-mahnke-vampire-book",
    "date": "2026-10-31"
-  },
-  {
-   "title_zh": "NASA詹姆斯·韋伯太空望遠鏡捕捉到詭異的貓頭影像",
-   "title_orig": "NASA’s James Webb Space Telescope Captures Eerie Cat’s Head",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/nasas-james-webb-space-telescope-captures-eerie-cats-head/",
-   "date": "2026-10-30"
   },
   {
    "title_zh": "歐洲太空總署本月發生了什麼事？（2026年10月）",
@@ -154,16 +164,6 @@
    "date": "2026-10-30"
   },
   {
-   "title_zh": "系統思維在人工智慧時代至關重要",
-   "title_orig": "Systems Thinking Is Vital in the Age of AI",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/systems-thinking-vital-in-ai",
-   "date": "2026-10-29"
-  },
-  {
    "title_zh": "Terramation：回歸大地",
    "title_orig": "Terramation : le retour à la terre",
    "source": "CNRS Le Journal 法國國家科學研究中心",
@@ -174,7 +174,7 @@
    "date": "2026-10-29"
   },
   {
-   "title_zh": "聯邦研究部長巴爾激活連接巴伐利亞、圖林根和柏林的量子通信網路",
+   "title_zh": "聯邦研究部長巴爾啟動連接巴伐利亞、圖林根和柏林的量子通信網路",
    "title_orig": "Bundesforschungsministerin Bär aktiviert Netz zur Quantenkommunikation zwischen Bayern, Thüringen und Berlin",
    "source": "Fraunhofer 弗勞恩霍夫協會",
    "source_id": "fraunhofer",
