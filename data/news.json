@@ -1,17 +1,147 @@
 {
- "generated": "2026-11-02T06:30:34+08:00",
+ "generated": "2026-11-03T06:30:34+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "每日天文圖：2026年11月1日——月球色彩",
-   "title_orig": "APOD: 2026 November 1 – Colors of the Moon",
+   "title_zh": "慶祝成立65週年：NASA詹森太空中心今昔對比",
+   "title_orig": "Happy 65 Years: NASA’s Johnson Space Center Then and Now",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-november-1-colors-of-the-moon/",
-   "date": "2026-11-01"
+   "url": "https://www.nasa.gov/centers-and-facilities/johnson/happy-65-years-nasas-johnson-space-center-then-and-now/",
+   "date": "2026-11-03"
+  },
+  {
+   "title_zh": "TB 26-09 測量到的錘擊輸入",
+   "title_orig": "TB 26-09 Measured Hammer-Tap Inputs",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/centers-and-facilities/nesc/tb-26-09-measured-hammer-tap-inputs/",
+   "date": "2026-11-03"
+  },
+  {
+   "title_zh": "NASA的CHAPEA任務團隊「返回」地球",
+   "title_orig": "NASA’s CHAPEA Crew “Returns” to Earth",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/image-article/nasas-chapea-crew-returns-to-earth/",
+   "date": "2026-11-03"
+  },
+  {
+   "title_zh": "為關鍵時刻蓄勢待發",
+   "title_orig": "Powering up for a pivotal moment",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/powering-up-for-pivotal-moment-1102",
+   "date": "2026-11-03"
+  },
+  {
+   "title_zh": "家庭獲得財務支持時新生兒存活率提升",
+   "title_orig": "Newborn survival improves when families receive financial support",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/newborn-cash-support-survival",
+   "date": "2026-11-03"
+  },
+  {
+   "title_zh": "立方衛星成功建立具挑戰性的地面雷射鏈路",
+   "title_orig": "CubeSat achieves challenging laser link to ground",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/Applications/Connectivity_and_Secure_Communications/CubeSat_achieves_challenging_laser_link_to_ground",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "一種利用奈米粒子建構設計材料的靈活新途徑",
+   "title_orig": "A flexible new route to designer materials built from nanoparticles",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/flexible-new-route-designer-materials-from-nanoparticles-1102",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "麻省理工學院工程師設計更安全、更高效的養殖魚類疫苗接種系統",
+   "title_orig": "MIT engineers design a safer, more efficient vaccination system for farmed fish",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/mit-engineers-design-safer-more-efficient-vaccination-system-farmed-fish-1102",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "永久凍土融化催生新型大型山崩",
+   "title_orig": "Melting permafrost has birthed a new type of large landslide",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/melting-permafrost-new-type-landslide",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "國立天文台水澤VLBI觀測所所長本間希樹教授獲頒紫綬褒章",
+   "title_orig": "国立天文台水沢VLBI観測所長 本間希樹教授が紫綬褒章を受章",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/topics/2026/20261102-honma.html",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "從磁鐵中回收稀土元素的新方法",
+   "title_orig": "Neue Verfahren zum Upcycling Seltener Erden aus Magneten",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/november-2026/neue-verfahren-zum-upcycling-seltener-erden-aus-magneten.html",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "新技術優化工業用酵素",
+   "title_orig": "Neue Technologie optimiert Enzyme für die Industrie",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/november-2026/neue-technologie-optimiert-enzyme-fuer-die-industrie.html",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": null,
+   "title_orig": "KI-gestützte Plattform soll Bevölkerung besser schützen",
+   "source": "Fraunhofer 弗勞恩霍夫協會",
+   "source_id": "fraunhofer",
+   "lang": "de",
+   "lang_label": "德文",
+   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/november-2026/ki-gestuetzte-plattform-soll-bevoelkerung-besser-schuetzen.html",
+   "date": "2026-11-02"
+  },
+  {
+   "title_zh": "MMX，或如何把火星的一小部分帶回家",
+   "title_orig": "MMX, ou comment ramener un peu de Mars à la maison",
+   "source": "CNRS Le Journal 法國國家科學研究中心",
+   "source_id": "cnrs",
+   "lang": "fr",
+   "lang_label": "法文",
+   "url": "https://lejournal.cnrs.fr/articles/mmx-ou-comment-ramener-un-peu-de-mars-a-la-maison",
+   "date": "2026-11-02"
   },
   {
    "title_zh": "守護知識的大門",
@@ -24,26 +154,6 @@
    "date": "2026-11-01"
   },
   {
-   "title_zh": "每日天文圖：2026年10月31日——幽靈星球之夜",
-   "title_orig": "APOD: 2026 October 31 – Night on a Spooky Planet",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://science.nasa.gov/image-article/apod-2026-october-31-night-on-a-spooky-planet/",
-   "date": "2026-10-31"
-  },
-  {
-   "title_zh": "NASA 發布 MAX POWER 任務關鍵活動時程供媒體與參與者參考",
-   "title_orig": "NASA Releases MAX POWER Key Events for Media, Participants",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-releases-max-power-key-events-for-media-participants/",
-   "date": "2026-10-31"
-  },
-  {
    "title_zh": "當電動車是為女性設計的",
    "title_orig": "When Electric Cars Were for Women",
    "source": "IEEE Spectrum",
@@ -54,26 +164,6 @@
    "date": "2026-10-31"
   },
   {
-   "title_zh": "研究指出自1980年以來暖化趨勢最陡峭的州份",
-   "title_orig": "Study pinpoints states with steepest warming trends since 1980",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/study-pinpoints-states-with-steepest-warming-trends-1030",
-   "date": "2026-10-31"
-  },
-  {
-   "title_zh": "問答：嘿AI，今年我該投誰一票？",
-   "title_orig": "Q&A: Hey AI, who should I vote for this year?",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/qa-hey-ai-who-should-i-vote-for-this-year-1030",
-   "date": "2026-10-31"
-  },
-  {
    "title_zh": "今年萬聖節，業餘天文學家或許能收穫一顆矮行星的驚喜",
    "title_orig": "This Halloween, amateur astronomers may be in for a dwarf planet treat",
    "source": "Science News",
@@ -81,16 +171,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.sciencenews.org/article/halloween-astronomers-dwarf-planet",
-   "date": "2026-10-31"
-  },
-  {
-   "title_zh": "《挖掘》重述美國第一個吸血鬼的真實故事",
-   "title_orig": "‘Exhumed’ recounts the true story of America’s first vampire",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/exhumed-aaron-mahnke-vampire-book",
    "date": "2026-10-31"
   },
   {
@@ -114,16 +194,6 @@
    "date": "2026-10-30"
   },
   {
-   "title_zh": "太空中的地球：Champi 詭異的視線",
-   "title_orig": "Earth from Space: Champi’s eerie eye",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Images/2026/10/Earth_from_Space_Champi_s_eerie_eye",
-   "date": "2026-10-30"
-  },
-  {
    "title_zh": "消費者對個人AI的需求已成為主流",
    "title_orig": "Consumer Appetite for Personal AI Goes Mainstream",
    "source": "IEEE Spectrum",
@@ -131,26 +201,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/ai-personal-assistant-intelligent-wearables",
-   "date": "2026-10-30"
-  },
-  {
-   "title_zh": "麻省理工學院工程師開發用於遞送個人化癌症疫苗的奈米粒子",
-   "title_orig": "MIT engineers create nanoparticles for delivering personalized cancer vaccines",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/mit-engineers-create-nanoparticles-delivering-personalized-cancer-vaccines-1030",
-   "date": "2026-10-30"
-  },
-  {
-   "title_zh": "NASA的Swift望遠鏡在救援失敗後將面臨毀滅性的火海結局",
-   "title_orig": "NASA’s Swift telescope will face a fiery demise after a failed rescue",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/nasa-swift-telescope-gamma-ray-burst",
    "date": "2026-10-30"
   },
   {
@@ -174,26 +224,6 @@
    "date": "2026-10-29"
   },
   {
-   "title_zh": "聯邦研究部長巴爾啟動連接巴伐利亞、圖林根和柏林的量子通信網路",
-   "title_orig": "Bundesforschungsministerin Bär aktiviert Netz zur Quantenkommunikation zwischen Bayern, Thüringen und Berlin",
-   "source": "Fraunhofer 弗勞恩霍夫協會",
-   "source_id": "fraunhofer",
-   "lang": "de",
-   "lang_label": "德文",
-   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/abschluss-der-qunet-initiative.html",
-   "date": "2026-10-28"
-  },
-  {
-   "title_zh": "為什麼我們如此熱愛影集？",
-   "title_orig": "Pourquoi aimons-nous autant les séries ?",
-   "source": "CNRS Le Journal 法國國家科學研究中心",
-   "source_id": "cnrs",
-   "lang": "fr",
-   "lang_label": "法文",
-   "url": "https://lejournal.cnrs.fr/articles/pourquoi-aime-t-autant-les-series",
-   "date": "2026-10-28"
-  },
-  {
    "title_zh": null,
    "title_orig": "日本の天文学研究を日常から支える「国立天文台エポスカード」が誕生",
    "source": "國立天文台（日本 NAOJ）",
@@ -212,16 +242,6 @@
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/topics/2026/20261023-naoj-news.html",
    "date": "2026-10-23"
-  },
-  {
-   "title_zh": "Franziska Boenisch 教授與 Georg Sigl 教授共同領導 Fraunhofer AISEC",
-   "title_orig": "Prof. Franziska Boenisch führt mit Prof. Georg Sigl das Fraunhofer AISEC",
-   "source": "Fraunhofer 弗勞恩霍夫協會",
-   "source_id": "fraunhofer",
-   "lang": "de",
-   "lang_label": "德文",
-   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/neues-leitungsduo-fuer-cybersicherheitsforschung.html",
-   "date": "2026-10-22"
   },
   {
    "title_zh": "火星衛星探測器（MMX）初期關鍵任務階段結束",
@@ -244,16 +264,6 @@
    "date": "2026-10-20"
   },
   {
-   "title_zh": "與東京農工大學簽署綜合合作協議",
-   "title_orig": "東京農工大学との包括連携協定を締結",
-   "source": "國立天文台（日本 NAOJ）",
-   "source_id": "naoj",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.nao.ac.jp/news/topics/2026/20261019-tuat.html",
-   "date": "2026-10-19"
-  },
-  {
    "title_zh": "H3火箭第10號發射器發射火星衛星探測器（MMX）的時間",
    "title_orig": "H3ロケット10号機による火星衛星探査機（MMX）の打上げ時刻",
    "source": "JAXA 日本宇宙航空研究開發機構",
@@ -262,16 +272,6 @@
    "lang_label": "日文",
    "url": "https://www.jaxa.jp/press/2026/10/20261018-1_j.html",
    "date": "2026-10-18"
-  },
-  {
-   "title_zh": null,
-   "title_orig": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
-   "source": "Fraunhofer 弗勞恩霍夫協會",
-   "source_id": "fraunhofer",
-   "lang": "de",
-   "lang_label": "德文",
-   "url": "https://www.fraunhofer.de/de/presse/presseinformationen/2026/oktober-2026/Fraunhofer-igd-erweitert-institutsleitung.html",
-   "date": "2026-10-07"
   }
  ],
  "dropped": [
@@ -282,8 +282,8 @@
   },
   {
    "source": "fraunhofer",
-   "title": "Prof. Michael Sedlmair leitet das Institut gemeinsam mit Dr. Matthias Unbescheiden",
-   "reason": "出現原文沒有的外文字詞「Unbeschieden」"
+   "title": "KI-gestützte Plattform soll Bevölkerung besser schützen",
+   "reason": "出現原文沒有的外文字詞「AI」"
   }
  ],
  "errors": []
