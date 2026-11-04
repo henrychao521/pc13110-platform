@@ -1,16 +1,46 @@
 {
- "generated": "2026-11-04T06:30:28+08:00",
+ "generated": "2026-11-05T06:30:33+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "太空人與地球",
-   "title_orig": "Astronaut and Earth",
+   "title_zh": "NASA 分享加速阿提米絲計畫、重返月球的計劃",
+   "title_orig": "NASA Shares Plans to Accelerate Artemis, Return to Moon",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/image-article/astronaut-and-earth/",
+   "url": "https://www.nasa.gov/missions/artemis/nasa-shares-plans-to-accelerate-artemis-return-to-moon/",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "NASA 宣布太空通訊的 Ka 頻段衛星中繼合約",
+   "title_orig": "NASA Announces Ka-Band Satellite Relay Awards for Space Communications",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/news-release/nasa-announces-ka-band-satellite-relay-awards-for-space-communications/",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "NASA導航實驗顯示在行星著陸方面具有潛力",
+   "title_orig": "NASA Navigation Experiment Shows Promise for Planetary Landings",
+   "source": "NASA 美國國家航空暨太空總署",
+   "source_id": "nasa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.nasa.gov/centers-and-facilities/armstrong/nasa-navigation-experiment-shows-promise-for-planetary-landings/",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "歐洲太空總署的歐幾里得望遠鏡捕捉到銀河系擁擠的核心",
+   "title_orig": "ESA’s Euclid captures the Milky Way’s crowded heart",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/articles/about-us/directorates/science/euclid/esa-s-euclid-captures-the-milky-way-s-crowded-heart",
    "date": "2026-11-04"
   },
   {
@@ -24,6 +54,16 @@
    "date": "2026-11-04"
   },
   {
+   "title_zh": "麻省理工學院主導團隊獲資助開發用於早期疾病檢測的可穿戴監測器",
+   "title_orig": "MIT-led team receives funding to develop a wearable monitor for early disease detection",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/mit-led-team-receives-funding-for-early-disease-detection-wearable-monitor-1104",
+   "date": "2026-11-04"
+  },
+  {
    "title_zh": "精選影片：改變關於子宮內膜異位症的討論",
    "title_orig": "Featured video: Changing the conversation about endometriosis",
    "source": "MIT News 麻省理工學院新聞",
@@ -34,34 +74,44 @@
    "date": "2026-11-04"
   },
   {
-   "title_zh": "TB 26-10 印刷電路板組件晶片電阻器本體裂開",
-   "title_orig": "TB 26-10 Printed Circuit Board Assembly Chip Resistor Body Cracking",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "耳垢具有令人驚訝的滑溜卻具黏性的特性，能驅避昆蟲",
+   "title_orig": "Earwax’s surprisingly slippery but sticky properties deters insects",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/nesc/tb-26-10-printed-circuit-board-assembly-chip-resistor-body-cracking/",
-   "date": "2026-11-03"
+   "url": "https://www.sciencenews.org/article/earwax-slippery-sticky-deters-insects",
+   "date": "2026-11-04"
   },
   {
-   "title_zh": "NASA太空人與STEM創作者為STEM日與學生互動",
-   "title_orig": "NASA Astronaut, STEM Creator Connect with Students for STEM Day",
-   "source": "NASA 美國國家航空暨太空總署",
-   "source_id": "nasa",
+   "title_zh": "食品含有數千種被忽視的化學物質。這位物理學家正在為它們建立地圖",
+   "title_orig": "Food contains thousands of overlooked chemicals. This physicist is mapping them",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/learning-resources/nasa-astronaut-stem-creator-connect-with-students-for-stem-day/",
-   "date": "2026-11-03"
+   "url": "https://www.sciencenews.org/article/scientist-maps-food-chemicals-sn10",
+   "date": "2026-11-04"
   },
   {
-   "title_zh": "赫拉號將探索的十大小行星謎題",
-   "title_orig": "10 asteroid mysteries that Hera will explore",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
+   "title_zh": "天蛾如何將生殖器轉化為擊退蝙蝠的武器",
+   "title_orig": "How hawkmoths turned their genitals into bat-busting weapons",
+   "source": "Science News",
+   "source_id": "science-news",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/10_asteroid_mysteries_that_Hera_will_explore",
-   "date": "2026-11-03"
+   "url": "https://www.sciencenews.org/article/hawkmoth-genitals-bat-weapon",
+   "date": "2026-11-04"
+  },
+  {
+   "title_zh": "日本公開天文台：連結星空與人的百年歷程",
+   "title_orig": "日本の公開天文台 星空と人をつなぐ100年",
+   "source": "國立天文台（日本 NAOJ）",
+   "source_id": "naoj",
+   "lang": "ja",
+   "lang_label": "日文",
+   "url": "https://www.nao.ac.jp/news/blog/2026/20261104-public-observatory.html",
+   "date": "2026-11-04"
   },
   {
    "title_zh": "為關鍵時刻蓄勢待發",
@@ -71,36 +121,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://news.mit.edu/2026/powering-up-for-pivotal-moment-1102",
-   "date": "2026-11-03"
-  },
-  {
-   "title_zh": "你的聲音現在可以說出你從未說過的話",
-   "title_orig": "Your voice can now say things you never said",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/voice-clone-deep-end-podcast",
-   "date": "2026-11-03"
-  },
-  {
-   "title_zh": "無藥治療糖尿病？植入物降低小鼠血糖",
-   "title_orig": "A drug-free diabetes treatment? An implant lowers blood sugar in mice",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/diabetes-device-experiment-blood-sugar",
-   "date": "2026-11-03"
-  },
-  {
-   "title_zh": "家庭獲得財務支持時新生兒存活率提升",
-   "title_orig": "Newborn survival improves when families receive financial support",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/newborn-cash-support-survival",
    "date": "2026-11-03"
   },
   {
@@ -114,27 +134,7 @@
    "date": "2026-11-03"
   },
   {
-   "title_zh": "立方衛星成功建立具挑戰性的地面雷射鏈路",
-   "title_orig": "CubeSat achieves challenging laser link to ground",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/Applications/Connectivity_and_Secure_Communications/CubeSat_achieves_challenging_laser_link_to_ground",
-   "date": "2026-11-02"
-  },
-  {
-   "title_zh": "一種利用奈米粒子建構設計材料的靈活新途徑",
-   "title_orig": "A flexible new route to designer materials built from nanoparticles",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/flexible-new-route-designer-materials-from-nanoparticles-1102",
-   "date": "2026-11-02"
-  },
-  {
-   "title_zh": "國立天文台水澤VLBI觀測所所長、本間希樹教授獲頒紫綬褒章",
+   "title_zh": "國立天文台水澤VLBI觀測所所長本間希樹教授獲頒紫綬褒章",
    "title_orig": "国立天文台水沢VLBI観測所長 本間希樹教授が紫綬褒章を受章",
    "source": "國立天文台（日本 NAOJ）",
    "source_id": "naoj",
@@ -194,6 +194,26 @@
    "date": "2026-11-01"
   },
   {
+   "title_zh": "第350次歐洲太空總署理事會會議之主要成果",
+   "title_orig": "Key outcomes of the 350th ESA Council meeting",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/articles/news-media/news/key-outcomes-of-the-350th-esa-council-meeting",
+   "date": "2026-10-31"
+  },
+  {
+   "title_zh": "韋伯望遠鏡揭開令人驚嘆的恆星形成全景圖",
+   "title_orig": "Webb reveals stunning panorama of star formation",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/articles/about-us/directorates/science/webb/webb-reveals-stunning-panorama-of-star-formation",
+   "date": "2026-10-31"
+  },
+  {
    "title_zh": "當電動車是為女性設計的",
    "title_orig": "When Electric Cars Were for Women",
    "source": "IEEE Spectrum",
@@ -202,16 +222,6 @@
    "lang_label": "英文",
    "url": "https://spectrum.ieee.org/early-electric-vehicles",
    "date": "2026-10-31"
-  },
-  {
-   "title_zh": "歐洲太空總署本月發生了什麼事？（2026年10月）",
-   "title_orig": "What happened this month at the European Space Agency? (October 2026)",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/10/What_happened_this_month_at_the_European_Space_Agency_October_2026",
-   "date": "2026-10-30"
   },
   {
    "title_zh": "克爾西：化石見證氣候變遷",
@@ -231,16 +241,6 @@
    "lang": "ja",
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/topics/2026/20261023-epos.html",
-   "date": "2026-10-23"
-  },
-  {
-   "title_zh": "國立天文台新聞2026年秋季號",
-   "title_orig": "国立天文台ニュース2026年秋号",
-   "source": "國立天文台（日本 NAOJ）",
-   "source_id": "naoj",
-   "lang": "ja",
-   "lang_label": "日文",
-   "url": "https://www.nao.ac.jp/news/topics/2026/20261023-naoj-news.html",
    "date": "2026-10-23"
   },
   {
