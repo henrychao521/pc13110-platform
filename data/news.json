@@ -1,36 +1,116 @@
 {
- "generated": "2026-11-05T06:30:33+08:00",
+ "generated": "2026-11-06T06:30:32+08:00",
  "translator": "本機模型 qwen3.6:35b-a3b（Ollama）",
  "note": "外文標題由本機模型自動翻譯，可能有誤；以原文為準。未通過檢查的譯文不顯示，改顯示原文。",
  "items": [
   {
-   "title_zh": "NASA 分享加速阿提米絲計畫、重返月球的計劃",
-   "title_orig": "NASA Shares Plans to Accelerate Artemis, Return to Moon",
+   "title_zh": "利用年度績效考核爭取升遷",
+   "title_orig": "Use Your Year-End Review to Reach for a Promotion",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/how-to-get-a-promotion",
+   "date": "2026-11-06"
+  },
+  {
+   "title_zh": "確定夸克-膠子等離子體的結構：宇宙的第一種流體",
+   "title_orig": "Pinning down the structure of quark-gluon plasma, the universe’s first fluid",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/pinning-down-quark-gluon-plasma-structure-1105",
+   "date": "2026-11-06"
+  },
+  {
+   "title_zh": "章魚如何一步步擠過微小開口",
+   "title_orig": "How octopuses squeeze through tiny openings, step by step",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/octopuses-squeeze-escape-steps-video",
+   "date": "2026-11-06"
+  },
+  {
+   "title_zh": "中國太空站創下歷史最低溫紀錄",
+   "title_orig": "Record-low temperature created on China’s space station",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/lowest-temperature-china-space-station",
+   "date": "2026-11-06"
+  },
+  {
+   "title_zh": "中西部城市燈光",
+   "title_orig": "Midwestern City Lights",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/missions/artemis/nasa-shares-plans-to-accelerate-artemis-return-to-moon/",
+   "url": "https://www.nasa.gov/image-article/midwestern-city-lights/",
    "date": "2026-11-05"
   },
   {
-   "title_zh": "NASA 宣布太空通訊的 Ka 頻段衛星中繼合約",
-   "title_orig": "NASA Announces Ka-Band Satellite Relay Awards for Space Communications",
+   "title_zh": "NASA太空人將回答佛州學生的提問",
+   "title_orig": "NASA Astronauts to Answer Questions from Florida Students",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/news-release/nasa-announces-ka-band-satellite-relay-awards-for-space-communications/",
+   "url": "https://www.nasa.gov/learning-resources/nasa-astronauts-to-answer-questions-from-florida-students-2/",
    "date": "2026-11-05"
   },
   {
-   "title_zh": "NASA導航實驗顯示在行星著陸方面具有潛力",
-   "title_orig": "NASA Navigation Experiment Shows Promise for Planetary Landings",
+   "title_zh": "哈伯望遠鏡從恆星學習銀河歷史",
+   "title_orig": "Hubble Learns Galactic History From Stars",
    "source": "NASA 美國國家航空暨太空總署",
    "source_id": "nasa",
    "lang": "en",
    "lang_label": "英文",
-   "url": "https://www.nasa.gov/centers-and-facilities/armstrong/nasa-navigation-experiment-shows-promise-for-planetary-landings/",
+   "url": "https://science.nasa.gov/missions/hubble/hubble-learns-galactic-history-from-stars/",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "歐洲軌道器在火星上偵測到火山活動的跡象",
+   "title_orig": "European orbiter detects hints of volcanic activity on Mars",
+   "source": "ESA 歐洲太空總署",
+   "source_id": "esa",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.esa.int/articles/news-media/news/european-orbiter-detects-hints-of-volcanic-activity-on-mars",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "為何數學家正以演算法和相機追尋日食",
+   "title_orig": "Why a Mathematician Is Chasing Eclipses With Algorithms and Cameras",
+   "source": "IEEE Spectrum",
+   "source_id": "ieee-spectrum",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://spectrum.ieee.org/2026-solar-eclipse",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "釐清機器人模糊的記憶",
+   "title_orig": "Clearing up a robot’s fuzzy memory",
+   "source": "MIT News 麻省理工學院新聞",
+   "source_id": "mit-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://news.mit.edu/2026/clearing-up-robot-fuzzy-memory-1105",
+   "date": "2026-11-05"
+  },
+  {
+   "title_zh": "歐洲小冰河時期的降溫可能增加了佝僂病的風險",
+   "title_orig": "Little Ice Age cooling in Europe may have raised the risk of rickets",
+   "source": "Science News",
+   "source_id": "science-news",
+   "lang": "en",
+   "lang_label": "英文",
+   "url": "https://www.sciencenews.org/article/little-ice-age-climate-europe-rickets",
    "date": "2026-11-05"
   },
   {
@@ -64,46 +144,6 @@
    "date": "2026-11-04"
   },
   {
-   "title_zh": "精選影片：改變關於子宮內膜異位症的討論",
-   "title_orig": "Featured video: Changing the conversation about endometriosis",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/featured-video-changing-conversation-about-endometriosis-1103",
-   "date": "2026-11-04"
-  },
-  {
-   "title_zh": "耳垢具有令人驚訝的滑溜卻具黏性的特性，能驅避昆蟲",
-   "title_orig": "Earwax’s surprisingly slippery but sticky properties deters insects",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/earwax-slippery-sticky-deters-insects",
-   "date": "2026-11-04"
-  },
-  {
-   "title_zh": "食品含有數千種被忽視的化學物質。這位物理學家正在為它們建立地圖",
-   "title_orig": "Food contains thousands of overlooked chemicals. This physicist is mapping them",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/scientist-maps-food-chemicals-sn10",
-   "date": "2026-11-04"
-  },
-  {
-   "title_zh": "天蛾如何將生殖器轉化為擊退蝙蝠的武器",
-   "title_orig": "How hawkmoths turned their genitals into bat-busting weapons",
-   "source": "Science News",
-   "source_id": "science-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.sciencenews.org/article/hawkmoth-genitals-bat-weapon",
-   "date": "2026-11-04"
-  },
-  {
    "title_zh": "日本公開天文台：連結星空與人的百年歷程",
    "title_orig": "日本の公開天文台 星空と人をつなぐ100年",
    "source": "國立天文台（日本 NAOJ）",
@@ -112,16 +152,6 @@
    "lang_label": "日文",
    "url": "https://www.nao.ac.jp/news/blog/2026/20261104-public-observatory.html",
    "date": "2026-11-04"
-  },
-  {
-   "title_zh": "為關鍵時刻蓄勢待發",
-   "title_orig": "Powering up for a pivotal moment",
-   "source": "MIT News 麻省理工學院新聞",
-   "source_id": "mit-news",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://news.mit.edu/2026/powering-up-for-pivotal-moment-1102",
-   "date": "2026-11-03"
   },
   {
    "title_zh": "拉尼娜現象對經濟的影響可能大於厄爾尼諾現象",
@@ -184,16 +214,6 @@
    "date": "2026-11-02"
   },
   {
-   "title_zh": "守護知識的大門",
-   "title_orig": "Guarding the Gates of Knowledge",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/ai-slop-trust-science",
-   "date": "2026-11-01"
-  },
-  {
    "title_zh": "第350次歐洲太空總署理事會會議之主要成果",
    "title_orig": "Key outcomes of the 350th ESA Council meeting",
    "source": "ESA 歐洲太空總署",
@@ -201,26 +221,6 @@
    "lang": "en",
    "lang_label": "英文",
    "url": "https://www.esa.int/articles/news-media/news/key-outcomes-of-the-350th-esa-council-meeting",
-   "date": "2026-10-31"
-  },
-  {
-   "title_zh": "韋伯望遠鏡揭開令人驚嘆的恆星形成全景圖",
-   "title_orig": "Webb reveals stunning panorama of star formation",
-   "source": "ESA 歐洲太空總署",
-   "source_id": "esa",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://www.esa.int/articles/about-us/directorates/science/webb/webb-reveals-stunning-panorama-of-star-formation",
-   "date": "2026-10-31"
-  },
-  {
-   "title_zh": "當電動車是為女性設計的",
-   "title_orig": "When Electric Cars Were for Women",
-   "source": "IEEE Spectrum",
-   "source_id": "ieee-spectrum",
-   "lang": "en",
-   "lang_label": "英文",
-   "url": "https://spectrum.ieee.org/early-electric-vehicles",
    "date": "2026-10-31"
   },
   {
